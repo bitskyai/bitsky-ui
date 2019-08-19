@@ -114,17 +114,61 @@ export default {
     },
     {
       path: '/',
-      component: '../layouts/BasicLayout',
+      component: '../layouts/BlankLayout',
       Routes: ['src/pages/Authorized'],
       authority: ['admin', 'user'],
       routes: [
         { path: '/', redirect: '/app/intelligences' },
-        // {
-        //   path: '/',
-        //   name: 'welcome',
-        //   icon: 'smile',
-        //   component: './Welcome',
-        // },
+        {
+          path: '/landing',
+          routes: [
+            {
+              path: '/landing',
+              component: './Landing',
+            },
+          ],
+        },
+        {
+          path: '/login',
+          component: '../layouts/UserLayout',
+          routes: [
+            {
+              path: '/login',
+              component: './Login',
+            },
+          ],
+        },
+        {
+          path: '/signup',
+          component: '../layouts/UserLayout',
+          routes: [
+            {
+              path: '/signup',
+              component: './Signup',
+            },
+          ],
+        },
+        {
+          path: '/reset',
+          component: '../layouts/UserLayout',
+          routes: [
+            {
+              path: '/reset/:id',
+              component: './Reset',
+            },
+          ],
+        },
+        {
+          path: '/forgot',
+          component: '../layouts/UserLayout',
+          routes: [
+            {
+              path: '/forgot',
+              component: './Forgot',
+            },
+          ],
+        },
+
       ],
     },
     {
