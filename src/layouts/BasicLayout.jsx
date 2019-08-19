@@ -29,7 +29,7 @@ const footerRender = (_, defaultDom) => {
 
   return (
     <>
-      {defaultDom}
+      {/* {defaultDom} */}
       <div
         style={{
           padding: '0px 24px 24px',

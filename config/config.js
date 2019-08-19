@@ -82,20 +82,49 @@ export default {
   // umi routes: https://umijs.org/zh/guide/router.html
   routes: [
     {
+      path: '/app',
+      component: '../layouts/BasicLayout',
+      routes:[
+        { path: '/app/', redirect: '/app/intelligences' },
+        {
+          path: '/app/intelligences',
+          name: 'intelligences',
+          icon: 'smile',
+          component: './Intelligences',
+        },
+        {
+          path: '/app/sois',
+          name: 'sois',
+          icon: 'smile',
+          component: './SOIs',
+        },
+        {
+          path: '/app/agents',
+          name: 'agents',
+          icon: 'smile',
+          component: './Agents',
+        },
+        {
+          path: '/app/settings',
+          name: 'settings',
+          icon: 'smile',
+          component: './Settings',
+        },
+      ]
+    },
+    {
       path: '/',
       component: '../layouts/BasicLayout',
       Routes: ['src/pages/Authorized'],
       authority: ['admin', 'user'],
       routes: [
-        {
-          path: '/',
-          name: 'welcome',
-          icon: 'smile',
-          component: './Welcome',
-        },
-        {
-          component: './404',
-        },
+        { path: '/', redirect: '/app/intelligences' },
+        // {
+        //   path: '/',
+        //   name: 'welcome',
+        //   icon: 'smile',
+        //   component: './Welcome',
+        // },
       ],
     },
     {
@@ -144,13 +173,11 @@ export default {
     basePath: '/',
   },
   chainWebpack: webpackPlugin,
-  /*
   proxy: {
-    '/server/api/': {
-      target: 'https://preview.pro.ant.design/',
+    '/apis/': {
+      target: 'http://localhost:3000',
       changeOrigin: true,
-      pathRewrite: { '^/server': '' },
+      // pathRewrite: { '^/server': '' },
     },
   },
-  */
 };
