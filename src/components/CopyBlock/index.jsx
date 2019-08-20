@@ -2,7 +2,6 @@ import { Icon, Popover, Typography } from 'antd';
 import React, { useRef } from 'react';
 import { FormattedMessage } from 'umi-plugin-react/locale';
 import { connect } from 'dva';
-import { isAntDesignPro } from '@/utils/utils';
 import styles from './index.less';
 
 const firstUpperCase = pathString =>
@@ -14,10 +13,6 @@ const firstUpperCase = pathString =>
     .join(''); // when  click block copy, send block url to  ga
 
 const onBlockCopy = label => {
-  if (!isAntDesignPro()) {
-    return;
-  }
-
   const ga = window && window.ga;
 
   if (ga) {

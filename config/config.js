@@ -89,25 +89,25 @@ export default {
         {
           path: '/app/intelligences',
           name: 'intelligences',
-          icon: 'smile',
+          icon: 'info-circle',
           component: './Intelligences',
         },
         {
           path: '/app/sois',
           name: 'sois',
-          icon: 'smile',
+          icon: 'cloud-server',
           component: './SOIs',
         },
         {
           path: '/app/agents',
           name: 'agents',
-          icon: 'smile',
+          icon: 'cluster',
           component: './Agents',
         },
         {
           path: '/app/settings',
           name: 'settings',
-          icon: 'smile',
+          icon: 'setting',
           component: './Settings',
         },
       ]
