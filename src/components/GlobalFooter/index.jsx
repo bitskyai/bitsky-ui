@@ -28,7 +28,7 @@ const GlobalFooter = () => (
             </svg>
           </i>
         </a>
-        <a title="Ant Design" target="_blank" href="https://ant.design">
+        <a title="Ant Design" target="_blank" href="https://munew.io">
           {formatMessage({ id: 'app.common.messages.slogan' })}
         </a>
       </div>

@@ -1,3 +1,5 @@
+import Home from '@/components/Home';
+
 export default () => {
-  return <div>Landing Page</div>;
+  return <Home/>;
 };
