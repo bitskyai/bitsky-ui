@@ -120,11 +120,11 @@ export default {
       routes: [
         { path: '/', redirect: '/app/intelligences' },
         {
-          path: '/landing',
+          path: '/home',
           routes: [
             {
-              path: '/landing',
-              component: './Landing',
+              path: '/home',
+              component: './Home',
             },
           ],
         },

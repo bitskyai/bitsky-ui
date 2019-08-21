@@ -6,6 +6,7 @@ import Avatar from './AvatarDropdown';
 import HeaderSearch from '../HeaderSearch';
 import SelectLang from '../SelectLang';
 import styles from './index.less';
+import { Link } from 'react-router-dom';
 
 const GlobalHeaderRight = props => {
   const { theme, layout } = props;
@@ -40,6 +41,19 @@ const GlobalHeaderRight = props => {
           console.log('enter', value);
         }}
       /> */}
+      <Tooltip
+        title={formatMessage({
+          id: 'component.globalHeader.home',
+        })}
+      >
+        <Link to="/home">
+        <a
+          className={styles.action}
+        >
+          <Icon type="home" />
+          </a>
+        </Link>
+      </Tooltip>
       <Tooltip
         title={formatMessage({
           id: 'component.globalHeader.help',
