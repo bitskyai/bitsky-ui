@@ -1,20 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { formatMessage } from 'umi-plugin-react/locale';
 import { Menu, Dropdown, Avatar } from 'antd';
-
-import messages from './messages';
 
 function UserAvatar({ profile }) {
   const menu = (
     <Menu>
       <Menu.Item key="profile">
-        <FormattedMessage {...messages.profile} />
+        {formatMessage({ id: 'app.components.DiaUserInfoCmp.profile' })}
       </Menu.Item>
       <Menu.Divider />
       <Menu.Item key="signOut">
         <a href="/apis/logout">
-          <FormattedMessage {...messages.signOut} />
+          {formatMessage({ id: 'app.components.DiaUserInfoCmp.signOut' })}
         </a>
       </Menu.Item>
     </Menu>

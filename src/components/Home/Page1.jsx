@@ -4,73 +4,77 @@ import OverPack from 'rc-scroll-anim/lib/ScrollOverPack';
 import Parallax from 'rc-scroll-anim/lib/ScrollParallax';
 import QueueAnim from 'rc-queue-anim';
 import TweenOne from 'rc-tween-one';
+import { formatMessage, FormattedHTMLMessage } from 'umi-plugin-react/locale';
 
 const { TweenOneGroup } = TweenOne;
 
-const featuresCN = [
+const features = [
   {
-    title: '优雅美观',
-    content: '基于 Ant Design 体系精心设计',
+    title: formatMessage({ id: 'app.components.Home.extractingDataTitle' }),
+    content: formatMessage({ id: 'app.components.Home.extractingDataContent' }),
     src: 'https://gw.alipayobjects.com/zos/rmsportal/VriUmzNjDnjoFoFFZvuh.svg',
     color: '#13C2C2',
     shadowColor: 'rgba(19,194,194,.12)',
   },
   {
-    title: '常见设计模式',
-    content: '提炼自中后台应用的典型页面和场景',
+    title: formatMessage({ id: 'app.components.Home.multipleLanguagesTitle' }),
+    content: formatMessage({ id: 'app.components.Home.multipleLanguagesContent' }),
     src: 'https://gw.alipayobjects.com/zos/rmsportal/smwQOoxCjXVbNAKMqvWk.svg',
     color: '#2F54EB',
     shadowColor: 'rgba(47,84,235,.12)',
   },
   {
-    title: '最新技术栈',
-    content: '使用 React/dva/antd 等前端前沿技术开发',
+    title: formatMessage({ id: 'app.components.Home.anyWebsitesTitle' }),
+    content: formatMessage({ id: 'app.components.Home.anyWebsitesContent' }),
     src: 'https://gw.alipayobjects.com/zos/rmsportal/hBbIHzUsSbSxrhoRFYzi.svg',
     color: '#F5222D',
     shadowColor: 'rgba(245,34,45,.12)',
   },
   {
-    title: '响应式',
-    content: '针对不同屏幕大小设计',
-    src: 'https://gw.alipayobjects.com/zos/rmsportal/BISfzKcCNCYFmTYcUygW.svg',
-    color: '#1AC44D',
-    shadowColor: 'rgba(26,196,77,.12)',
+    title: formatMessage({ id: 'app.components.Home.dataStorageTitle' }),
+    content: formatMessage({ id: 'app.components.Home.dataStorageContent' }),
+    src: 'https://gw.alipayobjects.com/zos/rmsportal/aLQyKyUyssIUhHTZqCIb.svg',
+    color: '#EB2F96',
+    shadowColor: 'rgba(235,45,150,.12)',
+    // src: 'https://gw.alipayobjects.com/zos/rmsportal/BISfzKcCNCYFmTYcUygW.svg',
+    // color: '#1AC44D',
+    // shadowColor: 'rgba(26,196,77,.12)',
   },
   {
-    title: '主题',
-    content: '可配置的主题满足多样化的品牌诉求',
+    title: formatMessage({ id: 'app.components.Home.webAutomationTitle' }),
+    content: formatMessage({ id: 'app.components.Home.webAutomationContent' }),
     src: 'https://gw.alipayobjects.com/zos/rmsportal/XxqEexmShHOofjMYOCHi.svg',
     color: '#FAAD14',
     shadowColor: 'rgba(250,173,20,.12)',
   },
   {
-    title: '国际化',
-    content: '内建业界通用的国际化方案（敬请期待）',
+    title: formatMessage({ id: 'app.components.Home.scalableTitle' }),
+    content: formatMessage({ id: 'app.components.Home.scalableContent' }),
     src: 'https://gw.alipayobjects.com/zos/rmsportal/JsixxWSViARJnQbAAPkI.svg',
     color: '#722ED1',
     shadowColor: 'rgba(114,46,209,.12)',
   },
-  {
-    title: '最佳实践',
-    content: '良好的工程实践助你持续产出高质量代码',
-    src: 'https://gw.alipayobjects.com/zos/rmsportal/pbmKMSFpLurLALLNliUQ.svg',
-    color: '#FA8C16',
-    shadowColor: 'rgba(250,140,22,.12)',
-  },
-  {
-    title: 'Mock 数据',
-    content: '实用的本地数据调试方案',
-    src: 'https://gw.alipayobjects.com/zos/rmsportal/aLQyKyUyssIUhHTZqCIb.svg',
-    color: '#EB2F96',
-    shadowColor: 'rgba(235,45,150,.12)',
-  },
-  {
-    title: 'UI 测试',
-    content: '自动化测试保障前端产品质量',
-    src: 'https://gw.alipayobjects.com/zos/rmsportal/RpJIQitGbSCHwLMimybX.svg',
-    color: '#1890FF',
-    shadowColor: 'rgba(24,144,255,.12)',
-  },
+  // {
+  //   title: formatMessage({ id: 'app.components.Home.dataStorageTitle' }),
+  //   content: formatMessage({ id: 'app.components.Home.dataStorageContent' }),
+  //   src: 'https://gw.alipayobjects.com/zos/rmsportal/pbmKMSFpLurLALLNliUQ.svg',
+  //   color: '#FA8C16',
+  //   shadowColor: 'rgba(250,140,22,.12)',
+  // },
+  // {
+  //   title: formatMessage({ id: 'app.components.Home.dataStorageTitle' }),
+  //   content: formatMessage({ id: 'app.components.Home.dataStorageContent' }),
+  //   src: 'https://gw.alipayobjects.com/zos/rmsportal/aLQyKyUyssIUhHTZqCIb.svg',
+  //   color: '#EB2F96',
+  //   shadowColor: 'rgba(235,45,150,.12)',
+  // },
+  // {
+  //   title: formatMessage({ id: 'app.components.Home.dataStorageTitle' }),
+  //   content: formatMessage({ id: 'app.components.Home.dataStorageContent' }),
+  //   src: 'https://gw.alipayobjects.com/zos/rmsportal/RpJIQitGbSCHwLMimybX.svg',
+  //   color: '#1890FF',
+  //   shadowColor: 'rgba(24,144,255,.12)',
+  // },
 ];
 
 const pointPos = [
@@ -121,7 +125,7 @@ class Page1 extends React.PureComponent {
   render() {
     const { hoverNum } = this.state;
     let children = [[], [], []];
-    featuresCN.forEach((item, i) => {
+    features.forEach((item, i) => {
       const isHover = hoverNum === i;
       const pointChild = [
         'point-0 left', 'point-0 right',
@@ -192,10 +196,13 @@ class Page1 extends React.PureComponent {
               animation={{ translateY: 200, ease: 'linear', playScale: [0, 1.65] }}
               location="page1-wrapper"
             >
-              Feature
+              {formatMessage({ id: 'app.components.Home.features' })}
             </Parallax>
           )}
-          <h2>What can <span>Pro</span> do for you </h2>
+          {/* <h2>{formatHTMLMessage({ id: 'app.components.Home.whatMunewDo' })}</h2> */}
+          <h2>
+            <FormattedHTMLMessage id="app.components.Home.whatMunewDo" />
+          </h2>
           <div className="title-line-wrapper page1-line">
             <div className="title-line" />
           </div>

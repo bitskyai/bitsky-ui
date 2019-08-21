@@ -10,8 +10,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Layout, Menu, Button, Typography, Row, Col } from 'antd';
 const { Text } = Typography;
-import { FormattedMessage } from 'react-intl';
-import messages from './messages';
+import { formatMessage } from 'umi-plugin-react/locale';
 import UserAvatar from './UserAvatar';
 
 function DiaUserInfoCmp(props) {
@@ -19,15 +18,15 @@ function DiaUserInfoCmp(props) {
     <div style={{ display: 'inline-block' }}>
       <Link to="/login">
         <Button type="link" style={{ padding: 0 }}>
-          <FormattedMessage {...messages.logIn} />
+          {formatMessage({ id: 'app.components.DiaUserInfoCmp.logIn' })}
         </Button>
       </Link>
       <Text style={{ margin: '0 10px' }}>
-        <FormattedMessage {...messages.or} />
+        {formatMessage({ id: 'app.components.DiaUserInfoCmp.or' })}
       </Text>
       <Link to="/signup">
         <Button type="primary">
-          <FormattedMessage {...messages.signUp} />
+          {formatMessage({ id: 'app.components.DiaUserInfoCmp.signUp' })}
         </Button>
       </Link>
     </div>

@@ -6,21 +6,21 @@ import Header from './Header';
 import Banner from './Banner';
 import Page1 from './Page1';
 import Page2 from './Page2';
-import Footer from './Footer';
+import Footer from '../GlobalFooter';
 import styles from './static/style.less';
 
 let isMobile;
 
-enquireScreen((b) => {
+enquireScreen(b => {
   isMobile = !!b;
 });
 
 class Home extends React.PureComponent {
   state = {
-    isMobile:!!isMobile,
-  }
+    isMobile: !!isMobile,
+  };
   componentDidMount() {
-    enquireScreen((b) => {
+    enquireScreen(b => {
       this.setState({
         isMobile: !!b,
       });
@@ -29,14 +29,16 @@ class Home extends React.PureComponent {
   render() {
     return (
       <DocumentTitle title="MUNEW">
-        <div>
+        <div className="munew-landing">
           <Header isMobile={this.state.isMobile} />
-          <div className='home-wrapper'>
+          <div className="home-wrapper">
             <Banner isMobile={this.state.isMobile} />
             <Page1 isMobile={this.state.isMobile} />
-            <Page2 />
+            {/* <Page2 /> */}
           </div>
-          <Footer />
+          <div>
+            <Footer />
+          </div>
         </div>
       </DocumentTitle>
     );

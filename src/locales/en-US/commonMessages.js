@@ -1,6 +1,6 @@
 export const scope = 'app.common.messages';
 let messages = {};
-messages[`${scope}.munew`] = 'Mu New';
+messages[`${scope}.munew`] = 'MUNEW';
 messages[`${scope}.copyright`] = 'Copyright';
 messages[`${scope}.slogan`] = 'Make Life Productive';
 messages[`${scope}.signin`] = 'Sign In';
