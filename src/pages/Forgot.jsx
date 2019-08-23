@@ -1,3 +1,5 @@
+import Forgot from '@/containers/Forgot';
+
 export default () => {
-  return <div>Forgot Page</div>;
+  return <Forgot/>;
 };

@@ -1,3 +1,5 @@
+import Reset from '@/containers/Reset';
+
 export default () => {
-  return <div>Reset Page</div>;
+  return <Reset/>;
 };

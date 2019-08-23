@@ -1,6 +1,6 @@
 /**
  *
- * LoginPage
+ * Login
  *
  */
 
@@ -11,7 +11,8 @@ import { formatMessage, FormattedMessage } from 'umi-plugin-react/locale';
 // import { createStructuredSelector } from 'reselect';
 // import { compose } from 'redux';
 import { Form, Input, Icon, Button, Alert } from 'antd';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
+import Link from 'umi/link';
 import { Redirect, Route } from 'umi';
 // import { Redirect } from 'react-router';
 
@@ -176,7 +177,7 @@ class LoginForm extends React.Component {
   }
 }
 
-export function LoginPage() {
+export function Login() {
   // useInjectReducer({ key: 'loginPage', reducer });
   // useInjectSaga({ key: 'loginPage', saga });
   // const { formatMessage } = intl;
@@ -238,11 +239,11 @@ export function LoginPage() {
 }
 
 export default connect(({  }) => ({
-}))(LoginPage);
+}))(Login);
 
-// export default connect({})(LoginPage);
+// export default connect({})(Login);
 
-// LoginPage.propTypes = {
+// Login.propTypes = {
 //   dispatch: PropTypes.func.isRequired,
 // };
 
@@ -261,4 +262,4 @@ export default connect(({  }) => ({
 //   mapDispatchToProps,
 // );
 
-// export default compose(withConnect)(LoginPage);
+// export default compose(withConnect)(Login);
