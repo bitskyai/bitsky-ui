@@ -7,7 +7,8 @@ import { formatMessage } from 'umi-plugin-react/locale';
 import SelectLang from '@/components/SelectLang';
 import logo from '../assets/logo.png';
 import styles from './UserLayout.less';
-import GlobalFooter from '@/components/GlobalFooter';
+// import GlobalFooter from '@/components/GlobalFooter';
+import DiaFooter from '@/components/DiaFooter'
 
 const UserLayout = props => {
   const {
@@ -48,7 +49,7 @@ const UserLayout = props => {
           </div>
           {children}
         </div>
-        <GlobalFooter />
+        <DiaFooter />
       </div>
     </DocumentTitle>
   );

@@ -1,3 +1,5 @@
+import Login from '@/containers/Login';
+
 export default () => {
-  return <div>Login Page</div>;
+  return <Login/>;
 };

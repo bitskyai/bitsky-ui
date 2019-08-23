@@ -7,3 +7,4 @@ messages[`${scope}.signin`] = 'Sign In';
 messages[`${scope}.signup`] = 'Sign Up';
 
 export default messages;
+
