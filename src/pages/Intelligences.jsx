@@ -1,3 +1,10 @@
+import React from 'react';
+import { PageHeaderWrapper } from '@ant-design/pro-layout';
+
 export default () => {
-  return <div>Intelligences Page</div>;
+  return (
+    <PageHeaderWrapper>
+      <div>Intelligences Page</div>
+    </PageHeaderWrapper>
+  );
 };

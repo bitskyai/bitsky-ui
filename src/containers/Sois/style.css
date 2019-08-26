@@ -1,0 +1,6 @@
+.selected-row{
+    background-color: #f1f9ff;
+}
+.selected-row td{
+    background-color: #f1f9ff !important;
+}
