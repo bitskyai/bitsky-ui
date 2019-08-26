@@ -1,7 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import DocumentTitle from 'react-document-title';
 import { enquireScreen } from 'enquire-js';
-
 import Header from './Header';
 import Banner from './Banner';
 import Page1 from './Page1';
@@ -30,7 +30,7 @@ class Home extends React.PureComponent {
     return (
       <DocumentTitle title="MUNEW">
         <div className="munew-landing">
-          <Header isMobile={this.state.isMobile} />
+          <Header isMobile={this.state.isMobile} currentUser={this.props.currentUser}/>
           <div className="home-wrapper">
             <Banner isMobile={this.state.isMobile} />
             <Page1 isMobile={this.state.isMobile} />
@@ -44,5 +44,9 @@ class Home extends React.PureComponent {
     );
   }
 }
+
+Home.propTypes = {
+  currentUser: PropTypes.object,
+};
 
 export default Home;

@@ -11,7 +11,9 @@ import { Link } from 'react-router-dom';
 import { Layout, Menu, Button, Typography, Row, Col } from 'antd';
 const { Text } = Typography;
 import { formatMessage } from 'umi-plugin-react/locale';
-import UserAvatar from './UserAvatar';
+// import UserAvatar from './UserAvatar';
+import Avatar from '../GlobalHeader/AvatarDropdown';
+import styles from './index.less';
 
 function DiaUserInfoCmp(props) {
   let userInfo = (
@@ -32,15 +34,17 @@ function DiaUserInfoCmp(props) {
     </div>
   );
 
-  if (props.user && props.user.email) {
+  if (props.currentUser && props.currentUser.email) {
     // userInfo = getUserAvatar(props.user.profile);
-    userInfo = <UserAvatar profile={props.user.profile} />;
+    // userInfo = <UserAvatar profile={props.user.profile} />;
+    console.log('styles: ', styles);
+    userInfo = <Avatar menu={true}/>
   }
-  return <div>{userInfo}</div>;
+  return <div style={{height:'64px', lineHeight: '64px'}}>{userInfo}</div>;
 }
 
 DiaUserInfoCmp.propTypes = {
-  user: PropTypes.object,
+  currentUser: PropTypes.object,
 };
 
 export default DiaUserInfoCmp;

@@ -29,16 +29,16 @@ const footerRender = _ => {
 };
 
 const BasicLayout = props => {
-  const { dispatch, children, settings } = props;
+  const { dispatch, children, settings, user } = props;
   /**
    * constructor
    */
 
   useEffect(() => {
     if (dispatch) {
-      dispatch({
-        type: 'user/fetchCurrent',
-      });
+      // dispatch({
+      //   type: 'user/fetchCurrent',
+      // });
       dispatch({
         type: 'settings/getSetting',
       });
@@ -96,7 +96,7 @@ const BasicLayout = props => {
   );
 };
 
-export default connect(({ global, settings }) => ({
+export default connect(({ global, settings, user }) => ({
   collapsed: global.collapsed,
   settings,
 }))(BasicLayout);
