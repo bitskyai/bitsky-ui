@@ -1,0 +1,58 @@
+import {
+  getIntelligencesForManagementAPI,
+  pauseIntelligencesForManagementAPI,
+  resumeIntelligencesForManagementAPI,
+  deleteIntelligencesForManagementAPI,
+} from '../apis/intelligences';
+import produce from 'immer';
+const IntelligencesModel = {
+  namespace: 'intelligences',
+  state: {},
+  effects: {
+    *refreshIntelligences(_, { call, put }) {
+      try {
+        const agents = yield call(getIntelligencesForManagementAPI);
+        yield put({
+          type: 'refreshIntelligencesSuccess',
+          payload: agents,
+        });
+      } catch (err) {
+        yield put({
+          type: 'refreshIntelligencesFail',
+          error: err,
+        });
+      }
+    },
+  },
+  reducers: {
+    refreshIntelligencesSuccess(state, action) {
+      return produce(state, draft => {
+        let data = state.data || [];
+        draft.data = data.concat(action.intelligences);
+        draft.total = action.total;
+        draft.nextCursor = action.nextCursor;
+        draft.previousCursor = action.previousCursor;
+        draft.error = undefined;
+        draft.modified = Date.now();
+      });
+    },
+    refreshIntelligencesFail(state, action) {
+      return produce(state, draft => {
+        draft.error = action.error;
+        draft.modified = Date.now();
+      });
+    },
+    resetIntelligences(state, action) {
+      return produce(state, draft => {
+        draft.data = [];
+        draft.total = 0;
+        draft.nextCursor = undefined;
+        draft.previousCursor = undefined;
+        draft.error = undefined;
+        draft.modified = Date.now();
+      });
+    },
+  },
+};
+
+export default IntelligencesModel;

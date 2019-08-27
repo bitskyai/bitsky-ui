@@ -4,7 +4,7 @@
  *
  */
 
-export const RESET_INTELLIGENCES = 'DIA_UI/INTELLIGENCES/RESET_INTELLIGENCES';
-export const REFRESH_INTELLIGENCES = 'DIA_UI/INTELLIGENCES/REFRESH_INTELLIGENCES';
-export const REFRESH_INTELLIGENCES_SUCCESS = 'DIA_UI/INTELLIGENCES/REFRESH_INTELLIGENCES_SUCCESS';
-export const REFRESH_INTELLIGENCES_FAIL = 'DIA_UI/INTELLIGENCES/REFRESH_INTELLIGENCES_FAIL';
+export const RESET_INTELLIGENCES = 'intelligences/resetIntelligences';
+export const REFRESH_INTELLIGENCES = 'intelligences/refreshIntelligences';
+export const REFRESH_INTELLIGENCES_SUCCESS = 'intelligences/refreshIntelligencesSuccess';
+export const REFRESH_INTELLIGENCES_FAIL = 'intelligences/refreshIntelligencesFail';

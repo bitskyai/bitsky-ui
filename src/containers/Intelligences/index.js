@@ -9,20 +9,22 @@ import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
 import $ from 'jquery';
 
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
+import { connect } from 'dva';
+import { formatMessage, FormattedMessage, FormattedHTMLMessage } from 'umi-plugin-react/locale';
 import styled from 'styled-components';
-import { FormattedMessage, FormattedHTMLMessage, injectIntl } from 'react-intl';
-import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
+// import { FormattedMessage, FormattedHTMLMessage, injectIntl } from 'react-intl';
+// import { createStructuredSelector } from 'reselect';
+// import { compose } from 'redux';
 import { Empty, Button, Table, Spin, Input, Row, Col, Icon } from 'antd';
 
-import injectSaga from 'utils/injectSaga';
-import injectReducer from 'utils/injectReducer';
-import makeSelectIntelligences from './selectors';
-import reducer from './reducer';
-import saga from './saga';
+// import injectSaga from 'utils/injectSaga';
+// import injectReducer from 'utils/injectReducer';
+// import makeSelectIntelligences from './selectors';
+// import reducer from './reducer';
+// import saga from './saga';
 import messages from './messages';
-import commonMessages from '../../messages';
+import commonMessages from '../../locales/en-US/globalMessages';
 import IntelligencesSkeleton from './IntelligencesSkeleton';
 import {
   resetIntelligences,
@@ -38,7 +40,7 @@ import {
   deleteIntelligencesForManagementAPI
 } from '../../apis/intelligences';
 
-import DiaPageHeader from '../../components/Common';
+// import DiaPageHeader from '../../components/Common';
 
 const EmptyContainer = styled.div`
   padding: 100px 0;
@@ -384,7 +386,7 @@ export class Intelligences extends React.Component {
   }
 
   render() {
-    const { formatMessage } = this.props.intl;
+    // const { formatMessage } = this.props.intl;
     let { loadingIntelligencesData, contentHeight, loadingMore } = this.state;
     let { intelligences } = this.props;
     let content = <IntelligencesSkeleton />;
@@ -594,36 +596,40 @@ export class Intelligences extends React.Component {
 
     return (
       <div>
-        <DiaPageHeader title={formatMessage(messages.header)} />
+        {/* <DiaPageHeader title={formatMessage(messages.header)} /> */}
         {content}
       </div>
     );
   }
 }
 
-Intelligences.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-};
+export default connect(({intelligences}) => ({
+  intelligences: intelligences&&intelligences.data
+}))(Intelligences);
 
-const mapStateToProps = createStructuredSelector({
-  intelligences: makeSelectIntelligences(),
-});
+// Intelligences.propTypes = {
+//   dispatch: PropTypes.func.isRequired,
+// };
 
-function mapDispatchToProps(dispatch) {
-  return {
-    dispatch,
-  };
-}
+// const mapStateToProps = createStructuredSelector({
+//   intelligences: makeSelectIntelligences(),
+// });
 
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
-const withReducer = injectReducer({ key: 'intelligences', reducer });
-const withSaga = injectSaga({ key: 'intelligences', saga });
+// function mapDispatchToProps(dispatch) {
+//   return {
+//     dispatch,
+//   };
+// }
 
-export default compose(
-  withReducer,
-  withSaga,
-  withConnect,
-)(injectIntl(Intelligences));
+// const withConnect = connect(
+//   mapStateToProps,
+//   mapDispatchToProps,
+// );
+// const withReducer = injectReducer({ key: 'intelligences', reducer });
+// const withSaga = injectSaga({ key: 'intelligences', saga });
+
+// export default compose(
+//   withReducer,
+//   withSaga,
+//   withConnect,
+// )(injectIntl(Intelligences));
