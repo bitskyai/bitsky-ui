@@ -330,7 +330,7 @@ export function Agents({ dispatch, agents }) {
 }
 
 export default connect(({agents}) => ({
-  agents: agents.data
+  agents: agents&&agents.data
 }))(Agents);
 
 // Agents.propTypes = {

@@ -15,7 +15,7 @@ export function refreshSOIs() {
 export function refreshSOIsSuccess(sois) {
   return {
     type: REFRESH_SOIS_SUCCESS,
-    sois
+    payload: sois
   };
 }
 

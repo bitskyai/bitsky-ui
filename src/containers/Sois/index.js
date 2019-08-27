@@ -5,36 +5,38 @@
  */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
+import { connect } from 'dva';
+import { formatMessage, FormattedMessage, FormattedHTMLMessage } from 'umi-plugin-react/locale';
 import styled from 'styled-components';
-import { FormattedMessage, FormattedHTMLMessage, injectIntl } from 'react-intl';
-import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
-import { Empty, Table, Button, Popconfirm, message } from 'antd';
+// import { FormattedMessage, FormattedHTMLMessage, injectIntl } from 'react-intl';
+// import { createStructuredSelector } from 'reselect';
+// import { compose } from 'redux';
+import { Empty, Table, Button, Popconfirm, message, Card } from 'antd';
 
-import { useInjectSaga } from 'utils/injectSaga';
-import { useInjectReducer } from 'utils/injectReducer';
-import makeSelectSois from './selectors';
-import reducer from './reducer';
-import saga from './saga';
+// import { useInjectSaga } from 'utils/injectSaga';
+// import { useInjectReducer } from 'utils/injectReducer';
+// import makeSelectSois from './selectors';
+// import reducer from './reducer';
+// import saga from './saga';
 import messages from './messages';
-import commonMessages from '../../messages';
+import commonMessages from '../../locales/en-US/globalMessages';
 import RegisterSoiForm from './RegisterSoiForm';
 import SOIsSkeleton from './SOIsSkeleton';
 import { refreshSOIsSuccess, refreshSOIsFail, refreshSOIs } from './actions';
 import { getSOIs, deleteASOIAPI } from '../../apis/sois';
 import './style.css';
 
-import DiaPageHeader from '../../components/Common';
+// import DiaPageHeader from '../../components/Common';
 
 const EmptyContainer = styled.div`
   padding: 100px 0;
 `;
 
-export function Sois({ intl, dispatch, sois }) {
-  useInjectReducer({ key: 'sois', reducer });
-  useInjectSaga({ key: 'sois', saga });
-  const { formatMessage } = intl;
+export function Sois({ dispatch, sois }) {
+  // useInjectReducer({ key: 'sois', reducer });
+  // useInjectSaga({ key: 'sois', saga });
+  // const { formatMessage } = intl;
   // loading data
   const [inited, setInited] = useState(false);
   // select row
@@ -56,7 +58,6 @@ export function Sois({ intl, dispatch, sois }) {
     setDrawerVisiable(false);
     setSelectedSOI(undefined);
   }
-
 
   function onPreventShowDrawer(event) {
     event.preventDefault();
@@ -130,9 +131,13 @@ export function Sois({ intl, dispatch, sois }) {
       key: 'x',
       render: (text, record) => {
         return (
-          <div onClick={(e)=>{onPreventShowDrawer(e)}}>
+          <div
+            onClick={e => {
+              onPreventShowDrawer(e);
+            }}
+          >
             <Popconfirm
-              style={{maxWidth:'300px'}}
+              style={{ maxWidth: '300px' }}
               title={formatMessage(messages.deleteSOIDescription)}
               onConfirm={e => {
                 onDeleteASOI(record, e);
@@ -180,7 +185,7 @@ export function Sois({ intl, dispatch, sois }) {
       content = (
         <div>
           <div style={{ padding: '0 24px' }}>
-            <div style={{padding:'0 0 20px 0'}}>
+            <div style={{ padding: '0 0 20px 0' }}>
               <Button onClick={onRegisterSOI} type="primary">
                 <FormattedMessage {...messages.registerNow} />
               </Button>
@@ -230,8 +235,8 @@ export function Sois({ intl, dispatch, sois }) {
   }
 
   return (
-    <div>
-      <DiaPageHeader title={formatMessage(messages.header)} />
+    <Card>
+      {/* <DiaPageHeader title={formatMessage(messages.header)} /> */}
       {content}
       <RegisterSoiForm
         visiable={drawerVisiable}
@@ -239,27 +244,31 @@ export function Sois({ intl, dispatch, sois }) {
         soi={selectedSOI}
         dispatch={dispatch}
       />
-    </div>
+    </Card>
   );
 }
 
-Sois.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-};
+export default connect(({sois}) => ({
+  sois: sois&&sois.data
+}))(Sois);
 
-const mapStateToProps = createStructuredSelector({
-  sois: makeSelectSois(),
-});
+// Sois.propTypes = {
+//   dispatch: PropTypes.func.isRequired,
+// };
 
-function mapDispatchToProps(dispatch) {
-  return {
-    dispatch,
-  };
-}
+// const mapStateToProps = createStructuredSelector({
+//   sois: makeSelectSois(),
+// });
 
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
+// function mapDispatchToProps(dispatch) {
+//   return {
+//     dispatch,
+//   };
+// }
 
-export default compose(withConnect)(injectIntl(Sois));
+// const withConnect = connect(
+//   mapStateToProps,
+//   mapDispatchToProps,
+// );
+
+// export default compose(withConnect)(injectIntl(Sois));

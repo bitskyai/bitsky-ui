@@ -2,7 +2,8 @@ import React from 'react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { FormattedMessage, FormattedHTMLMessage, injectIntl } from 'react-intl';
+// import { FormattedMessage, FormattedHTMLMessage, injectIntl } from 'react-intl';
+import { formatMessage, FormattedMessage, FormattedHTMLMessage, formatHTMLMessage } from 'umi-plugin-react/locale';
 import {
   Drawer,
   Form,
@@ -16,7 +17,7 @@ import {
 } from 'antd';
 const { Paragraph, Text } = Typography;
 import messages from './messages';
-import commonMessages from '../../messages';
+import commonMessages from '../../locales/en-US/globalMessages';
 import { registerASOI, updateSOI } from '../../apis/sois';
 import { refreshSOIs } from './actions';
 
@@ -36,7 +37,7 @@ class RegisterSoiForm extends React.Component {
 
   registerSOI = e => {
     e.preventDefault();
-    const { formatMessage } = this.props.intl;
+    // const { formatMessage } = this.props.intl;
     this.setState({ sending: true });
     this.props.form.validateFieldsAndScroll(async (err, values) => {
       if (!err) {
@@ -73,7 +74,7 @@ class RegisterSoiForm extends React.Component {
       getFieldsError,
       isFieldsTouched,
     } = this.props.form;
-    const { formatMessage } = this.props.intl;
+    // const { formatMessage } = this.props.intl;
     return (
       <div>
         <Drawer
@@ -334,4 +335,5 @@ RegisterSoiForm.propTypes = {
   soi: PropTypes.object,
 };
 
-export default Form.create()(injectIntl(RegisterSoiForm));
+// export default Form.create()(injectIntl(RegisterSoiForm));
+export default Form.create()(RegisterSoiForm);
