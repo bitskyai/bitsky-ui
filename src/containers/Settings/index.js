@@ -6,11 +6,13 @@
 import _ from 'lodash';
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
+import { connect } from 'dva';
+import { formatMessage, FormattedMessage, FormattedHTMLMessage } from 'umi-plugin-react/locale';
 import styled from 'styled-components';
-import { FormattedMessage, injectIntl } from 'react-intl';
-import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
+// import { FormattedMessage, injectIntl } from 'react-intl';
+// import { createStructuredSelector } from 'reselect';
+// import { compose } from 'redux';
 import {
   Icon,
   Divider,
@@ -22,29 +24,30 @@ import {
   Button,
   message,
   Modal,
+  Card
 } from 'antd';
 const { Paragraph } = Typography;
 
 // import { useInjectSaga } from 'utils/injectSaga';
-import injectSaga from 'utils/injectSaga';
+// import injectSaga from 'utils/injectSaga';
 // import { useInjectReducer } from 'utils/injectReducer';
-import injectReducer from 'utils/injectReducer';
-import makeSelectSettings from './selectors';
-import { updateProfileError } from './selectors';
-import reducer from './reducer';
-import saga from './saga';
+// import injectReducer from 'utils/injectReducer';
+// import makeSelectSettings from './selectors';
+// import { updateProfileError } from './selectors';
+// import reducer from './reducer';
+// import saga from './saga';
 import messages from './messages';
 import { ERROR_CODES } from './constants';
-import commonMessages from '../../messages';
+import commonMessages from '../../locales/en-US/globalMessages';
 import {
   darkBlueColor,
   largeBodyFontSize,
   maxWidth,
 } from '../../styleVariables';
 
-import DiaPageHeader from '../../components/Common';
-import { appInitedSelector, userSelector } from '../App/selectors';
-import { initApplicationSuccess } from '../App/actions';
+// import DiaPageHeader from '../../components/Common';
+// import { appInitedSelector, userSelector } from '../App/selectors';
+// import { initApplicationSuccess } from '../App/actions';
 import {
   updateProfile,
   changePassword,
@@ -69,7 +72,7 @@ class ProfileForm extends React.Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    const { formatMessage } = this.props.intl;
+    // const { formatMessage } = this.props.intl;
     this.setState({ ...this.state, sending: true });
     this.props.form.validateFieldsAndScroll(async (err, values) => {
       if (!err) {
@@ -84,12 +87,12 @@ class ProfileForm extends React.Component {
           message.success(msg);
           // update global user information
           this.props.dispatch(
-            initApplicationSuccess({
-              email: values.email,
-              profile: {
-                name: values.name,
-              },
-            }),
+            // initApplicationSuccess({
+            //   email: values.email,
+            //   profile: {
+            //     name: values.name,
+            //   },
+            // }),
           );
         } catch (err) {
           if (err.status == 400) {
@@ -122,7 +125,7 @@ class ProfileForm extends React.Component {
       isFieldsTouched,
       isFieldTouched,
     } = this.props.form;
-    const { formatMessage } = this.props.intl;
+    // const { formatMessage } = this.props.intl;
 
     // Only show error after a field is touched.
     let emailError = isFieldTouched('email') && getFieldError('email');
@@ -216,7 +219,7 @@ class PasswordForm extends React.Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    const { formatMessage } = this.props.intl;
+    // const { formatMessage } = this.props.intl;
     this.setState({ ...this.state, sending: true });
     this.props.form.validateFieldsAndScroll(async (err, values) => {
       if (!err) {
@@ -262,7 +265,7 @@ class PasswordForm extends React.Component {
 
   compareToFirstPassword = (rule, value, callback) => {
     const { form } = this.props;
-    const { formatMessage } = this.props.intl;
+    // const { formatMessage } = this.props.intl;
     if (value && value !== form.getFieldValue('password')) {
       callback(formatMessage(commonMessages.passwordNotSame));
     } else {
@@ -286,7 +289,7 @@ class PasswordForm extends React.Component {
       isFieldsTouched,
       isFieldTouched,
     } = this.props.form;
-    const { formatMessage } = this.props.intl;
+    // const { formatMessage } = this.props.intl;
 
     return (
       <Form layout="vertical" onSubmit={this.handleSubmit}>
@@ -386,7 +389,7 @@ class APIKeyForm extends React.Component {
     const {
       getFieldDecorator,
     } = this.props.form;
-    const { formatMessage } = this.props.intl;
+    // const { formatMessage } = this.props.intl;
     return (
       <Form layout="vertical">
         <Form.Item label={formatMessage(messages.securityKey)}>
@@ -417,8 +420,8 @@ export class Settings extends React.Component {
       visible: false,
       confirmLoading: false,
     };
-    injectReducer('settings', reducer);
-    injectSaga('settings', saga);
+    // injectReducer('settings', reducer);
+    // injectSaga('settings', saga);
 
     this.clickDeleteAccount.bind(this);
   }
@@ -431,7 +434,7 @@ export class Settings extends React.Component {
   }
 
   handleOk = async () => {
-    const { formatMessage } = this.props.intl;
+    // const { formatMessage } = this.props.intl;
     try {
       this.setState({
         confirmLoading: true,
@@ -463,28 +466,28 @@ export class Settings extends React.Component {
 
   render() {
     let user = this.props.user;
-    let intl = this.props.intl;
+    // let intl = this.props.intl;
     let dispatch = this.props.dispatch;
-    const { formatMessage } = intl;
+    // const { formatMessage } = intl;
 
     const { visible, confirmLoading, ModalText } = this.state;
 
     const WrappedProfileForm = Form.create({ name: 'profile_form' })(
-      injectIntl(ProfileForm),
+      ProfileForm,
     );
     const WrappedPasswordForm = Form.create({ name: 'password_form' })(
-      injectIntl(PasswordForm),
+      PasswordForm,
     );
     const WrappedAPIKeyForm = Form.create({ name: 'apikey_form' })(
-      injectIntl(APIKeyForm),
+      APIKeyForm,
     );
 
     return (
-      <div>
-        <DiaPageHeader
+      <Card>
+        {/* <DiaPageHeader
           title={formatMessage(messages.header)}
           style={{ color: darkBlueColor }}
-        />
+        /> */}
         <div style={{ padding: '0 24px', maxWidth: maxWidth }}>
           <Row>
             <Col span={12}>
@@ -499,7 +502,7 @@ export class Settings extends React.Component {
               <WrappedProfileForm
                 email={_.get(user, 'email')}
                 name={_.get(user, 'profile.name')}
-                error={updateProfileError}
+                // error={updateProfileError}
                 dispatch={dispatch}
               />
             </Col>
@@ -563,33 +566,37 @@ export class Settings extends React.Component {
             </p>
           </Modal>
         </div>
-      </div>
+      </Card>
     );
   }
 }
 
-Settings.propTypes = {
-  inited: PropTypes.bool,
-  user: PropTypes.object,
-  dispatch: PropTypes.func.isRequired,
-};
+export default connect(({user}) => ({
+  user: user&&user.currentUser
+}))(Settings);
 
-const mapStateToProps = createStructuredSelector({
-  user: userSelector(),
-  inited: appInitedSelector(),
-  settings: makeSelectSettings(),
-  updateProfileError: updateProfileError(),
-});
+// Settings.propTypes = {
+//   inited: PropTypes.bool,
+//   user: PropTypes.object,
+//   dispatch: PropTypes.func.isRequired,
+// };
 
-function mapDispatchToProps(dispatch) {
-  return {
-    dispatch,
-  };
-}
+// const mapStateToProps = createStructuredSelector({
+//   user: userSelector(),
+//   inited: appInitedSelector(),
+//   settings: makeSelectSettings(),
+//   updateProfileError: updateProfileError(),
+// });
 
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
+// function mapDispatchToProps(dispatch) {
+//   return {
+//     dispatch,
+//   };
+// }
 
-export default compose(withConnect)(injectIntl(Settings));
+// const withConnect = connect(
+//   mapStateToProps,
+//   mapDispatchToProps,
+// );
+
+// export default compose(withConnect)(injectIntl(Settings));
