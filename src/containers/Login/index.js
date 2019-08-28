@@ -42,7 +42,7 @@ class LoginForm extends React.Component {
     this.setState({...this.state, sending: true});
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
+        // console.log('Received values of form: ', values);
         http({
           url: '/apis/login',
           method: 'POST',
@@ -62,9 +62,9 @@ class LoginForm extends React.Component {
             // console.log(error);
             // default set it to 401
             let err = {
-              status: 401,
+              status: 500,
             };
-            let msg;
+            let msg = formatMessage({ id: 'app.common.messages.serverTempDown'});
             if (error && error.status) {
               err = {
                 status: error.status,
