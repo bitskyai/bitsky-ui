@@ -23,7 +23,6 @@ const iconStyle = {
 
 import { darkBlueColor, maxWidth, whiteColor } from '../../styleVariables';
 import { formatMessage, FormattedMessage } from 'umi-plugin-react/locale';
-import messages from '../../locales/en-US/components/DiaFooter';
 
 function DiaFooter() {
   return (
@@ -32,7 +31,7 @@ function DiaFooter() {
         <Row style={{ maxWidth: `${maxWidth}px`, margin: '0 auto' }}>
           <Col span={6}>
             <Text style={{ color: whiteColor }}>
-              <FormattedMessage {...messages.productName} />
+              {formatMessage({ id: 'app.components.DiaFooter.productName'})}
             </Text>
           </Col>
           <Col span={18}>

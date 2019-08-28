@@ -99,4 +99,5 @@ const BasicLayout = props => {
 export default connect(({ global, settings, user }) => ({
   collapsed: global.collapsed,
   settings,
+  user: user&&user.currentUser
 }))(BasicLayout);

@@ -25,8 +25,6 @@ import http, { getRedirectURL } from '../../utils/http';
 // import makeSelectLoginPage from './selectors';
 // import reducer from './reducer';
 // import saga from './saga';
-import messages from '../../locales/en-US/containers/Login';
-import commonMessages from '../../locales/en-US/globalMessages';
 // import logoImg from '../../images/munew512.png';
 
 class LoginForm extends React.Component {
@@ -61,22 +59,22 @@ class LoginForm extends React.Component {
             }
           })
           .catch(error => {
-            console.log(error);
+            // console.log(error);
             // default set it to 401
             let err = {
               status: 401,
             };
             let msg;
-            if (error && error.response && error.response.status) {
+            if (error && error.status) {
               err = {
-                status: error.response.status,
+                status: error.status,
               };
             }
-            if (error && error.response && error.response.status) {
-              if (error.response.status > 400 && error.response.status < 500) {
-                msg = formatMessage(commonMessages.signInFail);
-              } else if (error.response.status >= 500) {
-                msg = formatMessage(commonMessages.serverTempDown);
+            if (error && error.status) {
+              if (error.status > 400 && error.status < 500) {
+                msg = formatMessage({ id: 'app.common.messages.signInFail'});
+              } else if (error.status >= 500) {
+                msg = formatMessage({ id: 'app.common.messages.serverTempDown'});
               }
             }
             this.setState({ ...this.state, error: err, errorMsg: msg, sending: false });
@@ -120,11 +118,11 @@ class LoginForm extends React.Component {
               rules: [
                 {
                   type: 'email',
-                  message: formatMessage(messages.invalidEmail),
+                  message: formatMessage({ id: 'app.containers.LoginPage.invalidEmail'}),
                 },
                 {
                   required: true,
-                  message: formatMessage(messages.typeValidEmail),
+                  message: formatMessage({ id: 'app.containers.LoginPage.typeValidEmail'}),
                 },
               ],
             })(
@@ -133,7 +131,7 @@ class LoginForm extends React.Component {
                 prefix={
                   <Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />
                 }
-                placeholder={formatMessage(messages.typeValidEmail)}
+                placeholder={formatMessage({ id: 'app.containers.LoginPage.typeValidEmail'})}
               />,
             )}
           </Form.Item>
@@ -142,7 +140,7 @@ class LoginForm extends React.Component {
               rules: [
                 {
                   required: true,
-                  message: formatMessage(messages.typePassword),
+                  message: formatMessage({ id: 'app.containers.LoginPage.typePassword'}),
                 },
                 {
                   validator: this.validateToNextPassword,
@@ -155,7 +153,7 @@ class LoginForm extends React.Component {
                 prefix={
                   <Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />
                 }
-                placeholder={formatMessage(messages.typePassword)}
+                placeholder={formatMessage({ id: 'app.containers.LoginPage.typePassword'})}
               />,
             )}
           </Form.Item>
@@ -168,7 +166,7 @@ class LoginForm extends React.Component {
               ghost
               style={{ color: darkBlueColor }}
               loading={this.state.sending}>
-              <FormattedMessage {...messages.login} />
+              {formatMessage({ id: 'app.containers.LoginPage.login'})}
             </Button>
           </Form.Item>
         </Form>
@@ -191,18 +189,18 @@ export function Login() {
       <a href="/auth/github">
         <Button type="primary" htmlType="submit" size="large" block>
           <Icon type="github" style={{ verticalAlign: '1.5px' }} />
-          <FormattedMessage {...messages.signInWithGithub} />
+          {formatMessage({ id: 'app.containers.LoginPage.signInWithGithub'})}
         </Button>
       </a>
       <div style={{ color: 'grey', textAlign: 'center', padding: '15px 0' }}>
-        <FormattedMessage {...messages.or} />
+        {formatMessage({ id: 'app.containers.LoginPage.or'})}
       </div>
       <WrappedSignupForm />
       <div style={{ textAlign: 'center' }}>
         <Button type="link">
           <Link to="/forgot">
             <span style={{ textDecoration: 'underline' }}>
-              <FormattedMessage {...messages.forgetPassword} />
+              {formatMessage({ id: 'app.containers.LoginPage.forgetPassword'})}
             </span>
           </Link>
         </Button>
@@ -212,7 +210,7 @@ export function Login() {
   const cardFooter = (
     <div>
       <span style={{ lineHeight: '60px' }}>
-        <FormattedMessage {...messages.newUser} />
+        {formatMessage({ id: 'app.containers.LoginPage.newUser'})}
       </span>
 
       <Button
@@ -221,7 +219,7 @@ export function Login() {
         style={{ color: darkBlueColor, marginLeft: '20px' }}
       >
         <Link to="/signup">
-          <FormattedMessage {...messages.signUp} />
+          {formatMessage({ id: 'app.containers.LoginPage.signUp'})}
         </Link>
       </Button>
     </div>

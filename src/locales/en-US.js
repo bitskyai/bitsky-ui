@@ -1,10 +1,12 @@
 import commonMessages from './en-US/commonMessages';
 import home from './en-US/components/home';
 import DiaUserInfoCmp from './en-US/components/DiaUserInfoCmp';
+import DiaFooter from './en-US/components/DiaFooter';
 import component from './en-US/component';
 import globalHeader from './en-US/globalHeader';
 import menu from './en-US/menu';
 import pwa from './en-US/pwa';
+import loginCtn from './en-US/containers/Login';
 // import settings from './en-US/settings';
 export default {
   'navBar.lang': 'Languages',
@@ -12,6 +14,7 @@ export default {
   'layout.user.link.privacy': 'Privacy',
   'layout.user.link.terms': 'Terms',
   'app.preview.down.block': 'Download this page to your local project',
+  ...DiaFooter,
   ...DiaUserInfoCmp,
   ...home,
   ...commonMessages,
@@ -19,4 +22,5 @@ export default {
   ...menu,
   ...pwa,
   ...component,
+  ...loginCtn
 };
