@@ -118,11 +118,11 @@ class LoginForm extends React.Component {
               rules: [
                 {
                   type: 'email',
-                  message: formatMessage({ id: 'app.containers.LoginPage.invalidEmail'}),
+                  message: formatMessage({ id: 'app.common.messages.invalidEmail'}),
                 },
                 {
                   required: true,
-                  message: formatMessage({ id: 'app.containers.LoginPage.typeValidEmail'}),
+                  message: formatMessage({ id: 'app.common.messages.typeValidEmail'}),
                 },
               ],
             })(
@@ -131,7 +131,7 @@ class LoginForm extends React.Component {
                 prefix={
                   <Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />
                 }
-                placeholder={formatMessage({ id: 'app.containers.LoginPage.typeValidEmail'})}
+                placeholder={formatMessage({ id: 'app.common.messages.emailPlaceholder'})}
               />,
             )}
           </Form.Item>
@@ -153,7 +153,7 @@ class LoginForm extends React.Component {
                 prefix={
                   <Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />
                 }
-                placeholder={formatMessage({ id: 'app.containers.LoginPage.typePassword'})}
+                placeholder={formatMessage({ id: 'app.common.messages.passwordPlaceholder'})}
               />,
             )}
           </Form.Item>

@@ -7,6 +7,7 @@ import globalHeader from './en-US/globalHeader';
 import menu from './en-US/menu';
 import pwa from './en-US/pwa';
 import loginCtn from './en-US/containers/Login';
+import signupCtn from './en-US/containers/Signup';
 // import settings from './en-US/settings';
 export default {
   'navBar.lang': 'Languages',
@@ -22,5 +23,6 @@ export default {
   ...menu,
   ...pwa,
   ...component,
-  ...loginCtn
+  ...loginCtn,
+  ...signupCtn
 };

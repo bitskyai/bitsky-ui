@@ -35,7 +35,7 @@ function CardPageCmp({ cardTitle, cardContent, cardFooter }) {
           padding: 0,
         }}
       >
-        <div style={{ padding: '40px 50px 10px 50px' }}>
+        <div style={{ padding: '10px 50px' }}>
           <h2
             style={{
               color: darkBlueColor,

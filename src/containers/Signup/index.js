@@ -28,8 +28,6 @@ import http, { getRedirectURL } from '../../utils/http';
 // import makeSelectSignupPage from './selectors';
 // import reducer from './reducer';
 // import saga from './saga';
-import messages from '../../locales/en-US/containers/Signup';
-import commonMessages from '../../locales/en-US/globalMessages';
 // import logoImg from '../../images/munew512.png';
 
 class SignupForm extends React.Component {
@@ -67,15 +65,15 @@ class SignupForm extends React.Component {
           .catch(error => {
             let statusCode,
               err = error,
-              msg = formatMessage(commonMessages.serverTempDown);
-            if (error && error.response && error.response.status) {
-              statusCode = error.response.status;
+              msg = formatMessage({id: 'app.common.messages.serverTempDown'});
+            if (error && error.status) {
+              statusCode = error.status;
             }
             if (statusCode == 422) {
               err = {
                 status: 422,
               };
-              msg = formatMessage(messages.invalid);
+              msg = formatMessage({id: 'app.containers.SignupPage.invalid'});
             }
 
             this.setState({
@@ -101,7 +99,7 @@ class SignupForm extends React.Component {
     const { form } = this.props;
     // const { formatMessage } = this.props.intl;
     if (value && value !== form.getFieldValue('password')) {
-      callback(formatMessage(messages.passwordNotSame));
+      callback(formatMessage({id: 'app.containers.SignupPage.passwordNotSame'}));
     } else {
       callback();
     }
@@ -136,38 +134,38 @@ class SignupForm extends React.Component {
           type="error"
           style={{ marginBottom: '20px', display }}
         />
-        <Form onSubmit={this.handleSubmit}>
-          <Form.Item>
+        <Form layout="vertical" onSubmit={this.handleSubmit}>
+          <Form.Item label={formatMessage({id: 'app.common.messages.emailTitle'})}>
             {getFieldDecorator('email', {
               rules: [
                 {
                   type: 'email',
-                  message: formatMessage(commonMessages.invalidEmail),
+                  message: formatMessage({id: 'app.common.messages.invalidEmail'}),
                 },
                 {
                   required: true,
-                  message: formatMessage(commonMessages.typeValidEmail),
+                  message: formatMessage({id: 'app.common.messages.typeValidEmail'}),
                 },
               ],
             })(
               <Input
                 size="large"
                 prefix={<Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                placeholder={formatMessage(commonMessages.typeValidEmail)}
+                placeholder={formatMessage({id: 'app.common.messages.emailPlaceholder'})}
               />,
             )}
           </Form.Item>
-          <Form.Item>
+          <Form.Item label={formatMessage({id: 'app.common.messages.passwordTitle'})}>
             {getFieldDecorator('password', {
               rules: [
                 {
                   required: true,
-                  message: formatMessage(commonMessages.typePassword),
+                  message: formatMessage({id: 'app.common.messages.typePassword'}),
                 },
                 {
                   min: 5,
                   max: 20,
-                  message: formatMessage(messages.passwordInvalid),
+                  message: formatMessage({id: 'app.containers.SignupPage.passwordInvalid'}),
                 },
                 {
                   validator: this.validateToNextPassword,
@@ -178,16 +176,16 @@ class SignupForm extends React.Component {
                 size="large"
                 type="password"
                 prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                placeholder={formatMessage(commonMessages.typePassword)}
+                placeholder={formatMessage({id: 'app.common.messages.passwordPlaceholder'})}
               />,
             )}
           </Form.Item>
-          <Form.Item>
+          <Form.Item label={formatMessage({id: 'app.common.messages.confirmPasswordTitle'})}>
             {getFieldDecorator('confirmPassword', {
               rules: [
                 {
                   required: true,
-                  message: formatMessage(commonMessages.confirmPassword),
+                  message: formatMessage({id: 'app.common.messages.emptyConfirmPassword'}),
                 },
                 {
                   validator: this.compareToFirstPassword,
@@ -198,36 +196,36 @@ class SignupForm extends React.Component {
                 size="large"
                 type="password"
                 prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                placeholder={formatMessage(commonMessages.confirmPassword)}
+                placeholder={formatMessage({id: 'app.common.messages.confirmPassword'})}
                 onBlur={this.handleConfirmBlur}
               />,
             )}
           </Form.Item>
-          <Form.Item>
+          <Form.Item label={formatMessage({id: 'app.common.messages.nameTitle'})}>
             {getFieldDecorator('profile.name', {
               rules: [
                 {
                   required: true,
-                  message: formatMessage(messages.typeName),
+                  message: formatMessage({id: 'app.containers.SignupPage.typeName'}),
                   whitespace: true,
                 },
                 {
                   min: 3,
                   max: 20,
-                  message: formatMessage(messages.nameInvalid),
+                  message: formatMessage({id: 'app.containers.SignupPage.nameInvalid'}),
                 },
               ],
             })(
               <Input
                 size="large"
                 prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                placeholder={formatMessage(messages.typeName)}
+                placeholder={formatMessage({id: 'app.common.messages.namePlaceholder'})}
               />,
             )}
           </Form.Item>
           <Form.Item>
             <Button size="large" type="primary" htmlType="submit" block>
-              <FormattedMessage {...messages.signUp} />
+              {formatMessage({id: 'app.containers.SignupPage.signUp'})}
             </Button>
           </Form.Item>
         </Form>
@@ -243,7 +241,7 @@ export function Signup() {
 
   const WrappedSignupForm = Form.create({ name: 'signup_form' })(SignupForm);
 
-  const cardTitle = formatMessage(messages.header);
+  const cardTitle = formatMessage({id: 'app.containers.SignupPage.header'});
 
   const cardContent = (
     <div>
@@ -253,12 +251,12 @@ export function Signup() {
   const cardFooter = (
     <div>
       <span style={{ lineHeight: '60px' }}>
-        <FormattedMessage {...messages.hasAccount} />
+        {formatMessage({id: 'app.containers.SignupPage.hasAccount'})}
       </span>
 
       <Link to="/login">
         <Button type="primary" ghost style={{ color: darkBlueColor, marginLeft: '20px' }}>
-          <FormattedMessage {...messages.login} />
+          {formatMessage({id: 'app.containers.SignupPage.login'})}
         </Button>
       </Link>
     </div>
