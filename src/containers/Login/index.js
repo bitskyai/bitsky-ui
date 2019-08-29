@@ -113,7 +113,7 @@ class LoginForm extends React.Component {
           style={{ marginBottom: '20px', display }}
         />
         <Form className="login-form" onSubmit={this.handleSubmit}>
-          <Form.Item>
+          <Form.Item label={formatMessage({id: 'app.common.messages.emailTitle'})}>
             {getFieldDecorator('email', {
               rules: [
                 {
@@ -135,7 +135,7 @@ class LoginForm extends React.Component {
               />,
             )}
           </Form.Item>
-          <Form.Item>
+          <Form.Item label={formatMessage({id: 'app.common.messages.passwordTitle'})}>
             {getFieldDecorator('password', {
               rules: [
                 {

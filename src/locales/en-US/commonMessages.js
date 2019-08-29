@@ -10,8 +10,8 @@ export default {
   'app.common.messages.confirmPasswordTitle': 'Re-Enter Password(5 to 20 characters)',
   'app.common.messages.nameTitle': 'Name(3 to 20 characters)',
   'app.common.messages.namePlaceholder': 'Neo',
-  'app.common.messages.signin': 'Sign In',
-  'app.common.messages.signup': 'Sign Up',
+  // 'app.common.messages.signin': 'LOG IN',
+  // 'app.common.messages.signup': 'SIGN UP',
   'app.common.messages.logout': 'Logout',
   'app.common.messages.productName': 'MUNEW',
   'app.common.messages.slogan': 'Make Life Productive',
@@ -25,6 +25,7 @@ export default {
     "Make sure it's at least 5 characters, and at most 20 characters",
   'app.common.messages.passwordNotSame': 'Two passwords that you enter is inconsistent!',
   'app.common.messages.signUp': 'SIGN UP',
+  'app.common.messages.or': 'or',
   'app.common.messages.login': 'LOG IN',
   'app.common.messages.nameInvalid':
     "Make sure it's at least 3 characters, and at most 20 characters",

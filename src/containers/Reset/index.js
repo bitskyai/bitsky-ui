@@ -28,7 +28,7 @@ import { darkBlueColor } from '../../styleVariables';
 // import reducer from './reducer';
 // import saga from './saga';
 import messages from '../../locales/en-US/containers/Reset';
-import commonMessages from '../../locales/en-US/globalMessages';
+// import commonMessages from '../../locales/en-US/globalMessages';
 import http, { getRedirectURL } from '../../utils/http';
 // import logoImg from '../../images/munew512.png';
 
@@ -96,12 +96,12 @@ class ResetForm extends React.Component {
 
     return (
       <Form onSubmit={this.handleSubmit}>
-        <Form.Item>
+        <Form.Item label={formatMessage({ id: 'app.common.messages.passwordTitle' })}>
           {getFieldDecorator('password', {
             rules: [
               {
                 required: true,
-                message: formatMessage(commonMessages.typePassword),
+                message: formatMessage({ id: 'app.common.messages.typePassword' }),
               },
               {
                 validator: this.validateToNextPassword,
@@ -112,16 +112,16 @@ class ResetForm extends React.Component {
               size="large"
               type="password"
               prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
-              placeholder={formatMessage(commonMessages.typePassword)}
+              placeholder={formatMessage({ id: 'app.common.messages.passwordPlaceholder' })}
             />,
           )}
         </Form.Item>
-        <Form.Item>
+        <Form.Item label={formatMessage({ id: 'app.common.messages.confirmPasswordTitle' })}>
           {getFieldDecorator('confirmPassword', {
             rules: [
               {
                 required: true,
-                message: formatMessage(commonMessages.confirmPassword),
+                message: formatMessage({ id: 'app.common.messages.emptyConfirmPassword' }),
               },
               {
                 validator: this.compareToFirstPassword,
@@ -132,7 +132,7 @@ class ResetForm extends React.Component {
               size="large"
               type="password"
               prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
-              placeholder={formatMessage(commonMessages.confirmPassword)}
+              placeholder={formatMessage({ id: 'app.common.messages.confirmPassword' })}
               onBlur={this.handleConfirmBlur}
             />,
           )}
@@ -168,27 +168,16 @@ export function Reset() {
   const cardFooter = (
     <div>
       <Link to="/signup">
-        <Button
-          size="large"
-          type="primary"
-          ghost
-          style={{ color: darkBlueColor, marginRight: '20px' }}
-        >
-          <FormattedMessage {...commonMessages.signUp} />
+        <Button type="primary" ghost style={{ color: darkBlueColor, marginRight: '20px' }}>
+          {formatMessage({ id: 'app.common.messages.signUp' })}
         </Button>
       </Link>
 
-      <span style={{ lineHeight: '60px' }}>
-        <FormattedMessage {...messages.or} />
-      </span>
+      <span style={{ lineHeight: '60px' }}>{formatMessage({ id: 'app.common.messages.or' })}</span>
 
       <Link to="/login">
-        <Button
-          type="primary"
-          ghost
-          style={{ color: darkBlueColor, marginLeft: '20px' }}
-        >
-          <FormattedMessage {...commonMessages.login} />
+        <Button type="primary" ghost style={{ color: darkBlueColor, marginLeft: '20px' }}>
+          {formatMessage({ id: 'app.common.messages.login' })}
         </Button>
       </Link>
     </div>
@@ -197,8 +186,7 @@ export function Reset() {
   return <CardPageCmp cardTitle={cardTitle} cardContent={cardContent} cardFooter={cardFooter} />;
 }
 
-export default connect(({  }) => ({
-}))(Reset);
+export default connect(({}) => ({}))(Reset);
 
 // Reset.propTypes = {
 //   dispatch: PropTypes.func.isRequired,

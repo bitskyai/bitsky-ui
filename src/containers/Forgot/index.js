@@ -121,23 +121,23 @@ class ForgotForm extends React.Component {
           style={{ marginBottom: '20px', display }}
         />
         <Form onSubmit={this.handleSubmit}>
-          <Form.Item>
+          <Form.Item label={formatMessage({ id: 'app.common.messages.emailTitle' })}>
             {getFieldDecorator('email', {
               rules: [
                 {
                   required: true,
-                  message: formatMessage(commonMessages.typeValidEmail),
+                  message: formatMessage({ id: 'app.common.messages.typeValidEmail' }),
                 },
                 {
                   type: 'email',
-                  message: formatMessage(commonMessages.invalidEmail),
+                  message: formatMessage({ id: 'app.common.messages.invalidEmail' }),
                 },
               ],
             })(
               <Input
                 size="large"
                 prefix={<Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                placeholder={formatMessage(messages.emailAddress)}
+                placeholder={formatMessage({ id: 'app.common.messages.emailPlaceholder' })}
               />,
             )}
           </Form.Item>
@@ -179,26 +179,16 @@ export function Forgot() {
   const cardFooter = (
     <div>
       <Link to="/signup">
-        <Button
-          type="primary"
-          ghost
-          style={{ color: darkBlueColor, marginRight: '20px' }}
-        >
-          <FormattedMessage {...commonMessages.signUp} />
+        <Button type="primary" ghost style={{ color: darkBlueColor, marginRight: '20px' }}>
+          {formatMessage({ id: 'app.common.messages.signUp' })}
         </Button>
       </Link>
 
-      <span style={{ lineHeight: '60px' }}>
-        <FormattedMessage {...messages.or} />
-      </span>
+      <span style={{ lineHeight: '60px' }}>{formatMessage({ id: 'app.common.messages.or' })}</span>
 
       <Link to="/login">
-        <Button
-          type="primary"
-          ghost
-          style={{ color: darkBlueColor, marginLeft: '20px' }}
-        >
-          <FormattedMessage {...commonMessages.login} />
+        <Button type="primary" ghost style={{ color: darkBlueColor, marginLeft: '20px' }}>
+          {formatMessage({ id: 'app.common.messages.login' })}
         </Button>
       </Link>
     </div>
