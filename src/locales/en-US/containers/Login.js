@@ -15,4 +15,6 @@ export default {
   'app.containers.LoginPage.invalidEmail': 'The input is not valid E-mail!',
   'app.containers.LoginPage.typeValidEmail': 'Please input your E-mail!',
   'app.containers.LoginPage.typePassword': 'Please input your password!',
+  'app.containers.LoginPage.existingAccount': `Hey there, we've already met!`,
+  'app.containers.LoginPage.existingAccountDescription': `Looks like you already have an account. Please sign in.`,
 };

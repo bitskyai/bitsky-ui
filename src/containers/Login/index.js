@@ -33,13 +33,14 @@ class LoginForm extends React.Component {
     autoCompleteResult: [],
     redirectUrl: undefined,
     sending: false,
+    alertType: 'error',
     error: undefined,
     errorMsg: undefined,
   };
 
   handleSubmit = e => {
     e.preventDefault();
-    this.setState({...this.state, sending: true});
+    this.setState({ ...this.state, sending: true });
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         // console.log('Received values of form: ', values);
@@ -64,7 +65,7 @@ class LoginForm extends React.Component {
             let err = {
               status: 500,
             };
-            let msg = formatMessage({ id: 'app.common.messages.serverTempDown'});
+            let msg = formatMessage({ id: 'app.common.messages.serverTempDown' });
             if (error && error.status) {
               err = {
                 status: error.status,
@@ -72,15 +73,15 @@ class LoginForm extends React.Component {
             }
             if (error && error.status) {
               if (error.status > 400 && error.status < 500) {
-                msg = formatMessage({ id: 'app.common.messages.signInFail'});
+                msg = formatMessage({ id: 'app.common.messages.signInFail' });
               } else if (error.status >= 500) {
-                msg = formatMessage({ id: 'app.common.messages.serverTempDown'});
+                msg = formatMessage({ id: 'app.common.messages.serverTempDown' });
               }
             }
             this.setState({ ...this.state, error: err, errorMsg: msg, sending: false });
           });
-      }else{
-        this.setState({...this.state, sending: false});
+      } else {
+        this.setState({ ...this.state, sending: false });
       }
     });
   };
@@ -94,8 +95,11 @@ class LoginForm extends React.Component {
     const { getFieldDecorator } = this.props.form;
     // const { autoCompleteResult } = this.state;
     // const { formatMessage } = this.props.intl;
-
+    let hash = (location && location.hash) || '';
     let display = 'none';
+    let errorMsg = this.state.errorMsg;
+    let alertType = this.state.alertType;
+    let errorDescription = '';
 
     if (this.state.redirectUrl) {
       return <Redirect to={this.state.redirectUrl} />;
@@ -103,44 +107,59 @@ class LoginForm extends React.Component {
 
     if (this.state.error) {
       display = 'block';
+    } else if (hash.search('existing') === 1) {
+      display = 'block';
+      alertType = 'info';
+      errorMsg = formatMessage({ id: 'app.containers.LoginPage.existingAccount' });
+      errorDescription = formatMessage({
+        id: 'app.containers.LoginPage.existingAccountDescription',
+      });
     }
 
     return (
       <div>
         <Alert
-          message={this.state.errorMsg}
-          type="error"
+          message={errorMsg}
+          description={errorDescription}
+          type={alertType}
           style={{ marginBottom: '20px', display }}
         />
+        <a href="/auth/github">
+          <Button type="primary" htmlType="submit" size="large" block>
+            <Icon type="github" style={{ verticalAlign: '1.5px' }} />
+            {formatMessage({ id: 'app.containers.LoginPage.signInWithGithub' })}
+          </Button>
+        </a>
+        <div style={{ color: 'grey', textAlign: 'center', padding: '15px 0' }}>
+          {formatMessage({ id: 'app.containers.LoginPage.or' })}
+        </div>
         <Form className="login-form" onSubmit={this.handleSubmit}>
-          <Form.Item label={formatMessage({id: 'app.common.messages.emailTitle'})}>
+          <Form.Item label={formatMessage({ id: 'app.common.messages.emailTitle' })}>
             {getFieldDecorator('email', {
               rules: [
                 {
                   type: 'email',
-                  message: formatMessage({ id: 'app.common.messages.invalidEmail'}),
+                  message: formatMessage({ id: 'app.common.messages.invalidEmail' }),
                 },
                 {
                   required: true,
-                  message: formatMessage({ id: 'app.common.messages.typeValidEmail'}),
+                  message: formatMessage({ id: 'app.common.messages.typeValidEmail' }),
                 },
               ],
             })(
               <Input
                 size="large"
-                prefix={
-                  <Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />
-                }
-                placeholder={formatMessage({ id: 'app.common.messages.emailPlaceholder'})}
+                prefix={<Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                placeholder={formatMessage({ id: 'app.common.messages.emailPlaceholder' })}
               />,
             )}
           </Form.Item>
-          <Form.Item label={formatMessage({id: 'app.common.messages.passwordTitle'})}>
+          <Form.Item label={formatMessage({ id: 'app.common.messages.passwordTitle' })}>
             {getFieldDecorator('password', {
               rules: [
                 {
                   required: true,
-                  message: formatMessage({ id: 'app.containers.LoginPage.typePassword'}),
+                  message: formatMessage({ id: 'app.containers.LoginPage.typePassword' }),
                 },
                 {
                   validator: this.validateToNextPassword,
@@ -150,10 +169,8 @@ class LoginForm extends React.Component {
               <Input
                 size="large"
                 type="password"
-                prefix={
-                  <Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />
-                }
-                placeholder={formatMessage({ id: 'app.common.messages.passwordPlaceholder'})}
+                prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                placeholder={formatMessage({ id: 'app.common.messages.passwordPlaceholder' })}
               />,
             )}
           </Form.Item>
@@ -165,8 +182,9 @@ class LoginForm extends React.Component {
               block
               ghost
               style={{ color: darkBlueColor }}
-              loading={this.state.sending}>
-              {formatMessage({ id: 'app.containers.LoginPage.login'})}
+              loading={this.state.sending}
+            >
+              {formatMessage({ id: 'app.containers.LoginPage.login' })}
             </Button>
           </Form.Item>
         </Form>
@@ -180,27 +198,16 @@ export function Login() {
   // useInjectSaga({ key: 'loginPage', saga });
   // const { formatMessage } = intl;
 
-  const WrappedSignupForm = Form.create({ name: 'login_form' })(
-    LoginForm,
-  );
+  const WrappedSignupForm = Form.create({ name: 'login_form' })(LoginForm);
 
   const cardContent = (
     <div>
-      <a href="/auth/github">
-        <Button type="primary" htmlType="submit" size="large" block>
-          <Icon type="github" style={{ verticalAlign: '1.5px' }} />
-          {formatMessage({ id: 'app.containers.LoginPage.signInWithGithub'})}
-        </Button>
-      </a>
-      <div style={{ color: 'grey', textAlign: 'center', padding: '15px 0' }}>
-        {formatMessage({ id: 'app.containers.LoginPage.or'})}
-      </div>
       <WrappedSignupForm />
       <div style={{ textAlign: 'center' }}>
         <Button type="link">
           <Link to="/forgot">
             <span style={{ textDecoration: 'underline' }}>
-              {formatMessage({ id: 'app.containers.LoginPage.forgetPassword'})}
+              {formatMessage({ id: 'app.containers.LoginPage.forgetPassword' })}
             </span>
           </Link>
         </Button>
@@ -210,17 +217,11 @@ export function Login() {
   const cardFooter = (
     <div>
       <span style={{ lineHeight: '60px' }}>
-        {formatMessage({ id: 'app.containers.LoginPage.newUser'})}
+        {formatMessage({ id: 'app.containers.LoginPage.newUser' })}
       </span>
 
-      <Button
-        type="primary"
-        ghost
-        style={{ color: darkBlueColor, marginLeft: '20px' }}
-      >
-        <Link to="/signup">
-          {formatMessage({ id: 'app.containers.LoginPage.signUp'})}
-        </Link>
+      <Button type="primary" ghost style={{ color: darkBlueColor, marginLeft: '20px' }}>
+        <Link to="/signup">{formatMessage({ id: 'app.containers.LoginPage.signUp' })}</Link>
       </Button>
     </div>
   );
@@ -236,8 +237,7 @@ export function Login() {
   );
 }
 
-export default connect(({  }) => ({
-}))(Login);
+export default connect(({}) => ({}))(Login);
 
 // export default connect({})(Login);
 
