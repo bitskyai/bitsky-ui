@@ -32,19 +32,30 @@ const AuthComponent = ({
   },
   user,
 }) => {
-  const { currentUser } = user;
-  const { routes = [] } = route;
-  const isLogin = currentUser && currentUser.name;
-  return (
-    <Authorized
-      authority={getRouteAuthority(location.pathname, routes) || ''}
-      noMatch={isLogin ? <Redirect to="/exception/403" /> : <Redirect to="/user/login" />}
-    >
-      {children}
-    </Authorized>
-  );
-};
+  // const { currentUser } = user;
+  // const { routes = [] } = route;
+  // const isLogin = currentUser && currentUser.name;
+  // return (
+  //   <Authorized
+  //     authority={getRouteAuthority(location.pathname, routes) || ''}
+  //     noMatch={isLogin ? <Redirect to="/exception/403" /> : <Redirect to="/user/login" />}
+  //   >
+  //     {children}
+  //   </Authorized>
+  // );
+
+  const {currentUser} = user;
+  if(currentUser && currentUser.profile){
+    return (
+      <div>
+        {children}
+      </div>
+    )
+  }else{
+    return <Redirect to="/login" />;
+  }
+}
 
 export default connect(({ user }) => ({
-  user,
+  user: user,
 }))(AuthComponent);

@@ -1,7 +1,9 @@
 import { queryNotices } from '@/services/user';
+import { getSelf } from '@/apis/account';
 const GlobalModel = {
   namespace: 'global',
   state: {
+    initedApp: false, // indicate whether this application is inited
     collapsed: false,
     notices: [],
   },
@@ -42,6 +44,22 @@ const GlobalModel = {
       });
     },
 
+    *initApp(_, {call, put}){
+      // init application
+      yield put({
+        type: 'initingApp'
+      });
+      const currentUser = yield call(getSelf);
+      yield put({
+        type: 'user/saveCurrentUser',
+        payload: currentUser
+      });
+
+      yield put({
+        type: 'initedApp'
+      });
+    },
+
     *changeNoticeReadState({ payload }, { put, select }) {
       const notices = yield select(state =>
         state.global.notices.map(item => {
@@ -68,6 +86,13 @@ const GlobalModel = {
     },
   },
   reducers: {
+    initingApp(state){
+      // update initedApp to false
+      return {...state, initedApp: false};
+    },
+    initedApp(state){
+      return {...state, initedApp: true};
+    },
     changeLayoutCollapsed(
       state = {
         notices: [],

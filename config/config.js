@@ -84,7 +84,6 @@ export default {
     {
       path: '/',
       component: '../layouts/BlankLayout',
-      Routes: ['src/pages/Authorized'],
       authority: ['admin', 'user'],
       routes: [
         { path: '/', redirect: '/app/intelligences' },
@@ -140,6 +139,7 @@ export default {
         {
           path: '/app',
           component: '../layouts/BasicLayout',
+          Routes: ['src/pages/Authorized'],
           routes:[
             { path: '/app/', redirect: '/app/intelligences' },
             {

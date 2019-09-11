@@ -8,7 +8,8 @@ export async function getSelf() {
     });
     return res.data;
   } catch (err) {
-    throw err;
+    return {};
+    // throw err;
   }
 }
 
