@@ -18,8 +18,8 @@ import {
   message,
 } from 'antd';
 const { Paragraph, Text } = Typography;
-import messages from '../../locales/en-US/containers/Agents';
-import commonMessages from '../../locales/en-US/globalMessages';
+// import messages from '../../locales/en-US/containers/Agents';
+// import commonMessages from '../../locales/en-US/globalMessages';
 import { registerAgentAPI, updateAgentAPI } from '../../apis/agents';
 // import { refreshAgents } from './actions';
 import {
@@ -70,7 +70,7 @@ class RegisterAgentForm extends React.Component {
             await registerAgentAPI(values);
             this.props.dispatch(refreshAgents());
           }
-          let msg = formatMessage(messages.registerAgentSuccessful);
+          let msg = formatMessage({ id: 'app.containers.Agents.registerAgentSuccessful' });
           message.success(msg);
           this.setState({
             sending: false,
@@ -99,13 +99,13 @@ class RegisterAgentForm extends React.Component {
       <div>
         <Drawer
           destroyOnClose={true}
-          title={formatMessage(messages.drawerTitle)}
+          title={formatMessage({ id: 'app.containers.Agents.drawerTitle' })}
           width={720}
           onClose={this.props.onCloseDrawer}
           visible={this.props.visiable}
         >
           <p>
-            <FormattedHTMLMessage {...messages.registerAgentDescription} />
+            <FormattedHTMLMessage id='app.containers.Agents.registerAgentDescription' />
           </p>
           <Form
             className="agent-form"
@@ -114,7 +114,7 @@ class RegisterAgentForm extends React.Component {
           >
             <FormItemContainer>
               <Form.Item
-                label={formatMessage(messages.agentName)}
+                label={formatMessage({ id: 'app.containers.Agents.agentName' })}
                 style={formItemStyle}
               >
                 {getFieldDecorator('name', {
@@ -122,27 +122,27 @@ class RegisterAgentForm extends React.Component {
                   rules: [
                     {
                       required: true,
-                      message: formatMessage(messages.agentNamePlaceholder),
+                      message: formatMessage({ id: 'app.containers.Agents.agentNamePlaceholder' }),
                     },
                     {
                       min: 1,
                       max: 100,
-                      message: formatMessage(messages.agentNameInvalid),
+                      message: formatMessage({ id: 'app.containers.Agents.agentNameInvalid' }),
                     },
                   ],
                 })(
                   <Input
-                    placeholder={formatMessage(messages.agentNameExample)}
+                    placeholder= {formatMessage({ id: 'app.containers.Agents.agentNameExample' })}
                   />,
                 )}
               </Form.Item>
               <FormDescription>
-                <FormattedHTMLMessage {...messages.agentNameDescription} />
+                <FormattedHTMLMessage id='app.containers.Agents.agentNameDescription' />
               </FormDescription>
             </FormItemContainer>
             <FormItemContainer>
               <Form.Item
-                label={formatMessage(messages.agentDescription)}
+                label={formatMessage({ id: 'app.containers.Agents.agentDescription' })}
                 style={formItemStyle}
               >
                 {getFieldDecorator('description', {
@@ -157,27 +157,23 @@ class RegisterAgentForm extends React.Component {
                     {
                       min: 1,
                       max: 200,
-                      message: formatMessage(messages.agentDescriptionInvalid),
+                      message: formatMessage({ id: 'app.containers.Agents.agentDescriptionInvalid' }),
                     },
                   ],
                 })(
                   <Input
-                    placeholder={formatMessage(
-                      messages.agentDescriptionExample,
-                    )}
+                    placeholder={ formatMessage({ id: 'app.containers.Agents.agentDescriptionExample' })}
                   />,
                 )}
               </Form.Item>
               <FormDescription>
-                <FormattedHTMLMessage
-                  {...messages.agentDescriptionDescription}
-                />
+                <FormattedHTMLMessage id='app.containers.Agents.agentDescriptionDescription' />
               </FormDescription>
             </FormItemContainer>
             {agent.globalId ? (
               <FormItemContainer>
                 <Form.Item
-                  label={formatMessage(commonMessages.globalId)}
+                  label={formatMessage({ id: 'app.common.messages.globalId' })}
                   style={formItemStyle}
                 >
                   {getFieldDecorator('globalId', {
@@ -185,9 +181,7 @@ class RegisterAgentForm extends React.Component {
                   })(<p>{agent.globalId}</p>)}
                 </Form.Item>
                 <FormDescription>
-                  <FormattedHTMLMessage
-                    {...commonMessages.globalIdDescription}
-                  />
+                  <FormattedHTMLMessage id='app.common.messages.globalIdDescription' />
                 </FormDescription>
               </FormItemContainer>
             ) : (
@@ -224,7 +218,7 @@ class RegisterAgentForm extends React.Component {
             )}
             <FormItemContainer>
               <Form.Item
-                label={formatMessage(messages.agentType)}
+                label={formatMessage({ id: 'app.containers.Agents.agentType' })}
                 style={formItemStyle}
               >
                 {getFieldDecorator('type', {
@@ -236,42 +230,38 @@ class RegisterAgentForm extends React.Component {
                   rules: [
                     {
                       required: true,
-                      message: formatMessage(messages.agentTypePlaceHolder),
+                      message: formatMessage({ id: 'app.containers.Agents.agentTypePlaceHolder' }),
                     },
                   ],
                 })(
                   <Select
-                    placeholder={formatMessage(messages.agentTypePlaceHolder)}
+                    placeholder={formatMessage({ id: 'app.containers.Agents.agentTypePlaceHolder' })}
                     onChange={value => {
                       this.onAgentTypeChange(value);
                     }}
                   >
                     <Select.Option value={AGENT_TYPES.browserExtension}>
-                      <FormattedHTMLMessage
-                        {...messages.browserExtensionAgent}
-                      />
+                      <FormattedHTMLMessage id='app.containers.Agents.browserExtensionAgent' />
                     </Select.Option>
                     <Select.Option value={AGENT_TYPES.service}>
-                      <FormattedHTMLMessage {...messages.serviceAgent} />
+                      <FormattedHTMLMessage id='app.containers.Agents.serviceAgent' />
                     </Select.Option>
                   </Select>,
                 )}
               </Form.Item>
               <FormDescription>
-                <FormattedHTMLMessage {...messages.agentTypeDescription} />
+                <FormattedHTMLMessage id='app.containers.Agents.agentTypeDescription' />
               </FormDescription>
             </FormItemContainer>
             <h3>
-              <FormattedMessage {...messages.agentConfiguration} />
+              <FormattedHTMLMessage id='app.containers.Agents.agentConfiguration' />
             </h3>
             <p>
-              <FormattedHTMLMessage
-                {...messages.agentConfigurationDescription}
-              />
+              <FormattedHTMLMessage id='app.containers.Agents.agentConfigurationDescription' />
             </p>
             <FormItemContainer>
               <Form.Item
-                label={formatMessage(messages.privateMode)}
+                label={formatMessage({ id: 'app.containers.Agents.privateMode' })}
                 style={formItemStyle}
               >
                 {getFieldDecorator('private', {
@@ -279,18 +269,18 @@ class RegisterAgentForm extends React.Component {
                   valuePropName: 'checked'
                 })(
                   <Switch
-                    checkedChildren={formatMessage(messages.switchOn)}
-                    unCheckedChildren={formatMessage(messages.switchOff)}
+                    checkedChildren={formatMessage({ id: 'app.containers.Agents.switchOn' })}
+                    unCheckedChildren={formatMessage({ id: 'app.containers.Agents.switchOff' })}
                   />,
                 )}
               </Form.Item>
               <FormDescription>
-                <FormattedHTMLMessage {...messages.privateModeDescription} />
+                <FormattedHTMLMessage id='app.containers.Agents.privateModeDescription' />
               </FormDescription>
             </FormItemContainer>
             <FormItemContainer>
               <Form.Item
-                label={formatMessage(messages.concurrentCollectIntelligences)}
+                label={formatMessage({ id: 'app.containers.Agents.concurrentCollectIntelligences' })}
                 style={formItemStyle}
               >
                 {getFieldDecorator('concurrent', {
@@ -298,26 +288,22 @@ class RegisterAgentForm extends React.Component {
                   rules: [
                     {
                       required: true,
-                      message: formatMessage(
-                        messages.concurrentCollectIntelligencesPlaceholder,
-                      ),
+                      message: formatMessage({ id: 'app.containers.Agents.concurrentCollectIntelligencesPlaceholder' }),
                     },
                     {
                       type: 'integer',
-                      message: formatHTMLMessage(messages.invalidInteger),
+                      message: formatHTMLMessage({ id: 'app.containers.Agents.invalidInteger' }),
                     },
                   ],
                 })(<InputNumber min={1} max={10} />)}
               </Form.Item>
               <FormDescription>
-                <FormattedHTMLMessage
-                  {...messages.concurrentCollectIntelligencesDescription}
-                />
+                <FormattedHTMLMessage id='app.containers.Agents.concurrentCollectIntelligencesDescription' />
               </FormDescription>
             </FormItemContainer>
             <FormItemContainer>
               <Form.Item
-                label={formatMessage(messages.pollingInterval)}
+                label={formatMessage({ id: 'app.containers.Agents.pollingInterval' })}
                 style={formItemStyle}
               >
                 {getFieldDecorator('pollingInterval', {
@@ -325,29 +311,25 @@ class RegisterAgentForm extends React.Component {
                   rules: [
                     {
                       required: true,
-                      message: formatMessage(
-                        messages.pollingIntervalPlaceholder,
-                      ),
+                      message: formatMessage({ id: 'app.containers.Agents.pollingIntervalPlaceholder' }),
                     },
                     {
                       type: 'integer',
-                      message: formatHTMLMessage(messages.invalidInteger),
+                      message: formatHTMLMessage({ id: 'app.containers.Agents.invalidInteger' }),
                     },
                   ],
                 })(<InputNumber min={1} max={200} />)}
                 <SecondUnitContainer>
-                  <FormattedMessage {...messages.second} />
+                  {formatMessage({ id: 'app.containers.Agents.second' })}
                 </SecondUnitContainer>
               </Form.Item>
               <FormDescription>
-                <FormattedHTMLMessage
-                  {...messages.pollingIntervalDescription}
-                />
+                <FormattedHTMLMessage id='app.containers.Agents.pollingIntervalDescription' />
               </FormDescription>
             </FormItemContainer>
             <FormItemContainer>
               <Form.Item
-                label={formatMessage(messages.maxWaitingTime)}
+                label={formatMessage({ id: 'app.containers.Agents.maxWaitingTime' })}
                 style={formItemStyle}
               >
                 {getFieldDecorator('maxWaitingTime', {
@@ -355,27 +337,25 @@ class RegisterAgentForm extends React.Component {
                   rules: [
                     {
                       required: true,
-                      message: formatMessage(
-                        messages.maxWaitingTimePlaceholder,
-                      ),
+                      message: formatMessage({ id: 'app.containers.Agents.maxWaitingTimePlaceholder' })
                     },
                     {
                       type: 'integer',
-                      message: formatHTMLMessage(messages.invalidInteger),
+                      message: formatHTMLMessage({ id: 'app.containers.Agents.invalidInteger' }),
                     },
                   ],
                 })(<InputNumber min={1} max={10} />)}
                 <SecondUnitContainer>
-                  <FormattedMessage {...messages.second} />
+                  {formatMessage({ id: 'app.containers.Agents.second' })}
                 </SecondUnitContainer>
               </Form.Item>
               <FormDescription>
-                <FormattedHTMLMessage {...messages.maxWaitingTimeDescription} />
+                <FormattedHTMLMessage id='app.containers.Agents.maxWaitingTimeDescription' />
               </FormDescription>
             </FormItemContainer>
             <FormItemContainer>
               <Form.Item
-                label={formatMessage(messages.maxCollectTime)}
+                label={formatMessage({ id: 'app.containers.Agents.maxCollectTime' })}
                 style={formItemStyle}
               >
                 {getFieldDecorator('maxCollect', {
@@ -383,24 +363,22 @@ class RegisterAgentForm extends React.Component {
                   rules: [
                     {
                       required: true,
-                      message: formatMessage(
-                        messages.maxCollectTimePlaceholder,
-                      ),
+                      message: formatMessage({ id: 'app.containers.Agents.maxCollectTimePlaceholder' })
                     },
                     {
                       type: 'integer',
-                      message: formatHTMLMessage(messages.invalidInteger),
+                      message: formatHTMLMessage({ id: 'app.containers.Agents.invalidInteger' }),
                     },
                   ],
                 })(<InputNumber min={10} max={100} />)}
               </Form.Item>
               <FormDescription>
-                <FormattedHTMLMessage {...messages.maxCollectTimeDescription} />
+                <FormattedHTMLMessage id='app.containers.Agents.maxCollectTimeDescription' />
               </FormDescription>
             </FormItemContainer>
             <FormItemContainer>
               <Form.Item
-                label={formatMessage(messages.agentIdleTime)}
+                label={formatMessage({ id: 'app.containers.Agents.agentIdleTime' })}
                 style={formItemStyle}
               >
                 {getFieldDecorator('idelTime', {
@@ -408,25 +386,25 @@ class RegisterAgentForm extends React.Component {
                   rules: [
                     {
                       required: true,
-                      message: formatMessage(messages.agentIdleTimePlaceholder),
+                      message: formatMessage({ id: 'app.containers.Agents.agentIdleTimePlaceholder' }),
                     },
                     {
                       type: 'integer',
-                      message: formatHTMLMessage(messages.invalidInteger),
+                      message: formatHTMLMessage({ id: 'app.containers.Agents.invalidInteger' }),
                     },
                   ],
                 })(<InputNumber min={0} max={100} />)}
                 <SecondUnitContainer>
-                  <FormattedMessage {...messages.second} />
+                  {formatMessage({ id: 'app.containers.Agents.second' })}
                 </SecondUnitContainer>
               </Form.Item>
               <FormDescription>
-                <FormattedHTMLMessage {...messages.agentIdleTimeDescription} />
+                <FormattedHTMLMessage id='app.containers.Agents.agentIdleTimeDescription' />
               </FormDescription>
             </FormItemContainer>
             <FormItemContainer>
               <Form.Item
-                label={formatMessage(messages.requestTimeout)}
+                label={formatMessage({ id: 'app.containers.Agents.requestTimeout' })}
                 style={formItemStyle}
               >
                 {getFieldDecorator('timeout', {
@@ -434,27 +412,25 @@ class RegisterAgentForm extends React.Component {
                   rules: [
                     {
                       required: true,
-                      message: formatMessage(
-                        messages.requestTimeoutPlaceholder,
-                      ),
+                      message: formatMessage({ id: 'app.containers.Agents.requestTimeoutPlaceholder' })
                     },
                     {
                       type: 'integer',
-                      message: formatHTMLMessage(messages.invalidInteger),
+                      message: formatHTMLMessage({ id: 'app.containers.Agents.invalidInteger' }),
                     },
                   ],
                 })(<InputNumber min={1} max={1000} />)}
                 <SecondUnitContainer>
-                  <FormattedMessage {...messages.second} />
+                  {formatMessage({ id: 'app.containers.Agents.second' })}
                 </SecondUnitContainer>
               </Form.Item>
               <FormDescription>
-                <FormattedHTMLMessage {...messages.requestTimeoutDescription} />
+                <FormattedHTMLMessage id='app.containers.Agents.requestTimeoutDescription' />
               </FormDescription>
             </FormItemContainer>
             <FormItemContainer>
               <Form.Item
-                label={formatMessage(messages.maxRetryTime)}
+                label={formatMessage({ id: 'app.containers.Agents.maxRetryTime' })}
                 style={formItemStyle}
               >
                 {getFieldDecorator('maxRetry', {
@@ -462,24 +438,24 @@ class RegisterAgentForm extends React.Component {
                   rules: [
                     {
                       required: true,
-                      message: formatMessage(messages.maxRetryTimePlaceholder),
+                      message: formatMessage({ id: 'app.containers.Agents.maxRetryTimePlaceholder' }),
                     },
                     {
                       type: 'integer',
-                      message: formatHTMLMessage(messages.invalidInteger),
+                      message: formatHTMLMessage({ id: 'app.containers.Agents.invalidInteger' }),
                     },
                   ],
                 })(<InputNumber min={1} max={5} />)}
               </Form.Item>
               <FormDescription>
-                <FormattedHTMLMessage {...messages.maxRetryTimeDescription} />
+                <FormattedHTMLMessage id='app.containers.Agents.maxRetryTimeDescription' />
               </FormDescription>
             </FormItemContainer>
             {this.state.agentType === AGENT_TYPES.service ? (
               <div>
                 <FormItemContainer>
                   <Form.Item
-                    label={formatMessage(messages.baseURL)}
+                    label={formatMessage({ id: 'app.containers.Agents.baseURL' })}
                     style={formItemStyle}
                   >
                     {getFieldDecorator('baseURL', {
@@ -487,34 +463,34 @@ class RegisterAgentForm extends React.Component {
                       rules: [
                         {
                           required: true,
-                          message: formatMessage(messages.baseURLEmptyError),
+                          message: formatMessage({ id: 'app.containers.Agents.baseURLEmptyError' }),
                         },
                         {
                           pattern: /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)([a-z0-9\.])*(:[0-9]{1,5})?(\/.*)?$/i,
-                          message: formatMessage(messages.baseURLEmptyError),
+                          message: formatMessage({ id: 'app.containers.Agents.baseURLEmptyError' }),
                         },
                       ],
                     })(
                       <Input
-                        placeholder={formatMessage(messages.baseURLExample)}
+                        placeholder={formatMessage({ id: 'app.containers.Agents.baseURLExample' })}
                       />,
                     )}
                   </Form.Item>
                   <FormDescription>
-                    <FormattedHTMLMessage {...messages.baseURLDescription} />
+                    <FormattedHTMLMessage id='app.containers.Agents.baseURLDescription' />
                   </FormDescription>
                 </FormItemContainer>
                 <h3>
-                  <FormattedMessage {...commonMessages.healthTitle} />
+                  {formatMessage({ id: 'app.common.messages.healthTitle' })}
                 </h3>
                 <p>
-                  <FormattedHTMLMessage {...messages.healthDescription} />
+                  {formatHTMLMessage({ id: 'app.containers.Agents.healthDescription' })}
                 </p>
                 <Row gutter={16}>
                   <Col span={8}>
                     <FormItemContainer>
                       <Form.Item
-                        label={formatMessage(commonMessages.httpMethod)}
+                        label={formatMessage({ id: 'app.common.messages.httpMethod' })}
                         style={formItemStyle}
                       >
                         {getFieldDecorator('health.method', {
@@ -526,16 +502,12 @@ class RegisterAgentForm extends React.Component {
                           rules: [
                             {
                               required: true,
-                              message: formatMessage(
-                                commonMessages.httpMethodPlaceHolder,
-                              ),
+                              message: formatMessage({ id: 'app.common.messages.httpMethodPlaceHolder' }),
                             },
                           ],
                         })(
                           <Select
-                            placeholder={formatMessage(
-                              commonMessages.httpMethodPlaceHolder,
-                            )}
+                            placeholder={formatMessage({ id: 'app.common.messages.httpMethodPlaceHolder' })}
                           >
                             <Select.Option value="GET">GET</Select.Option>
                             <Select.Option value="POST">POST</Select.Option>
@@ -545,16 +517,14 @@ class RegisterAgentForm extends React.Component {
                         )}
                       </Form.Item>
                       <FormDescription>
-                        <FormattedHTMLMessage
-                          {...commonMessages.httpMethodDescription}
-                        />
+                        <FormattedHTMLMessage id='app.common.messages.httpMethodDescription' />
                       </FormDescription>
                     </FormItemContainer>
                   </Col>
                   <Col span={16}>
                     <FormItemContainer>
                       <Form.Item
-                        label={formatMessage(commonMessages.urlPath)}
+                        label={formatMessage({ id: 'app.common.messages.urlPath' })}
                         style={formItemStyle}
                       >
                         {getFieldDecorator('health.path', {
@@ -566,23 +536,17 @@ class RegisterAgentForm extends React.Component {
                           rules: [
                             {
                               required: true,
-                              message: formatMessage(
-                                commonMessages.urlPathPlaceHolder,
-                              ),
+                              message: formatMessage({ id: 'app.common.messages.urlPathPlaceHolder' }),
                             },
                           ],
                         })(
                           <Input
-                            placeholder={formatMessage(
-                              commonMessages.urlPathPlaceHolder,
-                            )}
+                            placeholder={formatMessage({ id: 'app.common.messages.urlPathPlaceHolder' })}
                           />,
                         )}
                       </Form.Item>
                       <FormDescription>
-                        <FormattedHTMLMessage
-                          {...commonMessages.urlPathDescription}
-                        />
+                        <FormattedHTMLMessage id='app.common.messages.urlPathDescription' />
                       </FormDescription>
                     </FormItemContainer>
                   </Col>
@@ -608,7 +572,7 @@ class RegisterAgentForm extends React.Component {
               onClick={this.props.onCloseDrawer}
               style={{ marginRight: 8 }}
             >
-              <FormattedMessage {...commonMessages.cancel} />
+              {formatMessage({ id: 'app.common.messages.cancel' })}
             </Button>
             <Button
               // disabled={!isFieldsTouched() || this.hasErrors(getFieldsError())}
@@ -616,7 +580,7 @@ class RegisterAgentForm extends React.Component {
               onClick={this.registerAgent}
               type="primary"
             >
-              <FormattedMessage {...messages.registerNow} />
+              {formatMessage({ id: 'app.containers.Agents.registerNow' })}
             </Button>
           </div>
         </Drawer>

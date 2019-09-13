@@ -1,5 +1,6 @@
 export default {
   'app.common.messages.munew': 'MUNEW',
+  'app.common.messages.menu.home': 'Home',
   'app.common.messages.copyright': 'Copyright',
   'app.common.messages.emailTitle': 'Email Address',
   'app.common.messages.emailPlaceholder': 'name@company.com',
@@ -59,4 +60,5 @@ export default {
   'app.common.messages.stateTimeout': 'Timeout',
   'app.common.messages.search': 'Search',
   'app.common.messages.reset': 'Reset',
+  'app.common.messages.healthTitle': 'Health Check',
 };

@@ -7,6 +7,7 @@ import globalHeader from './en-US/globalHeader';
 import menu from './en-US/menu';
 import pwa from './en-US/pwa';
 import loginCtn from './en-US/containers/Login';
+import agentsCtn from './en-US/containers/Agents';
 import signupCtn from './en-US/containers/Signup';
 // import settings from './en-US/settings';
 export default {
@@ -24,5 +25,6 @@ export default {
   ...pwa,
   ...component,
   ...loginCtn,
+  ...agentsCtn,
   ...signupCtn
 };

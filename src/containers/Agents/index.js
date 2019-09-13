@@ -19,8 +19,8 @@ import { Empty, Table, Button, Popconfirm, message, Card } from 'antd';
 // import makeSelectAgents from './selectors';
 // import reducer from './reducer';
 // import saga from './saga';
-import messages from '../../locales/en-US/containers/Agents';
-import commonMessages from '../../locales/en-US/globalMessages';
+// import messages from '../../locales/en-US/containers/Agents';
+// import commonMessages from '../../locales/en-US/globalMessages';
 import RegisterAgentForm from './RegisterAgentForm';
 import AgentsSkeleton from './AgentsSkeleton';
 // import {
@@ -87,7 +87,7 @@ export function Agents({ dispatch, agents }) {
         dispatch({
           type: 'agents/refreshAgents',
         });
-        let msg = formatMessage(messages.deleteAgentSuccessful);
+        let msg = formatMessage({ id: 'app.containers.Agents.deleteAgentSuccessful' });
         message.success(msg);
       },
       err => {
@@ -104,7 +104,7 @@ export function Agents({ dispatch, agents }) {
         dispatch({
           type: 'agents/refreshAgents',
         });
-        let msg = formatMessage(messages.activateAgentSuccess);
+        let msg = formatMessage({ id: 'app.containers.Agents.activateAgentSuccess' });
         message.success(msg);
       },
       err => {
@@ -121,7 +121,7 @@ export function Agents({ dispatch, agents }) {
         dispatch({
           type: 'agents/refreshAgents',
         });
-        let msg = formatMessage(messages.deactivateAgentSuccess);
+        let msg = formatMessage({ id: 'app.containers.Agents.deactivateAgentSuccess' });
         message.success(msg);
       },
       err => {
@@ -155,7 +155,7 @@ export function Agents({ dispatch, agents }) {
         // dispatch(refreshAgentsSuccess(agents));
         dispatch({
           type: 'agents/refreshAgentsSuccess',
-          payload: agents
+          payload: agents,
         });
       },
       err => {
@@ -163,7 +163,7 @@ export function Agents({ dispatch, agents }) {
         // dispatch(refreshAgentsFail(err));
         dispatch({
           type: 'agents/refreshAgentsFail',
-          error: err
+          error: err,
         });
       },
     );
@@ -172,19 +172,19 @@ export function Agents({ dispatch, agents }) {
 
   const columns = [
     {
-      title: formatMessage(messages.agentName),
+      title: formatMessage({ id: 'app.containers.Agents.agentName' }),
       dataIndex: 'name',
     },
     {
-      title: formatMessage(messages.agentType),
+      title: formatMessage({ id: 'app.containers.Agents.agentType' }),
       dataIndex: 'type',
     },
     {
-      title: formatMessage(commonMessages.state),
+      title: formatMessage({ id: 'app.common.messages.state' }),
       dataIndex: 'system.state',
     },
     {
-      title: formatMessage(commonMessages.action),
+      title: formatMessage({ id: 'app.common.messages.action' }),
       dataIndex: '',
       key: 'x',
       render: (text, record) => {
@@ -198,36 +198,36 @@ export function Agents({ dispatch, agents }) {
               <Button
                 size="small"
                 style={actionButtonStyle}
-                title={formatMessage(messages.deactivateDescription)}
+                title={formatMessage({ id: 'app.containers.Agents.deactivateDescription' })}
                 onClick={e => {
                   deactivateAgent(record, e);
                 }}
               >
-                <FormattedMessage {...commonMessages.deactivate} />
+                {formatMessage({ id: 'app.common.messages.deactivate' })}
               </Button>
             ) : (
               <Button
                 size="small"
                 style={actionButtonStyle}
-                title={formatMessage(messages.activateDescription)}
+                title={formatMessage({ id: 'app.containers.Agents.activateDescription' })}
                 onClick={e => {
                   activateAgent(record, e);
                 }}
               >
-                <FormattedMessage {...commonMessages.activate} />
+                {formatMessage({ id: 'app.common.messages.activate' })}
               </Button>
             )}
             <Popconfirm
               style={{ maxWidth: '300px' }}
-              title={formatMessage(messages.deleteAgentDescription)}
+              title={formatMessage({ id: 'app.containers.Agents.deleteAgentDescription' })}
               onConfirm={e => {
                 onDeleteAAgent(record, e);
               }}
               onCancel={e => {
                 onClickCancel(record, e);
               }}
-              okText={formatMessage(commonMessages.yes)}
-              cancelText={formatMessage(commonMessages.no)}
+              okText={formatMessage({ id: 'app.common.messages.yes' })}
+              cancelText={formatMessage({ id: 'app.common.messages.no' })}
             >
               <Button
                 size="small"
@@ -236,7 +236,7 @@ export function Agents({ dispatch, agents }) {
                   onClickDelete(record, e);
                 }}
               >
-                <FormattedMessage {...commonMessages.delete} />
+                {formatMessage({ id: 'app.common.messages.delete' })}
               </Button>
             </Popconfirm>
           </div>
@@ -250,14 +250,10 @@ export function Agents({ dispatch, agents }) {
       content = (
         <EmptyContainer>
           <Empty
-            description={
-              <span>
-                <FormattedHTMLMessage {...messages.emptyAgents} />
-              </span>
-            }
+            description={<span>{formatMessage({ id: 'app.containers.Agents.emptyAgents' })}</span>}
           >
             <Button type="primary" onClick={onRegisterAgent}>
-              <FormattedMessage {...messages.registerNow} />
+              {formatMessage({ id: 'app.containers.Agents.registerNow' })}
             </Button>
           </Empty>
         </EmptyContainer>
@@ -268,7 +264,7 @@ export function Agents({ dispatch, agents }) {
           <div style={{ padding: '0 24px' }}>
             <div style={{ padding: '0 0 20px 0' }}>
               <Button onClick={onRegisterAgent} type="primary">
-                <FormattedMessage {...messages.registerNow} />
+                {formatMessage({ id: 'app.containers.Agents.registerNow' })}
               </Button>
             </div>
             <Table
@@ -329,8 +325,8 @@ export function Agents({ dispatch, agents }) {
   );
 }
 
-export default connect(({agents}) => ({
-  agents: agents&&agents.data
+export default connect(({ agents }) => ({
+  agents: agents && agents.data,
 }))(Agents);
 
 // Agents.propTypes = {

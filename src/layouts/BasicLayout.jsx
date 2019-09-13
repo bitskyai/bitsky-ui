@@ -70,7 +70,7 @@ const BasicLayout = props => {
         {
           path: '/',
           breadcrumbName: formatMessage({
-            id: 'menu.home',
+            id: 'app.common.messages.menu.home',
             defaultMessage: 'Home',
           }),
         },
