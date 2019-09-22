@@ -70,8 +70,8 @@ class SignupForm extends React.Component {
               statusCode = error.status;
             }
             if (statusCode == 422) {
-              // diaui_00154220002 - this email already registered, so need to redirect user to login page
-              if(error.code === 'diaui_00154220002'){
+              // 00154220002 - this email already registered, so need to redirect user to login page
+              if(error.code === '00154220002'){
                 this.setState({
                   redirectUrl: '/login#existing',
                 });
