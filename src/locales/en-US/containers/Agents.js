@@ -13,7 +13,8 @@ export default {
   'app.containers.Agents.emptyAgents':
     'You don\'t have any <a href="https://docs.munew.io/guide/concepts/agent" target="_blank">Agents</a>',
   'app.containers.Agents.registerNow': 'Register',
-  'app.containers.Agents.drawerTitle': 'Register an Agent',
+  'app.containers.Agents.drawerTitleCreate': 'Register an Agent',
+  'app.containers.Agents.drawerTitleUpdate': 'Modify this Agent',
   'app.containers.Agents.registerAgentDescription':
     'Agent is the client that collect the intelligences your SOIs created. It has several types: <a href="#" target="_blank">browser extension</a>, <a href="#" target="_blank">service</a>, you also can develop an agent by yourself',
   'app.containers.Agents.deleteAgentDescription': 'Are you sure delete this Agent?',

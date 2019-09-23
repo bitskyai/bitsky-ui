@@ -30,6 +30,7 @@ export default {
   'app.common.messages.login': 'LOG IN',
   'app.common.messages.nameInvalid':
     "Make sure it's at least 3 characters, and at most 20 characters",
+  'app.common.messages.save': 'Save',
   'app.common.messages.yes': 'Yes',
   'app.common.messages.no': 'No',
   'app.common.messages.delete': 'Delete',
