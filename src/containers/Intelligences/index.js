@@ -8,6 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
 import $ from 'jquery';
+import _ from 'lodash';
 
 // import { connect } from 'react-redux';
 import { connect } from 'dva';
@@ -506,7 +507,7 @@ export class Intelligences extends React.Component {
             <div style={{ padding: '0 24px' }}>
               <div style={{ paddingBottom: '15px' }}>
                 <Row>
-                  <Col span={12}>
+                  <Col span={14}>
                     <Button
                       onClick={() => {
                         this.onPauseAll();
@@ -546,9 +547,9 @@ export class Intelligences extends React.Component {
                       />
                     </Button>
                   </Col>
-                  <Col span={12} style={{ textAlign: 'right' }}>
+                  <Col span={10} style={{ textAlign: 'right' }}>
                     <div style={{ display: 'inline-block' }}>
-                      <span>{`Show ${intelligences.data.length} of ${
+                      <span>{`Show ${_.get(intelligences, 'data.length')} of ${
                         intelligences.total
                       } intelligences`}</span>
                     </div>
@@ -578,7 +579,7 @@ export class Intelligences extends React.Component {
                 rowSelection={rowSelection}
                 dataSource={intelligences.data}
                 rowKey={record => record._id}
-                scroll={{ y: contentHeight - 250 }}
+                scroll={{ y: contentHeight - 310 }}
                 onRow={record => {
                   return {
                     onClick: () => {
@@ -604,7 +605,7 @@ export class Intelligences extends React.Component {
 }
 
 export default connect(({intelligences}) => ({
-  intelligences: intelligences&&intelligences.data
+  intelligences
 }))(Intelligences);
 
 // Intelligences.propTypes = {

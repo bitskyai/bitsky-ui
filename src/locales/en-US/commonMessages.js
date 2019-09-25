@@ -12,7 +12,7 @@ export default {
   'app.common.messages.nameTitle': 'Name(3 to 20 characters)',
   'app.common.messages.namePlaceholder': 'Neo',
   // 'app.common.messages.signin': 'LOG IN',
-  // 'app.common.messages.signup': 'SIGN UP',
+  'app.common.messages.settings': 'Settings',
   'app.common.messages.logout': 'Logout',
   'app.common.messages.productName': 'MUNEW',
   'app.common.messages.slogan': 'Make Life Productive',
@@ -46,8 +46,7 @@ export default {
   'app.common.messages.httpMethodPlaceHolder': 'Please select your HTTP method',
   'app.common.messages.httpMethodDescription':
     'Please select your HTTP method. <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods" target="_blank">Learn More.</a>',
-  'app.common.messages.urlPath':
-    'URL path of your callback. <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Identifying_resources_on_the_Web#Path" target="_blank">Learn More.</a>',
+  'app.common.messages.urlPath': 'URL Path',
   'app.common.messages.urlPathPlaceHolder': 'Please enter your URL path',
   'app.common.messages.healthSectionTitle': 'Health Check',
   'app.common.messages.activate': 'Activate',
@@ -62,4 +61,6 @@ export default {
   'app.common.messages.search': 'Search',
   'app.common.messages.reset': 'Reset',
   'app.common.messages.healthTitle': 'Health Check',
+  'app.common.messages.urlPathDescription':
+    'URL path of your callback. <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Identifying_resources_on_the_Web#Path" target="_blank">Learn More.</a>',
 };

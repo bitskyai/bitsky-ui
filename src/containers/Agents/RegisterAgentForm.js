@@ -10,6 +10,7 @@ import {
   formatHTMLMessage,
 } from 'umi-plugin-react/locale';
 import {
+  Alert,
   Drawer,
   Form,
   Button,
@@ -69,10 +70,14 @@ class RegisterAgentForm extends React.Component {
           if (this.props.agent) {
             values.globalId = this.props.agent.globalId;
             await updateAgentAPI(values);
-            this.props.dispatch(refreshAgents());
+            this.props.dispatch({
+              type: 'agents/refreshAgents',
+            });
           } else {
             await registerAgentAPI(values);
-            this.props.dispatch(refreshAgents());
+            this.props.dispatch({
+              type: 'agents/refreshAgents',
+            });
           }
           let msg = formatMessage({ id: 'app.containers.Agents.registerAgentSuccessful' });
           message.success(msg);
@@ -96,8 +101,11 @@ class RegisterAgentForm extends React.Component {
     // const { formatMessage, formatHTMLMessage } = this.props.intl;
     let agent = this.props.agent || DEFAULT_AGENT_CONFIGURATION;
     let readOnly = false;
+    // whether show active agent tip to user, to let user know, need to deactive it before user can modify
+    let activeAgentTip = false;
     if (_.get(agent, 'system.state') === AGENT_STATE.active) {
       readOnly = true;
+      activeAgentTip = true;
     }
     let disableSaveBtn = true;
     let drawerTitle = formatMessage({ id: 'app.containers.Agents.drawerTitleCreate' });
@@ -132,6 +140,17 @@ class RegisterAgentForm extends React.Component {
           onClose={this.props.onCloseDrawer}
           visible={this.props.visiable}
         >
+          {activeAgentTip ? (
+            <div style={{ margin: '0 0 15px 0' }}>
+              <Alert
+                type="warning"
+                showIcon
+                message={formatHTMLMessage({ id: 'app.containers.Agents.activeAgentTip' })}
+              />
+            </div>
+          ) : (
+            ''
+          )}
           <p>
             <FormattedHTMLMessage id="app.containers.Agents.registerAgentDescription" />
           </p>
@@ -156,6 +175,7 @@ class RegisterAgentForm extends React.Component {
                   ],
                 })(
                   <Input
+                    disabled={readOnly}
                     placeholder={formatMessage({ id: 'app.containers.Agents.agentNameExample' })}
                   />,
                 )}
@@ -188,6 +208,7 @@ class RegisterAgentForm extends React.Component {
                   ],
                 })(
                   <Input
+                    disabled={readOnly}
                     placeholder={formatMessage({
                       id: 'app.containers.Agents.agentDescriptionExample',
                     })}
@@ -250,7 +271,7 @@ class RegisterAgentForm extends React.Component {
                 style={formItemStyle}
               >
                 {getFieldDecorator('type', {
-                  initialValue: _.get(this, 'props.agent.type', AGENT_TYPES.browserExtension),
+                  initialValue: _.toUpper(_.get(this, 'props.agent.type', AGENT_TYPES.browserExtension)),
                   rules: [
                     {
                       required: true,
@@ -259,6 +280,7 @@ class RegisterAgentForm extends React.Component {
                   ],
                 })(
                   <Select
+                    disabled={readOnly}
                     placeholder={formatMessage({
                       id: 'app.containers.Agents.agentTypePlaceHolder',
                     })}
@@ -295,6 +317,7 @@ class RegisterAgentForm extends React.Component {
                   valuePropName: 'checked',
                 })(
                   <Switch
+                    disabled={readOnly}
                     checkedChildren={formatMessage({ id: 'app.containers.Agents.switchOn' })}
                     unCheckedChildren={formatMessage({ id: 'app.containers.Agents.switchOff' })}
                   />,
@@ -325,7 +348,7 @@ class RegisterAgentForm extends React.Component {
                       message: formatHTMLMessage({ id: 'app.containers.Agents.invalidInteger' }),
                     },
                   ],
-                })(<InputNumber min={1} max={10} />)}
+                })(<InputNumber disabled={readOnly} min={1} max={10} />)}
               </Form.Item>
               <FormDescription>
                 <FormattedHTMLMessage id="app.containers.Agents.concurrentCollectIntelligencesDescription" />
@@ -350,7 +373,7 @@ class RegisterAgentForm extends React.Component {
                       message: formatHTMLMessage({ id: 'app.containers.Agents.invalidInteger' }),
                     },
                   ],
-                })(<InputNumber min={1} max={200} />)}
+                })(<InputNumber disabled={readOnly} min={1} max={200} />)}
                 <SecondUnitContainer>
                   {formatMessage({ id: 'app.containers.Agents.second' })}
                 </SecondUnitContainer>
@@ -378,7 +401,7 @@ class RegisterAgentForm extends React.Component {
                       message: formatHTMLMessage({ id: 'app.containers.Agents.invalidInteger' }),
                     },
                   ],
-                })(<InputNumber min={1} max={10} />)}
+                })(<InputNumber disabled={readOnly} min={1} max={10} />)}
                 <SecondUnitContainer>
                   {formatMessage({ id: 'app.containers.Agents.second' })}
                 </SecondUnitContainer>
@@ -406,7 +429,7 @@ class RegisterAgentForm extends React.Component {
                       message: formatHTMLMessage({ id: 'app.containers.Agents.invalidInteger' }),
                     },
                   ],
-                })(<InputNumber min={10} max={100} />)}
+                })(<InputNumber disabled={readOnly} min={10} max={100} />)}
               </Form.Item>
               <FormDescription>
                 <FormattedHTMLMessage id="app.containers.Agents.maxCollectTimeDescription" />
@@ -431,7 +454,7 @@ class RegisterAgentForm extends React.Component {
                       message: formatHTMLMessage({ id: 'app.containers.Agents.invalidInteger' }),
                     },
                   ],
-                })(<InputNumber min={0} max={100} />)}
+                })(<InputNumber disabled={readOnly} min={0} max={100} />)}
                 <SecondUnitContainer>
                   {formatMessage({ id: 'app.containers.Agents.second' })}
                 </SecondUnitContainer>
@@ -459,7 +482,7 @@ class RegisterAgentForm extends React.Component {
                       message: formatHTMLMessage({ id: 'app.containers.Agents.invalidInteger' }),
                     },
                   ],
-                })(<InputNumber min={1} max={1000} />)}
+                })(<InputNumber disabled={readOnly} min={1} max={1000} />)}
                 <SecondUnitContainer>
                   {formatMessage({ id: 'app.containers.Agents.second' })}
                 </SecondUnitContainer>
@@ -487,7 +510,7 @@ class RegisterAgentForm extends React.Component {
                       message: formatHTMLMessage({ id: 'app.containers.Agents.invalidInteger' }),
                     },
                   ],
-                })(<InputNumber min={1} max={5} />)}
+                })(<InputNumber disabled={readOnly} min={1} max={5} />)}
               </Form.Item>
               <FormDescription>
                 <FormattedHTMLMessage id="app.containers.Agents.maxRetryTimeDescription" />
@@ -514,6 +537,7 @@ class RegisterAgentForm extends React.Component {
                       ],
                     })(
                       <Input
+                        disabled={readOnly}
                         placeholder={formatMessage({ id: 'app.containers.Agents.baseURLExample' })}
                       />,
                     )}
@@ -523,7 +547,9 @@ class RegisterAgentForm extends React.Component {
                   </FormDescription>
                 </FormItemContainer>
                 <h3>{formatMessage({ id: 'app.common.messages.healthTitle' })}</h3>
-                <p>{formatHTMLMessage({ id: 'app.containers.Agents.healthDescription' })}</p>
+                <p>
+                  <FormattedHTMLMessage id="app.containers.Agents.healthDescription" />
+                </p>
                 <Row gutter={16}>
                   <Col span={8}>
                     <FormItemContainer>
@@ -543,6 +569,7 @@ class RegisterAgentForm extends React.Component {
                           ],
                         })(
                           <Select
+                            disabled={readOnly}
                             placeholder={formatMessage({
                               id: 'app.common.messages.httpMethodPlaceHolder',
                             })}
@@ -577,6 +604,7 @@ class RegisterAgentForm extends React.Component {
                           ],
                         })(
                           <Input
+                            disabled={readOnly}
                             placeholder={formatMessage({
                               id: 'app.common.messages.urlPathPlaceHolder',
                             })}

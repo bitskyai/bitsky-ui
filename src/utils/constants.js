@@ -3,9 +3,9 @@ export const DAEMON = '@@saga-injector/daemon';
 export const ONCE_TILL_UNMOUNT = '@@saga-injector/once-till-unmount';
 
 export const AGENT_TYPES = {
-  browserExtension: 'browserExtension',
-  headlessBrowser: 'headlessBrowser',
-  service: 'service',
+  browserExtension: 'BROWSEREXTENSION',
+  headlessBrowser: 'HEADLESSBROWSER',
+  service: 'SERVICE',
 };
 
 // Default Agent Configuration

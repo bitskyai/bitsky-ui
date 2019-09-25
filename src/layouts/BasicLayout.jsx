@@ -24,7 +24,8 @@ const menuDataRender = menuList =>
 
 const footerRender = _ => {
   return (
-    <GlobalFooter/>
+    // <GlobalFooter/>
+    ""
   );
 };
 

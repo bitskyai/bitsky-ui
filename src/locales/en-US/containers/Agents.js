@@ -15,6 +15,7 @@ export default {
   'app.containers.Agents.registerNow': 'Register',
   'app.containers.Agents.drawerTitleCreate': 'Register an Agent',
   'app.containers.Agents.drawerTitleUpdate': 'Modify this Agent',
+  'app.containers.Agents.activeAgentTip': 'This agent is in Active status, you need to Deactivate it before you can modify',
   'app.containers.Agents.registerAgentDescription':
     'Agent is the client that collect the intelligences your SOIs created. It has several types: <a href="#" target="_blank">browser extension</a>, <a href="#" target="_blank">service</a>, you also can develop an agent by yourself',
   'app.containers.Agents.deleteAgentDescription': 'Are you sure delete this Agent?',
@@ -22,7 +23,7 @@ export default {
   'app.containers.Agents.agentName': 'Name',
   'app.containers.Agents.agentNamePlaceholder': "Please enter your Agent's name",
   'app.containers.Agents.agentNameInvalid':
-    'Agent Name is invalid, please enter 3 to 50 characters',
+    'Agent Name is invalid, please enter 1 to 100 characters',
   'app.containers.Agents.agentNameExample': 'Chrome Extension',
   'app.containers.Agents.agentNameDescription':
     'Give a meaningful name to your Agent, between 1 to 100 characters',
