@@ -15,6 +15,8 @@ const { Paragraph, Text } = Typography;
 // import commonMessages from '../../locales/en-US/globalMessages';
 import { registerASOI, updateSOI } from '../../apis/sois';
 import { refreshSOIs } from './actions';
+import { filterOutEmptyValue } from '../../utils/utils';
+import { exportDefaultSpecifier } from '@babel/types';
 
 const FormDescription = styled(Paragraph)`
   padding: 5px 0;
@@ -64,13 +66,39 @@ class RegisterSoiForm extends React.Component {
   };
 
   render() {
-    const { getFieldDecorator, getFieldsError, isFieldsTouched } = this.props.form;
+    const { getFieldsValue, getFieldDecorator, getFieldsError, isFieldsTouched } = this.props.form;
     // const { formatMessage } = this.props.intl;
+    let soi = this.props.soi;
+    let disableSaveBtn = true;
+
+    let drawerTitle = formatMessage({ id: 'app.containers.Sois.drawerTitle' });
+    let primaryButtonTitle = formatMessage({ id: 'app.containers.Sois.registerNow' });
+    if (this.props.soi&&this.props.soi.globalId) {
+      // if *globalId* exist, then drawer title is
+      drawerTitle = formatMessage({ id: 'app.containers.Sois.drawerTitleUpdate' });
+      primaryButtonTitle = formatMessage({ id: 'app.common.messages.save' });
+    }
+
+    if (isFieldsTouched()) {
+      // console.log('isFieldsTouched: ', isFieldsTouched());
+      let currentFormValue = getFieldsValue();
+      currentFormValue.globalId = soi&&soi.globalId;
+      currentFormValue = { ...soi, ...currentFormValue };
+      currentFormValue = filterOutEmptyValue(currentFormValue);
+      soi = filterOutEmptyValue(soi);
+
+      if (_.isEqual(currentFormValue, soi)) {
+        disableSaveBtn = true;
+      } else {
+        disableSaveBtn = false;
+      }
+    }
+
     return (
       <div>
         <Drawer
           destroyOnClose={true}
-          title={formatMessage({ id: 'app.containers.Sois.drawerTitle' })}
+          title={drawerTitle}
           width={720}
           onClose={this.props.onCloseDrawer}
           visible={this.props.visiable}
@@ -298,12 +326,12 @@ class RegisterSoiForm extends React.Component {
               <FormattedMessage id="app.common.messages.cancel" />
             </Button>
             <Button
-              // disabled={!isFieldsTouched() || this.hasErrors(getFieldsError())}
+              disabled={disableSaveBtn}
               loading={this.state.sending}
               onClick={this.registerSOI}
               type="primary"
             >
-              <FormattedMessage id="app.containers.Sois.registerNow" />
+              {primaryButtonTitle}
             </Button>
           </div>
         </Drawer>

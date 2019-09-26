@@ -10,6 +10,7 @@ export default {
     'You don\'t have any <a href="https://docs.munew.io/guide/concepts/soi" target="_blank">SOIs</a>',
   'app.containers.Sois.registerNow': 'Register',
   'app.containers.Sois.drawerTitle': 'Register a SOI',
+  'app.containers.Sois.drawerTitleUpdate': 'Modify a SOI',
   'app.containers.Sois.registerSOIDescription':
     'SOI is the service you developed to extract data from collect intelligences, you can use any language to develop, only requirement is it can receive HTTP request.',
   'app.containers.Sois.globalId': 'Global ID',
