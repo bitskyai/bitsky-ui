@@ -5,6 +5,7 @@
  */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import dayjs from 'dayjs';
 // import { connect } from 'react-redux';
 import { connect } from 'dva';
 import { formatMessage, FormattedMessage, FormattedHTMLMessage } from 'umi-plugin-react/locale';
@@ -12,7 +13,7 @@ import styled from 'styled-components';
 // import { FormattedMessage, FormattedHTMLMessage, injectIntl } from 'react-intl';
 // import { createStructuredSelector } from 'reselect';
 // import { compose } from 'redux';
-import { Empty, Table, Button, Popconfirm, message, Card } from 'antd';
+import { Empty, Table, Button, Popconfirm, message, Row, Col, Icon } from 'antd';
 
 // import { useInjectSaga } from 'utils/injectSaga';
 // import { useInjectReducer } from 'utils/injectReducer';
@@ -33,44 +34,55 @@ const EmptyContainer = styled.div`
   padding: 100px 0;
 `;
 
-export function Sois({ dispatch, sois }) {
-  // useInjectReducer({ key: 'sois', reducer });
-  // useInjectSaga({ key: 'sois', saga });
-  // const { formatMessage } = intl;
-  // loading data
-  const [inited, setInited] = useState(false);
-  // select row
-  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-  const [drawerVisiable, setDrawerVisiable] = useState(false);
-  const [selectedSOI, setSelectedSOI] = useState(undefined);
+const actionButtonStyle = {
+  margin: '0 10px 0 0',
+};
 
-  function onRegisterSOI() {
-    setDrawerVisiable(true);
-    setSelectedSOI(undefined);
+export class SoisNew extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      loadingData: true,
+      selectedRowKeys: [],
+      drawerVisiable: false,
+      selectedSOI: undefined,
+    };
+    this.initSoisData();
   }
 
-  function onShowDrawer(soi) {
-    setDrawerVisiable(true);
-    setSelectedSOI(soi);
+  onRegisterSOI() {
+    this.setState({
+      drawerVisiable: true,
+      selectedSOI: undefined,
+    });
   }
 
-  function onCloseDrawer() {
-    setDrawerVisiable(false);
-    setSelectedSOI(undefined);
+  onShowDrawer(soi) {
+    this.setState({
+      drawerVisiable: true,
+      selectedSOI: soi,
+    });
   }
 
-  function onPreventShowDrawer(event) {
+  onCloseDrawer() {
+    this.setState({
+      drawerVisiable: false,
+      selectedSOI: undefined,
+    });
+  }
+
+  onPreventShowDrawer(event) {
     event.preventDefault();
     event.stopPropagation();
   }
 
-  function onDeleteASOI(record, event) {
+  onDeleteASOI(record, event) {
     event.preventDefault();
     event.stopPropagation();
     // console.log(`onDeleteASOI: `, record);
     deleteASOIAPI(record.globalId).then(
       () => {
-        dispatch(refreshSOIs());
+        this.props.dispatch(refreshSOIs());
         let msg = formatMessage(messages.deleteSOISuccessful);
         message.success(msg);
       },
@@ -80,177 +92,236 @@ export function Sois({ dispatch, sois }) {
     );
   }
 
-  function onClickCancel(record, event) {
+  onClickCancel(record, event) {
     event.preventDefault();
     event.stopPropagation();
     console.log(`onClickCancel: `, record);
   }
 
-  function onClickDelete(record, event) {
+  onClickDelete(record, event) {
     event.preventDefault();
     event.stopPropagation();
     console.log(record);
   }
 
-  // if didn't inited before, then need to get data from server side
-  if (!inited) {
+  initSoisData() {
+    this.setState({
+      loadingData: true,
+    });
     getSOIs().then(
       sois => {
-        setInited(true);
+        this.setState({
+          loadingData: true,
+        });
         // add key to sois
         // sois = sois.map((item, index) => {
         //   item.key = item._id || index;
         //   return item;
         // });
-        dispatch(refreshSOIsSuccess(sois));
+        this.props.dispatch(refreshSOIsSuccess(sois));
       },
       err => {
-        setInited(true);
-        dispatch(refreshSOIsFail(err));
+        this.setState({
+          loadingData: true,
+        });
+        this.props.dispatch(refreshSOIsFail(err));
       },
     );
   }
-  let content = <SOIsSkeleton />;
 
-  const columns = [
-    {
-      title: formatMessage(messages.soiName),
-      dataIndex: 'name',
-    },
-    {
-      title: formatMessage(messages.baseURL),
-      dataIndex: 'baseURL',
-    },
-    {
-      title: formatMessage(messages.status),
-      dataIndex: 'system.state',
-    },
-    {
-      title: 'Action',
-      dataIndex: '',
-      key: 'x',
-      render: (text, record) => {
-        return (
-          <div
-            onClick={e => {
-              onPreventShowDrawer(e);
-            }}
-          >
-            <Popconfirm
-              style={{ maxWidth: '300px' }}
-              title={formatMessage(messages.deleteSOIDescription)}
-              onConfirm={e => {
-                onDeleteASOI(record, e);
+  render() {
+    let { loadingData, drawerVisiable, selectedSOI, selectedRowKeys } = this.state;
+    let sois = this.props.soisData.data;
+    let modified = this.props.soisData.modifiedAt;
+    let content = <SOIsSkeleton />;
+
+    const columns = [
+      {
+        title: formatMessage(messages.soiName),
+        dataIndex: 'name',
+      },
+      {
+        title: formatMessage(messages.baseURL),
+        dataIndex: 'baseURL',
+      },
+      {
+        title: formatMessage(messages.status),
+        dataIndex: 'system.state',
+      },
+      {
+        title: 'Action',
+        dataIndex: '',
+        key: 'x',
+        render: (text, record) => {
+          return (
+            <div
+              onClick={e => {
+                this.onPreventShowDrawer(e);
               }}
-              onCancel={e => {
-                onClickCancel(record, e);
-              }}
-              okText={formatMessage(commonMessages.yes)}
-              cancelText={formatMessage(commonMessages.no)}
             >
-              <span
-                onClick={e => {
-                  onClickDelete(record, e);
+              <Popconfirm
+                style={{ maxWidth: '300px' }}
+                title={formatMessage(messages.deleteSOIDescription)}
+                onConfirm={e => {
+                  this.onDeleteASOI(record, e);
+                }}
+                onCancel={e => {
+                  this.onClickCancel(record, e);
+                }}
+                okText={formatMessage(commonMessages.yes)}
+                cancelText={formatMessage(commonMessages.no)}
+              >
+                <Button
+                  size="small"
+                  style={actionButtonStyle}
+                  onClick={e => {
+                    this.onClickDelete(record, e);
+                  }}
+                >
+                  <FormattedMessage {...commonMessages.delete} />
+                </Button>
+                {/* <span
+                  onClick={e => {
+                    onClickDelete(record, e);
+                  }}
+                >
+                  <a href="#">
+                    <FormattedMessage {...commonMessages.delete} />
+                  </a>
+                </span> */}
+              </Popconfirm>
+            </div>
+          );
+        },
+      },
+    ];
+
+    if (loadingData) {
+      if (!sois || !sois.length) {
+        content = (
+          <EmptyContainer>
+            <Empty
+              description={
+                <span>
+                  <FormattedHTMLMessage {...messages.emptySOIs} />
+                </span>
+              }
+            >
+              <Button
+                type="primary"
+                onClick={() => {
+                  this.onRegisterSOI();
                 }}
               >
-                <a href="#">
-                  <FormattedMessage {...commonMessages.delete} />
-                </a>
-              </span>
-            </Popconfirm>
-          </div>
-        );
-      },
-    },
-  ];
-
-  if (inited) {
-    if (!sois || !sois.length) {
-      content = (
-        <EmptyContainer>
-          <Empty
-            description={
-              <span>
-                <FormattedHTMLMessage {...messages.emptySOIs} />
-              </span>
-            }
-          >
-            <Button type="primary" onClick={onRegisterSOI}>
-              <FormattedMessage {...messages.registerNow} />
-            </Button>
-          </Empty>
-        </EmptyContainer>
-      );
-    } else {
-      content = (
-        <div>
-          <div style={{ padding: '0 24px' }}>
-            <div style={{ padding: '0 0 20px 0' }}>
-              <Button onClick={onRegisterSOI} type="primary">
                 <FormattedMessage {...messages.registerNow} />
               </Button>
+            </Empty>
+          </EmptyContainer>
+        );
+      } else {
+        content = (
+          <div className="sois-table-container">
+            <div style={{ padding: '0 24px' }}>
+              <div style={{ paddingBottom: '15px' }}>
+                <Row>
+                  <Col span={14}>
+                    <Button
+                      onClick={() => {
+                        this.onRegisterSOI();
+                      }}
+                      type="primary"
+                    >
+                      <FormattedMessage {...messages.registerNow} />
+                    </Button>
+                  </Col>
+                  <Col span={10} style={{ textAlign: 'right' }}>
+                    <Button
+                      type="link"
+                      onClick={() => this.initSoisData()}
+                      // disabled={loadingIntelligencesData}
+                    >
+                      {dayjs(modified).format('YYYY/MM/DD HH:mm:ss')}
+                      <Icon
+                        type="sync"
+                        style={{ verticalAlign: '0', marginLeft: '5px' }}
+                        // spin={loadingIntelligencesData}
+                      />
+                    </Button>
+                  </Col>
+                </Row>
+              </div>
+              <div style={{ backgroundColor: 'white' }}>
+                <Table
+                  bordered
+                  pagination={false}
+                  rowClassName={record => {
+                    let selected = false;
+                    selectedRowKeys.forEach(item => {
+                      if (item === record._id) {
+                        selected = true;
+                      }
+                    });
+                    if (selected) {
+                      return 'selected-row';
+                    }
+                    return '';
+                  }}
+                  columns={columns}
+                  rowSelection={{
+                    selectedRowKeys,
+                    type: 'radio',
+                    onSelect: record => {
+                      // console.log('rowSelection onSelect: ', record);
+                      // setSelectedRowKeys([record._id]);
+                      this.setState({
+                        selectedRowKeys: [record._id],
+                      });
+                      this.onShowDrawer(record);
+                    },
+                  }}
+                  dataSource={sois}
+                  rowKey={record => record._id}
+                  onRow={record => {
+                    return {
+                      onClick: () => {
+                        // console.log('onRow->onClick: ', record);
+                        // this.selectRow(record);
+                        // setSelectedRowKeys([record._id]);
+                        this.setState({
+                          selectedRowKeys: [record._id],
+                        });
+                        this.onShowDrawer(record);
+                      },
+                    };
+                  }}
+                />
+              </div>
             </div>
-            <Table
-              bordered
-              pagination={false}
-              rowClassName={record => {
-                let selected = false;
-                selectedRowKeys.forEach(item => {
-                  if (item === record._id) {
-                    selected = true;
-                  }
-                });
-                if (selected) {
-                  return 'selected-row';
-                }
-                return '';
-              }}
-              columns={columns}
-              rowSelection={{
-                selectedRowKeys,
-                type: 'radio',
-                onSelect: record => {
-                  // console.log('rowSelection onSelect: ', record);
-                  setSelectedRowKeys([record._id]);
-                  onShowDrawer(record);
-                },
-              }}
-              dataSource={sois}
-              rowKey={record => record._id}
-              onRow={record => {
-                return {
-                  onClick: () => {
-                    // console.log('onRow->onClick: ', record);
-                    // this.selectRow(record);
-                    setSelectedRowKeys([record._id]);
-                    onShowDrawer(record);
-                  },
-                };
-              }}
-            />
           </div>
-        </div>
-      );
+        );
+      }
     }
-  }
 
-  return (
-    <Card>
-      {/* <DiaPageHeader title={formatMessage(messages.header)} /> */}
-      {content}
-      <RegisterSoiForm
-        visiable={drawerVisiable}
-        onCloseDrawer={onCloseDrawer}
-        soi={selectedSOI}
-        dispatch={dispatch}
-      />
-    </Card>
-  );
+    return (
+      <div>
+        {/* <DiaPageHeader title={formatMessage(messages.header)} /> */}
+        {content}
+        <RegisterSoiForm
+          visiable={drawerVisiable}
+          onCloseDrawer={() => {
+            this.onCloseDrawer();
+          }}
+          soi={selectedSOI}
+          dispatch={this.props.dispatch}
+        />
+      </div>
+    );
+  }
 }
 
-export default connect(({sois}) => ({
-  sois: sois&&sois.data
-}))(Sois);
+export default connect(({ sois }) => ({
+  soisData: sois,
+}))(SoisNew);
 
 // Sois.propTypes = {
 //   dispatch: PropTypes.func.isRequired,
