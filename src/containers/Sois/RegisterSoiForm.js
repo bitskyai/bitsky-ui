@@ -3,21 +3,16 @@ import _ from 'lodash';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 // import { FormattedMessage, FormattedHTMLMessage, injectIntl } from 'react-intl';
-import { formatMessage, FormattedMessage, FormattedHTMLMessage, formatHTMLMessage } from 'umi-plugin-react/locale';
 import {
-  Drawer,
-  Form,
-  Button,
-  Col,
-  Row,
-  Input,
-  Select,
-  Typography,
-  message,
-} from 'antd';
+  formatMessage,
+  FormattedMessage,
+  FormattedHTMLMessage,
+  formatHTMLMessage,
+} from 'umi-plugin-react/locale';
+import { Drawer, Form, Button, Col, Row, Input, Select, Typography, message } from 'antd';
 const { Paragraph, Text } = Typography;
-import messages from './messages';
-import commonMessages from '../../locales/en-US/globalMessages';
+// import messages from '../../locales/en-US/containers/Sois';
+// import commonMessages from '../../locales/en-US/globalMessages';
 import { registerASOI, updateSOI } from '../../apis/sois';
 import { refreshSOIs } from './actions';
 
@@ -43,15 +38,15 @@ class RegisterSoiForm extends React.Component {
       if (!err) {
         console.log(values);
         try {
-          if(this.props.soi){
+          if (this.props.soi) {
             values.globalId = this.props.soi.globalId;
             await updateSOI(values);
             this.props.dispatch(refreshSOIs());
-          }else{
+          } else {
             await registerASOI(values);
             this.props.dispatch(refreshSOIs());
           }
-          let msg = formatMessage(messages.registerSOISuccessful);
+          let msg = formatMessage({ id: 'app.containers.Sois.registerSOISuccessful' });
           message.success(msg);
           this.setState({
             sending: false,
@@ -69,27 +64,21 @@ class RegisterSoiForm extends React.Component {
   };
 
   render() {
-    const {
-      getFieldDecorator,
-      getFieldsError,
-      isFieldsTouched,
-    } = this.props.form;
+    const { getFieldDecorator, getFieldsError, isFieldsTouched } = this.props.form;
     // const { formatMessage } = this.props.intl;
     return (
       <div>
         <Drawer
           destroyOnClose={true}
-          title={formatMessage(messages.drawerTitle)}
+          title={formatMessage({ id: 'app.containers.Sois.drawerTitle' })}
           width={720}
           onClose={this.props.onCloseDrawer}
           visible={this.props.visiable}
         >
-          <p>
-            <FormattedHTMLMessage {...messages.registerSOIDescription} />
-          </p>
+          <p>{formatMessage({ id: 'app.containers.Sois.registerSOIDescription' })}</p>
           <Form layout="vertical" style={{ paddingBottom: '35px' }}>
             <Form.Item
-              label={formatMessage(messages.soiName)}
+              label={formatMessage({ id: 'app.containers.Sois.soiName' })}
               style={formItemStyle}
             >
               {getFieldDecorator('name', {
@@ -97,34 +86,31 @@ class RegisterSoiForm extends React.Component {
                 rules: [
                   {
                     required: true,
-                    message: formatMessage(messages.soiNamePlaceholder),
+                    message: formatMessage({ id: 'app.containers.Sois.soiNamePlaceholder' }),
                   },
                   {
                     min: 3,
                     max: 20,
-                    message: formatMessage(messages.soiNameInvalid),
+                    message: formatMessage({ id: 'app.containers.Sois.soiNameInvalid' }),
                   },
                 ],
               })(
-                <Input placeholder={formatMessage(messages.soiNameExample)} />,
+                <Input placeholder={formatMessage({ id: 'app.containers.Sois.soiNameExample' })} />,
               )}
               <FormDescription>
-                <FormattedHTMLMessage {...messages.soiNameDescription} />
+                {formatMessage({ id: 'app.containers.Sois.soiNameDescription' })}
               </FormDescription>
             </Form.Item>
             {this.props.soi ? (
               <Form.Item
-                label={formatMessage(messages.globalId)}
+                label={formatMessage({ id: 'app.containers.Sois.globalId' })}
                 style={formItemStyle}
               >
                 {getFieldDecorator('globalId', {
-                  rules: [
-                  ],
-                })(
-                  <p>{this.props.soi.globalId}</p>,
-                )}
+                  rules: [],
+                })(<p>{this.props.soi.globalId}</p>)}
                 <FormDescription>
-                  <FormattedHTMLMessage {...messages.globalIdDescription} />
+                  <FormattedHTMLMessage id="app.containers.Sois.globalIdDescription" />
                 </FormDescription>
               </Form.Item>
             ) : (
@@ -151,7 +137,7 @@ class RegisterSoiForm extends React.Component {
               // </Form.Item>
             )}
             <Form.Item
-              label={formatMessage(messages.baseURL)}
+              label={formatMessage({ id: 'app.containers.Sois.baseURL' })}
               style={formItemStyle}
             >
               {getFieldDecorator('baseURL', {
@@ -159,30 +145,30 @@ class RegisterSoiForm extends React.Component {
                 rules: [
                   {
                     required: true,
-                    message: formatMessage(messages.baseURLEmptyError),
+                    message: formatMessage({ id: 'app.containers.Sois.baseURLEmptyError' }),
                   },
                   {
                     pattern: /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)([a-z0-9\.])*(:[0-9]{1,5})?(\/.*)?$/i,
-                    message: formatMessage(messages.baseURLEmptyError),
+                    message: formatMessage({ id: 'app.containers.Sois.baseURLEmptyError' }),
                   },
                 ],
               })(
-                <Input placeholder={formatMessage(messages.baseURLExample)} />,
+                <Input placeholder={formatMessage({ id: 'app.containers.Sois.baseURLExample' })} />,
               )}
               <FormDescription>
-                <FormattedHTMLMessage {...messages.baseURLDescription} />
+                <FormattedHTMLMessage id="app.containers.Sois.baseURLDescription" />
               </FormDescription>
             </Form.Item>
             <h3>
-              <FormattedMessage {...messages.callbackSectionTitle} />
+              <FormattedMessage id="app.containers.Sois.callbackSectionTitle" />
             </h3>
             <p>
-              <FormattedHTMLMessage {...messages.callbackDescription} />
+              <FormattedHTMLMessage id="app.containers.Sois.callbackDescription" />
             </p>
             <Row gutter={16}>
               <Col span={8}>
                 <Form.Item
-                  label={formatMessage(messages.httpMethod)}
+                  label={formatMessage({ id: 'app.containers.Sois.httpMethod' })}
                   style={formItemStyle}
                 >
                   {getFieldDecorator('callback.method', {
@@ -190,14 +176,14 @@ class RegisterSoiForm extends React.Component {
                     rules: [
                       {
                         required: true,
-                        message: formatMessage(messages.httpMethodPlaceHolder),
+                        message: formatMessage({ id: 'app.containers.Sois.httpMethodPlaceHolder' }),
                       },
                     ],
                   })(
                     <Select
-                      placeholder={formatMessage(
-                        messages.httpMethodPlaceHolder,
-                      )}
+                      placeholder={formatMessage({
+                        id: 'app.containers.Sois.httpMethodPlaceHolder',
+                      })}
                     >
                       <Select.Option value="GET">GET</Select.Option>
                       <Select.Option value="POST">POST</Select.Option>
@@ -206,13 +192,13 @@ class RegisterSoiForm extends React.Component {
                     </Select>,
                   )}
                   <FormDescription>
-                    <FormattedHTMLMessage {...messages.httpMethodDescription} />
+                    <FormattedHTMLMessage id="app.containers.Sois.httpMethodDescription" />
                   </FormDescription>
                 </Form.Item>
               </Col>
               <Col span={16}>
                 <Form.Item
-                  label={formatMessage(messages.urlPath)}
+                  label={formatMessage({ id: 'app.common.messages.urlPath' })}
                   style={formItemStyle}
                 >
                   {getFieldDecorator('callback.path', {
@@ -220,30 +206,30 @@ class RegisterSoiForm extends React.Component {
                     rules: [
                       {
                         required: true,
-                        message: formatMessage(messages.urlPathPlaceHolder),
+                        message: formatMessage({ id: 'app.common.messages.urlPathPlaceHolder' }),
                       },
                     ],
                   })(
                     <Input
-                      placeholder={formatMessage(messages.urlPathPlaceHolder)}
+                      placeholder={formatMessage({ id: 'app.common.messages.urlPathPlaceHolder' })}
                     />,
                   )}
                   <FormDescription>
-                    <FormattedHTMLMessage {...messages.urlPathDescription} />
+                    <FormattedHTMLMessage id="app.common.messages.urlPathDescription" />
                   </FormDescription>
                 </Form.Item>
               </Col>
             </Row>
             <h3>
-              <FormattedMessage {...messages.healthTitle} />
+              <FormattedMessage id="app.common.messages.healthTitle" />
             </h3>
             <p>
-              <FormattedHTMLMessage {...messages.healthDescription} />
+              <FormattedHTMLMessage id="app.containers.Sois.healthDescription" />
             </p>
             <Row gutter={16}>
               <Col span={8}>
                 <Form.Item
-                  label={formatMessage(messages.httpMethod)}
+                  label={formatMessage({ id: 'app.containers.Sois.httpMethod' })}
                   style={formItemStyle}
                 >
                   {getFieldDecorator('health.method', {
@@ -251,14 +237,14 @@ class RegisterSoiForm extends React.Component {
                     rules: [
                       {
                         required: true,
-                        message: formatMessage(messages.httpMethodPlaceHolder),
+                        message: formatMessage({ id: 'app.containers.Sois.httpMethodPlaceHolder' }),
                       },
                     ],
                   })(
                     <Select
-                      placeholder={formatMessage(
-                        messages.httpMethodPlaceHolder,
-                      )}
+                      placeholder={formatMessage({
+                        id: 'app.containers.Sois.httpMethodPlaceHolder',
+                      })}
                     >
                       <Select.Option value="GET">GET</Select.Option>
                       <Select.Option value="POST">POST</Select.Option>
@@ -267,13 +253,13 @@ class RegisterSoiForm extends React.Component {
                     </Select>,
                   )}
                   <FormDescription>
-                    <FormattedHTMLMessage {...messages.httpMethodDescription} />
+                    <FormattedHTMLMessage id="app.containers.Sois.httpMethodDescription" />
                   </FormDescription>
                 </Form.Item>
               </Col>
               <Col span={16}>
                 <Form.Item
-                  label={formatMessage(messages.urlPath)}
+                  label={formatMessage({ id: 'app.common.messages.urlPath' })}
                   style={formItemStyle}
                 >
                   {getFieldDecorator('health.path', {
@@ -281,16 +267,16 @@ class RegisterSoiForm extends React.Component {
                     rules: [
                       {
                         required: true,
-                        message: formatMessage(messages.urlPathPlaceHolder),
+                        message: formatMessage({ id: 'app.common.messages.urlPathPlaceHolder' }),
                       },
                     ],
                   })(
                     <Input
-                      placeholder={formatMessage(messages.urlPathPlaceHolder)}
+                      placeholder={formatMessage({ id: 'app.common.messages.urlPathPlaceHolder' })}
                     />,
                   )}
                   <FormDescription>
-                    <FormattedHTMLMessage {...messages.urlPathDescription} />
+                    <FormattedHTMLMessage id="app.common.messages.urlPathDescription" />
                   </FormDescription>
                 </Form.Item>
               </Col>
@@ -308,11 +294,8 @@ class RegisterSoiForm extends React.Component {
               textAlign: 'right',
             }}
           >
-            <Button
-              onClick={this.props.onCloseDrawer}
-              style={{ marginRight: 8 }}
-            >
-              <FormattedMessage {...commonMessages.cancel} />
+            <Button onClick={this.props.onCloseDrawer} style={{ marginRight: 8 }}>
+              <FormattedMessage id="app.common.messages.cancel" />
             </Button>
             <Button
               // disabled={!isFieldsTouched() || this.hasErrors(getFieldsError())}
@@ -320,7 +303,7 @@ class RegisterSoiForm extends React.Component {
               onClick={this.registerSOI}
               type="primary"
             >
-              <FormattedMessage {...messages.registerNow} />
+              <FormattedMessage id="app.containers.Sois.registerNow" />
             </Button>
           </div>
         </Drawer>

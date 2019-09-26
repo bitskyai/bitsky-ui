@@ -20,8 +20,8 @@ import { Empty, Table, Button, Popconfirm, message, Row, Col, Icon } from 'antd'
 // import makeSelectSois from './selectors';
 // import reducer from './reducer';
 // import saga from './saga';
-import messages from './messages';
-import commonMessages from '../../locales/en-US/globalMessages';
+// import messages fro../../locales/en-US/containers/Soisois';
+// import commonMessages from '../../locales/en-US/globalMessages';
 import RegisterSoiForm from './RegisterSoiForm';
 import SOIsSkeleton from './SOIsSkeleton';
 import { refreshSOIsSuccess, refreshSOIsFail, refreshSOIs } from './actions';
@@ -83,7 +83,7 @@ export class SoisNew extends React.Component {
     deleteASOIAPI(record.globalId).then(
       () => {
         this.props.dispatch(refreshSOIs());
-        let msg = formatMessage(messages.deleteSOISuccessful);
+        let msg = formatMessage({id:"app.containers.Sois.deleteSOISuccessful"});
         message.success(msg);
       },
       err => {
@@ -137,15 +137,15 @@ export class SoisNew extends React.Component {
 
     const columns = [
       {
-        title: formatMessage(messages.soiName),
+        title: formatMessage({id:"app.containers.Sois.soiName"}),
         dataIndex: 'name',
       },
       {
-        title: formatMessage(messages.baseURL),
+        title: formatMessage({id:"app.containers.Sois.baseURL"}),
         dataIndex: 'baseURL',
       },
       {
-        title: formatMessage(messages.status),
+        title: formatMessage({id:"app.containers.Sois.status"}),
         dataIndex: 'system.state',
       },
       {
@@ -161,15 +161,15 @@ export class SoisNew extends React.Component {
             >
               <Popconfirm
                 style={{ maxWidth: '300px' }}
-                title={formatMessage(messages.deleteSOIDescription)}
+                title={formatMessage({id:"app.containers.Sois.deleteSOIDescription"})}
                 onConfirm={e => {
                   this.onDeleteASOI(record, e);
                 }}
                 onCancel={e => {
                   this.onClickCancel(record, e);
                 }}
-                okText={formatMessage(commonMessages.yes)}
-                cancelText={formatMessage(commonMessages.no)}
+                okText={formatMessage({id:'app.common.messages.yes'})}
+                cancelText={formatMessage({id:'app.common.messages.no'})}
               >
                 <Button
                   size="small"
@@ -178,17 +178,8 @@ export class SoisNew extends React.Component {
                     this.onClickDelete(record, e);
                   }}
                 >
-                  <FormattedMessage {...commonMessages.delete} />
+                  {formatMessage({id:'app.common.messages.delete'})}
                 </Button>
-                {/* <span
-                  onClick={e => {
-                    onClickDelete(record, e);
-                  }}
-                >
-                  <a href="#">
-                    <FormattedMessage {...commonMessages.delete} />
-                  </a>
-                </span> */}
               </Popconfirm>
             </div>
           );
@@ -203,7 +194,7 @@ export class SoisNew extends React.Component {
             <Empty
               description={
                 <span>
-                  <FormattedHTMLMessage {...messages.emptySOIs} />
+                  {formatMessage({id:"app.containers.Sois.emptySOIs"})}
                 </span>
               }
             >
@@ -213,7 +204,7 @@ export class SoisNew extends React.Component {
                   this.onRegisterSOI();
                 }}
               >
-                <FormattedMessage {...messages.registerNow} />
+                {formatMessage({id:"app.containers.Sois.registerNow"})}
               </Button>
             </Empty>
           </EmptyContainer>
@@ -231,7 +222,7 @@ export class SoisNew extends React.Component {
                       }}
                       type="primary"
                     >
-                      <FormattedMessage {...messages.registerNow} />
+                      {formatMessage({id:"app.containers.Sois.registerNow"})}
                     </Button>
                   </Col>
                   <Col span={10} style={{ textAlign: 'right' }}>
