@@ -57,7 +57,6 @@ export class Agents extends React.Component {
       drawerVisiable: false,
       selectedAgent: undefined,
     };
-    this.initAgentsData();
   }
 
   onRegisterAgent() {
@@ -183,6 +182,10 @@ export class Agents extends React.Component {
         });
       },
     );
+  }
+
+  componentDidMount(){
+    this.initAgentsData();
   }
 
   render() {

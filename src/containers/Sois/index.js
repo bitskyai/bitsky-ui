@@ -47,7 +47,6 @@ export class SoisNew extends React.Component {
       drawerVisiable: false,
       selectedSOI: undefined,
     };
-    this.initSoisData();
   }
 
   onRegisterSOI() {
@@ -127,6 +126,10 @@ export class SoisNew extends React.Component {
         this.props.dispatch(refreshSOIsFail(err));
       },
     );
+  }
+
+  componentDidMount(){
+    this.initSoisData();
   }
 
   render() {

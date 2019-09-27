@@ -24,8 +24,8 @@ import { Empty, Button, Table, Spin, Input, Row, Col, Icon } from 'antd';
 // import makeSelectIntelligences from './selectors';
 // import reducer from './reducer';
 // import saga from './saga';
-import messages from './messages';
-import commonMessages from '../../locales/en-US/globalMessages';
+// import messages from '../../locales/en-US/containers/intelligences';
+// import commonMessages from '../../locales/en-US/globalMessages';
 import IntelligencesSkeleton from './IntelligencesSkeleton';
 import {
   resetIntelligences,
@@ -96,8 +96,6 @@ export class Intelligences extends React.Component {
         this.setState({ contentHeight: window.innerHeight });
       }, 500);
     });
-
-    this.initIntelligencesData();
   }
 
   getColumnSearchProps = dataIndex => ({
@@ -128,14 +126,14 @@ export class Intelligences extends React.Component {
           size="small"
           style={{ width: 90, marginRight: 8 }}
         >
-          <FormattedMessage {...commonMessages.search} />
+          <FormattedMessage id="app.common.messages.search" />
         </Button>
         <Button
           onClick={() => this.handleReset(clearFilters, dataIndex)}
           size="small"
           style={{ width: 90 }}
         >
-          <FormattedMessage {...commonMessages.reset} />
+          <FormattedMessage id="app.common.messages.reset" />
         </Button>
       </div>
     ),
@@ -206,6 +204,10 @@ export class Intelligences extends React.Component {
         this.props.dispatch(refreshIntelligencesFail(err));
       },
     );
+  }
+
+  componentDidMount(){
+    this.initIntelligencesData();
   }
 
   search = () => {
@@ -400,7 +402,7 @@ export class Intelligences extends React.Component {
         ...this.getColumnSearchProps('url'),
       },
       {
-        title: formatMessage(commonMessages.state),
+        title: formatMessage({id:"app.common.messages.state"}),
         dataIndex: 'system.state',
         width: '15%',
         // ...this.getColumnCheckboxProps('system_state', [
@@ -467,14 +469,14 @@ export class Intelligences extends React.Component {
       // if currently in search mode, then show table
       if (
         (!intelligences.data || !intelligences.data.length) &&
-        !_.keys(intelligences).length
+        !_.keys(this.filterConditions).length
       ) {
         content = (
           <EmptyContainer>
             <Empty
               description={
                 <span>
-                  <FormattedHTMLMessage {...messages.emptyIntelligences} />
+                  <FormattedHTMLMessage id="app.containers.Intelligences.emptyIntelligences" />
                 </span>
               }
             >
@@ -516,7 +518,7 @@ export class Intelligences extends React.Component {
                       loading={this.state.operationBtns.pausing}
                     >
                       <FormattedMessage
-                        {...messages.pauseAll}
+                        id="app.containers.Intelligences.pauseAll"
                         values={{ intelligenceNumber: total }}
                       />
                     </Button>
@@ -529,7 +531,7 @@ export class Intelligences extends React.Component {
                       loading={this.state.operationBtns.resuming}
                     >
                       <FormattedMessage
-                        {...messages.resumeAll}
+                        id="app.containers.Intelligences.resumeAll"
                         values={{ intelligenceNumber: total }}
                       />
                     </Button>
@@ -542,7 +544,7 @@ export class Intelligences extends React.Component {
                       loading={this.state.operationBtns.deleting}
                     >
                       <FormattedMessage
-                        {...messages.deleteAll}
+                        id="app.containers.Intelligences.deleteAll"
                         values={{ intelligenceNumber: total }}
                       />
                     </Button>

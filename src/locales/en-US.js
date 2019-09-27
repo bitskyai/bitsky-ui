@@ -9,6 +9,7 @@ import pwa from './en-US/pwa';
 import loginCtn from './en-US/containers/Login';
 import agentsCtn from './en-US/containers/Agents';
 import soisCtn from './en-US/containers/Sois';
+import intelligencesCtn from './en-US/containers/intelligences';
 import signupCtn from './en-US/containers/Signup';
 // import settings from './en-US/settings';
 export default {
@@ -28,5 +29,6 @@ export default {
   ...loginCtn,
   ...agentsCtn,
   ...soisCtn,
+  ...intelligencesCtn,
   ...signupCtn
 };

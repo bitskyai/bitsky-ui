@@ -1,41 +1,33 @@
-var scope = 'app.containers.SignupPage';
+var scope = 'app.containers.Intelligences';
 var msg = {
   header: {
     id: `${scope}.header`,
-    defaultMessage: 'Sign up for FREE',
+    defaultMessage: 'Intelligences',
   },
-  passwordNotSame: {
-    id: `${scope}.passwordNotSame`,
-    defaultMessage: 'Two passwords that you enter is inconsistent!',
+  intelligences: {
+    id: `${scope}.intelligences`,
+    defaultMessage: 'Intelligences',
   },
-  passwordInvalid: {
-    id: `${scope}.passwordInvalid`,
-    defaultMessage: "Make sure it's at least 5 characters, and at most 20 characters",
+  emptyIntelligences: {
+    id: `${scope}.emptyIntelligences`,
+    defaultMessage: `You don't have any <a href="https://docs.munew.io/guide/concepts/intelligence" target="_blank">Intelligences</a>`,
   },
-  signUp:{
-    id: `${scope}.signUp`,
-    defaultMessage: 'SIGN UP',
+  registerNow: {
+    id: `${scope}.registerNow`,
+    defaultMessage: `Register`,
   },
-  typeName:{
-    id: `${scope}.typeName`,
-    defaultMessage: 'Please input your name!',
+  pauseAll: {
+    id: `${scope}.pauseAll`,
+    defaultMessage: "Pause {intelligenceNumber} intelligences"
   },
-  hasAccount:{
-    id: `${scope}.hasAccount`,
-    defaultMessage: 'Already has an account?',
+  resumeAll: {
+    id: `${scope}.resumeAll`,
+    defaultMessage: "Resume {intelligenceNumber} intelligences"
   },
-  login: {
-    id: `${scope}.login`,
-    defaultMessage: 'LOG IN',
-  },
-  invalid:{
-    id: `${scope}.invalid`,
-    defaultMessage: "Email isn't valid, password or display name is too short"
-  },
-  nameInvalid:{
-    id: `${scope}.nameInvalid`,
-    defaultMessage: "Make sure it's at least 3 characters, and at most 20 characters"
-  },
+  deleteAll: {
+    id: `${scope}.deleteAll`,
+    defaultMessage: "Delete {intelligenceNumber} intelligences"
+  }
 };
 var obj = {};
 
