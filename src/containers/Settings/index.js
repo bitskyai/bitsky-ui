@@ -36,9 +36,7 @@ const { Paragraph } = Typography;
 // import { updateProfileError } from './selectors';
 // import reducer from './reducer';
 // import saga from './saga';
-import messages from './messages';
 import { ERROR_CODES } from './constants';
-import commonMessages from '../../locales/en-US/globalMessages';
 import {
   darkBlueColor,
   largeBodyFontSize,
@@ -83,7 +81,7 @@ class ProfileForm extends React.Component {
             sending: false,
             emailRegistered: false,
           });
-          let msg = formatMessage(messages.updateProfileSuccess);
+          let msg = formatMessage({id:"app.containers.Settings.updateProfileSuccess"});
           message.success(msg);
           // update global user information
           this.props.dispatch(
@@ -110,13 +108,13 @@ class ProfileForm extends React.Component {
     });
   };
 
-  componentDidMount() {
-    this.props.form.validateFields();
-    this.props.form.setFieldsValue({
-      name: this.props.name,
-      email: this.props.email,
-    });
-  }
+  // componentDidMount() {
+  //   this.props.form.validateFields();
+  //   this.props.form.setFieldsValue({
+  //     name: this.props.name,
+  //     email: this.props.email,
+  //   });
+  // }
   render() {
     const {
       getFieldDecorator,
@@ -132,56 +130,58 @@ class ProfileForm extends React.Component {
     let nameError = isFieldTouched('name') && getFieldError('name');
 
     if (this.state.emailRegistered) {
-      emailError = formatMessage(messages.emailWasRegistered);
+      emailError = formatMessage({id:"app.containers.Settings.emailWasRegistered"});
     }
 
     return (
       <Form layout="vertical" onSubmit={this.handleSubmit}>
         <Form.Item
-          label={formatMessage(messages.emailAddress)}
+          label={formatMessage({id:"app.containers.Settings.emailAddress"})}
           validateStatus={emailError ? 'error' : ''}
           help={emailError || ''}
         >
           {getFieldDecorator('email', {
+            initialValue: this.props.email,
             rules: [
               {
                 type: 'email',
-                message: formatMessage(commonMessages.invalidEmail),
+                message: formatMessage({id:"app.common.messages.invalidEmail"}),
               },
               {
                 required: true,
-                message: formatMessage(commonMessages.typeValidEmail),
+                message: formatMessage({id:"app.common.messages.typeValidEmail"}),
               },
             ],
           })(
             <Input
               prefix={<Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />}
-              placeholder={formatMessage(commonMessages.typeValidEmail)}
+              placeholder={formatMessage({id:"app.common.messages.typeValidEmail"})}
             />,
           )}
         </Form.Item>
         <Form.Item
-          label={formatMessage(messages.name)}
+          label={formatMessage({id:"app.containers.Settings.name"})}
           validateStatus={nameError ? 'error' : ''}
           help={nameError || ''}
         >
           {getFieldDecorator('name', {
+            initialValue: this.props.name,
             rules: [
               {
                 required: true,
-                message: formatMessage(commonMessages.typeName),
+                message: formatMessage({id:"app.common.messages.typeName"}),
                 whitespace: true,
               },
               {
                 min: 3,
                 max: 20,
-                message: formatMessage(commonMessages.nameInvalid),
+                message: formatMessage({id:"app.common.messages.nameInvalid"}),
               },
             ],
           })(
             <Input
               prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-              placeholder={formatMessage(commonMessages.typeName)}
+              placeholder={formatMessage({id:"app.common.messages.typeName"})}
             />,
           )}
         </Form.Item>
@@ -192,7 +192,7 @@ class ProfileForm extends React.Component {
             htmlType="submit"
             disabled={!isFieldsTouched() || this.hasErrors(getFieldsError())}
           >
-            <FormattedMessage {...messages.updateProfile} />
+            <FormattedMessage id="app.containers.Settings.updateProfile" />
           </Button>
         </Form.Item>
       </Form>
@@ -229,7 +229,7 @@ class PasswordForm extends React.Component {
             ...this.state,
             sending: false,
           });
-          let msg = formatMessage(messages.updatePasswordSuccess);
+          let msg = formatMessage({id:"app.containers.Settings.updatePasswordSuccess"});
           message.success(msg);
         } catch (err) {
           if (err.code == ERROR_CODES.passwordNotMatch) {
@@ -237,13 +237,13 @@ class PasswordForm extends React.Component {
               currentPassword: {
                 value: values.currentPassword,
                 errors: [
-                  new Error(formatMessage(messages.currentPasswordNotMatch)),
+                  new Error(formatMessage({id:"app.containers.Settings.currentPasswordNotMatch"})),
                 ],
               },
             });
           } else {
             // default error handle
-            let msg = formatMessage(commonMessages.serverTempDown);
+            let msg = formatMessage({id:"app.common.messages.serverTempDown"});
             message.error(msg);
           }
 
@@ -267,7 +267,7 @@ class PasswordForm extends React.Component {
     const { form } = this.props;
     // const { formatMessage } = this.props.intl;
     if (value && value !== form.getFieldValue('password')) {
-      callback(formatMessage(commonMessages.passwordNotSame));
+      callback(formatMessage({id:"app.common.messages.passwordNotSame"}));
     } else {
       callback();
     }
@@ -293,39 +293,39 @@ class PasswordForm extends React.Component {
 
     return (
       <Form layout="vertical" onSubmit={this.handleSubmit}>
-        <Form.Item label={formatMessage(messages.currentPassword)}>
+        <Form.Item label={formatMessage({id:"app.containers.Settings.currentPassword"})}>
           {getFieldDecorator('currentPassword', {
             rules: [
               {
                 required: true,
-                message: formatMessage(messages.currentPasswordPlaceholder),
+                message: formatMessage({id:"app.containers.Settings.currentPasswordPlaceholder"}),
               },
               {
                 min: 5,
                 max: 20,
-                message: formatMessage(commonMessages.passwordInvalid),
+                message: formatMessage({id:"app.common.messages.passwordInvalid"}),
               },
             ],
           })(
             <Input
               type="password"
               prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
-              placeholder={formatMessage(messages.currentPasswordPlaceholder)}
+              placeholder={formatMessage({id:"app.containers.Settings.currentPasswordPlaceholder"})}
             />,
           )}
         </Form.Item>
         <Divider />
-        <Form.Item label={formatMessage(messages.newPassword)}>
+        <Form.Item label={formatMessage({id:"app.containers.Settings.newPassword"})}>
           {getFieldDecorator('password', {
             rules: [
               {
                 required: true,
-                message: formatMessage(messages.newPasswordPlaceholder),
+                message: formatMessage({id:"app.containers.Settings.newPasswordPlaceholder"}),
               },
               {
                 min: 5,
                 max: 20,
-                message: formatMessage(commonMessages.passwordInvalid),
+                message: formatMessage({id:"app.common.messages.passwordInvalid"}),
               },
               {
                 validator: this.validateToNextPassword,
@@ -335,21 +335,21 @@ class PasswordForm extends React.Component {
             <Input
               type="password"
               prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
-              placeholder={formatMessage(messages.newPasswordPlaceholder)}
+              placeholder={formatMessage({id:"app.containers.Settings.newPasswordPlaceholder"})}
             />,
           )}
         </Form.Item>
-        <Form.Item label={formatMessage(messages.confirmPassword)}>
+        <Form.Item label={formatMessage({id:"app.containers.Settings.confirmPassword"})}>
           {getFieldDecorator('confirmPassword', {
             rules: [
               {
                 required: true,
-                message: formatMessage(messages.confirmPasswordPlaceholder),
+                message: formatMessage({id:"app.containers.Settings.confirmPasswordPlaceholder"}),
               },
               {
                 min: 5,
                 max: 20,
-                message: formatMessage(commonMessages.passwordInvalid),
+                message: formatMessage({id:"app.common.messages.passwordInvalid"}),
               },
               {
                 validator: this.compareToFirstPassword,
@@ -359,7 +359,7 @@ class PasswordForm extends React.Component {
             <Input
               type="password"
               prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
-              placeholder={formatMessage(messages.confirmPasswordPlaceholder)}
+              placeholder={formatMessage({id:"app.containers.Settings.confirmPasswordPlaceholder"})}
               onBlur={this.handleConfirmBlur}
             />,
           )}
@@ -371,7 +371,7 @@ class PasswordForm extends React.Component {
             htmlType="submit"
             disabled={!isFieldsTouched() || this.hasErrors(getFieldsError())}
           >
-            <FormattedMessage {...messages.updatePassword} />
+            <FormattedMessage id="app.containers.Settings.updatePassword" />
           </Button>
         </Form.Item>
       </Form>
@@ -392,14 +392,14 @@ class APIKeyForm extends React.Component {
     // const { formatMessage } = this.props.intl;
     return (
       <Form layout="vertical">
-        <Form.Item label={formatMessage(messages.securityKey)}>
+        <Form.Item label={formatMessage({id:"app.containers.Settings.securityKey"})}>
           {getFieldDecorator('securityKey', {
             rules: [],
           })(
             <Input
               disabled
               prefix={<Icon type="key" style={{ color: 'rgba(0,0,0,.25)' }} />}
-              placeholder={formatMessage(commonMessages.typeName)}
+              placeholder={formatMessage({id:"app.common.messages.typeName"})}
             />,
           )}
         </Form.Item>
@@ -448,7 +448,7 @@ export class Settings extends React.Component {
         location.href = redirectUrl;
       }
     } catch (err) {
-      let msg = formatMessage(commonMessages.serverTempDown);
+      let msg = formatMessage({id:"app.common.messages.serverTempDown"});
       message.error(msg);
 
       this.setState({
@@ -485,17 +485,31 @@ export class Settings extends React.Component {
     return (
       <Card>
         {/* <DiaPageHeader
-          title={formatMessage(messages.header)}
+          title={formatMessage({id:"app.containers.Settings.emailWasRegistered"}header)}
           style={{ color: darkBlueColor }}
         /> */}
         <div style={{ padding: '0 24px', maxWidth: maxWidth }}>
+        <Row>
+            <Col span={12}>
+              <SectionTitle>
+                <FormattedMessage id="app.containers.Settings.securityKey" />
+              </SectionTitle>
+              <Paragraph>
+                <FormattedMessage id="app.containers.Settings.securityKeyDescription" />
+              </Paragraph>
+            </Col>
+            <Col span={12}>
+              <WrappedAPIKeyForm securityKey={user.securityKey} />
+            </Col>
+          </Row>
+          <Divider />
           <Row>
             <Col span={12}>
               <SectionTitle>
-                <FormattedMessage {...messages.profile} />
+                <FormattedMessage id="app.containers.Settings.profile" />
               </SectionTitle>
               <Paragraph>
-                <FormattedMessage {...messages.profileDescription} />
+                <FormattedMessage id="app.containers.Settings.profileDescription" />
               </Paragraph>
             </Col>
             <Col span={12}>
@@ -511,10 +525,10 @@ export class Settings extends React.Component {
           <Row>
             <Col span={12}>
               <SectionTitle>
-                <FormattedMessage {...messages.password} />
+                <FormattedMessage id="app.containers.Settings.password" />
               </SectionTitle>
               <Paragraph>
-                <FormattedMessage {...messages.passwordDescription} />
+                <FormattedMessage id="app.containers.Settings.passwordDescription" />
               </Paragraph>
             </Col>
             <Col span={12}>
@@ -525,24 +539,10 @@ export class Settings extends React.Component {
           <Row>
             <Col span={12}>
               <SectionTitle>
-                <FormattedMessage {...messages.securityKey} />
+                <FormattedMessage id="app.containers.Settings.deleteAccount" />
               </SectionTitle>
               <Paragraph>
-                <FormattedMessage {...messages.securityKeyDescription} />
-              </Paragraph>
-            </Col>
-            <Col span={12}>
-              <WrappedAPIKeyForm securityKey={user.securityKey} />
-            </Col>
-          </Row>
-          <Divider />
-          <Row>
-            <Col span={12}>
-              <SectionTitle>
-                <FormattedMessage {...messages.deleteAccount} />
-              </SectionTitle>
-              <Paragraph>
-                <FormattedMessage {...messages.deleteAccountDescription} />
+                <FormattedMessage id="app.containers.Settings.deleteAccountDescription" />
               </Paragraph>
             </Col>
             <Col span={12}>
@@ -550,19 +550,19 @@ export class Settings extends React.Component {
                 type="danger"
                 onClick={this.clickDeleteAccount.bind(this)}
               >
-                <FormattedMessage {...messages.deleteThisAccount} />
+                <FormattedMessage id="app.containers.Settings.deleteThisAccount" />
               </Button>
             </Col>
           </Row>
           <Modal
-            title={formatMessage(messages.deleteAccount)}
+            title={formatMessage({id:"app.containers.Settings.deleteAccount"})}
             visible={visible}
             onOk={this.handleOk}
             confirmLoading={confirmLoading}
             onCancel={this.handleCancel}
           >
             <p>
-              <FormattedMessage {...messages.deleteAccountDescription} />
+              <FormattedMessage id="app.containers.Settings.deleteAccountDescription" />
             </p>
           </Modal>
         </div>
