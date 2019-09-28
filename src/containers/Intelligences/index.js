@@ -17,7 +17,7 @@ import styled from 'styled-components';
 // import { FormattedMessage, FormattedHTMLMessage, injectIntl } from 'react-intl';
 // import { createStructuredSelector } from 'reselect';
 // import { compose } from 'redux';
-import { Empty, Button, Table, Spin, Input, Row, Col, Icon } from 'antd';
+import { Empty, Button, Table, Spin, Input, Row, Col, Icon, Checkbox } from 'antd';
 
 // import injectSaga from 'utils/injectSaga';
 // import injectReducer from 'utils/injectReducer';
@@ -38,8 +38,9 @@ import {
   getIntelligencesForManagementAPI,
   pauseIntelligencesForManagementAPI,
   resumeIntelligencesForManagementAPI,
-  deleteIntelligencesForManagementAPI
+  deleteIntelligencesForManagementAPI,
 } from '../../apis/intelligences';
+import styles from './style.less';
 
 // import DiaPageHeader from '../../components/Common';
 
@@ -99,12 +100,7 @@ export class Intelligences extends React.Component {
   }
 
   getColumnSearchProps = dataIndex => ({
-    filterDropdown: ({
-      setSelectedKeys,
-      selectedKeys,
-      confirm,
-      clearFilters,
-    }) => (
+    filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
       <div style={{ padding: 8 }}>
         <Input
           ref={node => {
@@ -112,17 +108,13 @@ export class Intelligences extends React.Component {
           }}
           placeholder={`Search ${dataIndex}`}
           value={selectedKeys[0]}
-          onChange={e =>
-            setSelectedKeys(e.target.value ? [e.target.value] : [])
-          }
-          onPressEnter={() =>
-            this.handleSearch(selectedKeys, confirm, dataIndex)
-          }
+          onChange={e => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+          onPressEnter={() => this.handleSearch(selectedKeys, confirm, dataIndex)}
           style={{ width: 250, marginBottom: 8, display: 'block' }}
         />
         <Button
           type="primary"
-          onClick={() => this.handleSearch(selectedKeys, confirm, dataIndex)}
+          onClick={() => this.handleSearch(selectedKeys&&selectedKeys[0], confirm, dataIndex)}
           size="small"
           style={{ width: 90, marginRight: 8 }}
         >
@@ -144,38 +136,44 @@ export class Intelligences extends React.Component {
     },
   });
 
-  // getColumnCheckboxProps = (dataIndex, options) => ({
-  //   filterDropdown: ({
-  //     setSelectedKeys,
-  //     selectedKeys,
-  //     confirm,
-  //     clearFilters,
-  //   }) => (
-  //     <div style={{ padding: 8 }}>
-
-  //       <Button
-  //         type="primary"
-  //         onClick={() => this.handleSearch(selectedKeys, confirm, dataIndex)}
-  //         size="small"
-  //         style={{ width: 90, marginRight: 8 }}
-  //       >
-  //         <FormattedMessage {...commonMessages.search} />
-  //       </Button>
-  //       <Button
-  //         onClick={() => this.handleReset(clearFilters, dataIndex)}
-  //         size="small"
-  //         style={{ width: 90 }}
-  //       >
-  //         <FormattedMessage {...commonMessages.reset} />
-  //       </Button>
-  //     </div>
-  //   ),
-  // });
+  getColumnCheckboxProps = (dataIndex, options) => ({
+    filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => {
+      return (
+        <div style={{ padding: 8 }} className='intelligences-checkboxgroup'>
+          <Checkbox.Group
+            options={options}
+            defaultValue={selectedKeys}
+            onChange={checkedValues => {
+              this.filterConditions[dataIndex] = checkedValues;
+              setSelectedKeys(checkedValues);
+            }}
+          />
+          <div>
+            <Button
+              type="primary"
+              onClick={() => this.handleSearch(selectedKeys, confirm, dataIndex)}
+              size="small"
+              style={{ width: 90, marginRight: 8 }}
+            >
+              <FormattedMessage id="app.common.messages.search" />
+            </Button>
+            <Button
+              onClick={() => this.handleReset(clearFilters, dataIndex)}
+              size="small"
+              style={{ width: 90 }}
+            >
+              <FormattedMessage id="app.common.messages.reset" />
+            </Button>
+          </div>
+        </div>
+      );
+    },
+  });
 
   handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
-    this.setState({ searchText: selectedKeys[0] });
-    this.filterConditions[dataIndex] = selectedKeys[0];
+    this.setState({ searchText: selectedKeys });
+    this.filterConditions[dataIndex] = selectedKeys;
     this.search();
   };
 
@@ -206,7 +204,7 @@ export class Intelligences extends React.Component {
     );
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.initIntelligencesData();
   }
 
@@ -222,15 +220,10 @@ export class Intelligences extends React.Component {
   componentDidUpdate() {
     $('.intelligence-table-container .ant-table-body').unbind('scroll');
     $('.intelligence-table-container .ant-table-body').bind('scroll', () => {
-      let scrollTop = $(
-        '.intelligence-table-container .ant-table-body',
-      ).scrollTop();
-      let offsetHeight = $(
-        '.intelligence-table-container .ant-table-body',
-      ).outerHeight();
-      let scrollHeight = document.querySelector(
-        '.intelligence-table-container .ant-table-body',
-      ).scrollHeight;
+      let scrollTop = $('.intelligence-table-container .ant-table-body').scrollTop();
+      let offsetHeight = $('.intelligence-table-container .ant-table-body').outerHeight();
+      let scrollHeight = document.querySelector('.intelligence-table-container .ant-table-body')
+        .scrollHeight;
 
       // console.log("scrollHeight: ", scrollHeight);
       // console.log("scrollTop: ", scrollTop);
@@ -238,10 +231,7 @@ export class Intelligences extends React.Component {
       // console.log("lastScrollHeight: ", this.lastScrollHeight);
       // console.log('offset: ', (scrollHeight - scrollTop - offsetHeight));
 
-      if (
-        scrollHeight - scrollTop - offsetHeight < 200 &&
-        this.props.intelligences.nextCursor
-      ) {
+      if (scrollHeight - scrollTop - offsetHeight < 200 && this.props.intelligences.nextCursor) {
         if (!this.state.loadingMore) {
           this.lastScrollHeight = scrollHeight;
           this.loadMoreIntelligences();
@@ -261,10 +251,7 @@ export class Intelligences extends React.Component {
     if (nextCursor === undefined) {
       nextCursor = this.props.intelligences.nextCursor;
     }
-    getIntelligencesForManagementAPI(
-      nextCursor,
-      this.filterConditions.url,
-    ).then(
+    getIntelligencesForManagementAPI(nextCursor, this.filterConditions.url, this.filterConditions.state).then(
       intelligences => {
         this.props.dispatch(refreshIntelligencesSuccess(intelligences));
         this.setState({
@@ -286,7 +273,7 @@ export class Intelligences extends React.Component {
       if (this.state.selectedRows && this.state.selectedRows.length) {
         ids = this.state.selectedRows.map(item => item.globalId);
       }
-      if(!ids||!ids.length){
+      if (!ids || !ids.length) {
         url = this.filterConditions.url;
       }
       this.setState({
@@ -322,7 +309,7 @@ export class Intelligences extends React.Component {
       if (this.state.selectedRows && this.state.selectedRows.length) {
         ids = this.state.selectedRows.map(item => item.globalId);
       }
-      if(!ids||!ids.length){
+      if (!ids || !ids.length) {
         url = this.filterConditions.url;
       }
       this.setState({
@@ -358,7 +345,7 @@ export class Intelligences extends React.Component {
       if (this.state.selectedRows && this.state.selectedRows.length) {
         ids = this.state.selectedRows.map(item => item.globalId);
       }
-      if(!ids||!ids.length){
+      if (!ids || !ids.length) {
         url = this.filterConditions.url;
       }
       this.setState({
@@ -402,39 +389,39 @@ export class Intelligences extends React.Component {
         ...this.getColumnSearchProps('url'),
       },
       {
-        title: formatMessage({id:"app.common.messages.state"}),
+        title: formatMessage({ id: 'app.common.messages.state' }),
         dataIndex: 'system.state',
         width: '15%',
-        // ...this.getColumnCheckboxProps('system_state', [
-        //   {
-        //     label: formatMessage(commonMessages.stateDraft),
-        //     value: 'DRAFT',
-        //   },
-        //   {
-        //     label: formatMessage(commonMessages.stateConfigured),
-        //     value: 'CONFIGURED',
-        //   },
-        //   {
-        //     label: formatMessage(commonMessages.stateFinished),
-        //     value: 'FINISHED',
-        //   },
-        //   {
-        //     label: formatMessage(commonMessages.stateRunning),
-        //     value: 'RUNNING',
-        //   },
-        //   {
-        //     label: formatMessage(commonMessages.stateFailed),
-        //     value: 'FAILED',
-        //   },
-        //   {
-        //     label: formatMessage(commonMessages.statePaused),
-        //     value: 'PAUSED',
-        //   },
-        //   {
-        //     label: formatMessage(commonMessages.stateTimeout),
-        //     value: 'TIMEOUT',
-        //   },
-        // ]),
+        ...this.getColumnCheckboxProps('state', [
+          {
+            label: formatMessage({ id: 'app.common.messages.stateDraft' }),
+            value: 'DRAFT',
+          },
+          {
+            label: formatMessage({ id: 'app.common.messages.stateConfigured' }),
+            value: 'CONFIGURED',
+          },
+          {
+            label: formatMessage({ id: 'app.common.messages.stateFinished' }),
+            value: 'FINISHED',
+          },
+          {
+            label: formatMessage({ id: 'app.common.messages.stateRunning' }),
+            value: 'RUNNING',
+          },
+          {
+            label: formatMessage({ id: 'app.common.messages.stateFailed' }),
+            value: 'FAILED',
+          },
+          {
+            label: formatMessage({ id: 'app.common.messages.statePaused' }),
+            value: 'PAUSED',
+          },
+          {
+            label: formatMessage({ id: 'app.common.messages.stateTimeout' }),
+            value: 'TIMEOUT',
+          },
+        ]),
       },
       {
         title: 'SOI State',
@@ -560,9 +547,7 @@ export class Intelligences extends React.Component {
                       onClick={() => this.initIntelligencesData()}
                       disabled={loadingIntelligencesData}
                     >
-                      {dayjs(intelligences.modified).format(
-                        'YYYY/MM/DD HH:mm:ss',
-                      )}
+                      {dayjs(intelligences.modified).format('YYYY/MM/DD HH:mm:ss')}
                       <Icon
                         type="sync"
                         style={{ verticalAlign: '0', marginLeft: '5px' }}
@@ -606,8 +591,8 @@ export class Intelligences extends React.Component {
   }
 }
 
-export default connect(({intelligences}) => ({
-  intelligences
+export default connect(({ intelligences }) => ({
+  intelligences,
 }))(Intelligences);
 
 // Intelligences.propTypes = {

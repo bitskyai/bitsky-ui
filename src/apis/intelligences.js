@@ -1,4 +1,5 @@
 import http, { getRedirectURL } from '../utils/http';
+import _ from 'lodash';
 
 // export async function registerAgentAPI(agent) {
 //   try {
@@ -13,7 +14,7 @@ import http, { getRedirectURL } from '../utils/http';
 //   }
 // }
 
-export async function getIntelligencesForManagementAPI(cursor, url, limit) {
+export async function getIntelligencesForManagementAPI(cursor, url, state, limit) {
   try {
     let params = {
       limit: limit || 50
@@ -22,7 +23,13 @@ export async function getIntelligencesForManagementAPI(cursor, url, limit) {
       params.cursor = cursor;
     }
     if(url){
+      if(_.isArray(url)){
+        url = url[0];
+      }
       params.url = url;
+    }
+    if(state&&state.length){
+      params.state = state.join(',');
     }
     let result = await http({
       url: '/apis/manangement/intelligences',
