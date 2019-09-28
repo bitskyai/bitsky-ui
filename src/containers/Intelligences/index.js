@@ -192,7 +192,7 @@ export class Intelligences extends React.Component {
       selectedRows: [],
     });
     // init intelligences
-    getIntelligencesForManagementAPI().then(
+    getIntelligencesForManagementAPI(undefined, this.filterConditions.url, this.filterConditions.state).then(
       intelligences => {
         this.setState({ loadingIntelligencesData: false });
         this.props.dispatch(refreshIntelligencesSuccess(intelligences));
@@ -386,12 +386,14 @@ export class Intelligences extends React.Component {
         title: 'Target URL',
         dataIndex: 'url',
         width: '40%',
+        filteredValue: this.filterConditions.url,
         ...this.getColumnSearchProps('url'),
       },
       {
         title: formatMessage({ id: 'app.common.messages.state' }),
         dataIndex: 'system.state',
         width: '15%',
+        filteredValue: this.filterConditions.state,
         ...this.getColumnCheckboxProps('state', [
           {
             label: formatMessage({ id: 'app.common.messages.stateDraft' }),
