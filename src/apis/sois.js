@@ -49,3 +49,15 @@ export async function deleteASOIAPI(globalId) {
     throw err;
   }
 }
+
+export async function pingSOIAPI(globalId) {
+  try {
+    let result = await http({
+      url: `/apis/sois/${globalId}/status`,
+      method: 'PUT',
+    });
+    return result.data;
+  } catch (err) {
+    throw err;
+  }
+}

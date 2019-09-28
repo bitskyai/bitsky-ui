@@ -25,7 +25,7 @@ import { Empty, Table, Button, Popconfirm, message, Row, Col, Icon } from 'antd'
 import RegisterSoiForm from './RegisterSoiForm';
 import SOIsSkeleton from './SOIsSkeleton';
 import { refreshSOIsSuccess, refreshSOIsFail, refreshSOIs } from './actions';
-import { getSOIs, deleteASOIAPI } from '../../apis/sois';
+import { getSOIs, deleteASOIAPI, pingSOIAPI } from '../../apis/sois';
 import './style.css';
 
 // import DiaPageHeader from '../../components/Common';
@@ -83,6 +83,22 @@ export class SoisNew extends React.Component {
       () => {
         this.props.dispatch(refreshSOIs());
         let msg = formatMessage({id:"app.containers.Sois.deleteSOISuccessful"});
+        message.success(msg);
+      },
+      err => {
+        message.error(err);
+      },
+    );
+  }
+
+  onPingSOI(record, event){
+    event.preventDefault();
+    event.stopPropagation();
+    // console.log(`onDeleteASOI: `, record);
+    pingSOIAPI(record.globalId).then(
+      () => {
+        this.props.dispatch(refreshSOIs());
+        let msg = formatMessage({id:"app.containers.Sois.pingSuccessful"});
         message.success(msg);
       },
       err => {
@@ -162,6 +178,16 @@ export class SoisNew extends React.Component {
                 this.onPreventShowDrawer(e);
               }}
             >
+              <Button
+                      size="small"
+                      style={actionButtonStyle}
+                      title={formatMessage({ id: 'app.containers.Sois.pingDescription' })}
+                      onClick={e => {
+                        this.onPingSOI(record, e);
+                      }}
+                    >
+                      {formatMessage({ id: 'app.containers.Sois.ping' })}
+                    </Button>
               <Popconfirm
                 style={{ maxWidth: '300px' }}
                 title={formatMessage({id:"app.containers.Sois.deleteSOIDescription"})}
