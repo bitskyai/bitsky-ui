@@ -9,6 +9,8 @@ import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
 import $ from 'jquery';
 import _ from 'lodash';
+import TimeAgo from 'react-timeago';
+import MediaQuery from 'react-responsive';
 
 // import { connect } from 'react-redux';
 import { connect } from 'dva';
@@ -17,7 +19,7 @@ import styled from 'styled-components';
 // import { FormattedMessage, FormattedHTMLMessage, injectIntl } from 'react-intl';
 // import { createStructuredSelector } from 'reselect';
 // import { compose } from 'redux';
-import { Empty, Button, Table, Spin, Input, Row, Col, Icon, Checkbox } from 'antd';
+import { Empty, Button, Table, Spin, Input, Row, Col, Icon, Checkbox, Dropdown, Menu } from 'antd';
 
 // import injectSaga from 'utils/injectSaga';
 // import injectReducer from 'utils/injectReducer';
@@ -114,7 +116,7 @@ export class Intelligences extends React.Component {
         />
         <Button
           type="primary"
-          onClick={() => this.handleSearch(selectedKeys&&selectedKeys[0], confirm, dataIndex)}
+          onClick={() => this.handleSearch(selectedKeys && selectedKeys[0], confirm, dataIndex)}
           size="small"
           style={{ width: 90, marginRight: 8 }}
         >
@@ -139,7 +141,7 @@ export class Intelligences extends React.Component {
   getColumnCheckboxProps = (dataIndex, options) => ({
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => {
       return (
-        <div style={{ padding: 8 }} className='intelligences-checkboxgroup'>
+        <div style={{ padding: 8 }} className="intelligences-checkboxgroup">
           <Checkbox.Group
             options={options}
             defaultValue={selectedKeys}
@@ -192,7 +194,11 @@ export class Intelligences extends React.Component {
       selectedRows: [],
     });
     // init intelligences
-    getIntelligencesForManagementAPI(undefined, this.filterConditions.url, this.filterConditions.state).then(
+    getIntelligencesForManagementAPI(
+      undefined,
+      this.filterConditions.url,
+      this.filterConditions.state,
+    ).then(
       intelligences => {
         this.setState({ loadingIntelligencesData: false });
         this.props.dispatch(refreshIntelligencesSuccess(intelligences));
@@ -251,7 +257,11 @@ export class Intelligences extends React.Component {
     if (nextCursor === undefined) {
       nextCursor = this.props.intelligences.nextCursor;
     }
-    getIntelligencesForManagementAPI(nextCursor, this.filterConditions.url, this.filterConditions.state).then(
+    getIntelligencesForManagementAPI(
+      nextCursor,
+      this.filterConditions.url,
+      this.filterConditions.state,
+    ).then(
       intelligences => {
         this.props.dispatch(refreshIntelligencesSuccess(intelligences));
         this.setState({
@@ -492,71 +502,142 @@ export class Intelligences extends React.Component {
           operationBtnDisabled = true;
         }
 
+        const menu = (
+          <Menu>
+            <Menu.Item>
+              <Button
+                type="link"
+                onClick={() => {
+                  this.onPauseAll();
+                }}
+                disabled={operationBtnDisabled}
+                loading={this.state.operationBtns.pausing}
+              >
+                <FormattedMessage
+                  id="app.containers.Intelligences.pauseAll"
+                  values={{ intelligenceNumber: total }}
+                />
+              </Button>
+            </Menu.Item>
+            <Menu.Item>
+              <Button
+                type="link"
+                onClick={() => {
+                  this.onResumeAll();
+                }}
+                disabled={operationBtnDisabled}
+                loading={this.state.operationBtns.resuming}
+              >
+                <FormattedMessage
+                  id="app.containers.Intelligences.resumeAll"
+                  values={{ intelligenceNumber: total }}
+                />
+              </Button>
+            </Menu.Item>
+            <Menu.Item>
+              <Button
+                type="link"
+                onClick={() => {
+                  this.onDeleteAll();
+                }}
+                disabled={operationBtnDisabled}
+                loading={this.state.operationBtns.deleting}
+              >
+                <FormattedMessage
+                  id="app.containers.Intelligences.deleteAll"
+                  values={{ intelligenceNumber: total }}
+                />
+              </Button>
+            </Menu.Item>
+          </Menu>
+        );
+
+        const rightContent = (
+          <div style={{ display: 'inline-block' }}>
+            <div style={{ display: 'inline-block' }}>
+              <span>{`Show ${_.get(intelligences, 'data.length')} of ${
+                intelligences.total
+              } intelligences`}</span>
+            </div>
+            <Button
+              type="link"
+              onClick={() => this.initIntelligencesData()}
+              disabled={loadingIntelligencesData}
+            >
+              {/* {dayjs(intelligences.modified).format('YYYY/MM/DD HH:mm:ss')} */}
+              <TimeAgo date={intelligences.modified} />
+              <Icon
+                type="sync"
+                style={{ verticalAlign: 'middle', marginLeft: '5px' }}
+                spin={loadingIntelligencesData}
+              />
+            </Button>
+          </div>
+        );
+
         content = (
           // <div ref={(ref) => this.scrollParentRef = ref}>
           <div className="intelligence-table-container">
             <div style={{ padding: '0 24px' }}>
               <div style={{ paddingBottom: '15px' }}>
                 <Row>
-                  <Col span={14}>
-                    <Button
-                      onClick={() => {
-                        this.onPauseAll();
-                      }}
-                      disabled={operationBtnDisabled}
-                      loading={this.state.operationBtns.pausing}
-                    >
-                      <FormattedMessage
-                        id="app.containers.Intelligences.pauseAll"
-                        values={{ intelligenceNumber: total }}
-                      />
-                    </Button>
-                    <Button
-                      onClick={() => {
-                        this.onResumeAll();
-                      }}
-                      style={{ marginLeft: '10px' }}
-                      disabled={operationBtnDisabled}
-                      loading={this.state.operationBtns.resuming}
-                    >
-                      <FormattedMessage
-                        id="app.containers.Intelligences.resumeAll"
-                        values={{ intelligenceNumber: total }}
-                      />
-                    </Button>
-                    <Button
-                      onClick={() => {
-                        this.onDeleteAll();
-                      }}
-                      style={{ marginLeft: '10px' }}
-                      disabled={operationBtnDisabled}
-                      loading={this.state.operationBtns.deleting}
-                    >
-                      <FormattedMessage
-                        id="app.containers.Intelligences.deleteAll"
-                        values={{ intelligenceNumber: total }}
-                      />
-                    </Button>
-                  </Col>
-                  <Col span={10} style={{ textAlign: 'right' }}>
-                    <div style={{ display: 'inline-block' }}>
-                      <span>{`Show ${_.get(intelligences, 'data.length')} of ${
-                        intelligences.total
-                      } intelligences`}</span>
-                    </div>
-                    <Button
-                      type="link"
-                      onClick={() => this.initIntelligencesData()}
-                      disabled={loadingIntelligencesData}
-                    >
-                      {dayjs(intelligences.modified).format('YYYY/MM/DD HH:mm:ss')}
-                      <Icon
-                        type="sync"
-                        style={{ verticalAlign: '0', marginLeft: '5px' }}
-                        spin={loadingIntelligencesData}
-                      />
-                    </Button>
-                  </Col>
+                  <MediaQuery minWidth={1444}>
+                    <Col span={14}>
+                      <Button
+                        onClick={() => {
+                          this.onPauseAll();
+                        }}
+                        disabled={operationBtnDisabled}
+                        loading={this.state.operationBtns.pausing}
+                      >
+                        <FormattedMessage
+                          id="app.containers.Intelligences.pauseAll"
+                          values={{ intelligenceNumber: total }}
+                        />
+                      </Button>
+                      <Button
+                        onClick={() => {
+                          this.onResumeAll();
+                        }}
+                        style={{ marginLeft: '10px' }}
+                        disabled={operationBtnDisabled}
+                        loading={this.state.operationBtns.resuming}
+                      >
+                        <FormattedMessage
+                          id="app.containers.Intelligences.resumeAll"
+                          values={{ intelligenceNumber: total }}
+                        />
+                      </Button>
+                      <Button
+                        onClick={() => {
+                          this.onDeleteAll();
+                        }}
+                        style={{ marginLeft: '10px' }}
+                        disabled={operationBtnDisabled}
+                        loading={this.state.operationBtns.deleting}
+                      >
+                        <FormattedMessage
+                          id="app.containers.Intelligences.deleteAll"
+                          values={{ intelligenceNumber: total }}
+                        />
+                      </Button>
+                    </Col>
+                    <Col span={10} style={{ textAlign: 'right' }}>
+                      {rightContent}
+                    </Col>
+                  </MediaQuery>
+                  <MediaQuery maxWidth={1444}>
+                    <Col span={3}>
+                      <Dropdown overlay={menu}>
+                        <Button>
+                          <Icon type="menu" />
+                        </Button>
+                      </Dropdown>
+                    </Col>
+                    <Col span={21} style={{ textAlign: 'right' }}>
+                      {rightContent}
+                    </Col>
+                  </MediaQuery>
                 </Row>
               </div>
 

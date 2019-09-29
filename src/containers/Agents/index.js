@@ -6,6 +6,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
+import TimeAgo from 'react-timeago';
 // import { connect } from 'react-redux';
 import { connect } from 'dva';
 import { formatMessage, FormattedMessage, FormattedHTMLMessage } from 'umi-plugin-react/locale';
@@ -332,10 +333,11 @@ export class Agents extends React.Component {
                       onClick={() => this.initAgentsData()}
                       // disabled={loadingIntelligencesData}
                     >
-                      {dayjs(modified).format('YYYY/MM/DD HH:mm:ss')}
+                      {/* {dayjs(modified).format('YYYY/MM/DD HH:mm:ss')} */}
+                      <TimeAgo date={modified} />
                       <Icon
                         type="sync"
-                        style={{ verticalAlign: '0', marginLeft: '5px' }}
+                        style={{ verticalAlign: 'middle', marginLeft: '5px' }}
                         // spin={loadingIntelligencesData}
                       />
                     </Button>
