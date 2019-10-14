@@ -224,7 +224,7 @@ export class SoisNew extends React.Component {
             <Empty
               description={
                 <span>
-                  {formatMessage({id:"app.containers.Sois.emptySOIs"})}
+                  <FormattedHTMLMessage id="app.containers.Sois.emptySOIs"/>
                 </span>
               }
             >

@@ -7,7 +7,7 @@
 export default {
   'app.containers.Sois.header': 'SOIs',
   'app.containers.Sois.emptySOIs':
-    'You don\'t have any <a href="https://docs.munew.io/guide/concepts/soi" target="_blank">SOIs</a>',
+    'You don\'t have any <a href="https://docs.munew.io/guide/concepts/soi" target="_blank">SOIs</a>. <a href="https://docs.munew.io/how-tos/how-to-register-an-soi-service">How to register an SOI Service</a> will show you step by step to regiter an SOI service',
   'app.containers.Sois.registerNow': 'Register',
   'app.containers.Sois.drawerTitle': 'Register a SOI',
   'app.containers.Sois.drawerTitleUpdate': 'Modify a SOI',
