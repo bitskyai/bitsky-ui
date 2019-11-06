@@ -185,7 +185,7 @@ export class Agents extends React.Component {
     );
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.initAgentsData();
   }
 
@@ -307,10 +307,17 @@ export class Agents extends React.Component {
           <EmptyContainer>
             <Empty
               description={
-                <span>{formatMessage({ id: 'app.containers.Agents.emptyAgents' })}</span>
+                <span>
+                  <FormattedHTMLMessage id="app.containers.Agents.emptyAgents"></FormattedHTMLMessage>
+                </span>
               }
             >
-              <Button type="primary" onClick={()=>{this.onRegisterAgent();}}>
+              <Button
+                type="primary"
+                onClick={() => {
+                  this.onRegisterAgent();
+                }}
+              >
                 {formatMessage({ id: 'app.containers.Agents.registerNow' })}
               </Button>
             </Empty>
@@ -323,7 +330,12 @@ export class Agents extends React.Component {
               <div style={{ paddingBottom: '15px' }}>
                 <Row>
                   <Col span={14}>
-                    <Button onClick={()=>{this.onRegisterAgent();}} type="primary">
+                    <Button
+                      onClick={() => {
+                        this.onRegisterAgent();
+                      }}
+                      type="primary"
+                    >
                       {formatMessage({ id: 'app.containers.Agents.registerNow' })}
                     </Button>
                   </Col>
@@ -391,7 +403,9 @@ export class Agents extends React.Component {
         {content}
         <RegisterAgentForm
           visiable={drawerVisiable}
-          onCloseDrawer={()=>{this.onCloseDrawer();}}
+          onCloseDrawer={() => {
+            this.onCloseDrawer();
+          }}
           agent={selectedAgent}
           dispatch={this.props.dispatch}
         />
