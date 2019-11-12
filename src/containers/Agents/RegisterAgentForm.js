@@ -271,7 +271,9 @@ class RegisterAgentForm extends React.Component {
                 style={formItemStyle}
               >
                 {getFieldDecorator('type', {
-                  initialValue: _.toUpper(_.get(this, 'props.agent.type', AGENT_TYPES.browserExtension)),
+                  initialValue: _.toUpper(
+                    _.get(this, 'props.agent.type', AGENT_TYPES.browserExtension),
+                  ),
                   rules: [
                     {
                       required: true,
@@ -429,7 +431,7 @@ class RegisterAgentForm extends React.Component {
                       message: formatHTMLMessage({ id: 'app.containers.Agents.invalidInteger' }),
                     },
                   ],
-                })(<InputNumber disabled={readOnly} min={10} max={100} />)}
+                })(<InputNumber disabled={readOnly} />)}
               </Form.Item>
               <FormDescription>
                 <FormattedHTMLMessage id="app.containers.Agents.maxCollectTimeDescription" />

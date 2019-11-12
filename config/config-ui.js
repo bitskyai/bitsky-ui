@@ -84,9 +84,58 @@ export default {
     {
       path: '/',
       component: '../layouts/BlankLayout',
+      authority: ['admin', 'user'],
       routes: [
         { path: '/', redirect: '/app/intelligences' },
-        { path: '/home', redirect: '/app/intelligences' },
+        {
+          path: '/home',
+          routes: [
+            {
+              path: '/home',
+              component: './Home',
+            },
+          ],
+        },
+        {
+          path: '/login',
+          component: '../layouts/UserLayout',
+          routes: [
+            {
+              path: '/login',
+              component: './Login',
+            },
+          ],
+        },
+        {
+          path: '/signup',
+          component: '../layouts/UserLayout',
+          routes: [
+            {
+              path: '/signup',
+              component: './Signup',
+            },
+          ],
+        },
+        {
+          path: '/reset',
+          component: '../layouts/UserLayout',
+          routes: [
+            {
+              path: '/reset/:id',
+              component: './Reset',
+            },
+          ],
+        },
+        {
+          path: '/forgot',
+          component: '../layouts/UserLayout',
+          routes: [
+            {
+              path: '/forgot',
+              component: './Forgot',
+            },
+          ],
+        },
         {
           path: '/app',
           component: '../layouts/BasicLayout',
@@ -169,7 +218,7 @@ export default {
   chainWebpack: webpackPlugin,
   proxy: {
     '/apis/': {
-      target: 'http://localhost:9099',
+      target: 'http://localhost:3000',
       changeOrigin: true,
       // pathRewrite: { '^/server': '' },
     },

@@ -15,7 +15,8 @@ export default {
   'app.containers.Agents.registerNow': 'Register',
   'app.containers.Agents.drawerTitleCreate': 'Register an Agent',
   'app.containers.Agents.drawerTitleUpdate': 'Modify this Agent',
-  'app.containers.Agents.activeAgentTip': 'This agent is in Active status, you need to Deactivate it before you can modify',
+  'app.containers.Agents.activeAgentTip':
+    'This agent is in Active status, you need to Deactivate it before you can modify',
   'app.containers.Agents.registerAgentDescription':
     'Agent is the client that collect the intelligences your SOIs created. It has several types: <a href="#" target="_blank">browser extension</a>, <a href="#" target="_blank">service</a>, you also can develop an agent by yourself',
   'app.containers.Agents.deleteAgentDescription': 'Are you sure delete this Agent?',
@@ -82,8 +83,8 @@ export default {
   'app.containers.Agents.maxWaitingTimeDescription':
     'Max waiting time between two collecting jobs. Value Range: <span class="ant-typography"><code>[(Max\n      Waiting Time/2), Max Waiting Time]</code></span>',
   'app.containers.Agents.maxCollectTime': 'Max Collect Time',
-  'app.containers.Agents.maxCollectTimePlaceholder': 'Please enter max collect time, like 50',
-  'app.containers.Agents.maxCollectTimeExample': '50',
+  'app.containers.Agents.maxCollectTimePlaceholder': 'Please enter max collect time, like 10000',
+  'app.containers.Agents.maxCollectTimeExample': '10000',
   'app.containers.Agents.maxCollectTimeDescription':
     'Browser has memory leak issue if continue to open urls. To avoid this, need to close window when reach max collect times. Collect Time equal to how many request send to DIA to get intelligence.',
   'app.containers.Agents.agentIdleTime': 'Agent Idle Time',
