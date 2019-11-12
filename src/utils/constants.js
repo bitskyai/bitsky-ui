@@ -12,11 +12,11 @@ export const AGENT_TYPES = {
 export const DEFAULT_AGENT_CONFIGURATION = {
   private: true,
   concurrent: 1,
-  pollingInterval: 30, // (Unit: Second) How frequently to poll whether need to collect intelligences
-  maxWaitingTime: 5, // (Unit: Second)
-  maxCollect: 50, // (Unit: Second) Max crawl times, when reach this time, close browser to release memory
-  idelTime: 10, // (Unit: Second) After close browser, idle system for **IDLE_TIME**
-  timeout: 90,
+  pollingInterval: 10, // (Unit: Second) How frequently to poll whether need to collect intelligences
+  maxWaitingTime: 1, // (Unit: Second)
+  maxCollect: 100000, // Max crawl times, when reach this time, close browser to release memory
+  idelTime: 1, // (Unit: Second) After close browser, idle system for **IDLE_TIME**
+  timeout: 30,
   maxRetry: 3,
 };
 
@@ -24,5 +24,5 @@ export const AGENT_STATE = {
   draft: 'DRAFT',
   configured: 'CONFIGURED',
   active: 'ACTIVE',
-  deleted: 'DELETED'
+  deleted: 'DELETED',
 };
