@@ -1,15 +1,16 @@
+import produce from 'immer';
+import {
+  REFRESH_INTELLIGENCES,
+  REFRESH_INTELLIGENCES_FAIL,
+  REFRESH_INTELLIGENCES_SUCCESS,
+  RESET_INTELLIGENCES,
+} from './constants';
+
 /*
  *
  * Intelligences reducer
  *
  */
-import produce from 'immer';
-import {
-  RESET_INTELLIGENCES,
-  REFRESH_INTELLIGENCES,
-  REFRESH_INTELLIGENCES_FAIL,
-  REFRESH_INTELLIGENCES_SUCCESS,
-} from './constants';
 
 export const initialState = {};
 
@@ -18,7 +19,7 @@ const intelligencesReducer = (state = initialState, action) =>
   produce(state, draft => {
     switch (action.type) {
       case REFRESH_INTELLIGENCES_SUCCESS:
-        let data = state.data || [];
+        const data = state.data || [];
         draft.data = data.concat(action.intelligences);
         draft.total = action.total;
         draft.nextCursor = action.nextCursor;

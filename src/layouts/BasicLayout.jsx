@@ -1,16 +1,17 @@
+import React, { useEffect } from 'react';
+
+import Authorized from '@/utils/Authorized';
+import GlobalFooter from '@/components/GlobalFooter';
+import Link from 'umi/link';
 /**
  * Ant Design Pro v4 use `@ant-design/pro-layout` to handle Layout.
  * You can view component api by:
  * https://github.com/ant-design/ant-design-pro-layout
  */
 import ProLayout from '@ant-design/pro-layout';
-import React, { useEffect } from 'react';
-import Link from 'umi/link';
+import RightContent from '@/components/GlobalHeader/RightContent';
 import { connect } from 'dva';
 import { formatMessage } from 'umi-plugin-react/locale';
-import Authorized from '@/utils/Authorized';
-import RightContent from '@/components/GlobalHeader/RightContent';
-import GlobalFooter from '@/components/GlobalFooter';
 import logo from '../assets/logo.png';
 
 /**
@@ -22,12 +23,9 @@ const menuDataRender = menuList =>
     return Authorized.check(item.authority, localItem, null);
   });
 
-const footerRender = _ => {
-  return (
-    // <GlobalFooter/>
-    ""
-  );
-};
+const footerRender = _ =>
+  // <GlobalFooter/>
+  '';
 
 const BasicLayout = props => {
   const { dispatch, children, settings, user } = props;
@@ -100,5 +98,5 @@ const BasicLayout = props => {
 export default connect(({ global, settings, user }) => ({
   collapsed: global.collapsed,
   settings,
-  user: user&&user.currentUser
+  user: user && user.currentUser,
 }))(BasicLayout);

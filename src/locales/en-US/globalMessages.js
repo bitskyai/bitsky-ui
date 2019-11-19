@@ -13,9 +13,9 @@ export default {
     id: `${scope}.productName`,
     defaultMessage: 'MUNEW',
   },
-  slogan:{
+  slogan: {
     id: `${scope}.slogan`,
-    defaultMessage: 'Make Life Productive'
+    defaultMessage: 'Make Life Productive',
   },
   serverTempDown: {
     id: `${scope}.serverTempDown`,
@@ -63,120 +63,123 @@ export default {
     id: `${scope}.login`,
     defaultMessage: 'LOG IN',
   },
-  nameInvalid:{
+  nameInvalid: {
     id: `${scope}.nameInvalid`,
-    defaultMessage: "Make sure it's at least 3 characters, and at most 20 characters"
+    defaultMessage: "Make sure it's at least 3 characters, and at most 20 characters",
   },
   yes: {
     id: `${scope}.yes`,
-    defaultMessage: 'Yes'
+    defaultMessage: 'Yes',
   },
   no: {
     id: `${scope}.no`,
-    defaultMessage: 'No'
+    defaultMessage: 'No',
   },
   delete: {
     id: `${scope}.delete`,
-    defaultMessage: 'Delete'
+    defaultMessage: 'Delete',
   },
   cancel: {
     id: `${scope}.cancel`,
-    defaultMessage: 'Cancel'
+    defaultMessage: 'Cancel',
   },
   globalId: {
     id: `${scope}.globalId`,
-    defaultMessage: `Global ID`
+    defaultMessage: 'Global ID',
   },
   globalIdPlaceholder: {
     id: `${scope}.globalIdPlaceholder`,
-    defaultMessage: `Please enter an unique ID`
+    defaultMessage: 'Please enter an unique ID',
   },
   globalIdExample: {
     id: `${scope}.globalIdExample`,
-    defaultMessage: `0e9fe15e-f9a0-4279-9e65-87d2e480a66e`
+    defaultMessage: '0e9fe15e-f9a0-4279-9e65-87d2e480a66e',
   },
   globalIdDescription: {
     id: `${scope}.globalIdDescription`,
-    defaultMessage: `<b>Global ID</b> is used to identify your Agent, it should be global unique, <span style="color:#faad14">after it created you cannot change it</span>. If you use nodejs, then you can use <a href="https://www.npmjs.com/package/uuid" target="_blank">uuid</a> to generate`
+    defaultMessage:
+      '<b>Global ID</b> is used to identify your Agent, it should be global unique, <span style="color:#faad14">after it created you cannot change it</span>. If you use nodejs, then you can use <a href="https://www.npmjs.com/package/uuid" target="_blank">uuid</a> to generate',
   },
   state: {
     id: `${scope}.state`,
-    defaultMessage: `State`
+    defaultMessage: 'State',
   },
   action: {
     id: `${scope}.action`,
-    defaultMessage: `Action`
+    defaultMessage: 'Action',
   },
   httpMethod: {
     id: `${scope}.httpMethod`,
-    defaultMessage: 'HTTP Method'
+    defaultMessage: 'HTTP Method',
   },
   httpMethodPlaceHolder: {
     id: `${scope}.httpMethodPlaceHolder`,
-    defaultMessage: 'Please select your HTTP method'
+    defaultMessage: 'Please select your HTTP method',
   },
   httpMethodDescription: {
     id: `${scope}.httpMethodDescription`,
-    defaultMessage: 'Please select your HTTP method. <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods" target="_blank">Learn More.</a>'
+    defaultMessage:
+      'Please select your HTTP method. <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods" target="_blank">Learn More.</a>',
   },
   urlPath: {
     id: `${scope}.urlPath`,
-    defaultMessage: 'URL Path'
+    defaultMessage: 'URL Path',
   },
   urlPathPlaceHolder: {
     id: `${scope}.urlPathPlaceHolder`,
-    defaultMessage: 'Please enter your URL path'
+    defaultMessage: 'Please enter your URL path',
   },
   urlPathDescription: {
     id: `${scope}.urlPath`,
-    defaultMessage: 'URL path of your callback. <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Identifying_resources_on_the_Web#Path" target="_blank">Learn More.</a>'
+    defaultMessage:
+      'URL path of your callback. <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Identifying_resources_on_the_Web#Path" target="_blank">Learn More.</a>',
   },
   healthTitle: {
     id: `${scope}.healthSectionTitle`,
-    defaultMessage: 'Health Check'
+    defaultMessage: 'Health Check',
   },
   activate: {
     id: `${scope}.activate`,
-    defaultMessage: `Activate`
+    defaultMessage: 'Activate',
   },
   deactivate: {
     id: `${scope}.deactivate`,
-    defaultMessage: `Deactivate`
+    defaultMessage: 'Deactivate',
   },
   stateDraft: {
     id: `${scope}.stateDraft`,
-    defaultMessage: `Draft`
+    defaultMessage: 'Draft',
   },
   stateConfigured: {
     id: `${scope}.stateConfigured`,
-    defaultMessage: `Configured`
+    defaultMessage: 'Configured',
   },
   stateFinished: {
     id: `${scope}.stateFinished`,
-    defaultMessage: `Finished`
+    defaultMessage: 'Finished',
   },
   stateRunning: {
     id: `${scope}.stateRunning`,
-    defaultMessage: `Running`
+    defaultMessage: 'Running',
   },
   stateFailed: {
     id: `${scope}.stateFailed`,
-    defaultMessage: `Failed`
+    defaultMessage: 'Failed',
   },
   statePaused: {
     id: `${scope}.statePaused`,
-    defaultMessage: `Paused`
+    defaultMessage: 'Paused',
   },
   stateTimeout: {
     id: `${scope}.stateTimeout`,
-    defaultMessage: `Timeout`
+    defaultMessage: 'Timeout',
   },
   search: {
     id: `${scope}.search`,
-    defaultMessage: `Search`
+    defaultMessage: 'Search',
   },
   reset: {
     id: `${scope}.reset`,
-    defaultMessage: `Reset`
-  }
+    defaultMessage: 'Reset',
+  },
 };

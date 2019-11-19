@@ -1,12 +1,10 @@
-import React from 'react';
-import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import Agents from '@/containers/Agents';
+import { PageHeaderWrapper } from '@ant-design/pro-layout';
+import React from 'react';
 
-export default () => {
-  return (
-    <PageHeaderWrapper>
-      {/* <div>Agents Page</div> */}
-      <Agents />
-    </PageHeaderWrapper>
-  );
-};
+export default () => (
+  <PageHeaderWrapper>
+    {/* <div>Agents Page</div> */}
+    <Agents />
+  </PageHeaderWrapper>
+);

@@ -20,17 +20,17 @@ const isDev = () => {
  * @param {*} obj
  * @param {function} fun - Traverse function, will pass two parameters(obj, key), if key is undefined, then means this is a root node
  */
-function traverse(obj, fun){
+function traverse(obj, fun) {
   // traverse children
-  if(_.isObject(obj) || _.isArray(obj)){
+  if (_.isObject(obj) || _.isArray(obj)) {
     // first traverse all the leaf, then traverse obj
     // Get all leafs
-    let keys = _.keys(obj);
+    const keys = _.keys(obj);
     // traverse all leafs
-    for(let i=0; i<keys.length; i++){
-      let leaf = obj[keys[i]];
+    for (let i = 0; i < keys.length; i++) {
+      const leaf = obj[keys[i]];
       // traverse children
-      if((_.isObject(leaf)||_.isArray(leaf))&&_.keys(leaf).length){
+      if ((_.isObject(leaf) || _.isArray(leaf)) && _.keys(leaf).length) {
         traverse(leaf, fun);
       }
 
@@ -44,15 +44,15 @@ function traverse(obj, fun){
   return obj;
 }
 
-function filterOutEmptyValue(value){
-  value = traverse(value, function(obj, key) {
+function filterOutEmptyValue(value) {
+  value = traverse(value, (obj, key) => {
     // console.log('Before ', 'key: ', key, "obj: ", obj);
     if (key) {
       // remove empty object
       if (_.isObject(obj[key]) && !_.keys(obj[key]).length) {
         delete obj[key];
       } else if (_.isArray(obj[key])) {
-        let arr = [];
+        const arr = [];
         for (let i = 0; i < obj[key].length; i++) {
           if (obj[key][i]) {
             arr.push(obj[key][i]);
@@ -72,7 +72,7 @@ function filterOutEmptyValue(value){
       if (_.isObject(obj) && !_.keys(obj).length) {
         obj = undefined;
       } else if (_.isArray(obj)) {
-        let arr = [];
+        const arr = [];
         for (let i = 0; i < obj.length; i++) {
           if (obj[i]) {
             arr.push(obj[i]);
@@ -88,9 +88,9 @@ function filterOutEmptyValue(value){
         obj = undefined;
       }
     }
-  //   console.log("After ", "key: ", key, "obj: ", obj);
+    //   console.log("After ", "key: ", key, "obj: ", obj);
     return obj;
-  })
+  });
 
   return value;
 }

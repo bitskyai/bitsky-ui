@@ -2,7 +2,7 @@ import http from '../utils/http';
 
 export async function registerAgentAPI(agent) {
   try {
-    let result = await http({
+    const result = await http({
       url: '/apis/agents',
       method: 'POST',
       data: agent,

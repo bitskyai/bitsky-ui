@@ -2,7 +2,7 @@ import http, { getRedirectURL } from '../utils/http';
 
 export async function registerASOI(soi) {
   try {
-    let result = await http({
+    const result = await http({
       url: '/apis/sois',
       method: 'POST',
       data: soi,
@@ -15,9 +15,9 @@ export async function registerASOI(soi) {
 
 export async function getSOIs() {
   try {
-    let result = await http({
+    const result = await http({
       url: '/apis/sois',
-      method: 'GET'
+      method: 'GET',
     });
     return result.data;
   } catch (err) {
@@ -27,10 +27,10 @@ export async function getSOIs() {
 
 export async function updateSOI(soi) {
   try {
-    let result = await http({
+    const result = await http({
       url: `/apis/sois/${soi.globalId}`,
       method: 'PUT',
-      data: soi
+      data: soi,
     });
     return result.data;
   } catch (err) {
@@ -40,7 +40,7 @@ export async function updateSOI(soi) {
 
 export async function deleteASOIAPI(globalId) {
   try {
-    let result = await http({
+    const result = await http({
       url: `/apis/sois/${globalId}`,
       method: 'DELETE',
     });
@@ -52,7 +52,7 @@ export async function deleteASOIAPI(globalId) {
 
 export async function pingSOIAPI(globalId) {
   try {
-    let result = await http({
+    const result = await http({
       url: `/apis/sois/${globalId}/status`,
       method: 'PUT',
     });

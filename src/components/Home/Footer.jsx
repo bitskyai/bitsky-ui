@@ -1,5 +1,6 @@
+import { Button, Col, Row } from 'antd';
+
 import React from 'react';
-import { Row, Col, Button } from 'antd';
 
 function Footer() {
   return (
@@ -43,27 +44,37 @@ function Footer() {
                 <span>脚手架市场</span>
               </div>
               <div>
-                <a target="_blank" rel="noopener" href="http://motion.ant.design">Ant Motion</a>
+                <a target="_blank" rel="noopener" href="http://motion.ant.design">
+                  Ant Motion
+                </a>
                 <span> - </span>
                 <span>设计动效</span>
               </div>
               <div>
-                <a target="_blank" rel="noopener" href="http://library.ant.design/">Axure Library</a>
+                <a target="_blank" rel="noopener" href="http://library.ant.design/">
+                  Axure Library
+                </a>
                 <span> - </span>
                 <span>Axure 部件库</span>
               </div>
               <div>
-                <a target="_blank" rel="noopener" href="http://ux.ant.design">Ant UX</a>
+                <a target="_blank" rel="noopener" href="http://ux.ant.design">
+                  Ant UX
+                </a>
                 <span> - </span>
                 <span>页面逻辑素材</span>
               </div>
               <div>
-                <a target="_blank" rel="noopener" href="https://github.com/dvajs/dva">dva </a>
+                <a target="_blank" rel="noopener" href="https://github.com/dvajs/dva">
+                  dva{' '}
+                </a>
                 <span> - </span>
                 <span> 应用框架</span>
               </div>
               <div>
-                <a target="_blank" rel="noopener" href="https://github.com/dvajs/dva-cli">dva-cli </a>
+                <a target="_blank" rel="noopener" href="https://github.com/dvajs/dva-cli">
+                  dva-cli{' '}
+                </a>
                 <span> - </span>
                 <span> 开发工具</span>
               </div>
@@ -73,22 +84,26 @@ function Footer() {
             <div className="footer-center">
               <h2>社区</h2>
               <div>
-                <a href="#">
-                  更新记录
-                </a>
+                <a href="#">更新记录</a>
               </div>
               <div>
-                <a href="#">
-                  常见问题
-                </a>
+                <a href="#">常见问题</a>
               </div>
               <div>
-                <a target="_blank" rel="noopener" href="https://gitter.im/ant-design/ant-design-pro">
+                <a
+                  target="_blank"
+                  rel="noopener"
+                  href="https://gitter.im/ant-design/ant-design-pro"
+                >
                   在线讨论
                 </a>
               </div>
               <div>
-                <a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design-pro/issues">
+                <a
+                  target="_blank"
+                  rel="noopener"
+                  href="https://github.com/ant-design/ant-design-pro/issues"
+                >
                   讨论列表
                 </a>
               </div>
@@ -105,21 +120,25 @@ function Footer() {
           </Col>
           <Col lg={6} sm={24} xs={24}>
             <div className="footer-center">
-              <h2>
-                更多产品
-              </h2>
+              <h2>更多产品</h2>
               <div>
-                <a target="_blank" rel="noopener" href="http://ant.design/">Ant Design</a>
+                <a target="_blank" rel="noopener" href="http://ant.design/">
+                  Ant Design
+                </a>
                 <span> - </span>
                 <span>蚂蚁 UI 设计体系</span>
               </div>
               <div>
-                <a target="_blank" rel="noopener" href="https://antv.alipay.com/">AntV</a>
+                <a target="_blank" rel="noopener" href="https://antv.alipay.com/">
+                  AntV
+                </a>
                 <span> - </span>
                 <span>蚂蚁数据可视化方案</span>
               </div>
               <div>
-                <a target="_blank" rel="noopener" href="https://eggjs.org/">Egg</a>
+                <a target="_blank" rel="noopener" href="https://eggjs.org/">
+                  Egg
+                </a>
                 <span> - </span>
                 <span>企业级 Node Web 开发框架</span>
               </div>
@@ -130,7 +149,7 @@ function Footer() {
       <Row className="bottom-bar">
         <Col lg={6} sm={24}>
           <div className="translate-button">
-            <Button ghost size="small" >
+            <Button ghost size="small">
               English
             </Button>
           </div>
@@ -168,6 +187,5 @@ function Footer() {
     </footer>
   );
 }
-
 
 export default Footer;

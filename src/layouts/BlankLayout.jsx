@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
-import { connect } from 'dva';
+
 import { Layout } from 'antd';
 import PageLoading from '@/components/PageLoading';
+import { connect } from 'dva';
 // const Layout = ({ children }) => <div>{children}</div>;
 
 const BlankLayout = props => {
@@ -15,9 +16,7 @@ const BlankLayout = props => {
     }
   }, []);
   if (!initedApp) {
-    return (
-      <PageLoading/>
-    );
+    return <PageLoading />;
   }
   return <div>{children}</div>;
 };

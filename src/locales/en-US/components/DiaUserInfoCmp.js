@@ -4,7 +4,7 @@
  * This contains all the text for the DiaUserInfoCmp component.
  */
 export const scope = 'app.components.DiaUserInfoCmp';
-let messages = {};
+const messages = {};
 messages[`${scope}.logIn`] = 'Log in';
 messages[`${scope}.signUp`] = 'Sign up';
 messages[`${scope}.or`] = 'or';

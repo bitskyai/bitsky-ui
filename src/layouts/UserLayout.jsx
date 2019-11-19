@@ -1,14 +1,15 @@
 import { getMenuData, getPageTitle } from '@ant-design/pro-layout';
+
+// import GlobalFooter from '@/components/GlobalFooter';
+import DiaFooter from '@/components/DiaFooter';
 import DocumentTitle from 'react-document-title';
 import Link from 'umi/link';
 import React from 'react';
+import SelectLang from '@/components/SelectLang';
 import { connect } from 'dva';
 import { formatMessage } from 'umi-plugin-react/locale';
-import SelectLang from '@/components/SelectLang';
 import logo from '../assets/logo.png';
 import styles from './UserLayout.less';
-// import GlobalFooter from '@/components/GlobalFooter';
-import DiaFooter from '@/components/DiaFooter'
 
 const UserLayout = props => {
   const {
@@ -42,7 +43,9 @@ const UserLayout = props => {
             <div className={styles.header}>
               <Link to="/home">
                 <img alt="logo" className={styles.logo} src={logo} />
-                <span className={styles.title}>{formatMessage({ id: 'app.common.messages.munew' })}</span>
+                <span className={styles.title}>
+                  {formatMessage({ id: 'app.common.messages.munew' })}
+                </span>
               </Link>
             </div>
             <div className={styles.desc}>{formatMessage({ id: 'app.common.messages.slogan' })}</div>

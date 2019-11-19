@@ -1,5 +1,5 @@
-import http, { getRedirectURL } from '../utils/http';
 import _ from 'lodash';
+import http, { getRedirectURL } from '../utils/http';
 
 // export async function registerAgentAPI(agent) {
 //   try {
@@ -16,25 +16,25 @@ import _ from 'lodash';
 
 export async function getIntelligencesForManagementAPI(cursor, url, state, limit) {
   try {
-    let params = {
-      limit: limit || 50
+    const params = {
+      limit: limit || 50,
     };
-    if(cursor){
+    if (cursor) {
       params.cursor = cursor;
     }
-    if(url){
-      if(_.isArray(url)){
+    if (url) {
+      if (_.isArray(url)) {
         url = url[0];
       }
       params.url = url;
     }
-    if(state&&state.length){
+    if (state && state.length) {
       params.state = state.join(',');
     }
-    let result = await http({
+    const result = await http({
       url: '/apis/manangement/intelligences',
       method: 'GET',
-      params
+      params,
     });
     return result.data;
   } catch (err) {
@@ -42,71 +42,71 @@ export async function getIntelligencesForManagementAPI(cursor, url, state, limit
   }
 }
 
-export async function pauseIntelligencesForManagementAPI(url, ids){
-  try{
-    let params = {};
-    if(url){
+export async function pauseIntelligencesForManagementAPI(url, ids) {
+  try {
+    const params = {};
+    if (url) {
       params.url = url;
     }
 
-    let config = {
-      url: `/apis/manangement/intelligences/pause`,
+    const config = {
+      url: '/apis/manangement/intelligences/pause',
       method: 'POST',
       params,
     };
-    if(ids){
+    if (ids) {
       config.data = ids;
     }
 
-    let res = await http(config);
+    const res = await http(config);
     return res.data;
-  }catch(err){
+  } catch (err) {
     throw err;
   }
 }
 
-export async function resumeIntelligencesForManagementAPI(url, ids){
-  try{
-    let params = {};
-    if(url){
+export async function resumeIntelligencesForManagementAPI(url, ids) {
+  try {
+    const params = {};
+    if (url) {
       params.url = url;
     }
 
-    let config = {
-      url: `/apis/manangement/intelligences/resume`,
+    const config = {
+      url: '/apis/manangement/intelligences/resume',
       method: 'POST',
       params,
     };
-    if(ids){
+    if (ids) {
       config.data = ids;
     }
 
-    let res = await http(config);
+    const res = await http(config);
     return res.data;
-  }catch(err){
+  } catch (err) {
     throw err;
   }
 }
 
-export async function deleteIntelligencesForManagementAPI(url, ids){
-  try{
-    let params = {};
-    if(url){
+export async function deleteIntelligencesForManagementAPI(url, ids) {
+  try {
+    const params = {};
+    if (url) {
       params.url = url;
     }
 
-    let config = {
-      url: `/apis/manangement/intelligences`,
+    const config = {
+      url: '/apis/manangement/intelligences',
       method: 'DELETE',
       params,
     };
-    if(ids){
+    if (ids) {
       config.data = ids;
     }
 
-    let res = await http(config);
+    const res = await http(config);
     return res.data;
-  }catch(err){
+  } catch (err) {
     throw err;
   }
 }

@@ -2,7 +2,7 @@ import http, { getRedirectURL } from '../utils/http';
 
 export async function registerAgentAPI(agent) {
   try {
-    let result = await http({
+    const result = await http({
       url: '/apis/agents',
       method: 'POST',
       data: agent,
@@ -15,9 +15,9 @@ export async function registerAgentAPI(agent) {
 
 export async function getAgentsAPI() {
   try {
-    let result = await http({
+    const result = await http({
       url: '/apis/agents',
-      method: 'GET'
+      method: 'GET',
     });
     return result.data;
   } catch (err) {
@@ -27,10 +27,10 @@ export async function getAgentsAPI() {
 
 export async function updateAgentAPI(agent) {
   try {
-    let result = await http({
+    const result = await http({
       url: `/apis/agents/${agent.globalId}`,
       method: 'PUT',
-      data: agent
+      data: agent,
     });
     return result.data;
   } catch (err) {
@@ -40,7 +40,7 @@ export async function updateAgentAPI(agent) {
 
 export async function deleteAgentAPI(globalId) {
   try {
-    let result = await http({
+    const result = await http({
       url: `/apis/agents/${globalId}`,
       method: 'DELETE',
     });
@@ -52,7 +52,7 @@ export async function deleteAgentAPI(globalId) {
 
 export async function activateAgentAPI(globalId) {
   try {
-    let result = await http({
+    const result = await http({
       url: `/apis/agents/${globalId}/activate`,
       method: 'POST',
     });
@@ -64,7 +64,7 @@ export async function activateAgentAPI(globalId) {
 
 export async function deactivateAgentAPI(globalId) {
   try {
-    let result = await http({
+    const result = await http({
       url: `/apis/agents/${globalId}/deactivate`,
       method: 'POST',
     });

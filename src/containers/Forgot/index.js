@@ -4,33 +4,32 @@
  *
  */
 
-import React from 'react';
-import styled from 'styled-components';
-import PropTypes from 'prop-types';
-// import { connect } from 'react-redux';
-// import { FormattedMessage, injectIntl } from 'react-intl';
-import { connect } from 'dva';
-import { formatMessage, FormattedMessage } from 'umi-plugin-react/locale';
-// import { createStructuredSelector } from 'reselect';
-// import { compose } from 'redux';
-
-import { Form, Input, Icon, Button, Alert } from 'antd';
-// import { Link } from 'react-router-dom';
-// import { Redirect } from 'react-router';
-import Link from 'umi/link';
+import { Alert, Button, Form, Icon, Input } from 'antd';
+import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import { Redirect, Route } from 'umi';
+import Link from 'umi/link';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { connect } from 'dva';
+import styled from 'styled-components';
+import http, { getRedirectURL } from '../../utils/http';
 
 import CardPageCmp from '../../components/CardPageCmp';
+// import { Link } from 'react-router-dom';
+// import { Redirect } from 'react-router';
+import commonMessages from '../../locales/en-US/globalMessages';
+// import { connect } from 'react-redux';
+// import { FormattedMessage, injectIntl } from 'react-intl';
 import { darkBlueColor } from '../../styleVariables';
-
 // import { useInjectSaga } from 'utils/injectSaga';
 // import { useInjectReducer } from 'utils/injectReducer';
 // import makeSelectResetPage from './selectors';
 // import reducer from './reducer';
 // import saga from './saga';
 import messages from '../../locales/en-US/containers/Forgot';
-import commonMessages from '../../locales/en-US/globalMessages';
-import http, { getRedirectURL } from '../../utils/http';
+// import { createStructuredSelector } from 'reselect';
+// import { compose } from 'redux';
+
 // import logoImg from '../../images/munew512.png';
 
 class ForgotForm extends React.Component {
@@ -52,7 +51,7 @@ class ForgotForm extends React.Component {
       if (!err) {
         console.log('Received values of form: ', values);
         http({
-          url: `/apis/forgot`,
+          url: '/apis/forgot',
           method: 'POST',
           data: values,
         })
@@ -60,9 +59,9 @@ class ForgotForm extends React.Component {
             this.setState({ ...this.state, sending: false, sendSuccessful: true });
           })
           .catch(error => {
-            let statusCode,
-              err = error,
-              msg = formatMessage(commonMessages.serverTempDown);
+            let statusCode;
+            let err = error;
+            let msg = formatMessage(commonMessages.serverTempDown);
             if (error && error.response && error.response.status) {
               statusCode = error.response.status;
             }

@@ -1,5 +1,6 @@
-import { getAgentsAPI, deleteAgentAPI, activateAgentAPI, deactivateAgentAPI } from '../apis/agents';
 import produce from 'immer';
+import { activateAgentAPI, deactivateAgentAPI, deleteAgentAPI, getAgentsAPI } from '../apis/agents';
+
 const AgentsModel = {
   namespace: 'agents',
   state: {},
@@ -14,21 +15,21 @@ const AgentsModel = {
       } catch (err) {
         yield put({
           type: 'refreshAgentsFail',
-          error: err
+          error: err,
         });
       }
     },
   },
   reducers: {
     refreshAgentsSuccess(state, action) {
-      return produce(state, (draft)=>{
+      return produce(state, draft => {
         draft.data = action.payload;
         draft.error = undefined;
         draft.modifiedAt = Date.now();
       });
     },
     refreshAgentsFail(state, action) {
-      return produce(state, (draft)=>{
+      return produce(state, draft => {
         // draft.data = action.payload;
         draft.error = action.error;
         draft.modifiedAt = Date.now();

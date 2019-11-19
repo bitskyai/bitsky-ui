@@ -1,10 +1,11 @@
+import produce from 'immer';
+import { REFRESH_SOIS_FAIL, REFRESH_SOIS_SUCCESS } from './constants';
+
 /*
  *
  * Sois reducer
  *
  */
-import produce from 'immer';
-import { REFRESH_SOIS_SUCCESS, REFRESH_SOIS_FAIL } from './constants';
 
 export const initialState = {};
 

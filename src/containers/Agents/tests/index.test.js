@@ -6,13 +6,12 @@
  *
  */
 
+import { IntlProvider } from 'react-intl';
 import React from 'react';
 import { render } from 'react-testing-library';
-import { IntlProvider } from 'react-intl';
-// import 'jest-dom/extend-expect'; // add some helpful assertions
-
-import { Agents } from '../index';
 import { DEFAULT_LOCALE } from '../../../i18n';
+import { Agents } from '../index';
+// import 'jest-dom/extend-expect'; // add some helpful assertions
 
 describe('<Agents />', () => {
   it('Expect to not log errors in console', () => {

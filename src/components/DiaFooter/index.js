@@ -4,12 +4,16 @@
  *
  */
 
+import { Col, Icon, Layout, Row, Typography } from 'antd';
+import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
+
 import React from 'react';
-import { Layout, Typography, Row, Col, Icon } from 'antd';
-const { Text } = Typography;
-const { Footer } = Layout;
 // import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { darkBlueColor, maxWidth, whiteColor } from '../../styleVariables';
+
+const { Text } = Typography;
+const { Footer } = Layout;
 
 const RightContainer = styled.div`
   float: right;
@@ -21,9 +25,6 @@ const iconStyle = {
   padding: '0 15px',
 };
 
-import { darkBlueColor, maxWidth, whiteColor } from '../../styleVariables';
-import { formatMessage, FormattedMessage } from 'umi-plugin-react/locale';
-
 function DiaFooter() {
   return (
     <div>
@@ -31,7 +32,7 @@ function DiaFooter() {
         <Row style={{ maxWidth: `${maxWidth}px`, margin: '0 auto' }}>
           <Col span={6}>
             <Text style={{ color: whiteColor }}>
-              {formatMessage({ id: 'app.components.DiaFooter.productName'})}
+              {formatMessage({ id: 'app.components.DiaFooter.productName' })}
             </Text>
           </Col>
           <Col span={18}>

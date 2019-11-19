@@ -1,6 +1,6 @@
+import create from 'antd/lib/icon/IconFont';
 import { createSelector } from 'reselect';
 import { initialState } from './reducer';
-import create from 'antd/lib/icon/IconFont';
 
 /**
  * Direct selector to the settings state domain

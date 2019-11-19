@@ -1,5 +1,3 @@
 import Signup from '@/containers/Signup';
 
-export default () => {
-  return <Signup/>;
-};
+export default () => <Signup />;

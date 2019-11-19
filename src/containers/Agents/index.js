@@ -1,21 +1,23 @@
+import './style.css';
+
+// import { FormattedMessage, FormattedHTMLMessage, injectIntl } from 'react-intl';
+// import { createStructuredSelector } from 'reselect';
+// import { compose } from 'redux';
+import { Button, Col, Empty, Icon, Popconfirm, Row, Table, message } from 'antd';
+import { FormattedHTMLMessage, FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 /**
  *
  * Agents
  *
  */
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import dayjs from 'dayjs';
-import TimeAgo from 'react-timeago';
-// import { connect } from 'react-redux';
-import { connect } from 'dva';
-import { formatMessage, FormattedMessage, FormattedHTMLMessage } from 'umi-plugin-react/locale';
-import styled from 'styled-components';
-// import { FormattedMessage, FormattedHTMLMessage, injectIntl } from 'react-intl';
-// import { createStructuredSelector } from 'reselect';
-// import { compose } from 'redux';
-import { Empty, Table, Button, Popconfirm, message, Row, Col, Icon } from 'antd';
+// import {
+//   refreshAgentsSuccess,
+//   refreshAgentsFail,
+//   refreshAgents,
+// } from './actions';
 
+import PropTypes from 'prop-types';
 // import { useInjectSaga } from 'utils/injectSaga';
 // import { useInjectReducer } from 'utils/injectReducer';
 // import makeSelectAgents from './selectors';
@@ -23,21 +25,20 @@ import { Empty, Table, Button, Popconfirm, message, Row, Col, Icon } from 'antd'
 // import saga from './saga';
 // import messages from '../../locales/en-US/containers/Agents';
 // import commonMessages from '../../locales/en-US/globalMessages';
+import TimeAgo from 'react-timeago';
+// import { connect } from 'react-redux';
+import { connect } from 'dva';
+import dayjs from 'dayjs';
+import styled from 'styled-components';
 import RegisterAgentForm from './RegisterAgentForm';
 import AgentsSkeleton from './AgentsSkeleton';
-// import {
-//   refreshAgentsSuccess,
-//   refreshAgentsFail,
-//   refreshAgents,
-// } from './actions';
+import { AGENT_STATE } from '../../utils/constants';
 import {
-  getAgentsAPI,
-  deleteAgentAPI,
   activateAgentAPI,
   deactivateAgentAPI,
+  deleteAgentAPI,
+  getAgentsAPI,
 } from '../../apis/agents';
-import { AGENT_STATE } from '../../utils/constants';
-import './style.css';
 
 // import DiaPageHeader from '../../components/Common';
 
@@ -95,7 +96,7 @@ export class Agents extends React.Component {
         this.props.dispatch({
           type: 'agents/refreshAgents',
         });
-        let msg = formatMessage({ id: 'app.containers.Agents.deleteAgentSuccessful' });
+        const msg = formatMessage({ id: 'app.containers.Agents.deleteAgentSuccessful' });
         message.success(msg);
       },
       err => {
@@ -112,7 +113,7 @@ export class Agents extends React.Component {
         this.props.dispatch({
           type: 'agents/refreshAgents',
         });
-        let msg = formatMessage({ id: 'app.containers.Agents.activateAgentSuccess' });
+        const msg = formatMessage({ id: 'app.containers.Agents.activateAgentSuccess' });
         message.success(msg);
       },
       err => {
@@ -130,7 +131,7 @@ export class Agents extends React.Component {
         this.props.dispatch({
           type: 'agents/refreshAgents',
         });
-        let msg = formatMessage({ id: 'app.containers.Agents.deactivateAgentSuccess' });
+        const msg = formatMessage({ id: 'app.containers.Agents.deactivateAgentSuccess' });
         message.success(msg);
       },
       err => {
@@ -190,9 +191,9 @@ export class Agents extends React.Component {
   }
 
   render() {
-    let { loadingData, drawerVisiable, selectedAgent, selectedRowKeys } = this.state;
-    let agents = this.props.agentsData.data;
-    let modified = this.props.agentsData.modifiedAt;
+    const { loadingData, drawerVisiable, selectedAgent, selectedRowKeys } = this.state;
+    const agents = this.props.agentsData.data;
+    const modified = this.props.agentsData.modifiedAt;
     let content = <AgentsSkeleton />;
 
     const columns = [
@@ -212,45 +213,44 @@ export class Agents extends React.Component {
         title: formatMessage({ id: 'app.common.messages.action' }),
         dataIndex: '',
         key: 'x',
-        render: (text, record) => {
-          return (
-            <div
-              onClick={e => {
-                this.onPreventShowDrawer(e);
-              }}
-            >
-              {(record => {
-                if (record.system.state === AGENT_STATE.active) {
-                  return (
-                    <Button
-                      size="small"
-                      style={actionButtonStyle}
-                      title={formatMessage({ id: 'app.containers.Agents.deactivateDescription' })}
-                      onClick={e => {
-                        this.deactivateAgent(record, e);
-                      }}
-                    >
-                      {formatMessage({ id: 'app.common.messages.deactivate' })}
-                    </Button>
-                  );
-                } else if (record.system.state === AGENT_STATE.configured) {
-                  return (
-                    <Button
-                      size="small"
-                      style={actionButtonStyle}
-                      title={formatMessage({ id: 'app.containers.Agents.activateDescription' })}
-                      onClick={e => {
-                        this.activateAgent(record, e);
-                      }}
-                    >
-                      {formatMessage({ id: 'app.common.messages.activate' })}
-                    </Button>
-                  );
-                } else {
-                  return '';
-                }
-              })(record)}
-              {/* {record.system.state === AGENT_STATE.active ? (
+        render: (text, record) => (
+          <div
+            onClick={e => {
+              this.onPreventShowDrawer(e);
+            }}
+          >
+            {(record => {
+              if (record.system.state === AGENT_STATE.active) {
+                return (
+                  <Button
+                    size="small"
+                    style={actionButtonStyle}
+                    title={formatMessage({ id: 'app.containers.Agents.deactivateDescription' })}
+                    onClick={e => {
+                      this.deactivateAgent(record, e);
+                    }}
+                  >
+                    {formatMessage({ id: 'app.common.messages.deactivate' })}
+                  </Button>
+                );
+              }
+              if (record.system.state === AGENT_STATE.configured) {
+                return (
+                  <Button
+                    size="small"
+                    style={actionButtonStyle}
+                    title={formatMessage({ id: 'app.containers.Agents.activateDescription' })}
+                    onClick={e => {
+                      this.activateAgent(record, e);
+                    }}
+                  >
+                    {formatMessage({ id: 'app.common.messages.activate' })}
+                  </Button>
+                );
+              }
+              return '';
+            })(record)}
+            {/* {record.system.state === AGENT_STATE.active ? (
               <Button
                 size="small"
                 style={actionButtonStyle}
@@ -273,31 +273,30 @@ export class Agents extends React.Component {
                 {formatMessage({ id: 'app.common.messages.activate' })}
               </Button>
             )} */}
-              <Popconfirm
-                style={{ maxWidth: '300px' }}
-                title={formatMessage({ id: 'app.containers.Agents.deleteAgentDescription' })}
-                onConfirm={e => {
-                  this.onDeleteAAgent(record, e);
+            <Popconfirm
+              style={{ maxWidth: '300px' }}
+              title={formatMessage({ id: 'app.containers.Agents.deleteAgentDescription' })}
+              onConfirm={e => {
+                this.onDeleteAAgent(record, e);
+              }}
+              onCancel={e => {
+                this.onClickCancel(record, e);
+              }}
+              okText={formatMessage({ id: 'app.common.messages.yes' })}
+              cancelText={formatMessage({ id: 'app.common.messages.no' })}
+            >
+              <Button
+                size="small"
+                style={actionButtonStyle}
+                onClick={e => {
+                  this.onClickDelete(record, e);
                 }}
-                onCancel={e => {
-                  this.onClickCancel(record, e);
-                }}
-                okText={formatMessage({ id: 'app.common.messages.yes' })}
-                cancelText={formatMessage({ id: 'app.common.messages.no' })}
               >
-                <Button
-                  size="small"
-                  style={actionButtonStyle}
-                  onClick={e => {
-                    this.onClickDelete(record, e);
-                  }}
-                >
-                  {formatMessage({ id: 'app.common.messages.delete' })}
-                </Button>
-              </Popconfirm>
-            </div>
-          );
-        },
+                {formatMessage({ id: 'app.common.messages.delete' })}
+              </Button>
+            </Popconfirm>
+          </div>
+        ),
       },
     ];
 
@@ -376,19 +375,17 @@ export class Agents extends React.Component {
                   }}
                   dataSource={agents}
                   rowKey={record => record._id}
-                  onRow={record => {
-                    return {
-                      onClick: () => {
-                        // console.log('onRow->onClick: ', record);
-                        // this.selectRow(record);
-                        // setSelectedRowKeys([record._id]);
-                        this.setState({
-                          selectedRowKeys: [record._id],
-                        });
-                        this.onShowDrawer(record);
-                      },
-                    };
-                  }}
+                  onRow={record => ({
+                    onClick: () => {
+                      // console.log('onRow->onClick: ', record);
+                      // this.selectRow(record);
+                      // setSelectedRowKeys([record._id]);
+                      this.setState({
+                        selectedRowKeys: [record._id],
+                      });
+                      this.onShowDrawer(record);
+                    },
+                  })}
                 />
               </div>
             </div>
