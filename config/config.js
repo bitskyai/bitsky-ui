@@ -75,6 +75,7 @@ export default {
     'primary-color': primaryColor,
   },
   define: {
+    'process.env.BUILD_TARGET_PLATFORM': JSON.stringify(process.env.BUILD_TARGET_PLATFORM), // what is build target platform. ['electron', 'web']
   },
   ignoreMomentLocale: true,
   lessLoaderOptions: {

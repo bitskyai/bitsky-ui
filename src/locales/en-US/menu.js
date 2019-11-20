@@ -3,6 +3,5 @@ export default {
   'menu.sois': 'SOIs',
   'menu.agents': 'Agents',
   'menu.settings': 'Settings',
-  // Default from ant design pro
-  'menu.welcome': 'Welcome',
+  'menu.defaultSOI': 'Default SOI',
 };

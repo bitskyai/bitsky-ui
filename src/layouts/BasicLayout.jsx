@@ -23,7 +23,7 @@ const menuDataRender = menuList =>
   });
 
 const footerRender = () => '';
-  // <GlobalFooter/>
+// <GlobalFooter/>
 
 const BasicLayout = props => {
   // const { dispatch, children, settings, user } = props;
@@ -60,6 +60,14 @@ const BasicLayout = props => {
       menuItemRender={(menuItemProps, defaultDom) => {
         if (menuItemProps.isUrl) {
           return defaultDom;
+        }
+
+        if (menuItemProps.path === '/app/#defaultsoi') {
+          return (
+            <Link to="#" id="munew_default_soi_menu">
+              {defaultDom}
+            </Link>
+          );
         }
 
         return <Link to={menuItemProps.path}>{defaultDom}</Link>;
