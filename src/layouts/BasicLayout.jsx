@@ -10,7 +10,7 @@ import { connect } from 'dva';
 import { formatMessage } from 'umi-plugin-react/locale';
 import Authorized from '@/utils/Authorized';
 import RightContent from '@/components/GlobalHeader/RightContent';
-import GlobalFooter from '@/components/GlobalFooter';
+// import GlobalFooter from '@/components/GlobalFooter';
 import logo from '../assets/logo.png';
 
 /**
@@ -22,15 +22,12 @@ const menuDataRender = menuList =>
     return Authorized.check(item.authority, localItem, null);
   });
 
-const footerRender = _ => {
-  return (
-    // <GlobalFooter/>
-    ""
-  );
-};
+const footerRender = () => '';
+  // <GlobalFooter/>
 
 const BasicLayout = props => {
-  const { dispatch, children, settings, user } = props;
+  // const { dispatch, children, settings, user } = props;
+  const { dispatch, children, settings } = props;
   /**
    * constructor
    */
@@ -100,5 +97,5 @@ const BasicLayout = props => {
 export default connect(({ global, settings, user }) => ({
   collapsed: global.collapsed,
   settings,
-  user: user&&user.currentUser
+  user: user && user.currentUser,
 }))(BasicLayout);

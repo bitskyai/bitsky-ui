@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { connect } from 'dva';
-import { Layout } from 'antd';
 import PageLoading from '@/components/PageLoading';
 // const Layout = ({ children }) => <div>{children}</div>;
 
