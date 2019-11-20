@@ -1,8 +1,8 @@
-import http, {getRedirectURL} from '../utils/http';
+import http, { getRedirectURL } from '../utils/http';
 
 export async function getSelf() {
   try {
-    let res = await http({
+    const res = await http({
       url: '/apis/self',
       method: 'POST',
     });
@@ -21,7 +21,7 @@ export async function getSelf() {
  */
 export async function updateProfile(profile) {
   try {
-    let data = await http({
+    const data = await http({
       url: '/apis/account/profile',
       method: 'PUT',
       data: profile,
@@ -41,7 +41,7 @@ export async function updateProfile(profile) {
  */
 export async function changePassword(data) {
   try {
-    let result = await http({
+    const result = await http({
       url: '/apis/account/password',
       method: 'PUT',
       data,
@@ -56,9 +56,9 @@ export async function changePassword(data) {
  * Delete account
  */
 export async function deleteThisAccount() {
-  console.log(`deleteThisAccount`);
+  console.log('deleteThisAccount');
   try {
-    let res = await http({
+    const res = await http({
       url: '/apis/account',
       method: 'DELETE',
     });

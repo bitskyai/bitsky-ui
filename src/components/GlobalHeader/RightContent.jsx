@@ -1,12 +1,13 @@
 import { Icon, Tooltip } from 'antd';
+
+import { Link } from 'react-router-dom';
 import React from 'react';
 import { connect } from 'dva';
 import { formatMessage } from 'umi-plugin-react/locale';
-import Avatar from './AvatarDropdown';
-import HeaderSearch from '../HeaderSearch';
 import SelectLang from '../SelectLang';
+import HeaderSearch from '../HeaderSearch';
+import Avatar from './AvatarDropdown';
 import styles from './index.less';
-import { Link } from 'react-router-dom';
 
 const GlobalHeaderRight = props => {
   const { theme, layout } = props;
@@ -47,10 +48,8 @@ const GlobalHeaderRight = props => {
         })}
       >
         <Link to="/home">
-        <a
-          className={styles.action}
-        >
-          <Icon type="home" />
+          <a className={styles.action}>
+            <Icon type="home" />
           </a>
         </Link>
       </Tooltip>
@@ -68,7 +67,7 @@ const GlobalHeaderRight = props => {
           <Icon type="question-circle-o" />
         </a>
       </Tooltip>
-      <Avatar menu={true}/>
+      <Avatar menu />
       {/* <SelectLang className={styles.action} /> */}
     </div>
   );

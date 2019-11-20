@@ -4,24 +4,24 @@
  *
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'dva';
-import { formatMessage, FormattedMessage } from 'umi-plugin-react/locale';
 // import { createStructuredSelector } from 'reselect';
 // import { compose } from 'redux';
-import { Form, Input, Icon, Button, Alert } from 'antd';
-// import { Link } from 'react-router-dom';
-import Link from 'umi/link';
+import { Alert, Button, Form, Icon, Input } from 'antd';
+import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import { Redirect, Route } from 'umi';
-// import { Redirect } from 'react-router';
-
-import CardPageCmp from '../../components/CardPageCmp';
-import { darkBlueColor } from '../../styleVariables';
-
 // import { useInjectSaga } from '@/utils/injectSaga';
 // import { useInjectReducer } from '@/utils/injectReducer';
+
+// import { Link } from 'react-router-dom';
+import Link from 'umi/link';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { connect } from 'dva';
+import CardPageCmp from '../../components/CardPageCmp';
 import http, { getRedirectURL } from '../../utils/http';
+import { darkBlueColor } from '../../styleVariables';
+// import { Redirect } from 'react-router';
+
 // import makeSelectLoginPage from './selectors';
 // import reducer from './reducer';
 // import saga from './saga';
@@ -95,10 +95,10 @@ class LoginForm extends React.Component {
     const { getFieldDecorator } = this.props.form;
     // const { autoCompleteResult } = this.state;
     // const { formatMessage } = this.props.intl;
-    let hash = (location && location.hash) || '';
+    const hash = (location && location.hash) || '';
     let display = 'none';
-    let errorMsg = this.state.errorMsg;
-    let alertType = this.state.alertType;
+    let { errorMsg } = this.state;
+    let { alertType } = this.state;
     let errorDescription = '';
 
     if (this.state.redirectUrl) {

@@ -1,5 +1,6 @@
-import { queryNotices } from '@/services/user';
 import { getSelf } from '@/apis/account';
+import { queryNotices } from '@/services/user';
+
 const GlobalModel = {
   namespace: 'global',
   state: {
@@ -44,19 +45,19 @@ const GlobalModel = {
       });
     },
 
-    *initApp(_, {call, put}){
+    *initApp(_, { call, put }) {
       // init application
       yield put({
-        type: 'initingApp'
+        type: 'initingApp',
       });
       const currentUser = yield call(getSelf);
       yield put({
         type: 'user/saveCurrentUser',
-        payload: currentUser
+        payload: currentUser,
       });
 
       yield put({
-        type: 'initedApp'
+        type: 'initedApp',
       });
     },
 
@@ -86,12 +87,12 @@ const GlobalModel = {
     },
   },
   reducers: {
-    initingApp(state){
+    initingApp(state) {
       // update initedApp to false
-      return {...state, initedApp: false};
+      return { ...state, initedApp: false };
     },
-    initedApp(state){
-      return {...state, initedApp: true};
+    initedApp(state) {
+      return { ...state, initedApp: true };
     },
     changeLayoutCollapsed(
       state = {

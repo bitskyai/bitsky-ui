@@ -1,9 +1,10 @@
 import { Avatar, Icon, Menu, Spin } from 'antd';
+
 import { FormattedMessage } from 'umi-plugin-react/locale';
+import Link from 'umi/link';
 import React from 'react';
 import { connect } from 'dva';
 import router from 'umi/router';
-import Link from 'umi/link';
 import HeaderDropdown from '../HeaderDropdown';
 import styles from './index.less';
 
@@ -19,8 +20,6 @@ class AvatarDropdown extends React.Component {
           type: 'login/logout',
         });
       }
-
-      return;
     }
 
     // router.push(`/account/${key}`);

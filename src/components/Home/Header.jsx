@@ -1,11 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Row, Col, Icon, Menu, Button, Popover } from 'antd';
-import { formatMessage } from 'umi-plugin-react/locale';
-import { enquireScreen } from 'enquire-js';
-import DiaUserInfoCmp from '../DiaUserInfoCmp';
-import { Link } from 'react-router-dom';
+import { Button, Col, Icon, Menu, Popover, Row } from 'antd';
 
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { enquireScreen } from 'enquire-js';
+import { formatMessage } from 'umi-plugin-react/locale';
+import DiaUserInfoCmp from '../DiaUserInfoCmp';
 import logo from '../../assets/logo.png';
 
 class Header extends React.Component {
@@ -76,7 +76,7 @@ class Header extends React.Component {
           <Col xxl={20} xl={19} lg={16} md={16} sm={0} xs={0}>
             <div className="header-meta">
               <div id="preview">
-                <DiaUserInfoCmp currentUser={this.props.currentUser}/>
+                <DiaUserInfoCmp currentUser={this.props.currentUser} />
               </div>
               {menuMode === 'horizontal' ? <div id="menu">{menu}</div> : null}
             </div>

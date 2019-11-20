@@ -1,13 +1,14 @@
-import { takeLatest, call, put } from 'redux-saga/effects';
+import { call, put, takeLatest } from 'redux-saga/effects';
+import { refreshSOIsFail, refreshSOIsSuccess } from './actions';
+
 import { REFRESH_SOIS } from './constants';
-import { refreshSOIsSuccess, refreshSOIsFail } from './actions'
 import { getSOIs } from '../../apis/sois';
 
-export function* refreshSOIs(){
-  try{
+export function* refreshSOIs() {
+  try {
     const sois = yield call(getSOIs);
     yield put(refreshSOIsSuccess(sois));
-  }catch(err){
+  } catch (err) {
     yield put(refreshSOIsFail(err));
   }
 }

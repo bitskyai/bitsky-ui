@@ -1,7 +1,8 @@
-import React from 'react';
+import { Avatar, Dropdown, Menu } from 'antd';
+
 import PropTypes from 'prop-types';
+import React from 'react';
 import { formatMessage } from 'umi-plugin-react/locale';
-import { Menu, Dropdown, Avatar } from 'antd';
 
 function UserAvatar({ profile }) {
   const menu = (
@@ -11,20 +12,18 @@ function UserAvatar({ profile }) {
       </Menu.Item>
       <Menu.Divider />
       <Menu.Item key="signOut">
-        <a href="/apis/logout">
-          {formatMessage({ id: 'app.components.DiaUserInfoCmp.signOut' })}
-        </a>
+        <a href="/apis/logout">{formatMessage({ id: 'app.components.DiaUserInfoCmp.signOut' })}</a>
       </Menu.Item>
     </Menu>
   );
 
   const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
-  let name = undefined;
+  let name;
   if (profile && profile.name) {
     name = profile.name[0].toUpperCase();
   }
 
-  let avatarStyle = {
+  const avatarStyle = {
     margin: '0 20px',
     backgroundColor: '#f56a00',
     verticalAlign: 'middle',

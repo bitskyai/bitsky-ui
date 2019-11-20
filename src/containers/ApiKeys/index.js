@@ -4,19 +4,18 @@
  *
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
-import { createStructuredSelector } from 'reselect';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { compose } from 'redux';
-
-import { useInjectSaga } from 'utils/injectSaga';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 import { useInjectReducer } from 'utils/injectReducer';
+import { useInjectSaga } from 'utils/injectSaga';
 import makeSelectApiKeys from './selectors';
+import messages from './messages';
 import reducer from './reducer';
 import saga from './saga';
-import messages from './messages';
 
 export function ApiKeys() {
   useInjectReducer({ key: 'apiKeys', reducer });

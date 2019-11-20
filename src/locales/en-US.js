@@ -1,17 +1,17 @@
-import commonMessages from './en-US/commonMessages';
-import home from './en-US/components/home';
-import DiaUserInfoCmp from './en-US/components/DiaUserInfoCmp';
 import DiaFooter from './en-US/components/DiaFooter';
+import DiaUserInfoCmp from './en-US/components/DiaUserInfoCmp';
+import agentsCtn from './en-US/containers/Agents';
+import commonMessages from './en-US/commonMessages';
 import component from './en-US/component';
 import globalHeader from './en-US/globalHeader';
+import home from './en-US/components/home';
+import intelligencesCtn from './en-US/containers/Intelligences';
+import loginCtn from './en-US/containers/Login';
 import menu from './en-US/menu';
 import pwa from './en-US/pwa';
-import loginCtn from './en-US/containers/Login';
-import agentsCtn from './en-US/containers/Agents';
-import soisCtn from './en-US/containers/Sois';
-import intelligencesCtn from './en-US/containers/Intelligences';
 import settingsCtn from './en-US/containers/Settings';
 import signupCtn from './en-US/containers/Signup';
+import soisCtn from './en-US/containers/Sois';
 // import settings from './en-US/settings';
 export default {
   'navBar.lang': 'Languages',
@@ -32,5 +32,5 @@ export default {
   ...soisCtn,
   ...settingsCtn,
   ...intelligencesCtn,
-  ...signupCtn
+  ...signupCtn,
 };

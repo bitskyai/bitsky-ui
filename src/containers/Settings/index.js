@@ -1,32 +1,23 @@
-/**
- *
- * Settings
- *
- */
-import _ from 'lodash';
-import React from 'react';
-import PropTypes from 'prop-types';
-// import { connect } from 'react-redux';
-import { connect } from 'dva';
-import { formatMessage, FormattedMessage, FormattedHTMLMessage } from 'umi-plugin-react/locale';
-import styled from 'styled-components';
 // import { FormattedMessage, injectIntl } from 'react-intl';
 // import { createStructuredSelector } from 'reselect';
 // import { compose } from 'redux';
 import {
-  Icon,
-  Divider,
+  Button,
+  Card,
   Col,
+  Divider,
+  Form,
+  Icon,
+  Input,
+  Modal,
   Row,
   Typography,
-  Form,
-  Input,
-  Button,
   message,
-  Modal,
-  Card
 } from 'antd';
-const { Paragraph } = Typography;
+import { FormattedHTMLMessage, FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
+// import DiaPageHeader from '../../components/Common';
+// import { appInitedSelector, userSelector } from '../App/selectors';
+// import { initApplicationSuccess } from '../App/actions';
 
 // import { useInjectSaga } from 'utils/injectSaga';
 // import injectSaga from 'utils/injectSaga';
@@ -36,21 +27,22 @@ const { Paragraph } = Typography;
 // import { updateProfileError } from './selectors';
 // import reducer from './reducer';
 // import saga from './saga';
+import PropTypes from 'prop-types';
+import React from 'react';
+/**
+ *
+ * Settings
+ *
+ */
+import _ from 'lodash';
+// import { connect } from 'react-redux';
+import { connect } from 'dva';
+import styled from 'styled-components';
 import { ERROR_CODES } from './constants';
-import {
-  darkBlueColor,
-  largeBodyFontSize,
-  maxWidth,
-} from '../../styleVariables';
+import { darkBlueColor, largeBodyFontSize, maxWidth } from '../../styleVariables';
+import { changePassword, deleteThisAccount, updateProfile } from '../../apis/account';
 
-// import DiaPageHeader from '../../components/Common';
-// import { appInitedSelector, userSelector } from '../App/selectors';
-// import { initApplicationSuccess } from '../App/actions';
-import {
-  updateProfile,
-  changePassword,
-  deleteThisAccount,
-} from '../../apis/account';
+const { Paragraph } = Typography;
 
 const SectionTitle = styled.p`
   font-size: ${largeBodyFontSize};
@@ -81,17 +73,10 @@ class ProfileForm extends React.Component {
             sending: false,
             emailRegistered: false,
           });
-          let msg = formatMessage({id:"app.containers.Settings.updateProfileSuccess"});
+          const msg = formatMessage({ id: 'app.containers.Settings.updateProfileSuccess' });
           message.success(msg);
           // update global user information
-          this.props.dispatch(
-            // initApplicationSuccess({
-            //   email: values.email,
-            //   profile: {
-            //     name: values.name,
-            //   },
-            // }),
-          );
+          this.props.dispatch();
         } catch (err) {
           if (err.status == 400) {
             // email registered
@@ -127,16 +112,16 @@ class ProfileForm extends React.Component {
 
     // Only show error after a field is touched.
     let emailError = isFieldTouched('email') && getFieldError('email');
-    let nameError = isFieldTouched('name') && getFieldError('name');
+    const nameError = isFieldTouched('name') && getFieldError('name');
 
     if (this.state.emailRegistered) {
-      emailError = formatMessage({id:"app.containers.Settings.emailWasRegistered"});
+      emailError = formatMessage({ id: 'app.containers.Settings.emailWasRegistered' });
     }
 
     return (
       <Form layout="vertical" onSubmit={this.handleSubmit}>
         <Form.Item
-          label={formatMessage({id:"app.containers.Settings.emailAddress"})}
+          label={formatMessage({ id: 'app.containers.Settings.emailAddress' })}
           validateStatus={emailError ? 'error' : ''}
           help={emailError || ''}
         >
@@ -145,22 +130,22 @@ class ProfileForm extends React.Component {
             rules: [
               {
                 type: 'email',
-                message: formatMessage({id:"app.common.messages.invalidEmail"}),
+                message: formatMessage({ id: 'app.common.messages.invalidEmail' }),
               },
               {
                 required: true,
-                message: formatMessage({id:"app.common.messages.typeValidEmail"}),
+                message: formatMessage({ id: 'app.common.messages.typeValidEmail' }),
               },
             ],
           })(
             <Input
               prefix={<Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />}
-              placeholder={formatMessage({id:"app.common.messages.typeValidEmail"})}
+              placeholder={formatMessage({ id: 'app.common.messages.typeValidEmail' })}
             />,
           )}
         </Form.Item>
         <Form.Item
-          label={formatMessage({id:"app.containers.Settings.name"})}
+          label={formatMessage({ id: 'app.containers.Settings.name' })}
           validateStatus={nameError ? 'error' : ''}
           help={nameError || ''}
         >
@@ -169,19 +154,19 @@ class ProfileForm extends React.Component {
             rules: [
               {
                 required: true,
-                message: formatMessage({id:"app.common.messages.typeName"}),
+                message: formatMessage({ id: 'app.common.messages.typeName' }),
                 whitespace: true,
               },
               {
                 min: 3,
                 max: 20,
-                message: formatMessage({id:"app.common.messages.nameInvalid"}),
+                message: formatMessage({ id: 'app.common.messages.nameInvalid' }),
               },
             ],
           })(
             <Input
               prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-              placeholder={formatMessage({id:"app.common.messages.typeName"})}
+              placeholder={formatMessage({ id: 'app.common.messages.typeName' })}
             />,
           )}
         </Form.Item>
@@ -229,7 +214,7 @@ class PasswordForm extends React.Component {
             ...this.state,
             sending: false,
           });
-          let msg = formatMessage({id:"app.containers.Settings.updatePasswordSuccess"});
+          const msg = formatMessage({ id: 'app.containers.Settings.updatePasswordSuccess' });
           message.success(msg);
         } catch (err) {
           if (err.code == ERROR_CODES.passwordNotMatch) {
@@ -237,13 +222,15 @@ class PasswordForm extends React.Component {
               currentPassword: {
                 value: values.currentPassword,
                 errors: [
-                  new Error(formatMessage({id:"app.containers.Settings.currentPasswordNotMatch"})),
+                  new Error(
+                    formatMessage({ id: 'app.containers.Settings.currentPasswordNotMatch' }),
+                  ),
                 ],
               },
             });
           } else {
             // default error handle
-            let msg = formatMessage({id:"app.common.messages.serverTempDown"});
+            const msg = formatMessage({ id: 'app.common.messages.serverTempDown' });
             message.error(msg);
           }
 
@@ -267,7 +254,7 @@ class PasswordForm extends React.Component {
     const { form } = this.props;
     // const { formatMessage } = this.props.intl;
     if (value && value !== form.getFieldValue('password')) {
-      callback(formatMessage({id:"app.common.messages.passwordNotSame"}));
+      callback(formatMessage({ id: 'app.common.messages.passwordNotSame' }));
     } else {
       callback();
     }
@@ -293,39 +280,43 @@ class PasswordForm extends React.Component {
 
     return (
       <Form layout="vertical" onSubmit={this.handleSubmit}>
-        <Form.Item label={formatMessage({id:"app.containers.Settings.currentPassword"})}>
+        <Form.Item label={formatMessage({ id: 'app.containers.Settings.currentPassword' })}>
           {getFieldDecorator('currentPassword', {
             rules: [
               {
                 required: true,
-                message: formatMessage({id:"app.containers.Settings.currentPasswordPlaceholder"}),
+                message: formatMessage({
+                  id: 'app.containers.Settings.currentPasswordPlaceholder',
+                }),
               },
               {
                 min: 5,
                 max: 20,
-                message: formatMessage({id:"app.common.messages.passwordInvalid"}),
+                message: formatMessage({ id: 'app.common.messages.passwordInvalid' }),
               },
             ],
           })(
             <Input
               type="password"
               prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
-              placeholder={formatMessage({id:"app.containers.Settings.currentPasswordPlaceholder"})}
+              placeholder={formatMessage({
+                id: 'app.containers.Settings.currentPasswordPlaceholder',
+              })}
             />,
           )}
         </Form.Item>
         <Divider />
-        <Form.Item label={formatMessage({id:"app.containers.Settings.newPassword"})}>
+        <Form.Item label={formatMessage({ id: 'app.containers.Settings.newPassword' })}>
           {getFieldDecorator('password', {
             rules: [
               {
                 required: true,
-                message: formatMessage({id:"app.containers.Settings.newPasswordPlaceholder"}),
+                message: formatMessage({ id: 'app.containers.Settings.newPasswordPlaceholder' }),
               },
               {
                 min: 5,
                 max: 20,
-                message: formatMessage({id:"app.common.messages.passwordInvalid"}),
+                message: formatMessage({ id: 'app.common.messages.passwordInvalid' }),
               },
               {
                 validator: this.validateToNextPassword,
@@ -335,21 +326,23 @@ class PasswordForm extends React.Component {
             <Input
               type="password"
               prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
-              placeholder={formatMessage({id:"app.containers.Settings.newPasswordPlaceholder"})}
+              placeholder={formatMessage({ id: 'app.containers.Settings.newPasswordPlaceholder' })}
             />,
           )}
         </Form.Item>
-        <Form.Item label={formatMessage({id:"app.containers.Settings.confirmPassword"})}>
+        <Form.Item label={formatMessage({ id: 'app.containers.Settings.confirmPassword' })}>
           {getFieldDecorator('confirmPassword', {
             rules: [
               {
                 required: true,
-                message: formatMessage({id:"app.containers.Settings.confirmPasswordPlaceholder"}),
+                message: formatMessage({
+                  id: 'app.containers.Settings.confirmPasswordPlaceholder',
+                }),
               },
               {
                 min: 5,
                 max: 20,
-                message: formatMessage({id:"app.common.messages.passwordInvalid"}),
+                message: formatMessage({ id: 'app.common.messages.passwordInvalid' }),
               },
               {
                 validator: this.compareToFirstPassword,
@@ -359,7 +352,9 @@ class PasswordForm extends React.Component {
             <Input
               type="password"
               prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
-              placeholder={formatMessage({id:"app.containers.Settings.confirmPasswordPlaceholder"})}
+              placeholder={formatMessage({
+                id: 'app.containers.Settings.confirmPasswordPlaceholder',
+              })}
               onBlur={this.handleConfirmBlur}
             />,
           )}
@@ -385,21 +380,20 @@ class APIKeyForm extends React.Component {
       securityKey: this.props.securityKey,
     });
   }
+
   render() {
-    const {
-      getFieldDecorator,
-    } = this.props.form;
+    const { getFieldDecorator } = this.props.form;
     // const { formatMessage } = this.props.intl;
     return (
       <Form layout="vertical">
-        <Form.Item label={formatMessage({id:"app.containers.Settings.securityKey"})}>
+        <Form.Item label={formatMessage({ id: 'app.containers.Settings.securityKey' })}>
           {getFieldDecorator('securityKey', {
             rules: [],
           })(
             <Input
               disabled
               prefix={<Icon type="key" style={{ color: 'rgba(0,0,0,.25)' }} />}
-              placeholder={formatMessage({id:"app.common.messages.typeName"})}
+              placeholder={formatMessage({ id: 'app.common.messages.typeName' })}
             />,
           )}
         </Form.Item>
@@ -439,7 +433,7 @@ export class Settings extends React.Component {
       this.setState({
         confirmLoading: true,
       });
-      let redirectUrl = await deleteThisAccount();
+      const redirectUrl = await deleteThisAccount();
       this.setState({
         confirmLoading: true,
         visible: false,
@@ -448,7 +442,7 @@ export class Settings extends React.Component {
         location.href = redirectUrl;
       }
     } catch (err) {
-      let msg = formatMessage({id:"app.common.messages.serverTempDown"});
+      const msg = formatMessage({ id: 'app.common.messages.serverTempDown' });
       message.error(msg);
 
       this.setState({
@@ -465,22 +459,16 @@ export class Settings extends React.Component {
   };
 
   render() {
-    let user = this.props.user;
+    const { user } = this.props;
     // let intl = this.props.intl;
-    let dispatch = this.props.dispatch;
+    const { dispatch } = this.props;
     // const { formatMessage } = intl;
 
     const { visible, confirmLoading, ModalText } = this.state;
 
-    const WrappedProfileForm = Form.create({ name: 'profile_form' })(
-      ProfileForm,
-    );
-    const WrappedPasswordForm = Form.create({ name: 'password_form' })(
-      PasswordForm,
-    );
-    const WrappedAPIKeyForm = Form.create({ name: 'apikey_form' })(
-      APIKeyForm,
-    );
+    const WrappedProfileForm = Form.create({ name: 'profile_form' })(ProfileForm);
+    const WrappedPasswordForm = Form.create({ name: 'password_form' })(PasswordForm);
+    const WrappedAPIKeyForm = Form.create({ name: 'apikey_form' })(APIKeyForm);
 
     return (
       <Card>
@@ -488,8 +476,8 @@ export class Settings extends React.Component {
           title={formatMessage({id:"app.containers.Settings.emailWasRegistered"}header)}
           style={{ color: darkBlueColor }}
         /> */}
-        <div style={{ padding: '0 24px', maxWidth: maxWidth }}>
-        <Row>
+        <div style={{ padding: '0 24px', maxWidth }}>
+          <Row>
             <Col span={12}>
               <SectionTitle>
                 <FormattedMessage id="app.containers.Settings.securityKey" />
@@ -546,16 +534,13 @@ export class Settings extends React.Component {
               </Paragraph>
             </Col>
             <Col span={12}>
-              <Button
-                type="danger"
-                onClick={this.clickDeleteAccount.bind(this)}
-              >
+              <Button type="danger" onClick={this.clickDeleteAccount.bind(this)}>
                 <FormattedMessage id="app.containers.Settings.deleteThisAccount" />
               </Button>
             </Col>
           </Row>
           <Modal
-            title={formatMessage({id:"app.containers.Settings.deleteAccount"})}
+            title={formatMessage({ id: 'app.containers.Settings.deleteAccount' })}
             visible={visible}
             onOk={this.handleOk}
             confirmLoading={confirmLoading}
@@ -571,8 +556,8 @@ export class Settings extends React.Component {
   }
 }
 
-export default connect(({user}) => ({
-  user: user&&user.currentUser
+export default connect(({ user }) => ({
+  user: user && user.currentUser,
 }))(Settings);
 
 // Settings.propTypes = {

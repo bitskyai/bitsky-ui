@@ -43,6 +43,7 @@ export default defineMessages({
   },
   sendSuccessfulMsg: {
     id: `${scope}.sendSuccessfulMsg`,
-    defaultMessage: "Check your inbox for the next steps. If you don't receive an email, and it's not in your spam folder this could mean you signed up with a different address."
-  }
+    defaultMessage:
+      "Check your inbox for the next steps. If you don't receive an email, and it's not in your spam folder this could mean you signed up with a different address.",
+  },
 });

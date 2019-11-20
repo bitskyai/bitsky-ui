@@ -1,11 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import GitHubButton from 'react-github-button';
-import QueueAnim from 'rc-queue-anim';
-import TweenOne from 'rc-tween-one';
 import { Button } from 'antd';
-import { formatMessage } from 'umi-plugin-react/locale';
+import GitHubButton from 'react-github-button';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import QueueAnim from 'rc-queue-anim';
+import React from 'react';
+import TweenOne from 'rc-tween-one';
+import { formatMessage } from 'umi-plugin-react/locale';
 import BannerImage from './component/BannerImage';
 
 function Banner(props) {

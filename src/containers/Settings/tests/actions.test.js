@@ -1,5 +1,5 @@
-import { defaultAction } from '../actions';
 import { DEFAULT_ACTION } from '../constants';
+import { defaultAction } from '../actions';
 
 describe('Settings actions', () => {
   describe('Default Action', () => {

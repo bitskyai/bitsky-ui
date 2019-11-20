@@ -1,8 +1,8 @@
+import Authorized from '@/utils/Authorized';
 import React from 'react';
 import Redirect from 'umi/redirect';
 import { connect } from 'dva';
 import pathToRegexp from 'path-to-regexp';
-import Authorized from '@/utils/Authorized';
 
 const getRouteAuthority = (path, routeData) => {
   let authorities;
@@ -44,18 +44,13 @@ const AuthComponent = ({
   //   </Authorized>
   // );
 
-  const {currentUser} = user;
-  if(currentUser && currentUser.profile){
-    return (
-      <div>
-        {children}
-      </div>
-    )
-  }else{
-    return <Redirect to="/login" />;
+  const { currentUser } = user;
+  if (currentUser && currentUser.profile) {
+    return <div>{children}</div>;
   }
-}
+  return <Redirect to="/login" />;
+};
 
 export default connect(({ user }) => ({
-  user: user,
+  user,
 }))(AuthComponent);

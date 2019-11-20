@@ -4,16 +4,18 @@
  *
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import { Layout, Menu, Button, Typography, Row, Col } from 'antd';
-const { Text } = Typography;
-import { formatMessage } from 'umi-plugin-react/locale';
+import { Button, Col, Layout, Menu, Row, Typography } from 'antd';
+
 // import UserAvatar from './UserAvatar';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { formatMessage } from 'umi-plugin-react/locale';
+import styled from 'styled-components';
 import Avatar from '../GlobalHeader/AvatarDropdown';
 import styles from './index.less';
+
+const { Text } = Typography;
 
 function DiaUserInfoCmp(props) {
   let userInfo = (
@@ -38,9 +40,9 @@ function DiaUserInfoCmp(props) {
     // userInfo = getUserAvatar(props.user.profile);
     // userInfo = <UserAvatar profile={props.user.profile} />;
     console.log('styles: ', styles);
-    userInfo = <Avatar menu={true}/>
+    userInfo = <Avatar menu />;
   }
-  return <div style={{height:'64px', lineHeight: '64px'}}>{userInfo}</div>;
+  return <div style={{ height: '64px', lineHeight: '64px' }}>{userInfo}</div>;
 }
 
 DiaUserInfoCmp.propTypes = {

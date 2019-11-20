@@ -1,10 +1,11 @@
+import produce from 'immer';
 import {
+  deleteIntelligencesForManagementAPI,
   getIntelligencesForManagementAPI,
   pauseIntelligencesForManagementAPI,
   resumeIntelligencesForManagementAPI,
-  deleteIntelligencesForManagementAPI,
 } from '../apis/intelligences';
-import produce from 'immer';
+
 const IntelligencesModel = {
   namespace: 'intelligences',
   state: {},
@@ -27,7 +28,7 @@ const IntelligencesModel = {
   reducers: {
     refreshIntelligencesSuccess(state, action) {
       return produce(state, draft => {
-        let data = state.data || [];
+        const data = state.data || [];
         draft.data = data.concat(action.intelligences);
         draft.total = action.total;
         draft.nextCursor = action.nextCursor;

@@ -1,22 +1,24 @@
-import React from 'react';
-import _ from 'lodash';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import { Button, Col, Drawer, Form, Input, Row, Select, Typography, message } from 'antd';
 // import { FormattedMessage, FormattedHTMLMessage, injectIntl } from 'react-intl';
 import {
-  formatMessage,
-  FormattedMessage,
   FormattedHTMLMessage,
+  FormattedMessage,
   formatHTMLMessage,
+  formatMessage,
 } from 'umi-plugin-react/locale';
-import { Drawer, Form, Button, Col, Row, Input, Select, Typography, message } from 'antd';
-const { Paragraph, Text } = Typography;
 // import messages from '../../locales/en-US/containers/Sois';
 // import commonMessages from '../../locales/en-US/globalMessages';
-import { registerASOI, updateSOI } from '../../apis/sois';
-import { refreshSOIs } from './actions';
-import { filterOutEmptyValue } from '../../utils/utils';
+
+import PropTypes from 'prop-types';
+import React from 'react';
+import _ from 'lodash';
 import { exportDefaultSpecifier } from '@babel/types';
+import styled from 'styled-components';
+import { filterOutEmptyValue } from '../../utils/utils';
+import { refreshSOIs } from './actions';
+import { registerASOI, updateSOI } from '../../apis/sois';
+
+const { Paragraph, Text } = Typography;
 
 const FormDescription = styled(Paragraph)`
   padding: 5px 0;
@@ -48,7 +50,7 @@ class RegisterSoiForm extends React.Component {
             await registerASOI(values);
             this.props.dispatch(refreshSOIs());
           }
-          let msg = formatMessage({ id: 'app.containers.Sois.registerSOISuccessful' });
+          const msg = formatMessage({ id: 'app.containers.Sois.registerSOISuccessful' });
           message.success(msg);
           this.setState({
             sending: false,
@@ -68,12 +70,12 @@ class RegisterSoiForm extends React.Component {
   render() {
     const { getFieldsValue, getFieldDecorator, getFieldsError, isFieldsTouched } = this.props.form;
     // const { formatMessage } = this.props.intl;
-    let soi = this.props.soi;
+    let { soi } = this.props;
     let disableSaveBtn = true;
 
     let drawerTitle = formatMessage({ id: 'app.containers.Sois.drawerTitle' });
     let primaryButtonTitle = formatMessage({ id: 'app.containers.Sois.registerNow' });
-    if (this.props.soi&&this.props.soi.globalId) {
+    if (this.props.soi && this.props.soi.globalId) {
       // if *globalId* exist, then drawer title is
       drawerTitle = formatMessage({ id: 'app.containers.Sois.drawerTitleUpdate' });
       primaryButtonTitle = formatMessage({ id: 'app.common.messages.save' });
@@ -82,7 +84,7 @@ class RegisterSoiForm extends React.Component {
     if (isFieldsTouched()) {
       // console.log('isFieldsTouched: ', isFieldsTouched());
       let currentFormValue = getFieldsValue();
-      currentFormValue.globalId = soi&&soi.globalId;
+      currentFormValue.globalId = soi && soi.globalId;
       currentFormValue = { ...soi, ...currentFormValue };
       currentFormValue = filterOutEmptyValue(currentFormValue);
       soi = filterOutEmptyValue(soi);
@@ -97,7 +99,7 @@ class RegisterSoiForm extends React.Component {
     return (
       <div>
         <Drawer
-          destroyOnClose={true}
+          destroyOnClose
           title={drawerTitle}
           width={720}
           onClose={this.props.onCloseDrawer}

@@ -4,23 +4,13 @@
  *
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import dayjs from 'dayjs';
-import $ from 'jquery';
-import _ from 'lodash';
-import TimeAgo from 'react-timeago';
-import MediaQuery from 'react-responsive';
-
-// import { connect } from 'react-redux';
-import { connect } from 'dva';
-import { formatMessage, FormattedMessage, FormattedHTMLMessage } from 'umi-plugin-react/locale';
-import styled from 'styled-components';
 // import { FormattedMessage, FormattedHTMLMessage, injectIntl } from 'react-intl';
 // import { createStructuredSelector } from 'reselect';
 // import { compose } from 'redux';
-import { Empty, Button, Table, Spin, Input, Row, Col, Icon, Checkbox, Dropdown, Menu } from 'antd';
+import { Button, Checkbox, Col, Dropdown, Empty, Icon, Input, Menu, Row, Spin, Table } from 'antd';
+import { FormattedHTMLMessage, FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 
+import $ from 'jquery';
 // import injectSaga from 'utils/injectSaga';
 // import injectReducer from 'utils/injectReducer';
 // import makeSelectIntelligences from './selectors';
@@ -28,19 +18,27 @@ import { Empty, Button, Table, Spin, Input, Row, Col, Icon, Checkbox, Dropdown, 
 // import saga from './saga';
 // import messages from '../../locales/en-US/containers/intelligences';
 // import commonMessages from '../../locales/en-US/globalMessages';
+import MediaQuery from 'react-responsive';
+import PropTypes from 'prop-types';
+import React from 'react';
+import TimeAgo from 'react-timeago';
+import _ from 'lodash';
+// import { connect } from 'react-redux';
+import { connect } from 'dva';
+import dayjs from 'dayjs';
+import styled from 'styled-components';
 import IntelligencesSkeleton from './IntelligencesSkeleton';
 import {
-  resetIntelligences,
   refreshIntelligences,
   refreshIntelligencesFail,
   refreshIntelligencesSuccess,
+  resetIntelligences,
 } from './actions';
-
 import {
+  deleteIntelligencesForManagementAPI,
   getIntelligencesForManagementAPI,
   pauseIntelligencesForManagementAPI,
   resumeIntelligencesForManagementAPI,
-  deleteIntelligencesForManagementAPI,
 } from '../../apis/intelligences';
 import styles from './style.less';
 
@@ -139,37 +137,35 @@ export class Intelligences extends React.Component {
   });
 
   getColumnCheckboxProps = (dataIndex, options) => ({
-    filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => {
-      return (
-        <div style={{ padding: 8 }} className="intelligences-checkboxgroup">
-          <Checkbox.Group
-            options={options}
-            defaultValue={selectedKeys}
-            onChange={checkedValues => {
-              this.filterConditions[dataIndex] = checkedValues;
-              setSelectedKeys(checkedValues);
-            }}
-          />
-          <div>
-            <Button
-              type="primary"
-              onClick={() => this.handleSearch(selectedKeys, confirm, dataIndex)}
-              size="small"
-              style={{ width: 90, marginRight: 8 }}
-            >
-              <FormattedMessage id="app.common.messages.search" />
-            </Button>
-            <Button
-              onClick={() => this.handleReset(clearFilters, dataIndex)}
-              size="small"
-              style={{ width: 90 }}
-            >
-              <FormattedMessage id="app.common.messages.reset" />
-            </Button>
-          </div>
+    filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
+      <div style={{ padding: 8 }} className="intelligences-checkboxgroup">
+        <Checkbox.Group
+          options={options}
+          defaultValue={selectedKeys}
+          onChange={checkedValues => {
+            this.filterConditions[dataIndex] = checkedValues;
+            setSelectedKeys(checkedValues);
+          }}
+        />
+        <div>
+          <Button
+            type="primary"
+            onClick={() => this.handleSearch(selectedKeys, confirm, dataIndex)}
+            size="small"
+            style={{ width: 90, marginRight: 8 }}
+          >
+            <FormattedMessage id="app.common.messages.search" />
+          </Button>
+          <Button
+            onClick={() => this.handleReset(clearFilters, dataIndex)}
+            size="small"
+            style={{ width: 90 }}
+          >
+            <FormattedMessage id="app.common.messages.reset" />
+          </Button>
         </div>
-      );
-    },
+      </div>
+    ),
   });
 
   handleSearch = (selectedKeys, confirm, dataIndex) => {
@@ -226,10 +222,11 @@ export class Intelligences extends React.Component {
   componentDidUpdate() {
     $('.intelligence-table-container .ant-table-body').unbind('scroll');
     $('.intelligence-table-container .ant-table-body').bind('scroll', () => {
-      let scrollTop = $('.intelligence-table-container .ant-table-body').scrollTop();
-      let offsetHeight = $('.intelligence-table-container .ant-table-body').outerHeight();
-      let scrollHeight = document.querySelector('.intelligence-table-container .ant-table-body')
-        .scrollHeight;
+      const scrollTop = $('.intelligence-table-container .ant-table-body').scrollTop();
+      const offsetHeight = $('.intelligence-table-container .ant-table-body').outerHeight();
+      const { scrollHeight } = document.querySelector(
+        '.intelligence-table-container .ant-table-body',
+      );
 
       // console.log("scrollHeight: ", scrollHeight);
       // console.log("scrollTop: ", scrollTop);
@@ -279,7 +276,8 @@ export class Intelligences extends React.Component {
 
   async onPauseAll() {
     try {
-      let ids, url;
+      let ids;
+      let url;
       if (this.state.selectedRows && this.state.selectedRows.length) {
         ids = this.state.selectedRows.map(item => item.globalId);
       }
@@ -315,7 +313,8 @@ export class Intelligences extends React.Component {
 
   async onResumeAll() {
     try {
-      let ids, url;
+      let ids;
+      let url;
       if (this.state.selectedRows && this.state.selectedRows.length) {
         ids = this.state.selectedRows.map(item => item.globalId);
       }
@@ -351,7 +350,8 @@ export class Intelligences extends React.Component {
 
   async onDeleteAll() {
     try {
-      let ids, url;
+      let ids;
+      let url;
       if (this.state.selectedRows && this.state.selectedRows.length) {
         ids = this.state.selectedRows.map(item => item.globalId);
       }
@@ -387,8 +387,8 @@ export class Intelligences extends React.Component {
 
   render() {
     // const { formatMessage } = this.props.intl;
-    let { loadingIntelligencesData, contentHeight, loadingMore } = this.state;
-    let { intelligences } = this.props;
+    const { loadingIntelligencesData, contentHeight, loadingMore } = this.state;
+    const { intelligences } = this.props;
     let content = <IntelligencesSkeleton />;
 
     const columns = [
@@ -443,9 +443,7 @@ export class Intelligences extends React.Component {
       {
         title: 'Last Modified At',
         dataIndex: 'system.modified',
-        render: text => {
-          return dayjs(text).format('YYYY/MM/DD HH:mm:ss');
-        },
+        render: text => dayjs(text).format('YYYY/MM/DD HH:mm:ss'),
       },
     ];
 
@@ -650,13 +648,11 @@ export class Intelligences extends React.Component {
                 dataSource={intelligences.data}
                 rowKey={record => record._id}
                 scroll={{ y: contentHeight - 310 }}
-                onRow={record => {
-                  return {
-                    onClick: () => {
-                      // console.log('onRow->onClick: ', record);
-                    },
-                  };
-                }}
+                onRow={record => ({
+                  onClick: () => {
+                    // console.log('onRow->onClick: ', record);
+                  },
+                })}
               />
               {loadingMore ? LoadMoreContent : ''}
             </div>

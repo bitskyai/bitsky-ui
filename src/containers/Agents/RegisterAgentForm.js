@@ -1,36 +1,38 @@
-import React from 'react';
-import _ from 'lodash';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-// import { FormattedMessage, FormattedHTMLMessage, injectIntl } from 'react-intl';
-import {
-  formatMessage,
-  FormattedMessage,
-  FormattedHTMLMessage,
-  formatHTMLMessage,
-} from 'umi-plugin-react/locale';
+// import { refreshAgents } from './actions';
 import {
   Alert,
-  Drawer,
-  Form,
   Button,
   Col,
-  Row,
+  Drawer,
+  Form,
   Input,
   InputNumber,
+  Row,
   Select,
   Switch,
   Typography,
   message,
 } from 'antd';
-const { Paragraph, Text } = Typography;
+// import { FormattedMessage, FormattedHTMLMessage, injectIntl } from 'react-intl';
+import {
+  FormattedHTMLMessage,
+  FormattedMessage,
+  formatHTMLMessage,
+  formatMessage,
+} from 'umi-plugin-react/locale';
 // import messages from '../../locales/en-US/containers/Agents';
 // import commonMessages from '../../locales/en-US/globalMessages';
-import { registerAgentAPI, updateAgentAPI } from '../../apis/agents';
-// import { refreshAgents } from './actions';
-import { AGENT_STATE, AGENT_TYPES, DEFAULT_AGENT_CONFIGURATION } from '../../utils/constants';
-import { filterOutEmptyValue } from '../../utils/utils';
+
+import PropTypes from 'prop-types';
+import React from 'react';
+import _ from 'lodash';
 import { exportDefaultSpecifier } from '@babel/types';
+import styled from 'styled-components';
+import { filterOutEmptyValue } from '../../utils/utils';
+import { registerAgentAPI, updateAgentAPI } from '../../apis/agents';
+import { AGENT_STATE, AGENT_TYPES, DEFAULT_AGENT_CONFIGURATION } from '../../utils/constants';
+
+const { Paragraph, Text } = Typography;
 
 const FormDescription = styled(Paragraph)`
   padding: 5px 0;
@@ -79,7 +81,7 @@ class RegisterAgentForm extends React.Component {
               type: 'agents/refreshAgents',
             });
           }
-          let msg = formatMessage({ id: 'app.containers.Agents.registerAgentSuccessful' });
+          const msg = formatMessage({ id: 'app.containers.Agents.registerAgentSuccessful' });
           message.success(msg);
           this.setState({
             sending: false,
@@ -134,7 +136,7 @@ class RegisterAgentForm extends React.Component {
     return (
       <div>
         <Drawer
-          destroyOnClose={true}
+          destroyOnClose
           title={drawerTitle}
           width={720}
           onClose={this.props.onCloseDrawer}

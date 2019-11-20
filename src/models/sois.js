@@ -1,5 +1,6 @@
-import { getSOIs } from '../apis/sois';
 import produce from 'immer';
+import { getSOIs } from '../apis/sois';
+
 const SoisModel = {
   namespace: 'sois',
   state: {},
@@ -14,21 +15,21 @@ const SoisModel = {
       } catch (err) {
         yield put({
           type: 'refreshSoisFail',
-          error: err
+          error: err,
         });
       }
     },
   },
   reducers: {
     refreshSoisSuccess(state, action) {
-      return produce(state, (draft)=>{
+      return produce(state, draft => {
         draft.data = action.payload;
         draft.error = undefined;
         draft.modifiedAt = Date.now();
       });
     },
     refreshSoisFail(state, action) {
-      return produce(state, (draft)=>{
+      return produce(state, draft => {
         // draft.data = action.payload;
         draft.error = action.error;
         draft.modifiedAt = Date.now();

@@ -1,9 +1,10 @@
 import { Layout } from 'antd';
-const { Footer } = Layout;
-import { formatMessage } from 'umi-plugin-react/locale';
 import React from 'react';
 import classNames from 'classnames';
+import { formatMessage } from 'umi-plugin-react/locale';
 import styles from './index.less';
+
+const { Footer } = Layout;
 
 const GlobalFooter = () => (
   <Footer>

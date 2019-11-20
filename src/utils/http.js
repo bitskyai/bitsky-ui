@@ -1,5 +1,5 @@
-import axios from 'axios';
 import _ from 'lodash';
+import axios from 'axios';
 import HTTPError from './HTTPError';
 
 export function getRedirectURL(response) {
@@ -19,7 +19,7 @@ function http(config) {
         resolve(response);
       })
       .catch(err => {
-        let error = new HTTPError(err);
+        const error = new HTTPError(err);
         reject(error);
       });
   });

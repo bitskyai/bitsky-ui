@@ -4,5 +4,5 @@ export default {
   'menu.agents': 'Agents',
   'menu.settings': 'Settings',
   // Default from ant design pro
-  'menu.welcome': 'Welcome'
+  'menu.welcome': 'Welcome',
 };

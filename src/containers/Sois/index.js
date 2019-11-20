@@ -1,21 +1,18 @@
+import './style.css';
+
+// import { FormattedMessage, FormattedHTMLMessage, injectIntl } from 'react-intl';
+// import { createStructuredSelector } from 'reselect';
+// import { compose } from 'redux';
+import { Button, Col, Empty, Icon, Popconfirm, Row, Table, message } from 'antd';
+import { FormattedHTMLMessage, FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 /**
  *
  * Sois
  *
  */
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import dayjs from 'dayjs';
-import TimeAgo from 'react-timeago';
-// import { connect } from 'react-redux';
-import { connect } from 'dva';
-import { formatMessage, FormattedMessage, FormattedHTMLMessage } from 'umi-plugin-react/locale';
-import styled from 'styled-components';
-// import { FormattedMessage, FormattedHTMLMessage, injectIntl } from 'react-intl';
-// import { createStructuredSelector } from 'reselect';
-// import { compose } from 'redux';
-import { Empty, Table, Button, Popconfirm, message, Row, Col, Icon } from 'antd';
 
+import PropTypes from 'prop-types';
 // import { useInjectSaga } from 'utils/injectSaga';
 // import { useInjectReducer } from 'utils/injectReducer';
 // import makeSelectSois from './selectors';
@@ -23,11 +20,15 @@ import { Empty, Table, Button, Popconfirm, message, Row, Col, Icon } from 'antd'
 // import saga from './saga';
 // import messages fro../../locales/en-US/containers/Soisois';
 // import commonMessages from '../../locales/en-US/globalMessages';
-import RegisterSoiForm from './RegisterSoiForm';
+import TimeAgo from 'react-timeago';
+// import { connect } from 'react-redux';
+import { connect } from 'dva';
+import dayjs from 'dayjs';
+import styled from 'styled-components';
 import SOIsSkeleton from './SOIsSkeleton';
-import { refreshSOIsSuccess, refreshSOIsFail, refreshSOIs } from './actions';
-import { getSOIs, deleteASOIAPI, pingSOIAPI } from '../../apis/sois';
-import './style.css';
+import RegisterSoiForm from './RegisterSoiForm';
+import { refreshSOIs, refreshSOIsFail, refreshSOIsSuccess } from './actions';
+import { deleteASOIAPI, getSOIs, pingSOIAPI } from '../../apis/sois';
 
 // import DiaPageHeader from '../../components/Common';
 
@@ -83,7 +84,7 @@ export class SoisNew extends React.Component {
     deleteASOIAPI(record.globalId).then(
       () => {
         this.props.dispatch(refreshSOIs());
-        let msg = formatMessage({id:"app.containers.Sois.deleteSOISuccessful"});
+        const msg = formatMessage({ id: 'app.containers.Sois.deleteSOISuccessful' });
         message.success(msg);
       },
       err => {
@@ -92,14 +93,14 @@ export class SoisNew extends React.Component {
     );
   }
 
-  onPingSOI(record, event){
+  onPingSOI(record, event) {
     event.preventDefault();
     event.stopPropagation();
     // console.log(`onDeleteASOI: `, record);
     pingSOIAPI(record.globalId).then(
       () => {
         this.props.dispatch(refreshSOIs());
-        let msg = formatMessage({id:"app.containers.Sois.pingSuccessful"});
+        const msg = formatMessage({ id: 'app.containers.Sois.pingSuccessful' });
         message.success(msg);
       },
       err => {
@@ -111,7 +112,7 @@ export class SoisNew extends React.Component {
   onClickCancel(record, event) {
     event.preventDefault();
     event.stopPropagation();
-    console.log(`onClickCancel: `, record);
+    console.log('onClickCancel: ', record);
   }
 
   onClickDelete(record, event) {
@@ -145,75 +146,73 @@ export class SoisNew extends React.Component {
     );
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.initSoisData();
   }
 
   render() {
-    let { loadingData, drawerVisiable, selectedSOI, selectedRowKeys } = this.state;
-    let sois = this.props.soisData.data;
-    let modified = this.props.soisData.modifiedAt;
+    const { loadingData, drawerVisiable, selectedSOI, selectedRowKeys } = this.state;
+    const sois = this.props.soisData.data;
+    const modified = this.props.soisData.modifiedAt;
     let content = <SOIsSkeleton />;
 
     const columns = [
       {
-        title: formatMessage({id:"app.containers.Sois.soiName"}),
+        title: formatMessage({ id: 'app.containers.Sois.soiName' }),
         dataIndex: 'name',
       },
       {
-        title: formatMessage({id:"app.containers.Sois.baseURL"}),
+        title: formatMessage({ id: 'app.containers.Sois.baseURL' }),
         dataIndex: 'baseURL',
       },
       {
-        title: formatMessage({id:"app.containers.Sois.status"}),
+        title: formatMessage({ id: 'app.containers.Sois.status' }),
         dataIndex: 'system.state',
       },
       {
         title: 'Action',
         dataIndex: '',
         key: 'x',
-        render: (text, record) => {
-          return (
-            <div
+        render: (text, record) => (
+          <div
+            onClick={e => {
+              this.onPreventShowDrawer(e);
+            }}
+          >
+            <Button
+              size="small"
+              style={actionButtonStyle}
+              title={formatMessage({ id: 'app.containers.Sois.pingDescription' })}
               onClick={e => {
-                this.onPreventShowDrawer(e);
+                this.onPingSOI(record, e);
               }}
             >
+              {formatMessage({ id: 'app.containers.Sois.ping' })}
+            </Button>
+            <Popconfirm
+              style={{ maxWidth: '300px' }}
+              title={formatMessage({ id: 'app.containers.Sois.deleteSOIDescription' })}
+              onConfirm={e => {
+                this.onDeleteASOI(record, e);
+              }}
+              onCancel={e => {
+                this.onClickCancel(record, e);
+              }}
+              okText={formatMessage({ id: 'app.common.messages.yes' })}
+              cancelText={formatMessage({ id: 'app.common.messages.no' })}
+            >
               <Button
-                      size="small"
-                      style={actionButtonStyle}
-                      title={formatMessage({ id: 'app.containers.Sois.pingDescription' })}
-                      onClick={e => {
-                        this.onPingSOI(record, e);
-                      }}
-                    >
-                      {formatMessage({ id: 'app.containers.Sois.ping' })}
-                    </Button>
-              <Popconfirm
-                style={{ maxWidth: '300px' }}
-                title={formatMessage({id:"app.containers.Sois.deleteSOIDescription"})}
-                onConfirm={e => {
-                  this.onDeleteASOI(record, e);
+                size="small"
+                style={actionButtonStyle}
+                onClick={e => {
+                  this.onClickDelete(record, e);
                 }}
-                onCancel={e => {
-                  this.onClickCancel(record, e);
-                }}
-                okText={formatMessage({id:'app.common.messages.yes'})}
-                cancelText={formatMessage({id:'app.common.messages.no'})}
               >
-                <Button
-                  size="small"
-                  style={actionButtonStyle}
-                  onClick={e => {
-                    this.onClickDelete(record, e);
-                  }}
-                >
-                  {formatMessage({id:'app.common.messages.delete'})}
-                </Button>
-              </Popconfirm>
-            </div>
-          );
-        },
+                {formatMessage({ id: 'app.common.messages.delete' })}
+              </Button>
+            </Popconfirm>
+          </div>
+        ),
       },
     ];
 
@@ -224,7 +223,7 @@ export class SoisNew extends React.Component {
             <Empty
               description={
                 <span>
-                  <FormattedHTMLMessage id="app.containers.Sois.emptySOIs"/>
+                  <FormattedHTMLMessage id="app.containers.Sois.emptySOIs" />
                 </span>
               }
             >
@@ -234,7 +233,7 @@ export class SoisNew extends React.Component {
                   this.onRegisterSOI();
                 }}
               >
-                {formatMessage({id:"app.containers.Sois.registerNow"})}
+                {formatMessage({ id: 'app.containers.Sois.registerNow' })}
               </Button>
             </Empty>
           </EmptyContainer>
@@ -252,7 +251,7 @@ export class SoisNew extends React.Component {
                       }}
                       type="primary"
                     >
-                      {formatMessage({id:"app.containers.Sois.registerNow"})}
+                      {formatMessage({ id: 'app.containers.Sois.registerNow' })}
                     </Button>
                   </Col>
                   <Col span={10} style={{ textAlign: 'right' }}>
@@ -303,19 +302,17 @@ export class SoisNew extends React.Component {
                   }}
                   dataSource={sois}
                   rowKey={record => record._id}
-                  onRow={record => {
-                    return {
-                      onClick: () => {
-                        // console.log('onRow->onClick: ', record);
-                        // this.selectRow(record);
-                        // setSelectedRowKeys([record._id]);
-                        this.setState({
-                          selectedRowKeys: [record._id],
-                        });
-                        this.onShowDrawer(record);
-                      },
-                    };
-                  }}
+                  onRow={record => ({
+                    onClick: () => {
+                      // console.log('onRow->onClick: ', record);
+                      // this.selectRow(record);
+                      // setSelectedRowKeys([record._id]);
+                      this.setState({
+                        selectedRowKeys: [record._id],
+                      });
+                      this.onShowDrawer(record);
+                    },
+                  })}
                 />
               </div>
             </div>
