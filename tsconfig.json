@@ -4,7 +4,7 @@
     "module": "esnext",
     "target": "es5",
     "lib": ["es5", "es2015.promise", "dom", "es2015", "es6"],
-    "sourceMap": true,
+    "sourceMap": false,
     "baseUrl": ".",
     "jsx": "react",
     "allowSyntheticDefaultImports": true,
