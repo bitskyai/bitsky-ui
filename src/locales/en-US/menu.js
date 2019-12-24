@@ -4,4 +4,5 @@ export default {
   'menu.agents': 'Agents',
   'menu.settings': 'Settings',
   'menu.defaultSOI': 'Default SOI',
+  'menu.intellgienceshistory': 'Intellgiences History',
 };

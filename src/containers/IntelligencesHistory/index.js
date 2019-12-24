@@ -1,12 +1,8 @@
 /**
  *
- * Intelligences
+ * Intelligences History
  *
  */
-
-// import { FormattedMessage, FormattedHTMLMessage, injectIntl } from 'react-intl';
-// import { createStructuredSelector } from 'reselect';
-// import { compose } from 'redux';
 import { Button, Checkbox, Col, Dropdown, Empty, Icon, Input, Menu, Row, Spin, Table } from 'antd';
 import { FormattedHTMLMessage, FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 
@@ -15,7 +11,6 @@ import MediaQuery from 'react-responsive';
 import React from 'react';
 import TimeAgo from 'react-timeago';
 import _ from 'lodash';
-// import { connect } from 'react-redux';
 import { connect } from 'dva';
 import dayjs from 'dayjs';
 import styled from 'styled-components';
@@ -28,8 +23,6 @@ import {
 import {
   deleteIntelligencesOrHistoryForManagementAPI,
   getIntelligencesOrHistoryForManagementAPI,
-  pauseIntelligencesForManagementAPI,
-  resumeIntelligencesForManagementAPI,
 } from '../../apis/intelligencesOrHistory';
 
 // import DiaPageHeader from '../../components/Common';
@@ -51,7 +44,7 @@ const LoadMoreContent = (
   </div>
 );
 
-export class Intelligences extends React.Component {
+export class IntelligencesHistory extends React.Component {
   constructor(props) {
     super(props);
     // useInjectReducer({ key: 'intelligences', reducer });
@@ -79,7 +72,6 @@ export class Intelligences extends React.Component {
     $(window).bind('resize', () => {
       clearTimeout(this.resizeTimeoutHandler);
       this.resizeTimeoutHandler = setTimeout(() => {
-        console.log('intelligence resize');
         this.setState({ contentHeight: window.innerHeight });
       }, 500);
     });
@@ -180,6 +172,8 @@ export class Intelligences extends React.Component {
       undefined,
       this.filterConditions.url,
       this.filterConditions.state,
+      50,
+      true,
     ).then(
       intelligences => {
         this.setState({ loadingIntelligencesData: false });
@@ -244,6 +238,8 @@ export class Intelligences extends React.Component {
       nextCursor,
       this.filterConditions.url,
       this.filterConditions.state,
+      50,
+      true,
     ).then(
       intelligences => {
         this.props.dispatch(refreshIntelligencesSuccess(intelligences));
@@ -258,80 +254,6 @@ export class Intelligences extends React.Component {
         });
       },
     );
-  }
-
-  async onPauseAll() {
-    try {
-      let ids;
-      let url;
-      if (this.state.selectedRows && this.state.selectedRows.length) {
-        ids = this.state.selectedRows.map(item => item.globalId);
-      }
-      if (!ids || !ids.length) {
-        url = this.filterConditions.url;
-      }
-      this.setState({
-        operationBtns: {
-          pausing: true,
-          deleting: false,
-          resuming: false,
-        },
-      });
-      await pauseIntelligencesForManagementAPI(url, ids);
-      this.setState({
-        operationBtns: {
-          pausing: false,
-          deleting: false,
-          resuming: false,
-        },
-      });
-      this.initIntelligencesData();
-    } catch (err) {
-      this.setState({
-        operationBtns: {
-          pausing: false,
-          deleting: false,
-          resuming: false,
-        },
-      });
-    }
-  }
-
-  async onResumeAll() {
-    try {
-      let ids;
-      let url;
-      if (this.state.selectedRows && this.state.selectedRows.length) {
-        ids = this.state.selectedRows.map(item => item.globalId);
-      }
-      if (!ids || !ids.length) {
-        url = this.filterConditions.url;
-      }
-      this.setState({
-        operationBtns: {
-          pausing: false,
-          deleting: false,
-          resuming: true,
-        },
-      });
-      await resumeIntelligencesForManagementAPI(url, ids);
-      this.setState({
-        operationBtns: {
-          pausing: false,
-          deleting: false,
-          resuming: false,
-        },
-      });
-      this.initIntelligencesData();
-    } catch (err) {
-      this.setState({
-        operationBtns: {
-          pausing: false,
-          deleting: false,
-          resuming: false,
-        },
-      });
-    }
   }
 
   async onDeleteAll() {
@@ -351,7 +273,7 @@ export class Intelligences extends React.Component {
           resuming: false,
         },
       });
-      await deleteIntelligencesOrHistoryForManagementAPI(url, ids);
+      await deleteIntelligencesOrHistoryForManagementAPI(url, ids, true);
       this.setState({
         operationBtns: {
           pausing: false,
@@ -492,36 +414,6 @@ export class Intelligences extends React.Component {
               <Button
                 type="link"
                 onClick={() => {
-                  this.onPauseAll();
-                }}
-                disabled={operationBtnDisabled}
-                loading={this.state.operationBtns.pausing}
-              >
-                <FormattedMessage
-                  id="app.containers.Intelligences.pauseAll"
-                  values={{ intelligenceNumber: total }}
-                />
-              </Button>
-            </Menu.Item>
-            <Menu.Item>
-              <Button
-                type="link"
-                onClick={() => {
-                  this.onResumeAll();
-                }}
-                disabled={operationBtnDisabled}
-                loading={this.state.operationBtns.resuming}
-              >
-                <FormattedMessage
-                  id="app.containers.Intelligences.resumeAll"
-                  values={{ intelligenceNumber: total }}
-                />
-              </Button>
-            </Menu.Item>
-            <Menu.Item>
-              <Button
-                type="link"
-                onClick={() => {
                   this.onDeleteAll();
                 }}
                 disabled={operationBtnDisabled}
@@ -565,33 +457,8 @@ export class Intelligences extends React.Component {
             <div style={{ padding: '0 24px' }}>
               <div style={{ paddingBottom: '15px' }}>
                 <Row>
-                  <MediaQuery minWidth={1444}>
-                    <Col span={14}>
-                      <Button
-                        onClick={() => {
-                          this.onPauseAll();
-                        }}
-                        disabled={operationBtnDisabled}
-                        loading={this.state.operationBtns.pausing}
-                      >
-                        <FormattedMessage
-                          id="app.containers.Intelligences.pauseAll"
-                          values={{ intelligenceNumber: total }}
-                        />
-                      </Button>
-                      <Button
-                        onClick={() => {
-                          this.onResumeAll();
-                        }}
-                        style={{ marginLeft: '10px' }}
-                        disabled={operationBtnDisabled}
-                        loading={this.state.operationBtns.resuming}
-                      >
-                        <FormattedMessage
-                          id="app.containers.Intelligences.resumeAll"
-                          values={{ intelligenceNumber: total }}
-                        />
-                      </Button>
+                  <MediaQuery minWidth={1028}>
+                    <Col span={6}>
                       <Button
                         onClick={() => {
                           this.onDeleteAll();
@@ -606,11 +473,11 @@ export class Intelligences extends React.Component {
                         />
                       </Button>
                     </Col>
-                    <Col span={10} style={{ textAlign: 'right' }}>
+                    <Col span={18} style={{ textAlign: 'right' }}>
                       {rightContent}
                     </Col>
                   </MediaQuery>
-                  <MediaQuery maxWidth={1444}>
+                  <MediaQuery maxWidth={1028}>
                     <Col span={3}>
                       <Dropdown overlay={menu}>
                         <Button>
@@ -658,31 +525,4 @@ export class Intelligences extends React.Component {
 
 export default connect(({ intelligences }) => ({
   intelligences,
-}))(Intelligences);
-
-// Intelligences.propTypes = {
-//   dispatch: PropTypes.func.isRequired,
-// };
-
-// const mapStateToProps = createStructuredSelector({
-//   intelligences: makeSelectIntelligences(),
-// });
-
-// function mapDispatchToProps(dispatch) {
-//   return {
-//     dispatch,
-//   };
-// }
-
-// const withConnect = connect(
-//   mapStateToProps,
-//   mapDispatchToProps,
-// );
-// const withReducer = injectReducer({ key: 'intelligences', reducer });
-// const withSaga = injectSaga({ key: 'intelligences', saga });
-
-// export default compose(
-//   withReducer,
-//   withSaga,
-//   withConnect,
-// )(injectIntl(Intelligences));
+}))(IntelligencesHistory);

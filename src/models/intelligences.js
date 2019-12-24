@@ -4,7 +4,7 @@ import {
   getIntelligencesForManagementAPI,
   pauseIntelligencesForManagementAPI,
   resumeIntelligencesForManagementAPI,
-} from '../apis/intelligences';
+} from '../apis/intelligencesOrHistory';
 
 const IntelligencesModel = {
   namespace: 'intelligences',

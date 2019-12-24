@@ -19,6 +19,12 @@ let menuRouters = [
     component: './Agents',
   },
   {
+    path: '/app/intellgienceshistory',
+    name: 'intellgienceshistory',
+    icon: 'history',
+    component: './IntellgiencesHistory',
+  },
+  {
     path: '/app/settings',
     name: 'settings',
     icon: 'setting',
