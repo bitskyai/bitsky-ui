@@ -4,17 +4,14 @@
  *
  */
 
-import { Card, Typography } from 'antd';
+import { Card } from 'antd';
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 // import DiaFooter from '../DiaFooter';
 
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
 import { darkBlueColor, midBlueColor } from '../../styleVariables';
-
-const { Title, Paragraph } = Typography;
 
 const CardFooter = styled.div`
   color: ${darkBlueColor};

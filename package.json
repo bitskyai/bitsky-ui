@@ -5,6 +5,7 @@
   "description": "UI for Muew DIA",
   "scripts": {
     "analyze": "cross-env ANALYZE=1 umi build",
+    "build-electron": "cross-env UMI_ENV=electron umi build",
     "build-admin": "cross-env UMI_ENV=admin umi build",
     "build": "cross-env UMI_ENV=ui umi build",
     "format-imports": "import-sort --write '**/*.{js,jsx,ts,tsx}'",
@@ -17,6 +18,7 @@
     "lint:style": "stylelint --fix \"src/**/*.less\" --syntax less",
     "prettier": "prettier -c --write \"**/*\"",
     "start": "cross-env UMI_ENV=ui umi dev",
+    "start-electron": "cross-env UMI_ENV=electron umi dev",
     "start-admin": "cross-env UMI_ENV=admin umi dev",
     "start:no-mock": "cross-env MOCK=none umi dev",
     "test": "umi test",

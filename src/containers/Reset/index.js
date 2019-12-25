@@ -9,8 +9,6 @@ import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import { Redirect, Route } from 'umi';
 // import commonMessages from '../../locales/en-US/globalMessages';
 
-// import { Link } from 'react-router-dom';
-// import { Redirect } from 'react-router';
 import Link from 'umi/link';
 import PropTypes from 'prop-types';
 import React from 'react';

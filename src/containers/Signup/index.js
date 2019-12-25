@@ -6,8 +6,6 @@ import { Redirect, Route } from 'umi';
 // import { useInjectSaga } from 'utils/injectSaga';
 // import { useInjectReducer } from 'utils/injectReducer';
 
-// import { Link } from 'react-router-dom';
-// import { Redirect } from 'react-router';
 import Link from 'umi/link';
 /**
  *

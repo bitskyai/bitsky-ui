@@ -4,14 +4,13 @@
  *
  */
 
-import { Button, Col, Layout, Menu, Row, Typography } from 'antd';
+import { Button, Typography } from 'antd';
 
 // import UserAvatar from './UserAvatar';
-import { Link } from 'react-router-dom';
+import Link from 'umi/link';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { formatMessage } from 'umi-plugin-react/locale';
-import styled from 'styled-components';
 import Avatar from '../GlobalHeader/AvatarDropdown';
 import styles from './index.less';
 
@@ -39,7 +38,6 @@ function DiaUserInfoCmp(props) {
   if (props.currentUser && props.currentUser.email) {
     // userInfo = getUserAvatar(props.user.profile);
     // userInfo = <UserAvatar profile={props.user.profile} />;
-    console.log('styles: ', styles);
     userInfo = <Avatar menu />;
   }
   return <div style={{ height: '64px', lineHeight: '64px' }}>{userInfo}</div>;

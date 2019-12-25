@@ -19,17 +19,23 @@ let menuRouters = [
     component: './Agents',
   },
   {
+    path: '#defaultsoi',
+    name: 'defaultSOI',
+    icon: 'cloud-server',
+  },
+  {
     path: '/app/intellgienceshistory',
     name: 'intellgienceshistory',
     icon: 'history',
     component: './IntellgiencesHistory',
   },
-  {
-    path: '/app/settings',
-    name: 'settings',
-    icon: 'setting',
-    component: './Settings',
-  },
+  // Use electron preference to config
+  // {
+  //   path: '/app/settings',
+  //   name: 'settings',
+  //   icon: 'setting',
+  //   component: './ElectronSettings',
+  // },
 ];
 
 export default {

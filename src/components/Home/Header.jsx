@@ -1,6 +1,6 @@
-import { Button, Col, Icon, Menu, Popover, Row } from 'antd';
+import { Col, Icon, Menu, Popover, Row } from 'antd';
 
-import { Link } from 'react-router-dom';
+import Link from 'umi/link';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { enquireScreen } from 'enquire-js';

@@ -1,6 +1,6 @@
 import { Button } from 'antd';
 import GitHubButton from 'react-github-button';
-import { Link } from 'react-router-dom';
+import Link from 'umi/link';
 import PropTypes from 'prop-types';
 import QueueAnim from 'rc-queue-anim';
 import React from 'react';

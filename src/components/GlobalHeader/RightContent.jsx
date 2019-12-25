@@ -1,12 +1,12 @@
 import { Icon, Tooltip } from 'antd';
 
-import { Link } from 'react-router-dom';
+import Link from 'umi/link';
 import React from 'react';
 import { connect } from 'dva';
 import { formatMessage } from 'umi-plugin-react/locale';
 import SelectLang from '../SelectLang';
-import HeaderSearch from '../HeaderSearch';
-import Avatar from './AvatarDropdown';
+// import HeaderSearch from '../HeaderSearch';
+// import Avatar from './AvatarDropdown';
 import styles from './index.less';
 
 const GlobalHeaderRight = props => {
@@ -18,7 +18,7 @@ const GlobalHeaderRight = props => {
   }
 
   return (
-    <div className={className}>
+    <div className={className} style={{ marginRight: '12px' }}>
       {/* <HeaderSearch
         className={`${styles.action} ${styles.search}`}
         placeholder={formatMessage({
@@ -67,8 +67,8 @@ const GlobalHeaderRight = props => {
           <Icon type="question-circle-o" />
         </a>
       </Tooltip>
-      <Avatar menu />
-      {/* <SelectLang className={styles.action} /> */}
+      {/* <Avatar menu /> */}
+      {/* */} <SelectLang className={styles.action} />
     </div>
   );
 };
