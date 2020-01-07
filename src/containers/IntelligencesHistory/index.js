@@ -381,7 +381,7 @@ export class IntelligencesHistory extends React.Component {
             <Empty
               description={
                 <span>
-                  <FormattedHTMLMessage id="app.containers.Intelligences.emptyIntelligences" />
+                  <FormattedHTMLMessage id="app.containers.IntelligencesHistory.empty" />
                 </span>
               }
             >
