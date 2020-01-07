@@ -3,7 +3,6 @@ import { Button, Col, Drawer, Form, Input, Row, Select, Typography, message } fr
 import {
   FormattedHTMLMessage,
   FormattedMessage,
-  formatHTMLMessage,
   formatMessage,
 } from 'umi-plugin-react/locale';
 // import messages from '../../locales/en-US/containers/Sois';
@@ -12,13 +11,13 @@ import {
 import PropTypes from 'prop-types';
 import React from 'react';
 import _ from 'lodash';
-import { exportDefaultSpecifier } from '@babel/types';
+// import { exportDefaultSpecifier } from '@babel/types';
 import styled from 'styled-components';
 import { filterOutEmptyValue } from '../../utils/utils';
 import { refreshSOIs } from './actions';
 import { registerASOI, updateSOI } from '../../apis/sois';
 
-const { Paragraph, Text } = Typography;
+const { Paragraph } = Typography;
 
 const FormDescription = styled(Paragraph)`
   padding: 5px 0;
@@ -30,9 +29,9 @@ const formItemStyle = { marginBottom: 0 };
 class RegisterSoiForm extends React.Component {
   state = { sending: false };
 
-  hasErrors(fieldsError) {
-    return Object.keys(fieldsError).some(field => fieldsError[field]);
-  }
+  // hasErrors(fieldsError) {
+  //   return Object.keys(fieldsError).some(field => fieldsError[field]);
+  // }
 
   registerSOI = e => {
     e.preventDefault();
@@ -40,7 +39,6 @@ class RegisterSoiForm extends React.Component {
     this.setState({ sending: true });
     this.props.form.validateFieldsAndScroll(async (err, values) => {
       if (!err) {
-        console.log(values);
         try {
           if (this.props.soi) {
             values.globalId = this.props.soi.globalId;
@@ -68,7 +66,7 @@ class RegisterSoiForm extends React.Component {
   };
 
   render() {
-    const { getFieldsValue, getFieldDecorator, getFieldsError, isFieldsTouched } = this.props.form;
+    const { getFieldsValue, getFieldDecorator, isFieldsTouched } = this.props.form;
     // const { formatMessage } = this.props.intl;
     let { soi } = this.props;
     let disableSaveBtn = true;
@@ -138,7 +136,7 @@ class RegisterSoiForm extends React.Component {
               >
                 {getFieldDecorator('globalId', {
                   rules: [],
-                })(<p>{this.props.soi.globalId}</p>)}
+                })(<Paragraph copyable>{this.props.soi.globalId}</Paragraph>)}
                 <FormDescription>
                   <FormattedHTMLMessage id="app.containers.Sois.globalIdDescription" />
                 </FormDescription>

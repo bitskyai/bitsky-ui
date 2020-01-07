@@ -16,7 +16,6 @@ import {
 // import { FormattedMessage, FormattedHTMLMessage, injectIntl } from 'react-intl';
 import {
   FormattedHTMLMessage,
-  FormattedMessage,
   formatHTMLMessage,
   formatMessage,
 } from 'umi-plugin-react/locale';
@@ -26,13 +25,13 @@ import {
 import PropTypes from 'prop-types';
 import React from 'react';
 import _ from 'lodash';
-import { exportDefaultSpecifier } from '@babel/types';
+// import { exportDefaultSpecifier } from '@babel/types';
 import styled from 'styled-components';
 import { filterOutEmptyValue } from '../../utils/utils';
 import { registerAgentAPI, updateAgentAPI } from '../../apis/agents';
 import { AGENT_STATE, AGENT_TYPES, DEFAULT_AGENT_CONFIGURATION } from '../../utils/constants';
 
-const { Paragraph, Text } = Typography;
+const { Paragraph } = Typography;
 
 const FormDescription = styled(Paragraph)`
   padding: 5px 0;
@@ -57,9 +56,9 @@ class RegisterAgentForm extends React.Component {
     });
   }
 
-  hasErrors(fieldsError) {
-    return Object.keys(fieldsError).some(field => fieldsError[field]);
-  }
+  // hasErrors(fieldsError) {
+  //   return Object.keys(fieldsError).some(field => fieldsError[field]);
+  // }
 
   registerAgent = e => {
     e.preventDefault();
@@ -99,7 +98,7 @@ class RegisterAgentForm extends React.Component {
   };
 
   render() {
-    const { getFieldsValue, getFieldDecorator, getFieldsError, isFieldsTouched } = this.props.form;
+    const { getFieldsValue, getFieldDecorator, isFieldsTouched } = this.props.form;
     // const { formatMessage, formatHTMLMessage } = this.props.intl;
     let agent = this.props.agent || DEFAULT_AGENT_CONFIGURATION;
     let readOnly = false;
@@ -229,7 +228,7 @@ class RegisterAgentForm extends React.Component {
                 >
                   {getFieldDecorator('globalId', {
                     rules: [],
-                  })(<p>{agent.globalId}</p>)}
+                  })(<Paragraph copyable>{agent.globalId}</Paragraph>)}
                 </Form.Item>
                 <FormDescription>
                   <FormattedHTMLMessage id="app.common.messages.globalIdDescription" />
