@@ -14,11 +14,10 @@ const BlankLayout = props => {
     }
   }, []);
   if (!initedApp) {
-    return (
-      <PageLoading/>
-    );
+    return <PageLoading />;
   }
-  return <div>{children}</div>;
+  // return <div style={{ height: '100%' }}>{children}</div>;
+  return children;
 };
 
 // export default Layout;
