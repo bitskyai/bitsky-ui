@@ -19,15 +19,15 @@ let menuRouters = [
     component: './Agents',
   },
   {
-    path: '#defaultsoi',
-    name: 'defaultSOI',
-    icon: 'cloud-server',
-  },
-  {
     path: '/app/intellgienceshistory',
     name: 'intellgienceshistory',
     icon: 'history',
     component: './IntellgiencesHistory',
+  },
+  {
+    path: '#defaultsoi',
+    name: 'defaultSOI',
+    icon: 'cloud-server',
   },
   // Use electron preference to config
   // {

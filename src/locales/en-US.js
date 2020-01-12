@@ -10,6 +10,7 @@ import intelligencesHistoryCtn from './en-US/containers/IntelligencesHistory';
 import loginCtn from './en-US/containers/Login';
 import menu from './en-US/menu';
 import pwa from './en-US/pwa';
+import errorMsg from './en-US/error';
 import settingsCtn from './en-US/containers/Settings';
 import signupCtn from './en-US/containers/Signup';
 import soisCtn from './en-US/containers/Sois';
@@ -27,6 +28,7 @@ export default {
   ...globalHeader,
   ...menu,
   ...pwa,
+  ...errorMsg,
   ...component,
   ...loginCtn,
   ...agentsCtn,
