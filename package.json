@@ -8,7 +8,7 @@
     "build-electron": "cross-env UMI_ENV=electron umi build",
     "build-admin": "cross-env UMI_ENV=admin umi build",
     "build": "cross-env UMI_ENV=ui umi build",
-    "format-imports": "import-sort --write '**/*.{js,jsx,ts,tsx}'",
+    "format-imports": "import-sort --write \"**/*.{js,jsx,ts,tsx}\"",
     "lint": "npm run lint:js && npm run lint:style && npm run lint:prettier",
     "lint-staged": "lint-staged",
     "lint-staged:js": "eslint --ext .js,.jsx,.ts,.tsx ",
