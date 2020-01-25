@@ -632,7 +632,7 @@ export class Intelligences extends React.Component {
                 columns={columns}
                 rowSelection={rowSelection}
                 dataSource={intelligences.data}
-                rowKey={record => record._id}
+                rowKey={record => record.globalId}
                 scroll={{ y: contentHeight - 310 }}
                 onRow={record => ({
                   onClick: () => {

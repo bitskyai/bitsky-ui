@@ -47,10 +47,8 @@ const GlobalHeaderRight = props => {
           id: 'component.globalHeader.home',
         })}
       >
-        <Link to="/home">
-          <a className={styles.action}>
-            <Icon type="home" />
-          </a>
+        <Link to="/home" className={styles.action}>
+          <Icon type="home" />
         </Link>
       </Tooltip>
       <Tooltip

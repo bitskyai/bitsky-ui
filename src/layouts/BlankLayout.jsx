@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'dva';
+import { setLocale } from 'umi-plugin-react/locale';
 import PageLoading from '@/components/PageLoading';
 // const Layout = ({ children }) => <div>{children}</div>;
 
@@ -12,6 +13,9 @@ const BlankLayout = props => {
         type: 'global/initApp',
       });
     }
+
+    // ToDo: default set locale to `en-US`
+    setLocale('en-US');
   }, []);
   if (!initedApp) {
     return <PageLoading />;
