@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="1400px" height="1400px" viewBox="0 0 1400 1400" content="&lt;mxfile host=&quot;www.draw.io&quot; modified=&quot;2020-01-31T07:07:31.730Z&quot; agent=&quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36&quot; etag=&quot;OUxKzFgzK7dtP7ZaAwCZ&quot; version=&quot;12.6.2&quot; type=&quot;google&quot;&gt;&lt;diagram id=&quot;qlnH6vMeKOS-G3S7daSa&quot; name=&quot;Page-1&quot;&gt;3VlNc6IwGP41HuuQhM+rtLazO93pbA87e4wSILtInBhX3V+/QQOGEqy0YOtyEZ68QHg+oryOULjY3nO8TB9ZRLIRtKLtCN2OIISuDy35WUC7AwQ86Cso4TRS4BF4pn+JAsuyNY3IqlYoGMsEXdbBOctzMhc1DHPONvWymGX1uy5xQhrA8xxnTfQHjUR6QH3HOuIPhCZpeWdgqZEFLosVsEpxxDYahO5GKOSMicPeYhuSrOCv5OVw3rRltJoYJ7k454TvP7/OH927+dP9t/whTrPd05dfN+oqf3C2Vg+sJit2JQPyKpJseTDZpFSQ5yWeFyMbKbnEUrHI5BGQu3i1PCgQ0y2RN52sBGe/ScgyxiWas5xUYMml5BFNYpplZdUIIoBcNAkknnAcUfl02lgQhOF0WpzDcjHFC5oVzronjCcUK1iZyLUsBWjnT/ebdu1byuWkKcvlOMErOf0JZwIrBAFHAkw+MhXFjYLikk3iSxYJF2SrQUoIOb0FEXwnS8pogDIGKhg3wHb9A7I52gzYpZtS3WMVipW5k+oGR/3ljrJABzvAT2gHd7+Z7RDutx7scJTYszq6ow87wIYdkGc17QCNdoCD2QENb4dTytsQYRsblFfe6aKS0XxLwqlkivBi2jRPiuqeFEWwoSgyKAqgbVC0QntX1H5d0YSz9fJ8CqqvXjwrr2Cdpsbx4QtqLMPa55q87g5mdedyK5/u7NdDEENi2/P2ELx35WsqfdI4ryfg4zR032zuTo/c2fFOfSlwmuuAYyLKGYwo76Jm9yEIQXhNZndblD9pdinX2NI24BklNdb0rrDfbxTaCOkcBdsd+55Ti4MOaXTaljsu+Ko2t0lnW03vdAYXDUwgEwPBNQXGb/HHycB8KoXLfkNfiWljZMDEIADHTpNCDe6ftQv2D0bFbyaIYXBNwahs1SkZH6HkGa/+Xfzf+uADBgACf+zpiwVqcthW0z+hF3h51ow5C+yZNbuqaMAWh5yMxufS+IzX6R41juMY2fF5GpelV6Nx57QD6NR+S1umTkpLTf9O6LN/8MZGqRd40CPDaV7rqUkJJ5HWd1uxdTGxPnpnCICXvTMQmHpnhndmiJyxO5jIZzQY/ieRbTCgyC+7IjeBbeqLmDLdvS0iD49/tO3HtH8s0d0/&lt;/diagram&gt;&lt;/mxfile&gt;">
+  <defs>
+    <linearGradient x1="0%" y1="0%" x2="100%" y2="0%" id="mx-gradient-1363b9-1-99ccff-1-e-0">
+      <stop offset="0%" style="stop-color: #1363B9" />
+      <stop offset="100%" style="stop-color: #99CCFF" />
+    </linearGradient>
+    <linearGradient x1="0%" y1="0%" x2="100%" y2="0%" id="mx-gradient-666666-1-cccccc-1-e-0">
+      <stop offset="0%" style="stop-color: #666666" />
+      <stop offset="100%" style="stop-color: #CCCCCC" />
+    </linearGradient>
+  </defs>
+  <g>
+    <ellipse cx="1025" cy="565.4" rx="700" ry="700" fill-opacity="0.9" fill="url(#mx-gradient-1363b9-1-99ccff-1-e-0)" stroke="none" transform="rotate(315,1025,1025)" pointer-events="all" />
+    <ellipse cx="1025" cy="563.4" rx="600" ry="600" fill-opacity="0.7" fill="url(#mx-gradient-666666-1-cccccc-1-e-0)" stroke="none" transform="rotate(315,1025,1023)" pointer-events="all" />
+    <ellipse cx="1027" cy="565.4" rx="562" ry="562" fill="#423a4a" stroke="none" transform="rotate(315,1027,1025)" pointer-events="all" />
+    <ellipse cx="702" cy="700" rx="300" ry="300" fill="#f2e44c" stroke="#423a4a" stroke-width="50" pointer-events="all" />
+    <ellipse cx="702" cy="700" rx="250" ry="250" fill="#f2e44c" stroke="#821c1c" stroke-width="50" pointer-events="all" />
+    <ellipse cx="702" cy="700" rx="203.1" ry="203.1" fill="#f2e44c" stroke="#982121" stroke-width="50" pointer-events="all" />
+    <ellipse cx="702" cy="700" rx="156.3" ry="156.3" fill="#f2e44c" stroke="#a42a29" stroke-width="50" pointer-events="all" />
+    <ellipse cx="702" cy="700" rx="109.4" ry="109.4" fill="#f2e44c" stroke="#b94b0b" stroke-width="50" pointer-events="all" />
+    <ellipse cx="702" cy="700" rx="62.5" ry="62.5" fill="#fff34f" stroke="#fff34f" stroke-width="50" pointer-events="all" />
+    <ellipse cx="851" cy="696.7" rx="117.8" ry="55" fill="#79727e" stroke="none" transform="rotate(402,1310,720.8)" pointer-events="all" />
+    <ellipse cx="1006.9" cy="1114.5" rx="60" ry="25" fill="#79727e" stroke="none" transform="rotate(431,1420,913)" pointer-events="all" />
+  </g>
+</svg>
