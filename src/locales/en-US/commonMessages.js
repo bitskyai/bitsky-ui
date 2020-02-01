@@ -61,6 +61,7 @@ export default {
   'app.common.messages.search': 'Search',
   'app.common.messages.reset': 'Reset',
   'app.common.messages.healthTitle': 'Health Check',
+  'app.common.messages.analystState': 'Analyst State',
   'app.common.messages.urlPathDescription':
     'URL path of your callback. <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Identifying_resources_on_the_Web#Path" target="_blank">Learn More.</a>',
 };

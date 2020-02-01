@@ -29,7 +29,7 @@ export default {
   'app.containers.Settings.updatePasswordSuccess': 'Successfuly update password',
   'app.containers.Settings.securityKey': 'Security Key',
   'app.containers.Settings.securityKeyDescription':
-    'Security Key used for identify your intelligences, SOIs and Agents',
+    'Security Key used for identify your intelligences, Analyst Services and Agents',
   'app.containers.Settings.regenerateApiKey': 'Regenerate Security Key',
   'app.containers.Settings.deleteAccount': 'Delete Account',
   'app.containers.Settings.deleteAccountDescription':

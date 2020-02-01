@@ -1,8 +1,8 @@
 export default {
   'menu.intelligences': 'Intelligences',
-  'menu.sois': 'SOIs',
+  'menu.sois': 'Analyst Services',
   'menu.agents': 'Agents',
   'menu.settings': 'Settings',
-  'menu.defaultSOI': 'Default SOI',
+  'menu.defaultSOI': 'Default Analyst Service',
   'menu.intellgienceshistory': 'Intellgiences History',
 };

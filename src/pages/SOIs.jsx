@@ -4,7 +4,7 @@ import Sois from '@/containers/Sois';
 
 export default () => (
   <PageHeaderWrapper>
-    {/* <div>SOIs Page</div> */}
+    {/* <div>Analyst Services Page</div> */}
     <Sois />
   </PageHeaderWrapper>
 );

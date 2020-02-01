@@ -344,7 +344,7 @@ export class IntelligencesHistory extends React.Component {
         ]),
       },
       {
-        title: 'SOI State',
+        title: formatMessage({ id: 'app.common.messages.analystState' }),
         dataIndex: 'soi.state',
         width: '15%',
       },
