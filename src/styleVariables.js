@@ -1,0 +1,15 @@
+export const whiteColor = '#ffffff';
+export const lightBlueColor = '#f1f9ff';
+export const midBlueColor = '#bce0fd';
+export const blueColor = '#7fc4fd';
+export const darkBlueColor = '#2699fb';
+export const hoverBlueColor = '#1890ff';
+export const headLineFontSize = '40px';
+export const titleFontSize = '30px';
+export const subHeaderFontSize = '20px';
+export const largeBodyFontSize = '14px';
+export const bodyFontSize = '14px';
+export const secondaryBodyFontSize = '12px';
+export const placeholderFontSize = '12px';
+export const buttonFontSize = '10px';
+export const maxWidth = 1080;

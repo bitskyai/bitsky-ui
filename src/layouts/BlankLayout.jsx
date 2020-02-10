@@ -1,0 +1,30 @@
+import React, { useEffect } from 'react';
+import { connect } from 'dva';
+import { setLocale } from 'umi-plugin-react/locale';
+import PageLoading from '@/components/PageLoading';
+// const Layout = ({ children }) => <div>{children}</div>;
+
+const BlankLayout = props => {
+  const { dispatch, children, initedApp } = props;
+
+  useEffect(() => {
+    if (dispatch) {
+      dispatch({
+        type: 'global/initApp',
+      });
+    }
+
+    // ToDo: default set locale to `en-US`
+    setLocale('en-US');
+  }, []);
+  if (!initedApp) {
+    return <PageLoading />;
+  }
+  // return <div style={{ height: '100%' }}>{children}</div>;
+  return children;
+};
+
+// export default Layout;
+export default connect(({ global }) => ({
+  initedApp: global.initedApp,
+}))(BlankLayout);
