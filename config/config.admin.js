@@ -24,12 +24,6 @@ let menuRouters = [
     icon: 'history',
     component: './IntellgiencesHistory',
   },
-  {
-    path: '/app/settings',
-    name: 'settings',
-    icon: 'setting',
-    component: './Settings',
-  },
 ];
 
 export default {
