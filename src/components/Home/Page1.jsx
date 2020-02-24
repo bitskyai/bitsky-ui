@@ -175,7 +175,7 @@ class Page1 extends React.PureComponent {
                 duration: 300,
                 ease: 'easeInBack',
               }}
-              resetStyleBool={false}
+              // resetStyleBool={false}
             >
               {(this.props.isMobile || isHover) && pointChild}
             </TweenOneGroup>

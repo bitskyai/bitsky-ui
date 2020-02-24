@@ -33,9 +33,9 @@ class Header extends React.Component {
             <span>{formatMessage({ id: 'app.components.Home.document' })}</span>
           </a>
         </Menu.Item>
-        <Menu.Item key="examples">
-          <a target="_blank" rel="noopener noreferrer" href="https://docs.munew.io/examples">
-            {formatMessage({ id: 'app.components.Home.examples' })}
+        <Menu.Item key="tutorials">
+          <a target="_blank" rel="noopener noreferrer" href="https://docs.munew.io/tutorials">
+            {formatMessage({ id: 'app.components.Home.tutorials' })}
           </a>
         </Menu.Item>
         {!this.props.landing && menuMode === 'inline' ? (

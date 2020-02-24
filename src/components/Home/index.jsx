@@ -56,4 +56,9 @@ Home.propTypes = {
   landing: PropTypes.bool,
 };
 
+Home.defaultProps = {
+  currentUser: {},
+  landing: false,
+};
+
 export default Home;

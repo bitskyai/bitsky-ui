@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { connect } from 'dva';
 import { setLocale } from 'umi-plugin-react/locale';
 import PageLoading from '@/components/PageLoading';
-// const Layout = ({ children }) => <div>{children}</div>;
 
 const BlankLayout = props => {
   const { dispatch, children, initedApp } = props;

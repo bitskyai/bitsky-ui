@@ -3,6 +3,7 @@ const messages = {};
 messages[`${scope}.home`] = 'Home';
 messages[`${scope}.document`] = 'Document';
 messages[`${scope}.examples`] = 'Examples';
+messages[`${scope}.tutorials`] = 'Tutorials';
 messages[`${scope}.getStarted`] = 'Get Started for Free';
 messages[`${scope}.features`] = 'Features';
 messages[`${scope}.download`] = 'Download';
