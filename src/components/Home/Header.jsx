@@ -29,24 +29,31 @@ class Header extends React.Component {
           <a>{formatMessage({ id: 'app.components.Home.home' })}</a>
         </Menu.Item>
         <Menu.Item key="docs">
-          <a target="_blank" href="https://docs.munew.io">
+          <a target="_blank" rel="noopener noreferrer" href="https://docs.munew.io">
             <span>{formatMessage({ id: 'app.components.Home.document' })}</span>
           </a>
         </Menu.Item>
         <Menu.Item key="examples">
-          <a target="_blank" href="https://docs.munew.io/examples">
+          <a target="_blank" rel="noopener noreferrer" href="https://docs.munew.io/examples">
             {formatMessage({ id: 'app.components.Home.examples' })}
           </a>
         </Menu.Item>
-        {menuMode === 'inline' && (
+        {!this.props.landing && menuMode === 'inline' ? (
           <Menu.Item key="signin">
-            <Link to="/signin">{formatMessage({ id: 'app.common.messages.signin' })}</Link>
+            <Link to="/login">{formatMessage({ id: 'app.components.DiaUserInfoCmp.logIn' })}</Link>
           </Menu.Item>
+        ) : (
+          ''
         )}
-        {menuMode === 'inline' && (
+
+        {!this.props.landing && menuMode === 'inline' ? (
           <Menu.Item key="signup">
-            <Link to="/signup">{formatMessage({ id: 'app.common.messages.signin' })}</Link>
+            <Link to="/signup">
+              {formatMessage({ id: 'app.components.DiaUserInfoCmp.signUp' })}
+            </Link>
           </Menu.Item>
+        ) : (
+          ''
         )}
       </Menu>
     );
@@ -75,9 +82,13 @@ class Header extends React.Component {
           </Col>
           <Col xxl={20} xl={19} lg={16} md={16} sm={0} xs={0}>
             <div className="header-meta">
-              <div id="preview">
-                <DiaUserInfoCmp currentUser={this.props.currentUser} />
-              </div>
+              {this.props.landing ? (
+                ''
+              ) : (
+                <div id="preview">
+                  <DiaUserInfoCmp currentUser={this.props.currentUser} />
+                </div>
+              )}
               {menuMode === 'horizontal' ? <div id="menu">{menu}</div> : null}
             </div>
           </Col>
@@ -89,6 +100,12 @@ class Header extends React.Component {
 
 Header.propTypes = {
   currentUser: PropTypes.object,
+  landing: PropTypes.bool,
+};
+
+Header.defaultProps = {
+  currentUser: {},
+  landing: false,
 };
 
 export default Header;

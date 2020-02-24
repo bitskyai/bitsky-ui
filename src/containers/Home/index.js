@@ -1,19 +1,18 @@
 import React, { useEffect } from 'react';
 
 import Home from '@/components/Home';
-import { Layout } from 'antd';
 import { connect } from 'dva';
-import { formatMessage } from 'umi-plugin-react/locale';
 
 const HomeCtn = props => {
-  const { dispatch, currentUser } = props;
+  const { currentUser, landing } = props;
 
   useEffect(() => {}, []);
 
-  return <Home currentUser={currentUser} />;
+  return <Home currentUser={currentUser} landing={landing} />;
 };
 
 // export default Layout;
-export default connect(({ user }) => ({
+export default connect(({ user, global }) => ({
   currentUser: user && user.currentUser,
+  landing: global && global.landing,
 }))(HomeCtn);

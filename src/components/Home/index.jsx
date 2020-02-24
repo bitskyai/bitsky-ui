@@ -32,7 +32,11 @@ class Home extends React.PureComponent {
     return (
       <DocumentTitle title="MUNEW">
         <div className="munew-landing">
-          <Header isMobile={this.state.isMobile} currentUser={this.props.currentUser} />
+          <Header
+            isMobile={this.state.isMobile}
+            currentUser={this.props.currentUser}
+            landing={this.props.landing}
+          />
           <div className="home-wrapper">
             <Banner isMobile={this.state.isMobile} />
             <Page1 isMobile={this.state.isMobile} />
@@ -49,6 +53,7 @@ class Home extends React.PureComponent {
 
 Home.propTypes = {
   currentUser: PropTypes.object,
+  landing: PropTypes.bool,
 };
 
 export default Home;
