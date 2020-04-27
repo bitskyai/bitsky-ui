@@ -47,7 +47,8 @@ export default {
   'app.containers.Agents.agentTypePlaceHolder': 'Please select your Agent Type',
   'app.containers.Agents.agentTypeDescription':
     'Please select your Agent Type. <a href="https://docs.munew.io/guide/concepts/agent" target="_blank">Learn More.</a>',
-  'app.containers.Agents.browserExtensionAgent': 'Browser Extension',
+  'app.containers.Agents.browserExtensionAgent': 'Browser Extension Agent',
+  'app.containers.Agents.headlessAgent': 'Headless Agent',
   'app.containers.Agents.serviceAgent': 'Serivce Agent',
   'app.containers.Agents.agentConfiguration': 'Agent Configuration',
   'app.containers.Agents.agentConfigurationDescription':

@@ -14,11 +14,7 @@ import {
   message,
 } from 'antd';
 // import { FormattedMessage, FormattedHTMLMessage, injectIntl } from 'react-intl';
-import {
-  FormattedHTMLMessage,
-  formatHTMLMessage,
-  formatMessage,
-} from 'umi-plugin-react/locale';
+import { FormattedHTMLMessage, formatHTMLMessage, formatMessage } from 'umi-plugin-react/locale';
 // import messages from '../../locales/en-US/containers/Agents';
 // import commonMessages from '../../locales/en-US/globalMessages';
 
@@ -86,7 +82,7 @@ class RegisterAgentForm extends React.Component {
             sending: false,
           });
           this.props.onCloseDrawer();
-        } catch (err) {
+        } catch (errObj) {
           this.setState({
             sending: false,
           });
@@ -102,7 +98,8 @@ class RegisterAgentForm extends React.Component {
     // const { formatMessage, formatHTMLMessage } = this.props.intl;
     let agent = this.props.agent || DEFAULT_AGENT_CONFIGURATION;
     let readOnly = false;
-    // whether show active agent tip to user, to let user know, need to deactive it before user can modify
+    // whether show active agent tip to user, to let user know,
+    // need to deactive it before user can modify
     let activeAgentTip = false;
     if (_.get(agent, 'system.state') === AGENT_STATE.active) {
       readOnly = true;
@@ -294,6 +291,9 @@ class RegisterAgentForm extends React.Component {
                     <Select.Option value={AGENT_TYPES.browserExtension}>
                       <FormattedHTMLMessage id="app.containers.Agents.browserExtensionAgent" />
                     </Select.Option>
+                    <Select.Option value={AGENT_TYPES.headlessBrowser}>
+                      <FormattedHTMLMessage id="app.containers.Agents.headlessAgent" />
+                    </Select.Option>
                     <Select.Option value={AGENT_TYPES.service}>
                       <FormattedHTMLMessage id="app.containers.Agents.serviceAgent" />
                     </Select.Option>
@@ -351,7 +351,7 @@ class RegisterAgentForm extends React.Component {
                       message: formatHTMLMessage({ id: 'app.containers.Agents.invalidInteger' }),
                     },
                   ],
-                })(<InputNumber disabled={readOnly} min={1} max={10} />)}
+                })(<InputNumber disabled={readOnly} min={1} />)}
               </Form.Item>
               <FormDescription>
                 <FormattedHTMLMessage id="app.containers.Agents.concurrentCollectIntelligencesDescription" />
@@ -494,6 +494,7 @@ class RegisterAgentForm extends React.Component {
                 <FormattedHTMLMessage id="app.containers.Agents.requestTimeoutDescription" />
               </FormDescription>
             </FormItemContainer>
+            {/*
             <FormItemContainer>
               <Form.Item
                 label={formatMessage({ id: 'app.containers.Agents.maxRetryTime' })}
@@ -519,6 +520,7 @@ class RegisterAgentForm extends React.Component {
                 <FormattedHTMLMessage id="app.containers.Agents.maxRetryTimeDescription" />
               </FormDescription>
             </FormItemContainer>
+            */}
             {this.state.agentType === AGENT_TYPES.service ? (
               <div>
                 <FormItemContainer>
