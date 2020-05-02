@@ -11,7 +11,7 @@ export default {
   'app.containers.Agents.second': 'second',
   'app.containers.Agents.header': 'Agents',
   'app.containers.Agents.emptyAgents':
-    'You don\'t have any <a href="https://docs.munew.io/guide/concepts/agent" target="_blank">Agents</a>',
+    'You don\'t have any <a href="https://docs.munew.io/overview#agent" target="_blank">Agents</a>',
   'app.containers.Agents.registerNow': 'Register',
   'app.containers.Agents.drawerTitleCreate': 'Register an Agent',
   'app.containers.Agents.drawerTitleUpdate': 'Modify this Agent',
@@ -46,7 +46,7 @@ export default {
   'app.containers.Agents.agentType': 'Agent Type',
   'app.containers.Agents.agentTypePlaceHolder': 'Please select your Agent Type',
   'app.containers.Agents.agentTypeDescription':
-    'Please select your Agent Type. <a href="https://docs.munew.io/guide/concepts/agent" target="_blank">Learn More.</a>',
+    'Please select your Agent Type. <a href="https://docs.munew.io/overview#agent" target="_blank">Learn More.</a>',
   'app.containers.Agents.browserExtensionAgent': 'Browser Extension Agent',
   'app.containers.Agents.headlessAgent': 'Headless Agent',
   'app.containers.Agents.serviceAgent': 'Serivce Agent',

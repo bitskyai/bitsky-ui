@@ -2,12 +2,12 @@
 import {
   Alert,
   Button,
-  Col,
+  // Col,
   Drawer,
   Form,
   Input,
   InputNumber,
-  Row,
+  // Row,
   Select,
   Switch,
   Typography,
@@ -521,7 +521,8 @@ class RegisterAgentForm extends React.Component {
               </FormDescription>
             </FormItemContainer>
             */}
-            {this.state.agentType === AGENT_TYPES.service ? (
+            {/*
+            {this.state.agentType === AGENT_TYPES.service
               <div>
                 <FormItemContainer>
                   <Form.Item
@@ -623,9 +624,8 @@ class RegisterAgentForm extends React.Component {
                   </Col>
                 </Row>
               </div>
-            ) : (
-              ''
-            )}
+              : ''}
+              */}
           </Form>
           <div
             style={{

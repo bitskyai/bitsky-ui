@@ -7,7 +7,7 @@
 export default {
   'app.containers.Sois.header': 'Analyst Services',
   'app.containers.Sois.emptySOIs':
-    'You don\'t have any <a href="https://docs.munew.io/guide/concepts/soi" target="_blank">Analyst Services</a>. <a href="https://docs.munew.io/how-tos/how-to-register-an-soi-service">How to register an Analyst Service Service</a> will show you step by step to regiter an Analyst Service',
+    'You don\'t have any <a href="https://docs.munew.io/overview#analyst-service" target="_blank">Analyst Services</a>. <a href="https://docs.munew.io/how-tos/how-to-register-an-soi-service">How to register an Analyst Service Service</a> will show you step by step to regiter an Analyst Service',
   'app.containers.Sois.registerNow': 'Register',
   'app.containers.Sois.drawerTitle': 'Register an Analyst Service',
   'app.containers.Sois.drawerTitleUpdate': 'Modify an Analyst Service',
@@ -23,7 +23,8 @@ export default {
     '<b>Global ID</b> is used to identify your Analyst Service, it should be global unique, <span style="color:#faad14">after it created you cannot change it</span>, and when you create intelligences for this Analyst Service, you need to pass this global id, so it knows this intelligences are for this Analyst Service. If you use nodejs, then you can use <a href="https://www.npmjs.com/package/uuid" target="_blank">uuid</a> to generate',
   'app.containers.Sois.soiName': 'Analyst Service Name',
   'app.containers.Sois.soiNamePlaceholder': 'Please enter your Analyst Service name',
-  'app.containers.Sois.soiNameInvalid': 'Analyst Service name is invalid, please enter 3 to 50 characters',
+  'app.containers.Sois.soiNameInvalid':
+    'Analyst Service name is invalid, please enter 3 to 50 characters',
   'app.containers.Sois.soiNameExample': 'Collect Weather Information',
   'app.containers.Sois.soiNameDescription':
     'Give a meaningful name to your Analyst Service, between 3 to 50 characters',
