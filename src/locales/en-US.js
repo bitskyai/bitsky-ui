@@ -5,7 +5,7 @@ import commonMessages from './en-US/commonMessages';
 import component from './en-US/component';
 import globalHeader from './en-US/globalHeader';
 import home from './en-US/components/home';
-import intelligencesCtn from './en-US/containers/Intelligences';
+import intelligencesCtn from './en-US/containers/intelligences';
 import intelligencesHistoryCtn from './en-US/containers/IntelligencesHistory';
 import loginCtn from './en-US/containers/Login';
 import menu from './en-US/menu';
