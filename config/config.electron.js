@@ -25,17 +25,27 @@ let menuRouters = [
     component: './IntellgiencesHistory',
   },
   {
+    path: '/app/headless',
+    name: 'defaultHeadless',
+    icon: 'cloud-server',
+    component: './HeadlessAgent',
+  },
+  {
+    path: '/app/service',
+    name: 'defaultService',
+    icon: 'cloud-server',
+    component: './ServiceAgent',
+  },
+  {
     path: '#defaultsoi',
     name: 'defaultSOI',
     icon: 'cloud-server',
   },
-  // Use electron preference to config
-  // {
-  //   path: '/app/settings',
-  //   name: 'settings',
-  //   icon: 'setting',
-  //   component: './ElectronSettings',
-  // },
+  {
+    path: '#settings',
+    name: 'settings',
+    icon: 'setting',
+  },
 ];
 
 export default {

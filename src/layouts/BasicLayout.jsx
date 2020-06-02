@@ -69,7 +69,13 @@ const BasicLayout = props => {
             </Link>
           );
         }
-
+        if (menuItemProps.path === '/app/#settings') {
+          return (
+            <Link to="#" id="munew_default_settings_menu">
+              {defaultDom}
+            </Link>
+          );
+        }
         return <Link to={menuItemProps.path}>{defaultDom}</Link>;
       }}
       breadcrumbRender={(routers = []) => [

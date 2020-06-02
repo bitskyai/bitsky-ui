@@ -95,4 +95,35 @@ function filterOutEmptyValue(value) {
   return value;
 }
 
-export { isDev, isUrl, filterOutEmptyValue, traverse };
+/**
+ * Send message to electron to get, update information or do some operations.
+ * @param {string} subject - message subject. [ 'getHeadlessConfig',
+ *                                              'updateHeadlessConfig',
+ *                                              'startHeadless',
+ *                                              'stopHeadless',
+ *                                              'getServiceConfig',
+ *                                              'updateServiceConfig',
+ *                                              'startService',
+ *                                              'stopService' ]
+ * @param {object} [data] - data want to send to electron
+ */
+async function sendToElectron(subject, data) {
+  return new Promise((resolve, reject) => {
+    try {
+      const event = new CustomEvent('syncEngineUIToMain', {
+        detail: {
+          subject,
+          data,
+          callback: cbData => {
+            resolve(cbData);
+          },
+        },
+      });
+      window.dispatchEvent(event);
+    } catch (err) {
+      reject(err);
+    }
+  });
+}
+
+export { isDev, isUrl, filterOutEmptyValue, traverse, sendToElectron };
