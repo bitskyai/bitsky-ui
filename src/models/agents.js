@@ -1,5 +1,5 @@
 import produce from 'immer';
-import { activateAgentAPI, deactivateAgentAPI, deleteAgentAPI, getAgentsAPI } from '../apis/agents';
+import { getAgentsAPI } from '../apis/agents';
 
 const AgentsModel = {
   namespace: 'agents',

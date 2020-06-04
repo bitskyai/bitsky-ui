@@ -53,6 +53,7 @@ const BasicLayout = props => {
       payload,
     });
 
+  // Doc about `ProLayout`: https://prolayout.ant.design/#api
   return (
     <ProLayout
       logo={logo}

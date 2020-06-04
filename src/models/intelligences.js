@@ -28,6 +28,7 @@ const IntelligencesModel = {
   reducers: {
     refreshIntelligencesSuccess(state, action) {
       return produce(state, draft => {
+        console.log('models->intelligences: refreshIntelligencesSuccess');
         const data = state.data || [];
         draft.data = data.concat(action.intelligences);
         draft.total = action.total;
@@ -39,12 +40,14 @@ const IntelligencesModel = {
     },
     refreshIntelligencesFail(state, action) {
       return produce(state, draft => {
+        console.log('models->intelligences: refreshIntelligencesFail');
         draft.error = action.error;
         draft.modified = Date.now();
       });
     },
     resetIntelligences(state, action) {
       return produce(state, draft => {
+        console.log('models->intelligences: resetIntelligences');
         draft.data = [];
         draft.total = 0;
         draft.nextCursor = undefined;

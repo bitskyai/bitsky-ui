@@ -79,131 +79,14 @@ export class Intelligences extends React.Component {
     $(window).bind('resize', () => {
       clearTimeout(this.resizeTimeoutHandler);
       this.resizeTimeoutHandler = setTimeout(() => {
-        console.log('intelligence resize');
         this.setState({ contentHeight: window.innerHeight });
       }, 500);
     });
   }
 
-  getColumnSearchProps = dataIndex => ({
-    filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
-      <div style={{ padding: 8 }}>
-        <Input
-          ref={node => {
-            this.searchInput = node;
-          }}
-          placeholder={`Search ${dataIndex}`}
-          value={selectedKeys[0]}
-          onChange={e => setSelectedKeys(e.target.value ? [e.target.value] : [])}
-          onPressEnter={() => this.handleSearch(selectedKeys, confirm, dataIndex)}
-          style={{ width: 250, marginBottom: 8, display: 'block' }}
-        />
-        <Button
-          type="primary"
-          onClick={() => this.handleSearch(selectedKeys && selectedKeys[0], confirm, dataIndex)}
-          size="small"
-          style={{ width: 90, marginRight: 8 }}
-        >
-          <FormattedMessage id="app.common.messages.search" />
-        </Button>
-        <Button
-          onClick={() => this.handleReset(clearFilters, dataIndex)}
-          size="small"
-          style={{ width: 90 }}
-        >
-          <FormattedMessage id="app.common.messages.reset" />
-        </Button>
-      </div>
-    ),
-    onFilterDropdownVisibleChange: visible => {
-      if (visible) {
-        setTimeout(() => this.searchInput.select());
-      }
-    },
-  });
-
-  getColumnCheckboxProps = (dataIndex, options) => ({
-    filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
-      <div style={{ padding: 8 }} className="intelligences-checkboxgroup">
-        <Checkbox.Group
-          options={options}
-          defaultValue={selectedKeys}
-          onChange={checkedValues => {
-            this.filterConditions[dataIndex] = checkedValues;
-            setSelectedKeys(checkedValues);
-          }}
-        />
-        <div>
-          <Button
-            type="primary"
-            onClick={() => this.handleSearch(selectedKeys, confirm, dataIndex)}
-            size="small"
-            style={{ width: 90, marginRight: 8 }}
-          >
-            <FormattedMessage id="app.common.messages.search" />
-          </Button>
-          <Button
-            onClick={() => this.handleReset(clearFilters, dataIndex)}
-            size="small"
-            style={{ width: 90 }}
-          >
-            <FormattedMessage id="app.common.messages.reset" />
-          </Button>
-        </div>
-      </div>
-    ),
-  });
-
-  handleSearch = (selectedKeys, confirm, dataIndex) => {
-    confirm();
-    this.setState({ searchText: selectedKeys });
-    this.filterConditions[dataIndex] = selectedKeys;
-    this.search();
-  };
-
-  handleReset = (clearFilters, dataIndex) => {
-    clearFilters();
-    this.setState({ searchText: '' });
-    delete this.filterConditions[dataIndex];
-    this.search();
-  };
-
-  initIntelligencesData() {
-    this.props.dispatch(resetIntelligences());
-    this.setState({
-      loadingIntelligencesData: true,
-      selectedRowKeys: [],
-      selectedRows: [],
-    });
-    // init intelligences
-    getIntelligencesOrHistoryForManagementAPI(
-      undefined,
-      this.filterConditions.url,
-      this.filterConditions.state,
-    ).then(
-      intelligences => {
-        this.setState({ loadingIntelligencesData: false });
-        this.props.dispatch(refreshIntelligencesSuccess(intelligences));
-      },
-      err => {
-        this.setState({ loadingIntelligencesData: false });
-        this.props.dispatch(refreshIntelligencesFail(err));
-      },
-    );
-  }
-
   componentDidMount() {
     this.initIntelligencesData();
   }
-
-  search = () => {
-    this.setState({
-      selectedRowKeys: [],
-      selectedRows: [],
-    });
-    this.props.dispatch(resetIntelligences());
-    this.loadMoreIntelligences(null);
-  };
 
   componentDidUpdate() {
     $('.intelligence-table-container .ant-table-body').unbind('scroll');
@@ -231,33 +114,6 @@ export class Intelligences extends React.Component {
 
   componentWillUnmount() {
     $(window).unbind('resize');
-  }
-
-  loadMoreIntelligences(nextCursor) {
-    this.setState({
-      loadingMore: true,
-    });
-    if (nextCursor === undefined) {
-      nextCursor = this.props.intelligences.nextCursor;
-    }
-    getIntelligencesOrHistoryForManagementAPI(
-      nextCursor,
-      this.filterConditions.url,
-      this.filterConditions.state,
-    ).then(
-      intelligences => {
-        this.props.dispatch(refreshIntelligencesSuccess(intelligences));
-        this.setState({
-          loadingMore: false,
-        });
-      },
-      err => {
-        this.props.dispatch(refreshIntelligencesFail(err));
-        this.setState({
-          loadingMore: false,
-        });
-      },
-    );
   }
 
   async onPauseAll() {
@@ -369,6 +225,149 @@ export class Intelligences extends React.Component {
         },
       });
     }
+  }
+
+  search = () => {
+    this.setState({
+      selectedRowKeys: [],
+      selectedRows: [],
+    });
+    this.props.dispatch(resetIntelligences());
+    this.loadMoreIntelligences(null);
+  };
+
+  getColumnSearchProps = dataIndex => ({
+    filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
+      <div style={{ padding: 8 }}>
+        <Input
+          ref={node => {
+            this.searchInput = node;
+          }}
+          placeholder={`Search ${dataIndex}`}
+          value={selectedKeys[0]}
+          onChange={e => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+          onPressEnter={() => this.handleSearch(selectedKeys, confirm, dataIndex)}
+          style={{ width: 250, marginBottom: 8, display: 'block' }}
+        />
+        <Button
+          type="primary"
+          onClick={() => this.handleSearch(selectedKeys && selectedKeys[0], confirm, dataIndex)}
+          size="small"
+          style={{ width: 90, marginRight: 8 }}
+        >
+          <FormattedMessage id="app.common.messages.search" />
+        </Button>
+        <Button
+          onClick={() => this.handleReset(clearFilters, dataIndex)}
+          size="small"
+          style={{ width: 90 }}
+        >
+          <FormattedMessage id="app.common.messages.reset" />
+        </Button>
+      </div>
+    ),
+    onFilterDropdownVisibleChange: visible => {
+      if (visible) {
+        setTimeout(() => this.searchInput.select());
+      }
+    },
+  });
+
+  getColumnCheckboxProps = (dataIndex, options) => ({
+    filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
+      <div style={{ padding: 8 }} className="intelligences-checkboxgroup">
+        <Checkbox.Group
+          options={options}
+          defaultValue={selectedKeys}
+          onChange={checkedValues => {
+            this.filterConditions[dataIndex] = checkedValues;
+            setSelectedKeys(checkedValues);
+          }}
+        />
+        <div>
+          <Button
+            type="primary"
+            onClick={() => this.handleSearch(selectedKeys, confirm, dataIndex)}
+            size="small"
+            style={{ width: 90, marginRight: 8 }}
+          >
+            <FormattedMessage id="app.common.messages.search" />
+          </Button>
+          <Button
+            onClick={() => this.handleReset(clearFilters, dataIndex)}
+            size="small"
+            style={{ width: 90 }}
+          >
+            <FormattedMessage id="app.common.messages.reset" />
+          </Button>
+        </div>
+      </div>
+    ),
+  });
+
+  handleSearch = (selectedKeys, confirm, dataIndex) => {
+    confirm();
+    this.setState({ searchText: selectedKeys });
+    this.filterConditions[dataIndex] = selectedKeys;
+    this.search();
+  };
+
+  handleReset = (clearFilters, dataIndex) => {
+    clearFilters();
+    this.setState({ searchText: '' });
+    delete this.filterConditions[dataIndex];
+    this.search();
+  };
+
+  loadMoreIntelligences(nextCursor) {
+    this.setState({
+      loadingMore: true,
+    });
+    if (nextCursor === undefined) {
+      nextCursor = this.props.intelligences.nextCursor;
+    }
+    getIntelligencesOrHistoryForManagementAPI(
+      nextCursor,
+      this.filterConditions.url,
+      this.filterConditions.state,
+    ).then(
+      intelligences => {
+        this.props.dispatch(refreshIntelligencesSuccess(intelligences));
+        this.setState({
+          loadingMore: false,
+        });
+      },
+      err => {
+        this.props.dispatch(refreshIntelligencesFail(err));
+        this.setState({
+          loadingMore: false,
+        });
+      },
+    );
+  }
+
+  initIntelligencesData() {
+    this.props.dispatch(resetIntelligences());
+    this.setState({
+      loadingIntelligencesData: true,
+      selectedRowKeys: [],
+      selectedRows: [],
+    });
+    // init intelligences
+    getIntelligencesOrHistoryForManagementAPI(
+      undefined,
+      this.filterConditions.url,
+      this.filterConditions.state,
+    ).then(
+      intelligences => {
+        this.setState({ loadingIntelligencesData: false });
+        this.props.dispatch(refreshIntelligencesSuccess(intelligences));
+      },
+      err => {
+        this.setState({ loadingIntelligencesData: false });
+        this.props.dispatch(refreshIntelligencesFail(err));
+      },
+    );
   }
 
   render() {

@@ -1,6 +1,6 @@
 import { Layout } from 'antd';
-import { GithubOutlined } from '@ant-design/icons';
-import { DefaultFooter } from '@ant-design/pro-layout';
+// import { GithubOutlined } from '@ant-design/icons';
+// import { DefaultFooter } from '@ant-design/pro-layout';
 import React from 'react';
 import { formatMessage } from 'umi-plugin-react/locale';
 import styles from './index.less';

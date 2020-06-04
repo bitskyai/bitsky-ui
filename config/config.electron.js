@@ -1,4 +1,4 @@
-let menuRouters = [
+const menuRouters = [
   { path: '/app/', redirect: '/app/intelligences' },
   {
     path: '/app/intelligences',
@@ -49,7 +49,8 @@ let menuRouters = [
 ];
 
 export default {
-  // umi routes: https://umijs.org/zh/guide/router.html
+  // umi routes: https://umijs.org/docs/routing
+  // 1. relative path is relative to `src/pages`
   routes: [
     {
       path: '/',
@@ -60,7 +61,6 @@ export default {
         {
           path: '/app',
           component: '../layouts/BasicLayout',
-          Routes: ['src/pages/Authorized'],
           routes: menuRouters,
         },
       ],
