@@ -5,40 +5,23 @@
  */
 
 import {
-  GET_HEADLESS_CONFIG_FAIL,
-  GET_HEADLESS_CONFIG_SUCCESS,
-  UPDATE_HEADLESS_CONFIG_FAIL,
-  UPDATE_HEADLESS_CONFIG_SUCCESS,
+  GET_HEADLESS_CONFIG,
+  UPDATE_HEADLESS_CONFIG,
   START_HEADLESS_FAIL,
   START_HEADLESS_SUCCESS,
   STOP_HEADLESS_FAIL,
   STOP_HEADLESS_SUCCESS,
 } from './constants';
 
-export function getHeadlessConfigSuccess(config) {
+export function getHeadlessConfig() {
   return {
-    type: GET_HEADLESS_CONFIG_SUCCESS,
-    config,
+    type: GET_HEADLESS_CONFIG,
   };
 }
 
-export function getHeadlessConfigFail(err) {
+export function updateHeadlessConfig() {
   return {
-    type: GET_HEADLESS_CONFIG_FAIL,
-    error: err,
-  };
-}
-
-export function updateHeadlessConfigSuccess() {
-  return {
-    type: UPDATE_HEADLESS_CONFIG_SUCCESS,
-  };
-}
-
-export function updateHeadlessConfigFail(err) {
-  return {
-    type: UPDATE_HEADLESS_CONFIG_FAIL,
-    error: err,
+    type: UPDATE_HEADLESS_CONFIG,
   };
 }
 

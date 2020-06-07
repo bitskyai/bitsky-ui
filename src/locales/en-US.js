@@ -14,6 +14,7 @@ import errorMsg from './en-US/error';
 import settingsCtn from './en-US/containers/Settings';
 import signupCtn from './en-US/containers/Signup';
 import soisCtn from './en-US/containers/Sois';
+import HeadlessAgentCtn from './en-US/containers/HeadlessAgent';
 // import settings from './en-US/settings';
 export default {
   'navBar.lang': 'Languages',
@@ -37,4 +38,5 @@ export default {
   ...intelligencesCtn,
   ...intelligencesHistoryCtn,
   ...signupCtn,
+  ...HeadlessAgentCtn,
 };

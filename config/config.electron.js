@@ -29,22 +29,26 @@ const menuRouters = [
     name: 'defaultHeadless',
     icon: 'cloud-server',
     component: './HeadlessAgent',
+    electron: true,
   },
   {
     path: '/app/service',
     name: 'defaultService',
     icon: 'cloud-server',
     component: './ServiceAgent',
+    electron: true,
   },
   {
     path: '#defaultsoi',
     name: 'defaultSOI',
     icon: 'cloud-server',
+    electron: true,
   },
   {
     path: '#settings',
     name: 'settings',
     icon: 'setting',
+    electron: true,
   },
 ];
 

@@ -4,6 +4,7 @@ import './style.css';
 // import { createStructuredSelector } from 'reselect';
 // import { compose } from 'redux';
 import { Button, Col, Empty, Icon, Popconfirm, Row, Table, message } from 'antd';
+import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { FormattedHTMLMessage, FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 /**
  *
@@ -325,7 +326,7 @@ export class Agents extends React.Component {
       } else {
         content = (
           <div className="intelligence-table-container">
-            <div style={{ padding: '0 24px' }}>
+            <div>
               <div style={{ paddingBottom: '15px' }}>
                 <Row>
                   <Col span={14}>
@@ -395,17 +396,18 @@ export class Agents extends React.Component {
     }
 
     return (
-      <div>
-        {/* <DiaPageHeader title={formatMessage(messages.header)} /> */}
-        {content}
-        <RegisterAgentForm
-          visiable={drawerVisiable}
-          onCloseDrawer={() => {
-            this.onCloseDrawer();
-          }}
-          agent={selectedAgent}
-          dispatch={this.props.dispatch}
-        />
+      <div style={{ padding: '20px' }}>
+        <PageHeaderWrapper>
+          {content}
+          <RegisterAgentForm
+            visiable={drawerVisiable}
+            onCloseDrawer={() => {
+              this.onCloseDrawer();
+            }}
+            agent={selectedAgent}
+            dispatch={this.props.dispatch}
+          />
+        </PageHeaderWrapper>
       </div>
     );
   }

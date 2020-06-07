@@ -26,3 +26,10 @@ export const AGENT_STATE = {
   active: 'ACTIVE',
   deleted: 'DELETED',
 };
+
+export const LOG_LEVEL = {
+  error: 'error',
+  warn: 'warn',
+  info: 'info',
+  debug: 'debug',
+};

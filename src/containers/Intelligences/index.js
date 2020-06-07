@@ -9,6 +9,7 @@
 // import { compose } from 'redux';
 import { Button, Checkbox, Col, Dropdown, Empty, Icon, Input, Menu, Row, Spin, Table } from 'antd';
 import { FormattedHTMLMessage, FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
+import { PageHeaderWrapper } from '@ant-design/pro-layout';
 
 import $ from 'jquery';
 import MediaQuery from 'react-responsive';
@@ -561,7 +562,7 @@ export class Intelligences extends React.Component {
         content = (
           // <div ref={(ref) => this.scrollParentRef = ref}>
           <div className="intelligence-table-container">
-            <div style={{ padding: '0 24px' }}>
+            <div>
               <div style={{ paddingBottom: '15px' }}>
                 <Row>
                   <MediaQuery minWidth={1444}>
@@ -647,9 +648,8 @@ export class Intelligences extends React.Component {
     }
 
     return (
-      <div>
-        {/* <DiaPageHeader title={formatMessage(messages.header)} /> */}
-        {content}
+      <div style={{ padding: '20px' }}>
+        <PageHeaderWrapper>{content}</PageHeaderWrapper>
       </div>
     );
   }

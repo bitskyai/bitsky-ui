@@ -5,6 +5,7 @@ import './style.css';
 // import { compose } from 'redux';
 import { Button, Col, Empty, Icon, Popconfirm, Row, Table, message } from 'antd';
 import { FormattedHTMLMessage, FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
+import { PageHeaderWrapper } from '@ant-design/pro-layout';
 /**
  *
  * Sois
@@ -241,7 +242,7 @@ export class SoisNew extends React.Component {
       } else {
         content = (
           <div className="sois-table-container">
-            <div style={{ padding: '0 24px' }}>
+            <div>
               <div style={{ paddingBottom: '15px' }}>
                 <Row>
                   <Col span={14}>
@@ -322,17 +323,18 @@ export class SoisNew extends React.Component {
     }
 
     return (
-      <div>
-        {/* <DiaPageHeader title={formatMessage(messages.header)} /> */}
-        {content}
-        <RegisterSoiForm
-          visiable={drawerVisiable}
-          onCloseDrawer={() => {
-            this.onCloseDrawer();
-          }}
-          soi={selectedSOI}
-          dispatch={this.props.dispatch}
-        />
+      <div style={{ padding: '20px' }}>
+        <PageHeaderWrapper>
+          {content}
+          <RegisterSoiForm
+            visiable={drawerVisiable}
+            onCloseDrawer={() => {
+              this.onCloseDrawer();
+            }}
+            soi={selectedSOI}
+            dispatch={this.props.dispatch}
+          />
+        </PageHeaderWrapper>
       </div>
     );
   }
