@@ -224,7 +224,7 @@ class ServiceAgentForm extends React.Component {
       state.configuration = {};
     }
 
-    console.log('overWriteState -> state: ', state);
+    // console.log('overWriteState -> state: ', state);
     this.setState(state);
   }
 
@@ -301,6 +301,9 @@ class ServiceAgentForm extends React.Component {
     const service = this.props.service || {};
     const serviceConfig = service.data;
 
+    // when server is starting or stopping, don't allow to change before finish
+    const disableEdit = serviceConfig.STARTING || serviceConfig.STOPPING;
+
     let baseURLProps = {};
     if (baseURLValidateStatus) {
       baseURLProps = {
@@ -354,6 +357,7 @@ class ServiceAgentForm extends React.Component {
                 ],
               })(
                 <Input
+                  disabled={disableEdit}
                   placeholder={formatMessage({ id: 'app.common.messages.baseURLExample' })}
                   onChange={e => this.saveConfiguration(e)}
                 />,
@@ -386,6 +390,7 @@ class ServiceAgentForm extends React.Component {
                 ],
               })(
                 <Input
+                  disabled={disableEdit}
                   placeholder={formatMessage({
                     id: 'app.common.messages.globalIdExample',
                   })}
@@ -448,6 +453,7 @@ class ServiceAgentForm extends React.Component {
                 ],
               })(
                 <Input
+                  disabled={disableEdit}
                   placeholder={formatMessage({
                     id: 'app.common.messages.agentHomeFolderExample',
                   })}
@@ -474,6 +480,7 @@ class ServiceAgentForm extends React.Component {
                 ],
               })(
                 <Select
+                  disabled={disableEdit}
                   placeholder={formatMessage({
                     id: 'app.common.messages.logLevelExample',
                   })}

@@ -290,7 +290,7 @@ class HeadlessAgentForm extends React.Component {
 
   render() {
     // let content = <HeadlessAgentSkeleton />;
-    const { getFieldDecorator, isFieldsTouched } = this.props.form;
+    const { getFieldDecorator } = this.props.form;
     const {
       baseURLValidateStatus,
       agentGlobalIdValidateStatus,
@@ -300,6 +300,9 @@ class HeadlessAgentForm extends React.Component {
     } = this.state;
     const headless = this.props.headless || {};
     const headlessConfig = headless.data;
+
+    // when server is starting or stopping, don't allow to change before finish
+    const disableEdit = headlessConfig.STARTING || headlessConfig.STOPPING;
 
     let baseURLProps = {};
     if (baseURLValidateStatus) {
@@ -354,6 +357,7 @@ class HeadlessAgentForm extends React.Component {
                 ],
               })(
                 <Input
+                  disabled={disableEdit}
                   placeholder={formatMessage({ id: 'app.common.messages.baseURLExample' })}
                   onChange={e => this.saveConfiguration(e)}
                 />,
@@ -386,6 +390,7 @@ class HeadlessAgentForm extends React.Component {
                 ],
               })(
                 <Input
+                  disabled={disableEdit}
                   placeholder={formatMessage({
                     id: 'app.common.messages.globalIdExample',
                   })}
@@ -448,6 +453,7 @@ class HeadlessAgentForm extends React.Component {
                 ],
               })(
                 <Input
+                  disabled={disableEdit}
                   placeholder={formatMessage({
                     id: 'app.common.messages.agentHomeFolderExample',
                   })}
@@ -474,6 +480,7 @@ class HeadlessAgentForm extends React.Component {
                 ],
               })(
                 <Select
+                  disabled={disableEdit}
                   placeholder={formatMessage({
                     id: 'app.common.messages.logLevelExample',
                   })}
@@ -508,6 +515,7 @@ class HeadlessAgentForm extends React.Component {
                 valuePropName: 'checked',
               })(
                 <Switch
+                  disabled={disableEdit}
                   checkedChildren={formatMessage({ id: 'app.common.messages.yes' })}
                   unCheckedChildren={formatMessage({
                     id: 'app.common.messages.no',
@@ -530,6 +538,7 @@ class HeadlessAgentForm extends React.Component {
                 valuePropName: 'checked',
               })(
                 <Switch
+                  disabled={disableEdit}
                   checkedChildren={formatMessage({
                     id: 'app.common.messages.yes',
                   })}
@@ -567,7 +576,7 @@ class HeadlessAgentForm extends React.Component {
                 ],
               })(
                 <InputNumber
-                  disabled={false}
+                  disabled={disableEdit}
                   min={1}
                   max={30 * 60 * 1000}
                   placeholder={formatMessage({
