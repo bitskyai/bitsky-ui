@@ -126,53 +126,54 @@ export class HeadlessAgent extends React.Component {
     let tagColor = 'red';
     let tagText = formatMessage({ id: 'app.common.messages.status.stopped' });
     let operationBtn;
-
-    if (headlessConfig.STARTING) {
-      tagColor = 'blue';
-      tagText = formatMessage({ id: 'app.common.messages.status.starting' });
-      operationBtn = (
-        <Button key="processing" loading={headlessConfig.STARTING || headlessConfig.STOPPING}>
-          {tagText}
-        </Button>
-      );
-    } else if (headlessConfig.STOPPING) {
-      tagColor = 'blue';
-      tagText = formatMessage({ id: 'app.common.messages.status.stopping' });
-      operationBtn = (
-        <Button key="processing" loading={headlessConfig.STARTING || headlessConfig.STOPPING}>
-          {tagText}
-        </Button>
-      );
-    } else if (headlessConfig.RUNNING) {
-      tagColor = 'green';
-      tagText = formatMessage({ id: 'app.common.messages.status.running' });
-      operationBtn = (
-        <Button
-          key="stop"
-          style={{ color: '#f50', border: '1px solid #f50' }}
-          onClick={() => {
-            this.stopHeadlessAgent();
-          }}
-        >
-          <Icon type="pause-circle" />
-          <FormattedMessage id="app.common.messages.action.stop" />
-        </Button>
-      );
-    } else {
-      tagColor = 'red';
-      tagText = formatMessage({ id: 'app.common.messages.status.stopped' });
-      operationBtn = (
-        <Button
-          key="start"
-          style={{ color: '#1890ff', border: '1px solid #1890ff' }}
-          onClick={() => {
-            this.startHeadlessAgent();
-          }}
-        >
-          <Icon type="caret-right" />
-          <FormattedMessage id="app.common.messages.action.start" />
-        </Button>
-      );
+    if (headlessConfig) {
+      if (headlessConfig.STARTING) {
+        tagColor = 'blue';
+        tagText = formatMessage({ id: 'app.common.messages.status.starting' });
+        operationBtn = (
+          <Button key="processing" loading={headlessConfig.STARTING || headlessConfig.STOPPING}>
+            {tagText}
+          </Button>
+        );
+      } else if (headlessConfig.STOPPING) {
+        tagColor = 'blue';
+        tagText = formatMessage({ id: 'app.common.messages.status.stopping' });
+        operationBtn = (
+          <Button key="processing" loading={headlessConfig.STARTING || headlessConfig.STOPPING}>
+            {tagText}
+          </Button>
+        );
+      } else if (headlessConfig.RUNNING) {
+        tagColor = 'green';
+        tagText = formatMessage({ id: 'app.common.messages.status.running' });
+        operationBtn = (
+          <Button
+            key="stop"
+            style={{ color: '#f50', border: '1px solid #f50' }}
+            onClick={() => {
+              this.stopHeadlessAgent();
+            }}
+          >
+            <Icon type="pause-circle" />
+            <FormattedMessage id="app.common.messages.action.stop" />
+          </Button>
+        );
+      } else {
+        tagColor = 'red';
+        tagText = formatMessage({ id: 'app.common.messages.status.stopped' });
+        operationBtn = (
+          <Button
+            key="start"
+            style={{ color: '#1890ff', border: '1px solid #1890ff' }}
+            onClick={() => {
+              this.startHeadlessAgent();
+            }}
+          >
+            <Icon type="caret-right" />
+            <FormattedMessage id="app.common.messages.action.start" />
+          </Button>
+        );
+      }
     }
     const headlessAgentURL = `http://localhost:${headlessConfig.PORT}`;
     return (

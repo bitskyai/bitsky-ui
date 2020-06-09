@@ -23,9 +23,10 @@ export function getHeadlessConfig() {
   };
 }
 
-export function updateHeadlessConfig() {
+export function updateHeadlessConfig(payload) {
   return {
     type: UPDATE_HEADLESS_CONFIG,
+    payload,
   };
 }
 

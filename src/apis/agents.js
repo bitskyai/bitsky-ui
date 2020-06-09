@@ -25,6 +25,19 @@ export async function getAgentsAPI() {
   }
 }
 
+export async function getAgentAPI(baseURL, gid) {
+  try {
+    const url = new URL(`/apis/agents/${gid}`, baseURL).toString();
+    const result = await http({
+      url,
+      method: 'GET',
+    });
+    return result.data;
+  } catch (err) {
+    throw err;
+  }
+}
+
 export async function updateAgentAPI(agent) {
   try {
     const result = await http({

@@ -96,6 +96,18 @@ export default {
   'app.common.messages.stateFailed': 'Failed',
   'app.common.messages.statePaused': 'Paused',
   'app.common.messages.stateTimeout': 'Timeout',
+  'app.common.messages.updatedConfigSuccessful': 'Updated agent configuration, and restarting...',
+  'app.common.messages.updatedConfigFail': 'Update agent configuration fail',
+  // eslint-disable-next-line quotes
+  'app.common.messages.http.unregisterAgentDescription': `You need to register this agent before you can use it, and also make sure you entered correct <b>Munew Base URL</b> and <b>Agent Global ID</b>. <a href='https://docs.munew.io/how-tos/register-and-configure-a-browser-extension-agent' target='_blank'>How to register and configure a Browser Extension Agent</a>`,
+  // eslint-disable-next-line quotes
+  'app.common.messages.http.unmatchedAgentType': `The agent type you entered isn't <b>Headless Agent</b>`,
+  // eslint-disable-next-line quotes
+  'app.common.messages.http.securityKeyRequired': `<b>Security Key</b> is required for the server you connect to, please enter correct security key`,
+  'app.common.messages.http.internalError':
+    'Ooops... Something went wrong, we cannot connect this server. Maybe server is down or you are connecting to wrong server.',
+  'app.common.messages.http.inputError':
+    'Please check the data you typed, normally this error caused by invalid data passed to server.',
   'app.common.messages.search': 'Search',
   'app.common.messages.reset': 'Reset',
   'app.common.messages.healthTitle': 'Health Check',

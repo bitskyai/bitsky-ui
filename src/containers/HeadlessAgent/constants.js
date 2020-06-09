@@ -4,7 +4,7 @@
  *
  */
 export const GET_HEADLESS_CONFIG = 'headless/getHeadlessConfig';
-export const UPDATE_HEADLESS_CONFIG = 'headless/updateHeadlessConfig';
+export const UPDATE_HEADLESS_CONFIG = 'headless/updateConfig';
 export const START_HEADLESS = 'headless/start';
 export const STARTING_HEADLESS = 'headless/starting';
 export const STOP_HEADLESS = 'headless/stop';

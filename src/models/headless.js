@@ -1,5 +1,8 @@
 import produce from 'immer';
 import * as _ from 'lodash';
+import { message } from 'antd';
+import { formatMessage } from 'umi-plugin-react/locale';
+
 import { sendToElectron } from '../utils/utils';
 
 export default {
@@ -33,6 +36,18 @@ export default {
       } catch (err) {
         yield put({
           type: 'getHeadlessConfigFail',
+          error: err,
+        });
+      }
+    },
+    *updateConfig({ payload }, { call, put }) {
+      try {
+        yield call(sendToElectron, 'headless/updateConfig', payload);
+        message.success(formatMessage({ id: 'app.common.messages.updatedConfigSuccessful' }));
+      } catch (err) {
+        message.success(formatMessage({ id: 'app.common.messages.updatedConfigFail' }));
+        yield put({
+          type: 'updateHeadlessConfigFail',
           error: err,
         });
       }
@@ -92,8 +107,11 @@ export default {
     loadingData(state, { payload }) {
       return produce(state, draft => {
         draft.loadingData = payload.loadingData;
-        draft.data.STARTING = payload.data.STARTING;
-        draft.data.STOPPING = payload.data.STOPPING;
+        if (payload.data) {
+          draft.data = {};
+          draft.data.STARTING = payload.data.STARTING;
+          draft.data.STOPPING = payload.data.STOPPING;
+        }
       });
     },
     getHeadlessConfigSuccess(state, { payload }) {

@@ -33,3 +33,7 @@ export const LOG_LEVEL = {
   info: 'info',
   debug: 'debug',
 };
+
+// health check for Engine
+export const ENGINE_HEALTH_PATH = '/health';
+export const ENGINE_HEALTH_METHOD = 'GET';

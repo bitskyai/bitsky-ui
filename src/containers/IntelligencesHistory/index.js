@@ -77,6 +77,99 @@ export class IntelligencesHistory extends React.Component {
     });
   }
 
+  componentDidUpdate() {
+    $('.intelligence-table-container .ant-table-body').unbind('scroll');
+    $('.intelligence-table-container .ant-table-body').bind('scroll', () => {
+      const scrollTop = $('.intelligence-table-container .ant-table-body').scrollTop();
+      const offsetHeight = $('.intelligence-table-container .ant-table-body').outerHeight();
+      const { scrollHeight } = document.querySelector(
+        '.intelligence-table-container .ant-table-body',
+      );
+
+      // console.log("scrollHeight: ", scrollHeight);
+      // console.log("scrollTop: ", scrollTop);
+      // console.log("offsetHeight: ", offsetHeight);
+      // console.log("lastScrollHeight: ", this.lastScrollHeight);
+      // console.log('offset: ', (scrollHeight - scrollTop - offsetHeight));
+
+      if (scrollHeight - scrollTop - offsetHeight < 200 && this.props.intelligences.nextCursor) {
+        if (!this.state.loadingMore) {
+          this.lastScrollHeight = scrollHeight;
+          this.loadMoreIntelligences();
+        }
+      }
+    });
+  }
+
+  componentWillUnmount() {
+    $(window).unbind('resize');
+  }
+
+  // eslint-disable-next-line react/sort-comp
+  componentDidMount() {
+    this.initIntelligencesData();
+  }
+
+  async onDeleteAll() {
+    try {
+      let ids;
+      let url;
+      if (this.state.selectedRows && this.state.selectedRows.length) {
+        ids = this.state.selectedRows.map(item => item.globalId);
+      }
+      if (!ids || !ids.length) {
+        url = this.filterConditions.url;
+      }
+      this.setState({
+        operationBtns: {
+          pausing: false,
+          deleting: true,
+          resuming: false,
+        },
+      });
+      await deleteIntelligencesOrHistoryForManagementAPI(url, ids, true);
+      this.setState({
+        operationBtns: {
+          pausing: false,
+          deleting: false,
+          resuming: false,
+        },
+      });
+      this.initIntelligencesData();
+    } catch (err) {
+      this.setState({
+        operationBtns: {
+          pausing: false,
+          deleting: false,
+          resuming: false,
+        },
+      });
+    }
+  }
+
+  search = () => {
+    this.setState({
+      selectedRowKeys: [],
+      selectedRows: [],
+    });
+    this.props.dispatch(resetIntelligences());
+    this.loadMoreIntelligences(null);
+  };
+
+  handleReset = (clearFilters, dataIndex) => {
+    clearFilters();
+    this.setState({ searchText: '' });
+    delete this.filterConditions[dataIndex];
+    this.search();
+  };
+
+  handleSearch = (selectedKeys, confirm, dataIndex) => {
+    confirm();
+    this.setState({ searchText: selectedKeys });
+    this.filterConditions[dataIndex] = selectedKeys;
+    this.search();
+  };
+
   getColumnSearchProps = dataIndex => ({
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
       <div style={{ padding: 8 }}>
@@ -146,20 +239,6 @@ export class IntelligencesHistory extends React.Component {
     ),
   });
 
-  handleSearch = (selectedKeys, confirm, dataIndex) => {
-    confirm();
-    this.setState({ searchText: selectedKeys });
-    this.filterConditions[dataIndex] = selectedKeys;
-    this.search();
-  };
-
-  handleReset = (clearFilters, dataIndex) => {
-    clearFilters();
-    this.setState({ searchText: '' });
-    delete this.filterConditions[dataIndex];
-    this.search();
-  };
-
   initIntelligencesData() {
     this.props.dispatch(resetIntelligences());
     this.setState({
@@ -184,47 +263,6 @@ export class IntelligencesHistory extends React.Component {
         this.props.dispatch(refreshIntelligencesFail(err));
       },
     );
-  }
-
-  componentDidMount() {
-    this.initIntelligencesData();
-  }
-
-  search = () => {
-    this.setState({
-      selectedRowKeys: [],
-      selectedRows: [],
-    });
-    this.props.dispatch(resetIntelligences());
-    this.loadMoreIntelligences(null);
-  };
-
-  componentDidUpdate() {
-    $('.intelligence-table-container .ant-table-body').unbind('scroll');
-    $('.intelligence-table-container .ant-table-body').bind('scroll', () => {
-      const scrollTop = $('.intelligence-table-container .ant-table-body').scrollTop();
-      const offsetHeight = $('.intelligence-table-container .ant-table-body').outerHeight();
-      const { scrollHeight } = document.querySelector(
-        '.intelligence-table-container .ant-table-body',
-      );
-
-      // console.log("scrollHeight: ", scrollHeight);
-      // console.log("scrollTop: ", scrollTop);
-      // console.log("offsetHeight: ", offsetHeight);
-      // console.log("lastScrollHeight: ", this.lastScrollHeight);
-      // console.log('offset: ', (scrollHeight - scrollTop - offsetHeight));
-
-      if (scrollHeight - scrollTop - offsetHeight < 200 && this.props.intelligences.nextCursor) {
-        if (!this.state.loadingMore) {
-          this.lastScrollHeight = scrollHeight;
-          this.loadMoreIntelligences();
-        }
-      }
-    });
-  }
-
-  componentWillUnmount() {
-    $(window).unbind('resize');
   }
 
   loadMoreIntelligences(nextCursor) {
@@ -254,43 +292,6 @@ export class IntelligencesHistory extends React.Component {
         });
       },
     );
-  }
-
-  async onDeleteAll() {
-    try {
-      let ids;
-      let url;
-      if (this.state.selectedRows && this.state.selectedRows.length) {
-        ids = this.state.selectedRows.map(item => item.globalId);
-      }
-      if (!ids || !ids.length) {
-        url = this.filterConditions.url;
-      }
-      this.setState({
-        operationBtns: {
-          pausing: false,
-          deleting: true,
-          resuming: false,
-        },
-      });
-      await deleteIntelligencesOrHistoryForManagementAPI(url, ids, true);
-      this.setState({
-        operationBtns: {
-          pausing: false,
-          deleting: false,
-          resuming: false,
-        },
-      });
-      this.initIntelligencesData();
-    } catch (err) {
-      this.setState({
-        operationBtns: {
-          pausing: false,
-          deleting: false,
-          resuming: false,
-        },
-      });
-    }
   }
 
   render() {
@@ -342,11 +343,6 @@ export class IntelligencesHistory extends React.Component {
             value: 'TIMEOUT',
           },
         ]),
-      },
-      {
-        title: formatMessage({ id: 'app.common.messages.analystState' }),
-        dataIndex: 'soi.state',
-        width: '15%',
       },
       {
         title: 'Last Modified At',
