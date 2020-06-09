@@ -6,7 +6,7 @@ import {
   Input,
   InputNumber,
   Select,
-  Switch,
+  // Switch,
   Typography,
   // message,
   // Icon,
@@ -19,7 +19,7 @@ import styled from 'styled-components';
 
 // import { filterOutEmptyValue } from '../../utils/utils';
 import { LOG_LEVEL, ENGINE_HEALTH_METHOD, ENGINE_HEALTH_PATH } from '../../utils/constants';
-import { updateHeadlessConfig } from './actions';
+import { updateServiceConfig } from './actions';
 import { getAgentAPI } from '../../apis/agents';
 import { checkEngineHealthAPI } from '../../apis/dia';
 import HTTPError from '../../utils/HTTPError';
@@ -36,7 +36,7 @@ const FormItemContainer = styled.div`
   margin-bottom: 5px;
 `;
 
-class HeadlessAgentForm extends React.Component {
+class ServiceAgentForm extends React.Component {
   constructor() {
     super();
 
@@ -131,7 +131,7 @@ class HeadlessAgentForm extends React.Component {
             if (
               _.toUpper(_.get(agentValidateResult, 'data.type')) &&
               _.toUpper(_.get(agentValidateResult, 'data.type')) !==
-                _.toUpper(_.get(this.props, 'headless.data.TYPE'))
+                _.toUpper(_.get(this.props, 'service.data.TYPE'))
             ) {
               state.agentGlobalIdValidateStatus = 'error';
               state.alertType = 'error';
@@ -280,7 +280,7 @@ class HeadlessAgentForm extends React.Component {
     this.saveConfigurationHanlder = setTimeout(() => {
       try {
         const values = this.props.form.getFieldsValue();
-        this.props.dispatch(updateHeadlessConfig(values));
+        this.props.dispatch(updateServiceConfig(values));
         this.onValidateForm();
       } catch (err) {
         // message.error(formatMessage(messages.saveFailed));
@@ -289,8 +289,8 @@ class HeadlessAgentForm extends React.Component {
   }
 
   render() {
-    // let content = <HeadlessAgentSkeleton />;
-    const { getFieldDecorator, isFieldsTouched } = this.props.form;
+    // let content = <ServiceAgentSkeleton />;
+    const { getFieldDecorator } = this.props.form;
     const {
       baseURLValidateStatus,
       agentGlobalIdValidateStatus,
@@ -298,8 +298,8 @@ class HeadlessAgentForm extends React.Component {
       alertType,
       alertMessage,
     } = this.state;
-    const headless = this.props.headless || {};
-    const headlessConfig = headless.data;
+    const service = this.props.service || {};
+    const serviceConfig = service.data;
 
     let baseURLProps = {};
     if (baseURLValidateStatus) {
@@ -341,7 +341,7 @@ class HeadlessAgentForm extends React.Component {
               {...baseURLProps}
             >
               {getFieldDecorator('MUNEW_BASE_URL', {
-                initialValue: headlessConfig.MUNEW_BASE_URL || '',
+                initialValue: serviceConfig.MUNEW_BASE_URL || '',
                 rules: [
                   {
                     required: true,
@@ -370,7 +370,7 @@ class HeadlessAgentForm extends React.Component {
               {...globalIdProps}
             >
               {getFieldDecorator('GLOBAL_ID', {
-                initialValue: headlessConfig.GLOBAL_ID || '',
+                initialValue: serviceConfig.GLOBAL_ID || '',
                 rules: [
                   {
                     required: true,
@@ -403,7 +403,7 @@ class HeadlessAgentForm extends React.Component {
               style={formItemStyle}
             >
               {getFieldDecorator('PORT', {
-                initialValue: headlessConfig.PORT || '',
+                initialValue: serviceConfig.PORT || '',
                 rules: [
                   {
                     required: true,
@@ -437,7 +437,7 @@ class HeadlessAgentForm extends React.Component {
               hasFeedback={false}
             >
               {getFieldDecorator('AGENT_HOME', {
-                initialValue: headlessConfig.AGENT_HOME,
+                initialValue: serviceConfig.AGENT_HOME,
                 rules: [
                   {
                     required: true,
@@ -465,7 +465,7 @@ class HeadlessAgentForm extends React.Component {
               style={formItemStyle}
             >
               {getFieldDecorator('LOG_LEVEL', {
-                initialValue: _.toLower(headlessConfig.LOG_LEVEL),
+                initialValue: _.toLower(serviceConfig.LOG_LEVEL),
                 rules: [
                   {
                     required: true,
@@ -498,95 +498,12 @@ class HeadlessAgentForm extends React.Component {
               <FormattedHTMLMessage id="app.common.messages.logLevelDescription" />
             </FormDescription>
           </FormItemContainer>
-          <FormItemContainer>
-            <Form.Item
-              label={formatMessage({ id: 'app.containers.HeadlessAgent.headless' })}
-              style={formItemStyle}
-            >
-              {getFieldDecorator('HEADLESS', {
-                initialValue: headlessConfig.HEADLESS,
-                valuePropName: 'checked',
-              })(
-                <Switch
-                  checkedChildren={formatMessage({ id: 'app.common.messages.yes' })}
-                  unCheckedChildren={formatMessage({
-                    id: 'app.common.messages.no',
-                  })}
-                  onChange={e => this.saveConfiguration(e)}
-                />,
-              )}
-            </Form.Item>
-            <FormDescription>
-              <FormattedHTMLMessage id="app.containers.HeadlessAgent.headlessDescription" />
-            </FormDescription>
-          </FormItemContainer>
-          <FormItemContainer>
-            <Form.Item
-              label={formatMessage({ id: 'app.containers.HeadlessAgent.screenshots' })}
-              style={formItemStyle}
-            >
-              {getFieldDecorator('SCREENSHOT', {
-                initialValue: headlessConfig.SCREENSHOT,
-                valuePropName: 'checked',
-              })(
-                <Switch
-                  checkedChildren={formatMessage({
-                    id: 'app.common.messages.yes',
-                  })}
-                  unCheckedChildren={formatMessage({
-                    id: 'app.common.messages.no',
-                  })}
-                  onChange={e => this.saveConfiguration(e)}
-                />,
-              )}
-            </Form.Item>
-            <FormDescription>
-              <FormattedHTMLMessage id="app.containers.HeadlessAgent.screenshotsDescription" />
-            </FormDescription>
-          </FormItemContainer>
-          <FormItemContainer>
-            <Form.Item
-              label={formatMessage({ id: 'app.containers.HeadlessAgent.customFunctionTimeout' })}
-              style={formItemStyle}
-            >
-              {getFieldDecorator('CUSTOM_FUNCTION_TIMEOUT', {
-                initialValue: headlessConfig.CUSTOM_FUNCTION_TIMEOUT,
-                rules: [
-                  {
-                    required: true,
-                    message: formatMessage({
-                      id: 'app.containers.HeadlessAgent.customFunctionTimeoutInvalid',
-                    }),
-                  },
-                  // {
-                  //   min: 1,
-                  //   message: formatMessage({
-                  //     id: 'app.containers.HeadlessAgent.customFunctionTimeoutInvalid',
-                  //   }),
-                  // },
-                ],
-              })(
-                <InputNumber
-                  disabled={false}
-                  min={1}
-                  max={30 * 60 * 1000}
-                  placeholder={formatMessage({
-                    id: 'app.containers.HeadlessAgent.customFunctionTimeoutExample',
-                  })}
-                  onChange={e => this.saveConfiguration(e)}
-                />,
-              )}
-            </Form.Item>
-            <FormDescription>
-              <FormattedHTMLMessage id="app.containers.HeadlessAgent.customFunctionTimeoutDescription" />
-            </FormDescription>
-          </FormItemContainer>
         </Form>
       </div>
     );
   }
 }
 
-export default connect(({ headless }) => ({
-  headless,
-}))(Form.create()(HeadlessAgentForm));
+export default connect(({ service }) => ({
+  service,
+}))(Form.create()(ServiceAgentForm));

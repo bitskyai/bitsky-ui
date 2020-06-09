@@ -72,7 +72,9 @@ function http(config) {
       })
       .catch(err => {
         const error = new HTTPError(err);
-        defaultErrorHandler(error);
+        if (!config.skipErrorHandler) {
+          defaultErrorHandler(error);
+        }
         reject(error);
       });
   });

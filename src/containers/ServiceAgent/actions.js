@@ -5,37 +5,81 @@
  */
 
 import {
-  REFRESH_INTELLIGENCES,
-  REFRESH_INTELLIGENCES_FAIL,
-  REFRESH_INTELLIGENCES_SUCCESS,
-  RESET_INTELLIGENCES,
+  GET_SERVICE_CONFIG,
+  UPDATE_SERVICE_CONFIG,
+  STARTING_SERVICE,
+  START_SERVICE,
+  STOPPING_SERVICE,
+  STOP_SERVICE,
+  START_SERVICE_FAIL,
+  START_SERVICE_SUCCESS,
+  STOP_SERVICE_FAIL,
+  STOP_SERVICE_SUCCESS,
 } from './constants';
 
-export function resetIntelligences() {
+export function getServiceConfig() {
   return {
-    type: RESET_INTELLIGENCES,
+    type: GET_SERVICE_CONFIG,
   };
 }
 
-export function refreshIntelligences() {
+export function updateServiceConfig(payload) {
   return {
-    type: REFRESH_INTELLIGENCES,
+    type: UPDATE_SERVICE_CONFIG,
+    payload,
   };
 }
 
-export function refreshIntelligencesSuccess(intelligences) {
+export function startService() {
   return {
-    type: REFRESH_INTELLIGENCES_SUCCESS,
-    total: intelligences.total,
-    intelligences: intelligences.intelligences,
-    nextCursor: intelligences.nextCursor,
-    previousCursor: intelligences.previousCursor,
+    type: START_SERVICE,
   };
 }
 
-export function refreshIntelligencesFail(err) {
+export function startingService(payload) {
   return {
-    type: REFRESH_INTELLIGENCES_FAIL,
+    type: STARTING_SERVICE,
+    payload,
+  };
+}
+
+export function stopService() {
+  return {
+    type: STOP_SERVICE,
+  };
+}
+
+export function stoppingService(payload) {
+  return {
+    type: STOPPING_SERVICE,
+    payload,
+  };
+}
+
+export function startServiceSuccess(payload) {
+  return {
+    type: START_SERVICE_SUCCESS,
+    payload,
+  };
+}
+
+export function startServiceFail(err) {
+  return {
+    type: START_SERVICE_FAIL,
+    error: err,
+  };
+}
+
+export function stopServiceSuccess(payload) {
+  return {
+    type: STOP_SERVICE_SUCCESS,
+    payload,
+  };
+}
+
+export function stopServiceFail(err) {
+  return {
+    type: STOP_SERVICE_FAIL,
     error: err,
   };
 }

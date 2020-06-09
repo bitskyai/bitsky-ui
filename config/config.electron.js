@@ -19,22 +19,16 @@ const menuRouters = [
     component: './Agents',
   },
   {
-    path: '/app/intellgienceshistory',
-    name: 'intellgienceshistory',
-    icon: 'history',
-    component: './IntellgiencesHistory',
-  },
-  {
     path: '/app/headless',
     name: 'defaultHeadless',
-    icon: 'cloud-server',
+    icon: 'global',
     component: './HeadlessAgent',
     electron: true,
   },
   {
     path: '/app/service',
     name: 'defaultService',
-    icon: 'cloud-server',
+    icon: 'thunderbolt',
     component: './ServiceAgent',
     electron: true,
   },
@@ -43,6 +37,12 @@ const menuRouters = [
     name: 'defaultSOI',
     icon: 'cloud-server',
     electron: true,
+  },
+  {
+    path: '/app/intellgienceshistory',
+    name: 'intellgienceshistory',
+    icon: 'history',
+    component: './IntellgiencesHistory',
   },
   {
     path: '#settings',

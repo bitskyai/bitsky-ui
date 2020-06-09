@@ -6,14 +6,14 @@ import { formatMessage } from 'umi-plugin-react/locale';
 import { sendToElectron } from '../utils/utils';
 
 export default {
-  namespace: 'headless',
+  namespace: 'service',
   state: {
     data: {},
     error: undefined,
     modified: Date.now(),
   },
   effects: {
-    *getHeadlessConfig(payload, { call, put }) {
+    *getConfig(payload, { call, put }) {
       try {
         yield put({
           type: 'loadingData',
@@ -21,33 +21,33 @@ export default {
             loadingData: true,
           },
         });
-        const cbData = yield call(sendToElectron, 'getHeadlessConfig');
+        const cbData = yield call(sendToElectron, 'service/getConfig');
         if (_.get(cbData, 'status')) {
           yield put({
-            type: 'getHeadlessConfigSuccess',
+            type: 'getConfigSuccess',
             payload: _.get(cbData, 'data'),
           });
         } else {
           yield put({
-            type: 'getHeadlessConfigFail',
+            type: 'getConfigFail',
             error: _.get(cbData, 'error'),
           });
         }
       } catch (err) {
         yield put({
-          type: 'getHeadlessConfigFail',
+          type: 'getConfigFail',
           error: err,
         });
       }
     },
     *updateConfig({ payload }, { call, put }) {
       try {
-        yield call(sendToElectron, 'headless/updateConfig', payload);
+        yield call(sendToElectron, 'service/updateConfig', payload);
         message.success(formatMessage({ id: 'app.common.messages.updatedConfigSuccessful' }));
       } catch (err) {
         message.success(formatMessage({ id: 'app.common.messages.updatedConfigFail' }));
         yield put({
-          type: 'updateHeadlessConfigFail',
+          type: 'service/updateConfigFail',
           error: err,
         });
       }
@@ -63,7 +63,7 @@ export default {
             },
           },
         });
-        const cbData = yield call(sendToElectron, 'headless/start');
+        const cbData = yield call(sendToElectron, 'service/start');
         if (!_.get(cbData, 'status')) {
           yield put({
             type: 'startFail',
@@ -88,7 +88,7 @@ export default {
             },
           },
         });
-        const cbData = yield call(sendToElectron, 'headless/stop');
+        const cbData = yield call(sendToElectron, 'service/stop');
         if (!_.get(cbData, 'status')) {
           yield put({
             type: 'stopFail',
@@ -114,7 +114,7 @@ export default {
         }
       });
     },
-    getHeadlessConfigSuccess(state, { payload }) {
+    getConfigSuccess(state, { payload }) {
       return produce(state, draft => {
         draft.loadingData = false;
         draft.data = payload;
@@ -122,7 +122,7 @@ export default {
         draft.modified = Date.now();
       });
     },
-    getHeadlessConfigFail(state, { error }) {
+    getConfigFail(state, { error }) {
       return produce(state, draft => {
         draft.loadingData = false;
         draft.error = error;

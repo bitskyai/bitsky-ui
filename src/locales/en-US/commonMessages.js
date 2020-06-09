@@ -35,7 +35,7 @@ export default {
   'app.common.messages.action.start': 'Start',
   'app.common.messages.action.stop': 'Stop',
   'app.common.messages.action.view': 'View',
-  'app.common.messages.action.more': 'More',
+  'app.common.messages.action.more': 'Document',
   'app.common.messages.action.gettingStart': 'Getting Start',
   'app.common.messages.action.showDescription': 'Show Infomation',
   'app.common.messages.action.hideDescription': 'Hide Infomation',

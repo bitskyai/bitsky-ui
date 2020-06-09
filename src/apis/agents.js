@@ -25,12 +25,13 @@ export async function getAgentsAPI() {
   }
 }
 
-export async function getAgentAPI(baseURL, gid) {
+export async function getAgentAPI(baseURL, gid, skipErrorHandler) {
   try {
     const url = new URL(`/apis/agents/${gid}`, baseURL).toString();
     const result = await http({
       url,
       method: 'GET',
+      skipErrorHandler,
     });
     return result.data;
   } catch (err) {

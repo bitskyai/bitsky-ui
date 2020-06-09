@@ -19,13 +19,13 @@ export async function registerAgentAPI(agent) {
  * @param {string} url - HTTP request url
  * @return {boolean} - true: active, false: inactive
  */
-export async function checkEngineHealthAPI(method, url) {
+export async function checkEngineHealthAPI(method, url, skipErrorHandler) {
   try {
     const result = await http({
       url,
       method,
+      skipErrorHandler,
     });
-    console.log('checkEngineHealthAPI->result: ', result);
     if (result.status >= 200 && result.status < 300) {
       return true;
     }

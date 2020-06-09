@@ -15,6 +15,7 @@ import settingsCtn from './en-US/containers/Settings';
 import signupCtn from './en-US/containers/Signup';
 import soisCtn from './en-US/containers/Sois';
 import HeadlessAgentCtn from './en-US/containers/HeadlessAgent';
+import ServiceAgentCtn from './en-US/containers/ServiceAgent';
 // import settings from './en-US/settings';
 export default {
   'navBar.lang': 'Languages',
@@ -39,4 +40,5 @@ export default {
   ...intelligencesHistoryCtn,
   ...signupCtn,
   ...HeadlessAgentCtn,
+  ...ServiceAgentCtn,
 };
