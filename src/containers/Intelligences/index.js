@@ -32,6 +32,8 @@ import {
   pauseIntelligencesForManagementAPI,
   resumeIntelligencesForManagementAPI,
 } from '../../apis/intelligencesOrHistory';
+import StateTag from '../../utils/StateTag';
+import { STATES } from '../../utils/constants';
 
 // import DiaPageHeader from '../../components/Common';
 
@@ -389,6 +391,7 @@ export class Intelligences extends React.Component {
         title: formatMessage({ id: 'app.common.messages.state' }),
         dataIndex: 'system.state',
         width: '15%',
+        render: state => <StateTag state={state} />,
         filteredValue: this.filterConditions.state,
         ...this.getColumnCheckboxProps('state', [
           {
@@ -425,6 +428,15 @@ export class Intelligences extends React.Component {
         title: formatMessage({ id: 'app.common.messages.analystState' }),
         dataIndex: 'soi.state',
         width: '15%',
+        render: s => {
+          let state = s;
+          if (state === STATES.failed) {
+            state = STATES.lostConnection;
+          } else if (state === STATES.active) {
+            state = STATES.connected;
+          }
+          return <StateTag state={state} />;
+        },
       },
       {
         title: 'Last Modified At',

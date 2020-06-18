@@ -129,6 +129,9 @@ export default {
     'Activate this agent, after activate then this agent will start collect intelligences',
   'app.containers.Agents.deactivateDescription':
     'Deactivate this agent, after deactivate then this agent will stop collect intelligences',
+  'app.containers.Agents.disconnectDescription':
+    'Disconnect all the agent currently connect to this agent, after disconnect successful will generate new globalId',
   'app.containers.Agents.activateAgentSuccess': 'Successfully activate this agent',
   'app.containers.Agents.deactivateAgentSuccess': 'Successfully deactivate this agent',
+  'app.containers.Agents.disconnectAgentSuccess': 'Successfully disconnect this agent',
 };

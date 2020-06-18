@@ -8,11 +8,19 @@ export const AGENT_TYPES = {
   service: 'SERVICE',
 };
 
+export const HTTP_HEADERS = {
+  X_SECURITY_KEY_HEADER: 'x-munew-security-key',
+  X_REQUESTED_WITH: 'x-munew-requested-with', // who send this request
+  X_SERIAL_ID: 'x-munew-serial-id', // request serial id
+  X_JOB_ID: 'x-munew-job-id', // each request is a job
+};
+
 // Default Agent Configuration
 export const DEFAULT_AGENT_CONFIGURATION = {
   private: true,
   concurrent: 1,
-  pollingInterval: 10, // (Unit: Second) How frequently to poll whether need to collect intelligences
+  // (Unit: Second) How frequently to poll whether need to collect intelligences
+  pollingInterval: 10,
   maxWaitingTime: 1, // (Unit: Second)
   maxCollect: 100000, // Max crawl times, when reach this time, close browser to release memory
   idelTime: 1, // (Unit: Second) After close browser, idle system for **IDLE_TIME**
@@ -20,11 +28,36 @@ export const DEFAULT_AGENT_CONFIGURATION = {
   maxRetry: 3,
 };
 
-export const AGENT_STATE = {
+export const STATES = {
   draft: 'DRAFT',
   configured: 'CONFIGURED',
   active: 'ACTIVE',
+  running: 'RUNNING',
+  finished: 'FINISHED',
+  failed: 'FAILED',
+  timeout: 'TIMEOUT',
+  paused: 'PAUSED',
   deleted: 'DELETED',
+  connected: 'CONNECTED',
+  connecting: 'CONNECTING',
+  noConnection: 'NOCONNECTION',
+  lostConnection: 'LOSTCONNECTION',
+};
+
+export const STATES_COLOR_MAP = {
+  draft: '#fafafa',
+  configured: 'blue',
+  active: 'green',
+  running: 'green',
+  finished: 'green',
+  failed: 'red',
+  timeout: 'orange',
+  paused: 'orange',
+  deleted: 'red',
+  connected: '#87d068',
+  connecting: '#2db7f5',
+  noConnection: '#91d5ff',
+  lostConnection: '#f50',
 };
 
 export const LOG_LEVEL = {

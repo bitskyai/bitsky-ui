@@ -1,54 +1,37 @@
 import './style.css';
-
-// import { FormattedMessage, FormattedHTMLMessage, injectIntl } from 'react-intl';
-// import { createStructuredSelector } from 'reselect';
-// import { compose } from 'redux';
-import { Button, Col, Empty, Icon, Popconfirm, Row, Table, message } from 'antd';
+import * as _ from 'lodash';
+import { Button, Col, Empty, Icon, Popconfirm, Row, Table, message, Tag } from 'antd';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import { FormattedHTMLMessage, FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
+import { FormattedHTMLMessage, formatMessage } from 'umi-plugin-react/locale';
 /**
  *
  * Agents
  *
  */
-import React, { useState } from 'react';
-// import {
-//   refreshAgentsSuccess,
-//   refreshAgentsFail,
-//   refreshAgents,
-// } from './actions';
-
-import PropTypes from 'prop-types';
-// import { useInjectSaga } from 'utils/injectSaga';
-// import { useInjectReducer } from 'utils/injectReducer';
-// import makeSelectAgents from './selectors';
-// import reducer from './reducer';
-// import saga from './saga';
-// import messages from '../../locales/en-US/containers/Agents';
-// import commonMessages from '../../locales/en-US/globalMessages';
+import React from 'react';
 import TimeAgo from 'react-timeago';
 // import { connect } from 'react-redux';
 import { connect } from 'dva';
-import dayjs from 'dayjs';
+// import dayjs from 'dayjs';
 import styled from 'styled-components';
 import RegisterAgentForm from './RegisterAgentForm';
 import AgentsSkeleton from './AgentsSkeleton';
-import { AGENT_STATE } from '../../utils/constants';
+import { STATES, AGENT_TYPES } from '../../utils/constants';
+import StateTag from '../../utils/StateTag';
 import {
   activateAgentAPI,
   deactivateAgentAPI,
+  disconnectAgentAPI,
   deleteAgentAPI,
   getAgentsAPI,
 } from '../../apis/agents';
-
-// import DiaPageHeader from '../../components/Common';
 
 const EmptyContainer = styled.div`
   padding: 100px 0;
 `;
 
 const actionButtonStyle = {
-  margin: '0 10px 0 0',
+  margin: '0 0 0 0',
 };
 
 export class Agents extends React.Component {
@@ -56,10 +39,13 @@ export class Agents extends React.Component {
     super(props);
     this.state = {
       loadingData: true,
-      selectedRowKeys: [],
       drawerVisiable: false,
       selectedAgent: undefined,
     };
+  }
+
+  componentDidMount() {
+    this.initAgentsData();
   }
 
   onRegisterAgent() {
@@ -83,7 +69,7 @@ export class Agents extends React.Component {
     });
   }
 
-  onPreventShowDrawer(event) {
+  static onPreventShowDrawer(event) {
     event.preventDefault();
     event.stopPropagation();
   }
@@ -91,7 +77,6 @@ export class Agents extends React.Component {
   onDeleteAAgent(record, event) {
     event.preventDefault();
     event.stopPropagation();
-    // console.log(`onDeleteAAgent: `, record);
     deleteAgentAPI(record.globalId).then(
       () => {
         this.props.dispatch({
@@ -106,7 +91,17 @@ export class Agents extends React.Component {
     );
   }
 
-  activateAgent(agent) {
+  static onClickCancel(record, event) {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+
+  static onClickDelete(record, event) {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+
+  activateAgent(agent, event) {
     event.preventDefault();
     event.stopPropagation();
     activateAgentAPI(agent.globalId).then(
@@ -124,34 +119,28 @@ export class Agents extends React.Component {
     );
   }
 
-  deactivateAgent(agent) {
+  deactivateAgent(agent, event) {
     event.preventDefault();
     event.stopPropagation();
-    deactivateAgentAPI(agent.globalId).then(
-      () => {
-        this.props.dispatch({
-          type: 'agents/refreshAgents',
-        });
-        const msg = formatMessage({ id: 'app.containers.Agents.deactivateAgentSuccess' });
-        message.success(msg);
-      },
-      err => {
-        // message.error(err);
-        console.error(err);
-      },
-    );
+    deactivateAgentAPI(agent.globalId).then(() => {
+      this.props.dispatch({
+        type: 'agents/refreshAgents',
+      });
+      const msg = formatMessage({ id: 'app.containers.Agents.deactivateAgentSuccess' });
+      message.success(msg);
+    });
   }
 
-  onClickCancel(record, event) {
+  disconnectAgent(agent, event) {
     event.preventDefault();
     event.stopPropagation();
-    // console.log(`onClickCancel: `, record);
-  }
-
-  onClickDelete(record, event) {
-    event.preventDefault();
-    event.stopPropagation();
-    // console.log(record);
+    disconnectAgentAPI(agent.globalId).then(() => {
+      this.props.dispatch({
+        type: 'agents/refreshAgents',
+      });
+      const msg = formatMessage({ id: 'app.containers.Agents.disconnectAgentSuccess' });
+      message.success(msg);
+    });
   }
 
   initAgentsData() {
@@ -187,12 +176,8 @@ export class Agents extends React.Component {
     );
   }
 
-  componentDidMount() {
-    this.initAgentsData();
-  }
-
   render() {
-    const { loadingData, drawerVisiable, selectedAgent, selectedRowKeys } = this.state;
+    const { loadingData, drawerVisiable, selectedAgent } = this.state;
     const agents = this.props.agentsData.data;
     const modified = this.props.agentsData.modifiedAt;
     let content = <AgentsSkeleton />;
@@ -201,29 +186,69 @@ export class Agents extends React.Component {
       {
         title: formatMessage({ id: 'app.containers.Agents.agentName' }),
         dataIndex: 'name',
+        key: 'name',
       },
       {
         title: formatMessage({ id: 'app.containers.Agents.agentType' }),
         dataIndex: 'type',
+        key: 'type',
+        render: type => {
+          let text = '';
+          if (type === AGENT_TYPES.browserExtension) {
+            text = formatMessage({ id: 'app.common.messages.agentTypes.browser' });
+          } else if (type === AGENT_TYPES.headlessBrowser) {
+            text = formatMessage({ id: 'app.common.messages.agentTypes.headless' });
+          } else if (type === AGENT_TYPES.service) {
+            text = formatMessage({ id: 'app.common.messages.agentTypes.service' });
+          }
+          return <Tag color="purple">{text}</Tag>;
+        },
       },
       {
         title: formatMessage({ id: 'app.common.messages.state' }),
         dataIndex: 'system.state',
+        key: 'systemState',
+        render: state => <StateTag state={state} />,
+      },
+      {
+        title: formatMessage({ id: 'app.common.messages.connection' }),
+        key: 'systemSerialId',
+        render: (text, record) => {
+          let state = '';
+          const lastPing = _.get(record, 'system.lastPing') || 0; // ms
+          const serialId = _.get(record, 'system.serialId');
+          // const pollingInterval = _.get(record, 'pollingInterval') || 30; // second
+          const pollingInterval = 30; // Currently headless and service's interval is hardcode 30s
+          const lastPingToNow = Date.now() - lastPing;
+          const intervalValues = lastPingToNow / (pollingInterval * 1000);
+          if (!serialId) {
+            // no serialId, then means not be connected
+            state = STATES.noConnection;
+          } else if (intervalValues <= 1.5) {
+            state = STATES.connected;
+          } else if (intervalValues <= 3 && intervalValues > 1.5) {
+            state = STATES.connecting;
+          } else {
+            state = STATES.lostConnection;
+          }
+          return <StateTag state={state} />;
+        },
       },
       {
         title: formatMessage({ id: 'app.common.messages.action' }),
-        dataIndex: '',
-        key: 'x',
+        key: 'action',
         render: (text, record) => (
           <div
             onClick={e => {
-              this.onPreventShowDrawer(e);
+              // this.onPreventShowDrawer(e);
+              Agents.onPreventShowDrawer(e);
             }}
           >
-            {(record => {
-              if (record.system.state === AGENT_STATE.active) {
+            {(() => {
+              if (record.system.state === STATES.active) {
                 return (
                   <Button
+                    type="link"
                     size="small"
                     style={actionButtonStyle}
                     title={formatMessage({ id: 'app.containers.Agents.deactivateDescription' })}
@@ -235,9 +260,10 @@ export class Agents extends React.Component {
                   </Button>
                 );
               }
-              if (record.system.state === AGENT_STATE.configured) {
+              if (record.system.state === STATES.configured) {
                 return (
                   <Button
+                    type="link"
                     size="small"
                     style={actionButtonStyle}
                     title={formatMessage({ id: 'app.containers.Agents.activateDescription' })}
@@ -251,7 +277,7 @@ export class Agents extends React.Component {
               }
               return '';
             })(record)}
-            {/* {record.system.state === AGENT_STATE.active ? (
+            {/* {record.system.state === STATES.active ? (
               <Button
                 size="small"
                 style={actionButtonStyle}
@@ -281,21 +307,40 @@ export class Agents extends React.Component {
                 this.onDeleteAAgent(record, e);
               }}
               onCancel={e => {
-                this.onClickCancel(record, e);
+                // this.onClickCancel(record, e);
+                Agents.onClickCancel(record, e);
               }}
               okText={formatMessage({ id: 'app.common.messages.yes' })}
               cancelText={formatMessage({ id: 'app.common.messages.no' })}
             >
               <Button
+                type="link"
                 size="small"
                 style={actionButtonStyle}
                 onClick={e => {
-                  this.onClickDelete(record, e);
+                  // this.onClickDelete(record, e);
+                  Agents.onClickDelete(record, e);
                 }}
               >
                 {formatMessage({ id: 'app.common.messages.delete' })}
               </Button>
             </Popconfirm>
+            {_.get(record, 'system.serialId') ? (
+              <Button
+                type="link"
+                size="small"
+                style={actionButtonStyle}
+                title={formatMessage({ id: 'app.containers.Agents.disconnectDescription' })}
+                onClick={e => {
+                  // this.onClickDelete(record, e);
+                  this.disconnectAgent(record, e);
+                }}
+              >
+                {formatMessage({ id: 'app.common.messages.disconnect' })}
+              </Button>
+            ) : (
+              ''
+            ) /**/}
           </div>
         ),
       },
@@ -362,28 +407,28 @@ export class Agents extends React.Component {
                   bordered
                   pagination={false}
                   columns={columns}
-                  rowSelection={{
-                    selectedRowKeys,
-                    type: 'radio',
-                    onSelect: record => {
-                      // console.log('rowSelection onSelect: ', record);
-                      // setSelectedRowKeys([record._id]);
-                      this.setState({
-                        selectedRowKeys: [record._id],
-                      });
-                      this.onShowDrawer(record);
-                    },
-                  }}
+                  // rowSelection={{
+                  //   selectedRowKeys,
+                  //   type: 'radio',
+                  //   onSelect: record => {
+                  //     // console.log('rowSelection onSelect: ', record);
+                  //     // setSelectedRowKeys([record._id]);
+                  //     this.setState({
+                  //       selectedRowKeys: [record._id],
+                  //     });
+                  //     this.onShowDrawer(record);
+                  //   },
+                  // }}
                   dataSource={agents}
-                  rowKey={record => record._id}
+                  rowKey={record => record.globalId}
                   onRow={record => ({
                     onClick: () => {
                       // console.log('onRow->onClick: ', record);
                       // this.selectRow(record);
                       // setSelectedRowKeys([record._id]);
-                      this.setState({
-                        selectedRowKeys: [record._id],
-                      });
+                      // this.setState({
+                      //   selectedRowKeys: [record.globalId],
+                      // });
                       this.onShowDrawer(record);
                     },
                   })}
@@ -416,24 +461,3 @@ export class Agents extends React.Component {
 export default connect(({ agents }) => ({
   agentsData: agents,
 }))(Agents);
-
-// Agents.propTypes = {
-//   dispatch: PropTypes.func.isRequired,
-// };
-
-// const mapStateToProps = createStructuredSelector({
-//   agents: makeSelectAgents(),
-// });
-
-// function mapDispatchToProps(dispatch) {
-//   return {
-//     dispatch,
-//   };
-// }
-
-// const withConnect = connect(
-//   mapStateToProps,
-//   mapDispatchToProps,
-// );
-
-// export default compose(withConnect)(injectIntl(Agents));

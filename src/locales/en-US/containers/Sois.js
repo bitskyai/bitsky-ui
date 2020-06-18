@@ -13,7 +13,8 @@ export default {
   'app.containers.Sois.drawerTitleUpdate': 'Modify an Analyst Service',
   'app.containers.Sois.ping': 'Ping',
   'app.containers.Sois.pingDescription': 'Check an Analyst Service server status',
-  'app.containers.Sois.pingSuccessful': 'Successfully check an Analyst Service server status',
+  'app.containers.Sois.pingSuccessful': 'Analyst Service server is running',
+  'app.containers.Sois.pingFail': 'Analyst Service server is down or cannot connect',
   'app.containers.Sois.registerSOIDescription':
     'Analyst Service is the service you developed to extract data from collect intelligences, you can use any language to develop, only requirement is it can receive HTTP request.',
   'app.containers.Sois.globalId': 'Global ID',
@@ -33,7 +34,7 @@ export default {
   'app.containers.Sois.baseURLExample': 'http://localhost:3000',
   'app.containers.Sois.baseURLDescription':
     'Base url of your Analyst Service, make sure DIA Agent can access your Analyst Service server',
-  'app.containers.Sois.status': 'Status',
+  'app.containers.Sois.state': 'State',
   'app.containers.Sois.callbackSectionTitle': 'Callback',
   'app.containers.Sois.callbackDescription':
     'Callback means when DIA Agents collect data, where should they send data to. Normally this will send back to your Analyst Service and your Analyst Service extract useful information from received data',

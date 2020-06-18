@@ -1,4 +1,5 @@
-import http, { getRedirectURL } from '../utils/http';
+import http from '../utils/http';
+import { HTTP_HEADERS } from '../utils/constants';
 
 export async function registerAgentAPI(agent) {
   try {
@@ -25,10 +26,13 @@ export async function getAgentsAPI() {
   }
 }
 
-export async function getAgentAPI(baseURL, gid, skipErrorHandler) {
+export async function getAgentAPI(baseURL, gid, serialId, skipErrorHandler) {
   try {
     const url = new URL(`/apis/agents/${gid}`, baseURL).toString();
+    const headers = {};
+    headers[HTTP_HEADERS.X_SERIAL_ID] = serialId;
     const result = await http({
+      headers,
       url,
       method: 'GET',
       skipErrorHandler,
@@ -68,6 +72,18 @@ export async function activateAgentAPI(globalId) {
   try {
     const result = await http({
       url: `/apis/agents/${globalId}/activate`,
+      method: 'POST',
+    });
+    return result.data;
+  } catch (err) {
+    throw err;
+  }
+}
+
+export async function disconnectAgentAPI(globalId) {
+  try {
+    const result = await http({
+      url: `/apis/manangement/agents/${globalId}/disconnect`,
       method: 'POST',
     });
     return result.data;

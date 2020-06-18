@@ -25,7 +25,7 @@ import _ from 'lodash';
 import styled from 'styled-components';
 import { filterOutEmptyValue } from '../../utils/utils';
 import { registerAgentAPI, updateAgentAPI } from '../../apis/agents';
-import { AGENT_STATE, AGENT_TYPES, DEFAULT_AGENT_CONFIGURATION } from '../../utils/constants';
+import { STATES, AGENT_TYPES, DEFAULT_AGENT_CONFIGURATION } from '../../utils/constants';
 
 const { Paragraph } = Typography;
 
@@ -101,7 +101,7 @@ class RegisterAgentForm extends React.Component {
     // whether show active agent tip to user, to let user know,
     // need to deactive it before user can modify
     let activeAgentTip = false;
-    if (_.get(agent, 'system.state') === AGENT_STATE.active) {
+    if (_.get(agent, 'system.state') === STATES.active) {
       readOnly = true;
       activeAgentTip = true;
     }

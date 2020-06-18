@@ -115,10 +115,13 @@ class HeadlessAgentForm extends React.Component {
             this.setState({
               agentGlobalIdValidateStatus: 'validating',
             });
+            const headless = this.props.headless || {};
+            const headlessConfig = headless.data;
             // Do server side validation
             const agentValidateResult = await this.getAgentConfiguration(
               values.MUNEW_BASE_URL,
               values.GLOBAL_ID,
+              headlessConfig.AGENT_SERIAL_ID,
             );
             state.agentGlobalIdValidateStatus = agentValidateResult.status || 'error';
 
@@ -159,10 +162,10 @@ class HeadlessAgentForm extends React.Component {
    * @returns {ValidateResult} - Agent Configuration. Please take a look of Agent Schema for detail
    */
   // eslint-disable-next-line class-methods-use-this
-  async getAgentConfiguration(baseURL, gid) {
+  async getAgentConfiguration(baseURL, gid, serialId) {
     try {
       // If *globalId* exist, then get agent information from server side.
-      const agentConfig = await getAgentAPI(baseURL, gid, true);
+      const agentConfig = await getAgentAPI(baseURL, gid, serialId, true);
       return {
         status: 'success',
         data: agentConfig,
@@ -188,6 +191,19 @@ class HeadlessAgentForm extends React.Component {
           result.alertMessage = (
             <FormattedHTMLMessage id="app.common.messages.http.internalError" />
           );
+        } else if (err.status === 403) {
+          result.alertType = 'error';
+          result.alertMessage = (
+            <FormattedHTMLMessage id="app.common.messages.http.agentWasConnected" />
+          );
+        } else if (err.status >= 400 && err.code === '00144000002') {
+          result.alertType = 'error';
+          result.alertMessage = (
+            <FormattedHTMLMessage
+              id="app.common.messages.http.missedsSerialId"
+              values={{ serialIdHeader: 'x-munew' }}
+            />
+          );
         } else if (err.status >= 400) {
           result.alertType = 'error';
           result.alertMessage = <FormattedHTMLMessage id="app.common.messages.http.inputError" />;
@@ -205,7 +221,8 @@ class HeadlessAgentForm extends React.Component {
     }
   }
 
-  overWriteState(state) {
+  overWriteState(s) {
+    let state = s;
     if (!state) {
       state = {
         viewMode: true,
@@ -224,7 +241,7 @@ class HeadlessAgentForm extends React.Component {
       state.configuration = {};
     }
 
-    console.log('overWriteState -> state: ', state);
+    // console.log('overWriteState -> state: ', state);
     this.setState(state);
   }
 
@@ -337,6 +354,30 @@ class HeadlessAgentForm extends React.Component {
           ''
         )}
         <Form className="agent-form" layout="vertical" style={{ paddingBottom: '35px' }}>
+          <FormItemContainer>
+            <Form.Item
+              label={formatMessage({ id: 'app.common.messages.serialId' })}
+              style={formItemStyle}
+            >
+              {getFieldDecorator('AGENT_SERIAL_ID', {
+                initialValue: headlessConfig.AGENT_SERIAL_ID,
+                rules: [
+                  {
+                    required: true,
+                    message: formatMessage({ id: 'app.common.messages.serialIdInvalid' }),
+                  },
+                ],
+              })(
+                <Input
+                  disabled
+                  placeholder={formatMessage({ id: 'app.common.messages.serialIdExample' })}
+                />,
+              )}
+            </Form.Item>
+            <FormDescription>
+              <FormattedHTMLMessage id="app.common.messages.serialIdDescription" />
+            </FormDescription>
+          </FormItemContainer>
           <FormItemContainer>
             <Form.Item
               label={formatMessage({ id: 'app.common.messages.baseURL' })}

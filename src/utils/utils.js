@@ -18,7 +18,8 @@ const isDev = () => {
 /**
  * Traverse an object
  * @param {*} obj
- * @param {function} fun - Traverse function, will pass two parameters(obj, key), if key is undefined, then means this is a root node
+ * @param {function} fun - Traverse function, will pass two parameters(obj, key),
+ *                         if key is undefined, then means this is a root node
  */
 function traverse(obj, fun) {
   // traverse children

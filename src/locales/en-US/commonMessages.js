@@ -30,6 +30,23 @@ export default {
   'app.common.messages.login': 'LOG IN',
   'app.common.messages.nameInvalid':
     "Make sure it's at least 3 characters, and at most 20 characters",
+  'app.common.messages.disconnect': 'Disconnect',
+  'app.common.messages.connection': 'Connection',
+  'app.common.messages.connection.connected': 'Connected',
+  'app.common.messages.connection.connecting': 'Connecting',
+  'app.common.messages.connection.noConnection': 'No Connection',
+  'app.common.messages.connection.lostConnection': 'Lost Connection',
+  'app.common.messages.agentTypes.headless': 'Headless',
+  'app.common.messages.agentTypes.service': 'Service',
+  'app.common.messages.agentTypes.browser': 'Browser Extension',
+  'app.common.messages.states.configured': 'Configured',
+  'app.common.messages.states.active': 'Active',
+  'app.common.messages.states.draft': 'draft',
+  'app.common.messages.states.finished': 'Finished',
+  'app.common.messages.states.running': 'Running',
+  'app.common.messages.states.failed': 'Failed',
+  'app.common.messages.states.paused': 'Paused',
+  'app.common.messages.states.timeout': 'Timeout',
   'app.common.messages.save': 'Save',
   'app.common.messages.yes': 'Yes',
   'app.common.messages.action.start': 'Start',
@@ -46,16 +63,20 @@ export default {
   'app.common.messages.no': 'No',
   'app.common.messages.delete': 'Delete',
   'app.common.messages.cancel': 'Cancel',
+  'app.common.messages.serialId': 'Serial ID',
+  'app.common.messages.serialIdInvalid': 'Please enter an unique ID',
+  'app.common.messages.serialIdExample': '0e9fe15e-f9a0-4279-9e65-87d2e480a66e',
+  'app.common.messages.serialIdDescription':
+    '<b>Serial ID</b> is used to identify current agent instance, automatically generate by system, and cannot be changed.',
   'app.common.messages.baseURL': 'Munew Base URL',
   'app.common.messages.baseURLInvalid': 'Please enter a valid base URL',
   'app.common.messages.baseURLExample': 'http://localhost:9099',
   'app.common.messages.baseURLDescription':
     'Base url of your Munew application. For example: <span class="ant-typography"><code>http://localhost:9099</code></span>',
-  'app.common.messages.globalId': 'Global ID',
+  'app.common.messages.globalId': 'Agent Global ID',
   'app.common.messages.globalIdInvalid': 'Please enter an unique ID',
   'app.common.messages.globalIdExample': '0e9fe15e-f9a0-4279-9e65-87d2e480a66e',
-  'app.common.messages.globalIdDescription':
-    '<b>Global ID</b> is used to identify your Agent, it should be global unique, <span style="color:#faad14">after it created you cannot change it</span>. If you use nodejs, then you can use <a href="https://www.npmjs.com/package/uuid" target="_blank">uuid</a> to generate',
+  'app.common.messages.globalIdDescription': '<b>Global ID</b> of the agent you want to connect',
   'app.common.messages.port': 'Port',
   'app.common.messages.portInvalid': 'Please enter a valid port number',
   'app.common.messages.portExample': '8090',
@@ -108,10 +129,14 @@ export default {
     'Ooops... Something went wrong, we cannot connect this server. Maybe server is down or you are connecting to wrong server.',
   'app.common.messages.http.inputError':
     'Please check the data you typed, normally this error caused by invalid data passed to server.',
+  'app.common.messages.http.missedsSerialId':
+    'You must add <span class="ant-typography"><code>{serialIdHeader}</code></span> to http request header',
+  'app.common.messages.http.agentWasConnected':
+    'The agent you want connect to was already connected by other agent instance. You need to disconnect it before you can connect',
   'app.common.messages.search': 'Search',
   'app.common.messages.reset': 'Reset',
   'app.common.messages.healthTitle': 'Health Check',
-  'app.common.messages.analystState': 'Analyst Service Status',
+  'app.common.messages.analystState': 'Analyst Service Connection',
   'app.common.messages.urlPathDescription':
     'URL path of your callback. <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Identifying_resources_on_the_Web#Path" target="_blank">Learn More.</a>',
 };

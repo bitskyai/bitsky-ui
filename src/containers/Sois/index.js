@@ -1,44 +1,31 @@
 import './style.css';
-
-// import { FormattedMessage, FormattedHTMLMessage, injectIntl } from 'react-intl';
-// import { createStructuredSelector } from 'reselect';
-// import { compose } from 'redux';
 import { Button, Col, Empty, Icon, Popconfirm, Row, Table, message } from 'antd';
-import { FormattedHTMLMessage, FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
+import { FormattedHTMLMessage, formatMessage } from 'umi-plugin-react/locale';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 /**
  *
  * Sois
  *
  */
-import React, { useState } from 'react';
-
-import PropTypes from 'prop-types';
-// import { useInjectSaga } from 'utils/injectSaga';
-// import { useInjectReducer } from 'utils/injectReducer';
-// import makeSelectSois from './selectors';
-// import reducer from './reducer';
-// import saga from './saga';
-// import messages fro../../locales/en-US/containers/Soisois';
-// import commonMessages from '../../locales/en-US/globalMessages';
+import React from 'react';
 import TimeAgo from 'react-timeago';
 // import { connect } from 'react-redux';
 import { connect } from 'dva';
-import dayjs from 'dayjs';
+// import dayjs from 'dayjs';
 import styled from 'styled-components';
 import SOIsSkeleton from './SOIsSkeleton';
 import RegisterSoiForm from './RegisterSoiForm';
 import { refreshSOIs, refreshSOIsFail, refreshSOIsSuccess } from './actions';
 import { deleteASOIAPI, getSOIs, pingSOIAPI } from '../../apis/sois';
-
-// import DiaPageHeader from '../../components/Common';
+import { STATES } from '../../utils/constants';
+import StateTag from '../../utils/StateTag';
 
 const EmptyContainer = styled.div`
   padding: 100px 0;
 `;
 
 const actionButtonStyle = {
-  margin: '0 10px 0 0',
+  margin: '0 0 0 0',
 };
 
 export class SoisNew extends React.Component {
@@ -50,6 +37,10 @@ export class SoisNew extends React.Component {
       drawerVisiable: false,
       selectedSOI: undefined,
     };
+  }
+
+  componentDidMount() {
+    this.initSoisData();
   }
 
   onRegisterSOI() {
@@ -73,7 +64,7 @@ export class SoisNew extends React.Component {
     });
   }
 
-  onPreventShowDrawer(event) {
+  static onPreventShowDrawer(event) {
     event.preventDefault();
     event.stopPropagation();
   }
@@ -99,27 +90,29 @@ export class SoisNew extends React.Component {
     event.stopPropagation();
     // console.log(`onDeleteASOI: `, record);
     pingSOIAPI(record.globalId).then(
-      () => {
+      result => {
+        if (result && result.state === STATES.active) {
+          message.success(formatMessage({ id: 'app.containers.Sois.pingSuccessful' }));
+        } else {
+          message.error(formatMessage({ id: 'app.containers.Sois.pingFail' }));
+        }
         this.props.dispatch(refreshSOIs());
-        const msg = formatMessage({ id: 'app.containers.Sois.pingSuccessful' });
-        message.success(msg);
       },
-      err => {
-        message.error(err);
+      () => {
+        message.error(formatMessage({ id: 'app.containers.Sois.pingFail' }));
+        this.props.dispatch(refreshSOIs());
       },
     );
   }
 
-  onClickCancel(record, event) {
+  static onClickCancel(record, event) {
     event.preventDefault();
     event.stopPropagation();
-    console.log('onClickCancel: ', record);
   }
 
-  onClickDelete(record, event) {
+  static onClickDelete(record, event) {
     event.preventDefault();
     event.stopPropagation();
-    console.log(record);
   }
 
   initSoisData() {
@@ -147,10 +140,6 @@ export class SoisNew extends React.Component {
     );
   }
 
-  componentDidMount() {
-    this.initSoisData();
-  }
-
   render() {
     const { loadingData, drawerVisiable, selectedSOI, selectedRowKeys } = this.state;
     const sois = this.props.soisData.data;
@@ -167,8 +156,17 @@ export class SoisNew extends React.Component {
         dataIndex: 'baseURL',
       },
       {
-        title: formatMessage({ id: 'app.containers.Sois.status' }),
+        title: formatMessage({ id: 'app.common.messages.connection' }),
         dataIndex: 'system.state',
+        render: s => {
+          let state = s;
+          if (state === STATES.failed) {
+            state = STATES.lostConnection;
+          } else if (state === STATES.active) {
+            state = STATES.connected;
+          }
+          return <StateTag state={state} />;
+        },
       },
       {
         title: 'Action',
@@ -177,10 +175,11 @@ export class SoisNew extends React.Component {
         render: (text, record) => (
           <div
             onClick={e => {
-              this.onPreventShowDrawer(e);
+              SoisNew.onPreventShowDrawer(e);
             }}
           >
             <Button
+              type="link"
               size="small"
               style={actionButtonStyle}
               title={formatMessage({ id: 'app.containers.Sois.pingDescription' })}
@@ -197,16 +196,17 @@ export class SoisNew extends React.Component {
                 this.onDeleteASOI(record, e);
               }}
               onCancel={e => {
-                this.onClickCancel(record, e);
+                SoisNew.onClickCancel(record, e);
               }}
               okText={formatMessage({ id: 'app.common.messages.yes' })}
               cancelText={formatMessage({ id: 'app.common.messages.no' })}
             >
               <Button
+                type="link"
                 size="small"
                 style={actionButtonStyle}
                 onClick={e => {
-                  this.onClickDelete(record, e);
+                  SoisNew.onClickDelete(record, e);
                 }}
               >
                 {formatMessage({ id: 'app.common.messages.delete' })}
@@ -279,7 +279,7 @@ export class SoisNew extends React.Component {
                   rowClassName={record => {
                     let selected = false;
                     selectedRowKeys.forEach(item => {
-                      if (item === record._id) {
+                      if (item === record.globalId) {
                         selected = true;
                       }
                     });
@@ -289,27 +289,27 @@ export class SoisNew extends React.Component {
                     return '';
                   }}
                   columns={columns}
-                  rowSelection={{
-                    selectedRowKeys,
-                    type: 'radio',
-                    onSelect: record => {
-                      // console.log('rowSelection onSelect: ', record);
-                      // setSelectedRowKeys([record._id]);
-                      this.setState({
-                        selectedRowKeys: [record._id],
-                      });
-                      this.onShowDrawer(record);
-                    },
-                  }}
+                  // rowSelection={{
+                  //   selectedRowKeys,
+                  //   type: 'radio',
+                  //   onSelect: record => {
+                  //     // console.log('rowSelection onSelect: ', record);
+                  //     // setSelectedRowKeys([record._id]);
+                  //     this.setState({
+                  //       selectedRowKeys: [record._id],
+                  //     });
+                  //     this.onShowDrawer(record);
+                  //   },
+                  // }}
                   dataSource={sois}
-                  rowKey={record => record._id}
+                  rowKey={record => record.globalId}
                   onRow={record => ({
                     onClick: () => {
                       // console.log('onRow->onClick: ', record);
                       // this.selectRow(record);
                       // setSelectedRowKeys([record._id]);
                       this.setState({
-                        selectedRowKeys: [record._id],
+                        selectedRowKeys: [record.globalId],
                       });
                       this.onShowDrawer(record);
                     },

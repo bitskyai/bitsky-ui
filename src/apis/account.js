@@ -56,7 +56,6 @@ export async function changePassword(data) {
  * Delete account
  */
 export async function deleteThisAccount() {
-  console.log('deleteThisAccount');
   try {
     const res = await http({
       url: '/apis/account',
