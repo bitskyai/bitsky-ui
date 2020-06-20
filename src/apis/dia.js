@@ -1,4 +1,6 @@
+import * as _ from 'lodash';
 import http from '../utils/http';
+import { HTTP_HEADERS, ENGINE_SERVER_NAME } from '../utils/constants';
 
 export async function registerAgentAPI(agent) {
   try {
@@ -17,20 +19,53 @@ export async function registerAgentAPI(agent) {
  * check DIA health status
  * @param {string} method - HTTP request method
  * @param {string} url - HTTP request url
- * @return {boolean} - true: active, false: inactive
+ * @return {object} -
  */
 export async function checkEngineHealthAPI(method, url, skipErrorHandler) {
   try {
-    const result = await http({
+    const response = await http({
       url,
       method,
       skipErrorHandler,
     });
-    if (result.status >= 200 && result.status < 300) {
-      return true;
+
+    const responsedWith = _.get(response, `headers[${HTTP_HEADERS.X_RESPONSED_WITH}]`);
+    if (responsedWith !== ENGINE_SERVER_NAME) {
+      // it isn't return by engine
+      return {
+        health: false,
+        status: response.status,
+        engine: false,
+      };
     }
-    return false;
+
+    if (response.status >= 200 && response.status < 300) {
+      // connected to engine and engine is running
+      return {
+        health: true,
+        engine: true,
+        status: response.status,
+      };
+    }
+
+    return {
+      health: false,
+      engine: true,
+      status: response.status,
+    };
   } catch (err) {
-    throw err;
+    if (err.responsedWith !== ENGINE_SERVER_NAME) {
+      return {
+        health: false,
+        status: err.status,
+        engine: false,
+      };
+    }
+
+    return {
+      health: false,
+      status: err.status,
+      engine: true,
+    };
   }
 }

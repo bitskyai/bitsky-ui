@@ -120,15 +120,25 @@ export default {
   'app.common.messages.updatedConfigSuccessful': 'Updated agent configuration, and restarting...',
   'app.common.messages.updatedConfigFail': 'Update agent configuration fail',
   // eslint-disable-next-line quotes
-  'app.common.messages.http.unregisterAgentDescription': `You need to register this agent before you can use it, and also make sure you entered correct <b>Munew Base URL</b> and <b>Agent Global ID</b>. <a href='https://docs.munew.io/how-tos/register-and-configure-a-browser-extension-agent' target='_blank'>How to register and configure a Browser Extension Agent</a>`,
+  'app.common.messages.agent.unregisterAgentDescription': `Please entered correct <b>Munew Base URL</b> and <b>Agent Global ID</b>`,
+  'app.common.messages.agent.notFindAgent': `<div class='munew-alert'>
+                                                              <p>Cannot find any agent by <b>Agent Global ID</b>, please check whether you typed correct <b>Agent Global ID</b>.</p>
+                                                              <p class='munew-alert-subheader'><b>Possible solution: </b></p>
+                                                          </div><span>Go to <b>Agents</b> copy <b>Agent Global ID</b>, then paste to <b>Agent Global ID</b> field</b></span>`,
   // eslint-disable-next-line quotes
-  'app.common.messages.http.unmatchedAgentType': `The agent's type you are trying to connect isn't <b>Headless</b>, please change <b>Agent Global ID</b>`,
+  'app.common.messages.agent.notConnectToEngine': `The server you are trying to connect isn't a munew application`,
+  // eslint-disable-next-line quotes
+  'app.common.messages.agent.unmatchedAgentType': `The agent's type you are trying to connect isn't <b>{agentType}</b>, please change <b>Agent Global ID</b>`,
+  // eslint-disable-next-line quotes
+  'app.common.messages.agent.doesntActive': `This agent isn't <b>Active</b>. Only <b>active</b> agent can execute tasks. Go to <b>Agents</b> page to activate this agent  `,
+  // eslint-disable-next-line quotes
+  'app.common.messages.agent.active': `This agent is <b>Active</b>, it will execute suitable tasks. If you want to stop execute tasks, go to <b>Agents</b> page to <b>deactivate</b> this agent  `,
   // eslint-disable-next-line quotes
   'app.common.messages.http.securityKeyRequired': `<b>Security Key</b> is required for the server you connect to, please enter correct security key`,
   'app.common.messages.http.internalError':
     'Ooops... Something went wrong, we cannot connect this server. Maybe server is down or you are connecting to wrong server.',
-  'app.common.messages.http.inputError':
-    'Please check the data you typed, normally this error caused by invalid data passed to server.',
+  'app.common.messages.http.cannotConnect':
+    'Cannot connect to this server, please check your network or whether target server is running',
   'app.common.messages.http.missedsSerialId':
     'You must add <span class="ant-typography"><code>{serialIdHeader}</code></span> to http request header',
   'app.common.messages.http.agentWasConnected':

@@ -9,16 +9,17 @@ import {
   Switch,
   Typography,
   // message,
-  // Icon,
+  Icon,
 } from 'antd';
 import { FormattedHTMLMessage, formatMessage } from 'umi-plugin-react/locale';
+import { Link } from 'umi';
 import { connect } from 'dva';
 import React from 'react';
 import _ from 'lodash';
 import styled from 'styled-components';
 
 // import { filterOutEmptyValue } from '../../utils/utils';
-import { LOG_LEVEL, ENGINE_HEALTH_METHOD, ENGINE_HEALTH_PATH } from '../../utils/constants';
+import { LOG_LEVEL, ENGINE_HEALTH_METHOD, ENGINE_HEALTH_PATH, STATES } from '../../utils/constants';
 import {
   updateHeadlessConfig,
   getAgentConfigurationSuccess,
@@ -76,7 +77,7 @@ class HeadlessAgentForm extends React.Component {
         if (!values.MUNEW_BASE_URL || !values.GLOBAL_ID) {
           state.alertType = 'warning';
           state.alertMessage = (
-            <FormattedHTMLMessage id="app.common.messages.http.unregisterAgentDescription" />
+            <FormattedHTMLMessage id="app.common.messages.agent.unregisterAgentDescription" />
           );
         }
 
@@ -135,16 +136,45 @@ class HeadlessAgentForm extends React.Component {
             if (agentValidateResult.alertMessage) {
               state.alertMessage = agentValidateResult.alertMessage;
             }
-            if (
-              _.toUpper(_.get(agentValidateResult, 'data.type')) &&
-              _.toUpper(_.get(agentValidateResult, 'data.type')) !==
-                _.toUpper(_.get(this.props, 'headless.data.TYPE'))
-            ) {
-              state.agentGlobalIdValidateStatus = 'error';
-              state.alertType = 'error';
-              state.alertMessage = (
-                <FormattedHTMLMessage id="app.common.messages.http.unmatchedAgentType" />
-              );
+
+            if (agentValidateResult.status === 'success') {
+              // additional validate for successfully get agent configuration
+              if (
+                _.toUpper(_.get(agentValidateResult, 'data.type')) &&
+                _.toUpper(_.get(agentValidateResult, 'data.type')) !==
+                  _.toUpper(_.get(this.props, 'headless.data.TYPE'))
+              ) {
+                state.agentGlobalIdValidateStatus = 'error';
+                state.alertType = 'error';
+                state.alertMessage = (
+                  <FormattedHTMLMessage
+                    id="app.common.messages.agent.unmatchedAgentType"
+                    values={{ agentType: 'Headless' }}
+                  />
+                );
+              } else if (
+                _.toUpper(_.get(agentValidateResult, 'data.system.state')) !== STATES.active
+              ) {
+                state.alertType = 'warning';
+                state.alertMessage = (
+                  <>
+                    <FormattedHTMLMessage id="app.common.messages.agent.doesntActive" />
+                    <Link to="/app/agents">
+                      <Icon type="arrow-right" className="munew-alert-link-icon" />
+                    </Link>
+                  </>
+                );
+              } else if (agentValidateResult.status) {
+                state.alertType = 'info';
+                state.alertMessage = (
+                  <>
+                    <FormattedHTMLMessage id="app.common.messages.agent.active" />
+                    <Link to="/app/agents">
+                      <Icon type="arrow-right" className="munew-alert-link-icon" />
+                    </Link>
+                  </>
+                );
+              }
             }
           }
           state.validating = false;
@@ -184,7 +214,12 @@ class HeadlessAgentForm extends React.Component {
         if (err.status === 404) {
           result.alertType = 'error';
           result.alertMessage = (
-            <FormattedHTMLMessage id="app.common.messages.http.unregisterAgentDescription" />
+            <>
+              <FormattedHTMLMessage id="app.common.messages.agent.notFindAgent" />
+              <Link to="/app/agents">
+                <Icon type="arrow-right" className="munew-alert-link-icon" />
+              </Link>
+            </>
           );
         } else if (err.status === 401) {
           result.alertType = 'error';
@@ -235,7 +270,7 @@ class HeadlessAgentForm extends React.Component {
         viewMode: true,
         alertType: undefined,
         alertMessage: (
-          <FormattedHTMLMessage id="app.common.messages.http.unregisterAgentDescription" />
+          <FormattedHTMLMessage id="app.common.messages.agent.unregisterAgentDescription" />
         ),
         configuration: {},
       };
@@ -262,15 +297,36 @@ class HeadlessAgentForm extends React.Component {
   async validateBaseURL(baseUrl) {
     try {
       const url = new URL(ENGINE_HEALTH_PATH, baseUrl).toString();
-      const status = await checkEngineHealthAPI(ENGINE_HEALTH_METHOD, url, true);
-      if (status) {
-        return {
-          status: 'success',
-        };
-      }
-      return {
-        status: 'error',
+      const engineHealth = await checkEngineHealthAPI(ENGINE_HEALTH_METHOD, url, true);
+      const result = {
+        status: '',
+        alertType: '',
+        alertMessage: '',
       };
+      if (engineHealth.status === 0) {
+        result.status = 'error';
+        result.alertType = 'error';
+        result.alertMessage = <FormattedHTMLMessage id="app.common.messages.http.cannotConnect" />;
+      } else if (!engineHealth.engine) {
+        result.status = 'error';
+        result.alertType = 'error';
+        result.alertMessage = (
+          <FormattedHTMLMessage id="app.common.messages.agent.notConnectToEngine" />
+        );
+      } else if (engineHealth.health) {
+        result.status = 'success';
+      } else if (engineHealth.status >= 500) {
+        result.status = 'error';
+        result.alertType = 'error';
+        result.alertMessage = <FormattedHTMLMessage id="app.common.messages.http.internalError" />;
+      } else if (engineHealth.status >= 400) {
+        result.alertType = 'error';
+        result.alertMessage = <FormattedHTMLMessage id="app.common.messages.http.inputError" />;
+      } else {
+        result.alertType = 'error';
+        result.alertMessage = <FormattedHTMLMessage id="app.common.messages.http.internalError" />;
+      }
+      return result;
     } catch (err) {
       const result = {
         status: 'error',
@@ -352,12 +408,7 @@ class HeadlessAgentForm extends React.Component {
     return (
       <div>
         {alertType ? (
-          <Alert
-            type={alertType}
-            message={alertMessage}
-            showIcon
-            style={{ marginBottom: '16px' }}
-          />
+          <Alert type={alertType} message={alertMessage} style={{ marginBottom: '16px' }} />
         ) : (
           ''
         )}

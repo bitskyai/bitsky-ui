@@ -15,6 +15,8 @@ import {
   START_SERVICE_SUCCESS,
   STOP_SERVICE_FAIL,
   STOP_SERVICE_SUCCESS,
+  GET_AGENT_CONFIGURATION_FAIL,
+  GET_AGENT_CONFIGURATION_SUCCESS,
 } from './constants';
 
 export function getServiceConfig() {
@@ -80,6 +82,20 @@ export function stopServiceSuccess(payload) {
 export function stopServiceFail(err) {
   return {
     type: STOP_SERVICE_FAIL,
+    error: err,
+  };
+}
+
+export function getAgentConfigurationSuccess(payload) {
+  return {
+    type: GET_AGENT_CONFIGURATION_SUCCESS,
+    payload,
+  };
+}
+
+export function getAgentConfigurationFail(err) {
+  return {
+    type: GET_AGENT_CONFIGURATION_FAIL,
     error: err,
   };
 }

@@ -24,6 +24,7 @@ import {
 import styles from './style.less';
 import HeadlessAgentForm from './HeadlessAgentForm';
 import AgentType from '../../utils/AgentType';
+import StateTag from '../../utils/StateTag';
 
 const { Paragraph } = Typography;
 
@@ -91,6 +92,7 @@ export class HeadlessAgent extends React.Component {
 
   render() {
     const headlessConfig = this.props.headless.data;
+    const agentConfig = this.props.headless.agent;
     const IconLink = ({ href, src, text }) => (
       <a className="page-header-doc-link" href={href}>
         <img className="page-header-doc-link-icon" src={src} alt={text} />
@@ -126,6 +128,7 @@ export class HeadlessAgent extends React.Component {
     let tagText = formatMessage({ id: 'app.common.messages.status.stopped' });
     let operationBtn;
     let agentTypeTag = '';
+    let stateTag = '';
     if (headlessConfig) {
       agentTypeTag = <AgentType type={headlessConfig.TYPE} />;
       if (headlessConfig.STARTING) {
@@ -176,6 +179,9 @@ export class HeadlessAgent extends React.Component {
         );
       }
     }
+    if (_.get(agentConfig, 'system.state')) {
+      stateTag = <StateTag state={_.get(agentConfig, 'system.state')} />;
+    }
     const headlessAgentURL = `http://localhost:${headlessConfig.PORT}`;
     return (
       <div>
@@ -189,6 +195,7 @@ export class HeadlessAgent extends React.Component {
                 <>
                   {agentTypeTag}
                   <Tag color={tagColor}>{tagText}</Tag>
+                  {stateTag}
                 </>
               }
               extra={[

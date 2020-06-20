@@ -2,6 +2,8 @@ export const RESTART_ON_REMOUNT = '@@saga-injector/restart-on-remount';
 export const DAEMON = '@@saga-injector/daemon';
 export const ONCE_TILL_UNMOUNT = '@@saga-injector/once-till-unmount';
 
+export const ENGINE_SERVER_NAME = 'dia-engine';
+
 export const AGENT_TYPES = {
   browserExtension: 'BROWSEREXTENSION',
   headlessBrowser: 'HEADLESSBROWSER',
@@ -9,6 +11,7 @@ export const AGENT_TYPES = {
 };
 
 export const HTTP_HEADERS = {
+  X_RESPONSED_WITH: 'x-munew-responsed-with',
   X_SECURITY_KEY_HEADER: 'x-munew-security-key',
   X_REQUESTED_WITH: 'x-munew-requested-with', // who send this request
   X_SERIAL_ID: 'x-munew-serial-id', // request serial id

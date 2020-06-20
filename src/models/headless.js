@@ -140,6 +140,7 @@ export default {
     getAgentConfigurationFail(state, { error }) {
       return produce(state, draft => {
         draft.loadingData = false;
+        draft.agent = {};
         draft.error = error;
         draft.modified = Date.now();
       });

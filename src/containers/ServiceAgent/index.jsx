@@ -27,6 +27,7 @@ import {
 import styles from './style.less';
 import ServiceAgentForm from './ServiceAgentForm';
 import AgentType from '../../utils/AgentType';
+import StateTag from '../../utils/StateTag';
 
 const { Paragraph } = Typography;
 
@@ -94,6 +95,7 @@ export class ServiceAgent extends React.Component {
 
   render() {
     const serviceConfig = this.props.service.data;
+    const agentConfig = this.props.service.agent;
     const IconLink = ({ href, src, text }) => (
       <a className="page-header-doc-link" href={href}>
         <img className="page-header-doc-link-icon" src={src} alt={text} />
@@ -129,6 +131,7 @@ export class ServiceAgent extends React.Component {
     let tagText = formatMessage({ id: 'app.common.messages.status.stopped' });
     let operationBtn;
     let agentTypeTag = '';
+    let stateTag = '';
     if (serviceConfig) {
       agentTypeTag = <AgentType type={serviceConfig.TYPE} />;
       if (serviceConfig.STARTING) {
@@ -179,6 +182,9 @@ export class ServiceAgent extends React.Component {
         );
       }
     }
+    if (_.get(agentConfig, 'system.state')) {
+      stateTag = <StateTag state={_.get(agentConfig, 'system.state')} />;
+    }
     const serviceAgentURL = `http://localhost:${serviceConfig.PORT}`;
     return (
       <div>
@@ -191,6 +197,7 @@ export class ServiceAgent extends React.Component {
               tags={<>
                 {agentTypeTag}
                 <Tag color={tagColor}>{tagText}</Tag>
+                {stateTag}
               </>}
               extra={[
                 operationBtn,

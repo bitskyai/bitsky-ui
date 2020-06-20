@@ -31,13 +31,13 @@ export async function getAgentAPI(baseURL, gid, serialId, skipErrorHandler) {
     const url = new URL(`/apis/agents/${gid}`, baseURL).toString();
     const headers = {};
     headers[HTTP_HEADERS.X_SERIAL_ID] = serialId;
-    const result = await http({
+    const response = await http({
       headers,
       url,
       method: 'GET',
       skipErrorHandler,
     });
-    return result.data;
+    return response.data;
   } catch (err) {
     throw err;
   }
