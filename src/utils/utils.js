@@ -28,7 +28,7 @@ function traverse(obj, fun) {
     // Get all leafs
     const keys = _.keys(obj);
     // traverse all leafs
-    for (let i = 0; i < keys.length; i++) {
+    for (let i = 0; i < keys.length; i += 1) {
       const leaf = obj[keys[i]];
       // traverse children
       if ((_.isObject(leaf) || _.isArray(leaf)) && _.keys(leaf).length) {
@@ -54,7 +54,7 @@ function filterOutEmptyValue(value) {
         delete obj[key];
       } else if (_.isArray(obj[key])) {
         const arr = [];
-        for (let i = 0; i < obj[key].length; i++) {
+        for (let i = 0; i < obj[key].length; i += 1) {
           if (obj[key][i]) {
             arr.push(obj[key][i]);
           }
@@ -70,11 +70,12 @@ function filterOutEmptyValue(value) {
       }
     } else {
       // remove empty object
+      // eslint-disable-next-line no-lonely-if
       if (_.isObject(obj) && !_.keys(obj).length) {
         obj = undefined;
       } else if (_.isArray(obj)) {
         const arr = [];
-        for (let i = 0; i < obj.length; i++) {
+        for (let i = 0; i < obj.length; i += 1) {
           if (obj[i]) {
             arr.push(obj[i]);
           }

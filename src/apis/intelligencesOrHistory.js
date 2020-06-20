@@ -17,9 +17,11 @@ export async function getIntelligencesOrHistoryForManagementAPI(
     }
     if (url) {
       if (_.isArray(url)) {
-        url = url[0];
+        const firstUrl = url[0];
+        params.url = firstUrl;
+      } else {
+        params.url = url;
       }
-      params.url = url;
     }
     if (state && state.length) {
       params.state = state.join(',');
@@ -39,11 +41,45 @@ export async function getIntelligencesOrHistoryForManagementAPI(
   }
 }
 
-export async function pauseIntelligencesForManagementAPI(url, ids) {
+export async function rerunIntelligencesForManagementAPI(url, ids, state) {
+  try {
+    const params = {};
+    if (url) {
+      if (_.isArray(url)) {
+        const firstUrl = url[0];
+        params.url = firstUrl;
+      } else {
+        params.url = url;
+      }
+    }
+    if (state && state.length) {
+      params.state = state.join(',');
+    }
+
+    const config = {
+      url: '/apis/manangement/intelligenceshistory/rerun',
+      method: 'POST',
+      params,
+    };
+    if (ids) {
+      config.data = ids;
+    }
+    const res = await http(config);
+    return res.data;
+  } catch (err) {
+    throw err;
+  }
+}
+
+export async function pauseIntelligencesForManagementAPI(url, ids, state) {
   try {
     const params = {};
     if (url) {
       params.url = url;
+    }
+
+    if (state && state.length) {
+      params.state = state.join(',');
     }
 
     const config = {
@@ -62,11 +98,15 @@ export async function pauseIntelligencesForManagementAPI(url, ids) {
   }
 }
 
-export async function resumeIntelligencesForManagementAPI(url, ids) {
+export async function resumeIntelligencesForManagementAPI(url, ids, state) {
   try {
     const params = {};
     if (url) {
       params.url = url;
+    }
+
+    if (state && state.length) {
+      params.state = state.join(',');
     }
 
     const config = {
@@ -85,11 +125,15 @@ export async function resumeIntelligencesForManagementAPI(url, ids) {
   }
 }
 
-export async function deleteIntelligencesOrHistoryForManagementAPI(url, ids, history) {
+export async function deleteIntelligencesOrHistoryForManagementAPI(url, ids, state, history) {
   try {
     const params = {};
     if (url) {
       params.url = url;
+    }
+
+    if (state && state.length) {
+      params.state = state.join(',');
     }
 
     let targetUrl = '/apis/manangement/intelligences';

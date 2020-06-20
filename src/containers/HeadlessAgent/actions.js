@@ -15,6 +15,8 @@ import {
   START_HEADLESS_SUCCESS,
   STOP_HEADLESS_FAIL,
   STOP_HEADLESS_SUCCESS,
+  GET_AGENT_CONFIGURATION_FAIL,
+  GET_AGENT_CONFIGURATION_SUCCESS
 } from './constants';
 
 export function getHeadlessConfig() {
@@ -66,6 +68,20 @@ export function startHeadlessSuccess(payload) {
 export function startHeadlessFail(err) {
   return {
     type: START_HEADLESS_FAIL,
+    error: err,
+  };
+}
+
+export function getAgentConfigurationSuccess(payload) {
+  return {
+    type: GET_AGENT_CONFIGURATION_SUCCESS,
+    payload,
+  };
+}
+
+export function getAgentConfigurationFail(err) {
+  return {
+    type: GET_AGENT_CONFIGURATION_FAIL,
     error: err,
   };
 }

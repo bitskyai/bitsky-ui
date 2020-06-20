@@ -16,8 +16,9 @@ import { connect } from 'dva';
 import styled from 'styled-components';
 import RegisterAgentForm from './RegisterAgentForm';
 import AgentsSkeleton from './AgentsSkeleton';
-import { STATES, AGENT_TYPES } from '../../utils/constants';
+import { STATES } from '../../utils/constants';
 import StateTag from '../../utils/StateTag';
+import AgentType from '../../utils/AgentType';
 import {
   activateAgentAPI,
   deactivateAgentAPI,
@@ -192,17 +193,7 @@ export class Agents extends React.Component {
         title: formatMessage({ id: 'app.containers.Agents.agentType' }),
         dataIndex: 'type',
         key: 'type',
-        render: type => {
-          let text = '';
-          if (type === AGENT_TYPES.browserExtension) {
-            text = formatMessage({ id: 'app.common.messages.agentTypes.browser' });
-          } else if (type === AGENT_TYPES.headlessBrowser) {
-            text = formatMessage({ id: 'app.common.messages.agentTypes.headless' });
-          } else if (type === AGENT_TYPES.service) {
-            text = formatMessage({ id: 'app.common.messages.agentTypes.service' });
-          }
-          return <Tag color="purple">{text}</Tag>;
-        },
+        render: type => <AgentType type={type} />,
       },
       {
         title: formatMessage({ id: 'app.common.messages.state' }),

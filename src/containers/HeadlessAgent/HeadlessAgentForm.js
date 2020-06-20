@@ -19,7 +19,11 @@ import styled from 'styled-components';
 
 // import { filterOutEmptyValue } from '../../utils/utils';
 import { LOG_LEVEL, ENGINE_HEALTH_METHOD, ENGINE_HEALTH_PATH } from '../../utils/constants';
-import { updateHeadlessConfig } from './actions';
+import {
+  updateHeadlessConfig,
+  getAgentConfigurationSuccess,
+  getAgentConfigurationFail,
+} from './actions';
 import { getAgentAPI } from '../../apis/agents';
 import { checkEngineHealthAPI } from '../../apis/dia';
 import HTTPError from '../../utils/HTTPError';
@@ -166,6 +170,7 @@ class HeadlessAgentForm extends React.Component {
     try {
       // If *globalId* exist, then get agent information from server side.
       const agentConfig = await getAgentAPI(baseURL, gid, serialId, true);
+      this.props.dispatch(getAgentConfigurationSuccess(agentConfig));
       return {
         status: 'success',
         data: agentConfig,
@@ -217,6 +222,8 @@ class HeadlessAgentForm extends React.Component {
         result.alertType = 'error';
         result.alertMessage = <FormattedHTMLMessage id="app.common.messages.http.internalError" />;
       }
+
+      this.props.dispatch(getAgentConfigurationFail(err));
       return result;
     }
   }
@@ -317,6 +324,7 @@ class HeadlessAgentForm extends React.Component {
     } = this.state;
     const headless = this.props.headless || {};
     const headlessConfig = headless.data;
+    // const agentConfig = headless.agent;
 
     // when server is starting or stopping, don't allow to change before finish
     const disableEdit = headlessConfig.STARTING || headlessConfig.STOPPING;

@@ -3,10 +3,6 @@
  * Intelligences
  *
  */
-
-// import { FormattedMessage, FormattedHTMLMessage, injectIntl } from 'react-intl';
-// import { createStructuredSelector } from 'reselect';
-// import { compose } from 'redux';
 import { Button, Checkbox, Col, Dropdown, Empty, Icon, Input, Menu, Row, Spin, Table } from 'antd';
 import { FormattedHTMLMessage, FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
@@ -122,13 +118,13 @@ export class Intelligences extends React.Component {
   async onPauseAll() {
     try {
       let ids;
-      let url;
+      // let url;
       if (this.state.selectedRows && this.state.selectedRows.length) {
         ids = this.state.selectedRows.map(item => item.globalId);
       }
-      if (!ids || !ids.length) {
-        url = this.filterConditions.url;
-      }
+      // if (!ids || !ids.length) {
+      //   url = this.filterConditions.url;
+      // }
       this.setState({
         operationBtns: {
           pausing: true,
@@ -136,7 +132,11 @@ export class Intelligences extends React.Component {
           resuming: false,
         },
       });
-      await pauseIntelligencesForManagementAPI(url, ids);
+      await pauseIntelligencesForManagementAPI(
+        this.filterConditions.url,
+        ids,
+        this.filterConditions.state,
+      );
       this.setState({
         operationBtns: {
           pausing: false,
@@ -159,13 +159,13 @@ export class Intelligences extends React.Component {
   async onResumeAll() {
     try {
       let ids;
-      let url;
+      // let url;
       if (this.state.selectedRows && this.state.selectedRows.length) {
         ids = this.state.selectedRows.map(item => item.globalId);
       }
-      if (!ids || !ids.length) {
-        url = this.filterConditions.url;
-      }
+      // if (!ids || !ids.length) {
+      //   url = this.filterConditions.url;
+      // }
       this.setState({
         operationBtns: {
           pausing: false,
@@ -173,7 +173,11 @@ export class Intelligences extends React.Component {
           resuming: true,
         },
       });
-      await resumeIntelligencesForManagementAPI(url, ids);
+      await resumeIntelligencesForManagementAPI(
+        this.filterConditions.url,
+        ids,
+        this.filterConditions.state,
+      );
       this.setState({
         operationBtns: {
           pausing: false,
@@ -196,13 +200,13 @@ export class Intelligences extends React.Component {
   async onDeleteAll() {
     try {
       let ids;
-      let url;
+      // let url;
       if (this.state.selectedRows && this.state.selectedRows.length) {
         ids = this.state.selectedRows.map(item => item.globalId);
       }
-      if (!ids || !ids.length) {
-        url = this.filterConditions.url;
-      }
+      // if (!ids || !ids.length) {
+      //   url = this.filterConditions.url;
+      // }
       this.setState({
         operationBtns: {
           pausing: false,
@@ -210,7 +214,11 @@ export class Intelligences extends React.Component {
           resuming: false,
         },
       });
-      await deleteIntelligencesOrHistoryForManagementAPI(url, ids);
+      await deleteIntelligencesOrHistoryForManagementAPI(
+        this.filterConditions.url,
+        ids,
+        this.filterConditions.state,
+      );
       this.setState({
         operationBtns: {
           pausing: false,

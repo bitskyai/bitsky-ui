@@ -15,3 +15,5 @@ export const STOP_HEADLESS_SUCCESS = 'headless/stopSuccess';
 export const STOP_HEADLESS_FAIL = 'headless/stopFail';
 export const GET_HEADLESS_CONFIG_FAIL = 'headless/getHeadlessConfigFail';
 export const UPDATE_HEADLESS_CONFIG_FAIL = 'headless/updateHeadlessConfigFail';
+export const GET_AGENT_CONFIGURATION_FAIL = 'headless/getAgentConfigurationFail';
+export const GET_AGENT_CONFIGURATION_SUCCESS = 'headless/getAgentConfigurationSuccess';

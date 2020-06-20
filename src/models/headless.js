@@ -129,6 +129,21 @@ export default {
         draft.modified = Date.now();
       });
     },
+    getAgentConfigurationSuccess(state, { payload }) {
+      return produce(state, draft => {
+        draft.loadingData = false;
+        draft.agent = payload;
+        draft.error = undefined;
+        draft.modified = Date.now();
+      });
+    },
+    getAgentConfigurationFail(state, { error }) {
+      return produce(state, draft => {
+        draft.loadingData = false;
+        draft.error = error;
+        draft.modified = Date.now();
+      });
+    },
     starting(state, { payload }) {
       return produce(state, draft => {
         draft.data = payload;

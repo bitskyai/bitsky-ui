@@ -23,7 +23,10 @@ import {
 import {
   deleteIntelligencesOrHistoryForManagementAPI,
   getIntelligencesOrHistoryForManagementAPI,
+  rerunIntelligencesForManagementAPI,
 } from '../../apis/intelligencesOrHistory';
+import StateTag from '../../utils/StateTag';
+// import { STATES } from '../../utils/constants';
 
 // import DiaPageHeader from '../../components/Common';
 
@@ -113,13 +116,13 @@ export class IntelligencesHistory extends React.Component {
   async onDeleteAll() {
     try {
       let ids;
-      let url;
+      // let url;
       if (this.state.selectedRows && this.state.selectedRows.length) {
         ids = this.state.selectedRows.map(item => item.globalId);
       }
-      if (!ids || !ids.length) {
-        url = this.filterConditions.url;
-      }
+      // if (!ids || !ids.length) {
+      //   url = this.filterConditions.url;
+      // }
       this.setState({
         operationBtns: {
           pausing: false,
@@ -127,7 +130,12 @@ export class IntelligencesHistory extends React.Component {
           resuming: false,
         },
       });
-      await deleteIntelligencesOrHistoryForManagementAPI(url, ids, true);
+      await deleteIntelligencesOrHistoryForManagementAPI(
+        this.filterConditions.url,
+        ids,
+        this.filterConditions.state,
+        true,
+      );
       this.setState({
         operationBtns: {
           pausing: false,
@@ -142,6 +150,46 @@ export class IntelligencesHistory extends React.Component {
           pausing: false,
           deleting: false,
           resuming: false,
+        },
+      });
+    }
+  }
+
+  async onRerunAll() {
+    try {
+      let ids;
+      if (this.state.selectedRows && this.state.selectedRows.length) {
+        ids = this.state.selectedRows.map(item => item.globalId);
+      }
+      this.setState({
+        operationBtns: {
+          pausing: false,
+          deleting: false,
+          resuming: false,
+          reruning: true,
+        },
+      });
+      await rerunIntelligencesForManagementAPI(
+        this.filterConditions.url,
+        ids,
+        this.filterConditions.state,
+      );
+      this.setState({
+        operationBtns: {
+          pausing: false,
+          deleting: false,
+          resuming: false,
+          reruning: false,
+        },
+      });
+      // this.initIntelligencesData();
+    } catch (err) {
+      this.setState({
+        operationBtns: {
+          pausing: false,
+          deleting: false,
+          resuming: false,
+          reruning: false,
         },
       });
     }
@@ -312,6 +360,7 @@ export class IntelligencesHistory extends React.Component {
         title: formatMessage({ id: 'app.common.messages.state' }),
         dataIndex: 'system.state',
         width: '15%',
+        render: state => <StateTag state={state} />,
         filteredValue: this.filterConditions.state,
         ...this.getColumnCheckboxProps('state', [
           {
@@ -410,6 +459,21 @@ export class IntelligencesHistory extends React.Component {
               <Button
                 type="link"
                 onClick={() => {
+                  this.onRerunAll();
+                }}
+                disabled={operationBtnDisabled}
+                loading={this.state.operationBtns.reruning}
+              >
+                <FormattedMessage
+                  id="app.containers.Intelligences.rerunAll"
+                  values={{ intelligenceNumber: total }}
+                />
+              </Button>
+            </Menu.Item>
+            <Menu.Item>
+              <Button
+                type="link"
+                onClick={() => {
                   this.onDeleteAll();
                 }}
                 disabled={operationBtnDisabled}
@@ -454,7 +518,20 @@ export class IntelligencesHistory extends React.Component {
               <div style={{ paddingBottom: '15px' }}>
                 <Row>
                   <MediaQuery minWidth={1028}>
-                    <Col span={6}>
+                    <Col span={16}>
+                      <Button
+                        onClick={() => {
+                          this.onRerunAll();
+                        }}
+                        style={{ marginLeft: '10px' }}
+                        disabled={operationBtnDisabled}
+                        loading={this.state.operationBtns.reruning}
+                      >
+                        <FormattedMessage
+                          id="app.containers.Intelligences.rerunAll"
+                          values={{ intelligenceNumber: total }}
+                        />
+                      </Button>
                       <Button
                         onClick={() => {
                           this.onDeleteAll();
@@ -469,7 +546,7 @@ export class IntelligencesHistory extends React.Component {
                         />
                       </Button>
                     </Col>
-                    <Col span={18} style={{ textAlign: 'right' }}>
+                    <Col span={8} style={{ textAlign: 'right' }}>
                       {rightContent}
                     </Col>
                   </MediaQuery>

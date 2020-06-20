@@ -33,7 +33,7 @@ export default {
   'app.common.messages.disconnect': 'Disconnect',
   'app.common.messages.connection': 'Connection',
   'app.common.messages.connection.connected': 'Connected',
-  'app.common.messages.connection.connecting': 'Connecting',
+  'app.common.messages.connection.connecting': 'Waiting Connect',
   'app.common.messages.connection.noConnection': 'No Connection',
   'app.common.messages.connection.lostConnection': 'Lost Connection',
   'app.common.messages.agentTypes.headless': 'Headless',
@@ -122,7 +122,7 @@ export default {
   // eslint-disable-next-line quotes
   'app.common.messages.http.unregisterAgentDescription': `You need to register this agent before you can use it, and also make sure you entered correct <b>Munew Base URL</b> and <b>Agent Global ID</b>. <a href='https://docs.munew.io/how-tos/register-and-configure-a-browser-extension-agent' target='_blank'>How to register and configure a Browser Extension Agent</a>`,
   // eslint-disable-next-line quotes
-  'app.common.messages.http.unmatchedAgentType': `The agent type you entered isn't <b>Headless Agent</b>`,
+  'app.common.messages.http.unmatchedAgentType': `The agent's type you are trying to connect isn't <b>Headless</b>, please change <b>Agent Global ID</b>`,
   // eslint-disable-next-line quotes
   'app.common.messages.http.securityKeyRequired': `<b>Security Key</b> is required for the server you connect to, please enter correct security key`,
   'app.common.messages.http.internalError':

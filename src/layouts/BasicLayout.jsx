@@ -8,11 +8,11 @@ import React, { useEffect } from 'react';
 import Link from 'umi/link';
 import { connect } from 'dva';
 import { formatMessage } from 'umi-plugin-react/locale';
-import Authorized from '@/utils/Authorized';
+// import Authorized from '@/utils/Authorized';
 import RightContent from '@/components/GlobalHeader/RightContent';
 // import GlobalFooter from '@/components/GlobalFooter';
 import logo from '../assets/logo.png';
-
+import { sendToElectron } from '../utils/utils';
 /**
  * use Authorized check all menu item
  */
@@ -74,7 +74,13 @@ const BasicLayout = props => {
 
           if (menuItemProps.path === '/app/#defaultsoi') {
             return (
-              <Link to="#" id="munew_default_soi_menu">
+              <Link
+                to="#"
+                id="munew_default_soi_menu"
+                onClick={() => {
+                  sendToElectron('soiEditor/open');
+                }}
+              >
                 {defaultDom}
               </Link>
             );
@@ -82,7 +88,13 @@ const BasicLayout = props => {
 
           if (menuItemProps.path === '/app/#settings') {
             return (
-              <Link to="#" id="munew_default_settings_menu">
+              <Link
+                to="#"
+                id="munew_default_settings_menu"
+                onClick={() => {
+                  sendToElectron('settings/open');
+                }}
+              >
                 {defaultDom}
               </Link>
             );

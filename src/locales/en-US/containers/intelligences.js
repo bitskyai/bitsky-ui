@@ -13,4 +13,5 @@ export default {
   'app.containers.Intelligences.pauseAll': 'Pause {intelligenceNumber} intelligences',
   'app.containers.Intelligences.resumeAll': 'Resume {intelligenceNumber} intelligences',
   'app.containers.Intelligences.deleteAll': 'Delete {intelligenceNumber} intelligences',
+  'app.containers.Intelligences.rerunAll': 'Rerun {intelligenceNumber} intelligences',
 };

@@ -4,13 +4,11 @@
  *
  */
 import { Card, PageHeader, Button, Tag, Typography, Row, Col, Icon } from 'antd';
-import { InfoCircleOutlined } from '@ant-design/icons';
 import { FormattedHTMLMessage, FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
-import $ from 'jquery';
 import React from 'react';
 import * as _ from 'lodash';
 import { connect } from 'dva';
-import styled from 'styled-components';
+// import styled from 'styled-components';
 import HeadlessAgentSkeleton from './HeadlessAgentSkeleton';
 import {
   getHeadlessConfig,
@@ -25,6 +23,7 @@ import {
 } from './actions';
 import styles from './style.less';
 import HeadlessAgentForm from './HeadlessAgentForm';
+import AgentType from '../../utils/AgentType';
 
 const { Paragraph } = Typography;
 
@@ -126,7 +125,9 @@ export class HeadlessAgent extends React.Component {
     let tagColor = 'red';
     let tagText = formatMessage({ id: 'app.common.messages.status.stopped' });
     let operationBtn;
+    let agentTypeTag = '';
     if (headlessConfig) {
+      agentTypeTag = <AgentType type={headlessConfig.TYPE} />;
       if (headlessConfig.STARTING) {
         tagColor = 'blue';
         tagText = formatMessage({ id: 'app.common.messages.status.starting' });
@@ -184,7 +185,12 @@ export class HeadlessAgent extends React.Component {
               title={formatMessage({ id: 'menu.defaultHeadless' })}
               subTitle={formatMessage({ id: 'app.containers.HeadlessAgent.subTitle' })}
               className="site-page-header"
-              tags={<Tag color={tagColor}>{tagText}</Tag>}
+              tags={
+                <>
+                  {agentTypeTag}
+                  <Tag color={tagColor}>{tagText}</Tag>
+                </>
+              }
               extra={[
                 operationBtn,
                 <Button key="view" type="primary" disabled={!headlessConfig.RUNNING}>

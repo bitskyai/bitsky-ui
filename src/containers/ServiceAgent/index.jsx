@@ -26,6 +26,7 @@ import {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import styles from './style.less';
 import ServiceAgentForm from './ServiceAgentForm';
+import AgentType from '../../utils/AgentType';
 
 const { Paragraph } = Typography;
 
@@ -127,7 +128,9 @@ export class ServiceAgent extends React.Component {
     let tagColor = 'red';
     let tagText = formatMessage({ id: 'app.common.messages.status.stopped' });
     let operationBtn;
+    let agentTypeTag = '';
     if (serviceConfig) {
+      agentTypeTag = <AgentType type={serviceConfig.TYPE} />;
       if (serviceConfig.STARTING) {
         tagColor = 'blue';
         tagText = formatMessage({ id: 'app.common.messages.status.starting' });
@@ -185,7 +188,10 @@ export class ServiceAgent extends React.Component {
               title={formatMessage({ id: 'menu.defaultService' })}
               subTitle={formatMessage({ id: 'app.containers.ServiceAgent.subTitle' })}
               className="site-page-header"
-              tags={<Tag color={tagColor}>{tagText}</Tag>}
+              tags={<>
+                {agentTypeTag}
+                <Tag color={tagColor}>{tagText}</Tag>
+              </>}
               extra={[
                 operationBtn,
                 <Button key="view" type="primary" disabled={!serviceConfig.RUNNING}>
