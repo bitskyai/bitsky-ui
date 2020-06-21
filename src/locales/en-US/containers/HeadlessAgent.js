@@ -32,4 +32,8 @@ export default {
   'app.containers.HeadlessAgent.customFunctionTimeoutExample': '60000',
   'app.containers.HeadlessAgent.customFunctionTimeoutDescription':
     'Timeout value for executing custom function, value is based on <span class="ant-typography"><code>ms</code></span>',
+  // eslint-disable-next-line quotes
+  'app.containers.HeadlessAgent.invalidDataDir': `User Data Directory doesn't exist, please type valid User Data Directory. This change will not be saved before you fix it`,
+  // eslint-disable-next-line quotes
+  'app.containers.HeadlessAgent.notAValidDataDir': `Seems not a valid User Data Directory. This change was saved, but maybe doesn't change the behavior`,
 };

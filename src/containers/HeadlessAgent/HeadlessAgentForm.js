@@ -10,8 +10,9 @@ import {
   Typography,
   // message,
   Icon,
+  message,
 } from 'antd';
-import { FormattedHTMLMessage, formatMessage } from 'umi-plugin-react/locale';
+import { FormattedHTMLMessage, formatMessage, formatHTMLMessage } from 'umi-plugin-react/locale';
 import { Link } from 'umi';
 import { connect } from 'dva';
 import React from 'react';
@@ -29,6 +30,7 @@ import { getAgentAPI } from '../../apis/agents';
 import { checkEngineHealthAPI } from '../../apis/dia';
 import HTTPError from '../../utils/HTTPError';
 import { sendToElectron } from '../../utils/utils';
+import IpcEvents from '../../utils/Ipc-events';
 
 const { Paragraph, Text } = Typography;
 
@@ -50,6 +52,8 @@ class HeadlessAgentForm extends React.Component {
 
     // Set default state
     this.state = {
+      userDataDirValidateStatus: undefined,
+      userDataDirValidateHelp: '',
       selectedAgentHome: undefined,
       alertType: undefined,
       // validating: true,
@@ -63,6 +67,7 @@ class HeadlessAgentForm extends React.Component {
     // setTimeout handler
     this.validateFormHandler = undefined;
     this.saveConfigurationHanlder = undefined;
+    this.saveUserDataDirHanlder = undefined;
   }
 
   componentDidMount() {
@@ -383,12 +388,72 @@ class HeadlessAgentForm extends React.Component {
         if (this.state.selectedAgentHome) {
           values.AGENT_HOME = this.state.selectedAgentHome;
         }
-        this.props.dispatch(updateHeadlessConfig(values));
+        this.updateConfiguration(values);
         this.onValidateForm();
       } catch (err) {
         // message.error(formatMessage(messages.saveFailed));
       }
-    }, 1000);
+    }, 2000);
+  }
+
+  updateConfiguration(v) {
+    try {
+      let values = v;
+      if (!values) {
+        values = this.props.form.getFieldsValue();
+      }
+      this.props.dispatch(updateHeadlessConfig(values));
+    } catch (err) {
+      message.error('ss');
+    }
+  }
+
+  saveUserDataDir() {
+    clearTimeout(this.saveUserDataDirHanlder);
+    this.saveUserDataDirHanlder = setTimeout(async () => {
+      try {
+        const values = this.props.form.getFieldsValue();
+        if (values.PUPPETEER_USER_DATA_DIR) {
+          this.setState({
+            userDataDirValidateStatus: 'validating',
+          });
+          const validateResult = await sendToElectron(IpcEvents.COMMON_IS_USER_DATA_DIRETORY, {
+            directory: values.PUPPETEER_USER_DATA_DIR,
+          });
+          if (!validateResult.validPath) {
+            this.setState({
+              userDataDirValidateStatus: 'error',
+              userDataDirValidateHelp: formatHTMLMessage({
+                id: 'app.containers.HeadlessAgent.invalidDataDir',
+              }),
+            });
+          } else if (!validateResult.userDataDir) {
+            this.setState({
+              userDataDirValidateStatus: 'warning',
+              userDataDirValidateHelp: formatHTMLMessage({
+                id: 'app.containers.HeadlessAgent.notAValidDataDir',
+              }),
+            });
+            this.updateConfiguration();
+          } else {
+            this.setState({
+              userDataDirValidateStatus: 'success',
+              userDataDirValidateHelp: '',
+            });
+            this.updateConfiguration();
+          }
+        } else {
+          // when `PUPPETEER_USER_DATA_DIR` is empty, then means remove it
+          this.setState({
+            userDataDirValidateStatus: '',
+            userDataDirValidateHelp: '',
+          });
+          this.updateConfiguration();
+        }
+      } catch (err) {
+        message.error('ss');
+      }
+    }, 2000);
   }
 
   render() {
@@ -397,6 +462,8 @@ class HeadlessAgentForm extends React.Component {
     const {
       baseURLValidateStatus,
       agentGlobalIdValidateStatus,
+      userDataDirValidateStatus,
+      userDataDirValidateHelp,
       // validating,
       alertType,
       alertMessage,
@@ -426,6 +493,15 @@ class HeadlessAgentForm extends React.Component {
       globalIdProps = {
         hasFeedback: true,
         validateStatus: agentGlobalIdValidateStatus,
+      };
+    }
+
+    let userDataDirProps = {};
+    if (userDataDirValidateStatus) {
+      userDataDirProps = {
+        hasFeedback: true,
+        validateStatus: userDataDirValidateStatus,
+        help: userDataDirValidateHelp,
       };
     }
 
@@ -753,8 +829,13 @@ class HeadlessAgentForm extends React.Component {
                   <Select.Option value={DEFAULT_BUNDLED_CHROMIUM}>
                     <FormattedHTMLMessage id="app.containers.HeadlessAgent.bundledChromium" />
                   </Select.Option>
-                  {chromeInstallations.map(installation => (
-                    <Select.Option value={installation} title={installation}>
+                  {chromeInstallations.map((installation, index) => (
+                    // eslint-disable-next-line react/no-array-index-key
+                    <Select.Option
+                      key={`${Date.now()}-${index}`}
+                      value={installation}
+                      title={installation}
+                    >
                       {installation}
                     </Select.Option>
                   ))}
@@ -769,24 +850,18 @@ class HeadlessAgentForm extends React.Component {
             <Form.Item
               label={formatMessage({ id: 'app.containers.HeadlessAgent.userDataDir' })}
               style={formItemStyle}
-              hasFeedback={false}
+              {...userDataDirProps}
             >
               {getFieldDecorator('PUPPETEER_USER_DATA_DIR', {
                 initialValue: headlessConfig.PUPPETEER_USER_DATA_DIR,
-                rules: [
-                  {
-                    message: formatMessage({
-                      id: 'app.common.messages.agentHomeFolderInvalid',
-                    }),
-                  },
-                ],
+                rules: [],
               })(
                 <Input
                   disabled={disableEdit}
                   placeholder={formatMessage({
                     id: 'app.common.messages.agentHomeFolderExample',
                   })}
-                  onChange={e => this.saveConfiguration(e)}
+                  onChange={e => this.saveUserDataDir(e)}
                 />,
               )}
             </Form.Item>
