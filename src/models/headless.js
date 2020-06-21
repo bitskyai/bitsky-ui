@@ -13,7 +13,7 @@ export default {
     modified: Date.now(),
   },
   effects: {
-    *getHeadlessConfig(payload, { call, put }) {
+    *getConfig(payload, { call, put }) {
       try {
         yield put({
           type: 'loadingData',
@@ -21,11 +21,11 @@ export default {
             loadingData: true,
           },
         });
-        const cbData = yield call(sendToElectron, 'getHeadlessConfig');
+        const cbData = yield call(sendToElectron, 'headless/getConfig');
         if (_.get(cbData, 'status')) {
           yield put({
             type: 'getHeadlessConfigSuccess',
-            payload: _.get(cbData, 'data'),
+            payload: cbData,
           });
         } else {
           yield put({
@@ -117,7 +117,8 @@ export default {
     getHeadlessConfigSuccess(state, { payload }) {
       return produce(state, draft => {
         draft.loadingData = false;
-        draft.data = payload;
+        draft.data = payload.data;
+        draft.options = payload.options;
         draft.error = undefined;
         draft.modified = Date.now();
       });

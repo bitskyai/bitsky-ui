@@ -19,6 +19,10 @@ export default {
   'app.containers.HeadlessAgent.customFunctionTimeoutInvalid':
     'Please enter a valid custom function timeout value',
   'app.containers.HeadlessAgent.customFunctionTimeoutExample': '60000',
+  'app.containers.HeadlessAgent.bundledChromium': 'Bundled Chromium',
+  'app.containers.HeadlessAgent.browserInstallations': 'Browser Installation Path',
+  // eslint-disable-next-line quotes
+  'app.containers.HeadlessAgent.browserInstallationsDescription': `Default use bundled Chromium. You can choose an installed Chrome. <br/><b>Note:&nbsp;</b><a href="https://pptr.dev/#?product=Puppeteer&version=v4.0.0&show=api-puppeteerlaunchoptions">Puppeteer</a> is only guaranteed to work with the bundled Chromium, use at your own risk.`,
   'app.containers.HeadlessAgent.customFunctionTimeoutDescription':
     'Timeout value for executing custom function, value is based on <span class="ant-typography"><code>ms</code></span>',
 };

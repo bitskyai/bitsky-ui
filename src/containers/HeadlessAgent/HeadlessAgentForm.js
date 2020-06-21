@@ -41,6 +41,8 @@ const FormItemContainer = styled.div`
   margin-bottom: 5px;
 `;
 
+const DEFAULT_BUNDLED_CHROMIUM = 'default';
+
 class HeadlessAgentForm extends React.Component {
   constructor() {
     super();
@@ -360,6 +362,9 @@ class HeadlessAgentForm extends React.Component {
     this.saveConfigurationHanlder = setTimeout(() => {
       try {
         const values = this.props.form.getFieldsValue();
+        if (values.PUPPETEER_EXECUTABLE_PATH === DEFAULT_BUNDLED_CHROMIUM) {
+          values.PUPPETEER_EXECUTABLE_PATH = '';
+        }
         this.props.dispatch(updateHeadlessConfig(values));
         this.onValidateForm();
       } catch (err) {
@@ -380,10 +385,14 @@ class HeadlessAgentForm extends React.Component {
     } = this.state;
     const headless = this.props.headless || {};
     const headlessConfig = headless.data;
+    const chromeInstallations = _.get(headless, 'options.chromeInstallations') || [];
     // const agentConfig = headless.agent;
 
     // when server is starting or stopping, don't allow to change before finish
     const disableEdit = headlessConfig.STARTING || headlessConfig.STOPPING;
+    if (!headlessConfig.PUPPETEER_EXECUTABLE_PATH) {
+      headlessConfig.PUPPETEER_EXECUTABLE_PATH = DEFAULT_BUNDLED_CHROMIUM;
+    }
 
     let baseURLProps = {};
     if (baseURLValidateStatus) {
@@ -651,6 +660,36 @@ class HeadlessAgentForm extends React.Component {
             </Form.Item>
             <FormDescription>
               <FormattedHTMLMessage id="app.containers.HeadlessAgent.screenshotsDescription" />
+            </FormDescription>
+          </FormItemContainer>
+          <FormItemContainer>
+            <Form.Item
+              label={formatMessage({ id: 'app.containers.HeadlessAgent.browserInstallations' })}
+              style={formItemStyle}
+            >
+              {getFieldDecorator('PUPPETEER_EXECUTABLE_PATH', {
+                initialValue: headlessConfig.PUPPETEER_EXECUTABLE_PATH,
+              })(
+                <Select
+                  disabled={disableEdit}
+                  placeholder={formatMessage({
+                    id: 'app.containers.HeadlessAgent.bundledChromium',
+                  })}
+                  onChange={e => this.saveConfiguration(e)}
+                >
+                  <Select.Option value={DEFAULT_BUNDLED_CHROMIUM}>
+                    <FormattedHTMLMessage id="app.containers.HeadlessAgent.bundledChromium" />
+                  </Select.Option>
+                  {chromeInstallations.map(installation => (
+                    <Select.Option value={installation} title={installation}>
+                      {installation}
+                    </Select.Option>
+                  ))}
+                </Select>,
+              )}
+            </Form.Item>
+            <FormDescription>
+              <FormattedHTMLMessage id="app.containers.HeadlessAgent.browserInstallationsDescription" />
             </FormDescription>
           </FormItemContainer>
           <FormItemContainer>

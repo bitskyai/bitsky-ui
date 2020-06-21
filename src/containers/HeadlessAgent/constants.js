@@ -3,7 +3,7 @@
  * Intelligences constants
  *
  */
-export const GET_HEADLESS_CONFIG = 'headless/getHeadlessConfig';
+export const GET_HEADLESS_CONFIG = 'headless/getConfig';
 export const UPDATE_HEADLESS_CONFIG = 'headless/updateConfig';
 export const START_HEADLESS = 'headless/start';
 export const STARTING_HEADLESS = 'headless/starting';
