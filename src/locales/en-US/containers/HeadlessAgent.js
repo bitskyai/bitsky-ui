@@ -18,11 +18,18 @@ export default {
   'app.containers.HeadlessAgent.customFunctionTimeout': 'Custom Function Timeout',
   'app.containers.HeadlessAgent.customFunctionTimeoutInvalid':
     'Please enter a valid custom function timeout value',
-  'app.containers.HeadlessAgent.customFunctionTimeoutExample': '60000',
+  'app.containers.HeadlessAgent.userDataDir': 'User Data Directory',
+  // eslint-disable-next-line quotes
+  'app.containers.HeadlessAgent.userDataDirDescription': `<p class="munew-form-description-p">Path to a <a href="https://chromium.googlesource.com/chromium/src/+/master/docs/user_data_dir.md">User Data Directory</a>. The user data directory contains profile data such as history, bookmarks, and cookies, as well as other per-installation local state. </p>
+                                                          <p class="munew-form-description-p">After you set, then <b>Headless Agent</b> will have all those data, this means if you log in to <b>Gmail</b>, and session still valid, <b>Headless Agent</b> also will automatically login to <b>Gmail</b>.</p>
+                                                          <p class="munew-form-description-p"><b>Important:</b>The <b>User Data Directory</b> should be the <b>User Data Directory</b> of the <b>Chrome</b>(<span class="ant-typography"><code>Browser Installation Path</code></span>) you selected</p>
+                                                          <p class="munew-form-description-p">Example(Mac OSX): <span class="ant-typography"><code>/Users/Alice/Library/Application Support/Google/Chrome</code></span></p>`,
   'app.containers.HeadlessAgent.bundledChromium': 'Bundled Chromium',
   'app.containers.HeadlessAgent.browserInstallations': 'Browser Installation Path',
   // eslint-disable-next-line quotes
-  'app.containers.HeadlessAgent.browserInstallationsDescription': `Default use bundled Chromium. You can choose an installed Chrome. <br/><b>Note:&nbsp;</b><a href="https://pptr.dev/#?product=Puppeteer&version=v4.0.0&show=api-puppeteerlaunchoptions">Puppeteer</a> is only guaranteed to work with the bundled Chromium, use at your own risk.`,
+  'app.containers.HeadlessAgent.browserInstallationsDescription': `<p class="munew-form-description-p">Default use <span class="ant-typography"><code>Bundled Chromium</code></span>. You can choose an installed Chrome from dropdown.</p>
+                                                                   <p class="munew-form-description-p"><b>Note:&nbsp;</b><a href="https://github.com/puppeteer/puppeteer/#q-why-doesnt-puppeteer-vxxx-work-with-chromium-vyyy">Puppeteer</a> is only guaranteed to work with the <span class="ant-typography"><code>Bundled Chromium</code></span></p>`,
+  'app.containers.HeadlessAgent.customFunctionTimeoutExample': '60000',
   'app.containers.HeadlessAgent.customFunctionTimeoutDescription':
     'Timeout value for executing custom function, value is based on <span class="ant-typography"><code>ms</code></span>',
 };

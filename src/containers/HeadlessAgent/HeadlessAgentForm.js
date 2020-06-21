@@ -664,36 +664,6 @@ class HeadlessAgentForm extends React.Component {
           </FormItemContainer>
           <FormItemContainer>
             <Form.Item
-              label={formatMessage({ id: 'app.containers.HeadlessAgent.browserInstallations' })}
-              style={formItemStyle}
-            >
-              {getFieldDecorator('PUPPETEER_EXECUTABLE_PATH', {
-                initialValue: headlessConfig.PUPPETEER_EXECUTABLE_PATH,
-              })(
-                <Select
-                  disabled={disableEdit}
-                  placeholder={formatMessage({
-                    id: 'app.containers.HeadlessAgent.bundledChromium',
-                  })}
-                  onChange={e => this.saveConfiguration(e)}
-                >
-                  <Select.Option value={DEFAULT_BUNDLED_CHROMIUM}>
-                    <FormattedHTMLMessage id="app.containers.HeadlessAgent.bundledChromium" />
-                  </Select.Option>
-                  {chromeInstallations.map(installation => (
-                    <Select.Option value={installation} title={installation}>
-                      {installation}
-                    </Select.Option>
-                  ))}
-                </Select>,
-              )}
-            </Form.Item>
-            <FormDescription>
-              <FormattedHTMLMessage id="app.containers.HeadlessAgent.browserInstallationsDescription" />
-            </FormDescription>
-          </FormItemContainer>
-          <FormItemContainer>
-            <Form.Item
               label={formatMessage({ id: 'app.containers.HeadlessAgent.customFunctionTimeout' })}
               style={formItemStyle}
             >
@@ -727,6 +697,65 @@ class HeadlessAgentForm extends React.Component {
             </Form.Item>
             <FormDescription>
               <FormattedHTMLMessage id="app.containers.HeadlessAgent.customFunctionTimeoutDescription" />
+            </FormDescription>
+          </FormItemContainer>
+          <FormItemContainer>
+            <Form.Item
+              label={formatMessage({ id: 'app.containers.HeadlessAgent.browserInstallations' })}
+              style={formItemStyle}
+            >
+              {getFieldDecorator('PUPPETEER_EXECUTABLE_PATH', {
+                initialValue: headlessConfig.PUPPETEER_EXECUTABLE_PATH,
+              })(
+                <Select
+                  disabled={disableEdit}
+                  placeholder={formatMessage({
+                    id: 'app.containers.HeadlessAgent.bundledChromium',
+                  })}
+                  onChange={e => this.saveConfiguration(e)}
+                >
+                  <Select.Option value={DEFAULT_BUNDLED_CHROMIUM}>
+                    <FormattedHTMLMessage id="app.containers.HeadlessAgent.bundledChromium" />
+                  </Select.Option>
+                  {chromeInstallations.map(installation => (
+                    <Select.Option value={installation} title={installation}>
+                      {installation}
+                    </Select.Option>
+                  ))}
+                </Select>,
+              )}
+            </Form.Item>
+            <FormDescription>
+              <FormattedHTMLMessage id="app.containers.HeadlessAgent.browserInstallationsDescription" />
+            </FormDescription>
+          </FormItemContainer>
+          <FormItemContainer>
+            <Form.Item
+              label={formatMessage({ id: 'app.containers.HeadlessAgent.userDataDir' })}
+              style={formItemStyle}
+              hasFeedback={false}
+            >
+              {getFieldDecorator('PUPPETEER_USER_DATA_DIR', {
+                initialValue: headlessConfig.PUPPETEER_USER_DATA_DIR,
+                rules: [
+                  {
+                    message: formatMessage({
+                      id: 'app.common.messages.agentHomeFolderInvalid',
+                    }),
+                  },
+                ],
+              })(
+                <Input
+                  disabled={disableEdit}
+                  placeholder={formatMessage({
+                    id: 'app.common.messages.agentHomeFolderExample',
+                  })}
+                  onChange={e => this.saveConfiguration(e)}
+                />,
+              )}
+            </Form.Item>
+            <FormDescription>
+              <FormattedHTMLMessage id="app.containers.HeadlessAgent.userDataDirDescription" />
             </FormDescription>
           </FormItemContainer>
         </Form>

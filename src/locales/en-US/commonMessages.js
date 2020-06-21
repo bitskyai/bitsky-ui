@@ -87,7 +87,8 @@ export default {
   'app.common.messages.agentHomeFolderInvalid': 'Please enter a valid agent home folder',
   'app.common.messages.agentHomeFolderExample': '/Users/exampleuser/.munew/agent',
   'app.common.messages.agentHomeFolderDescription':
-    'Logs, screenshots or other files will be stored in this folder. And you can access it by <span class="ant-typography"><code>http://localhost:Port</code></span>. Example: <span class="ant-typography"><code>/Users/exampleuser/.munew/agent</code></span>',
+    `<p class="munew-form-description-p">Logs, screenshots or other files will be stored in this folder. And you can access it by <span class="ant-typography"><code>http://localhost:Port</code></span>. </p>
+     <p class="munew-form-description-p">Example(Mac OSX): <span class="ant-typography"><code>/Users/exampleuser/.munew/agent</code></span></p>`,
   'app.common.messages.logLevel': 'Log Level',
   'app.common.messages.logLevelDebug': 'Debug',
   'app.common.messages.logLevelInfo': 'Info',
