@@ -1,7 +1,7 @@
 // import { refreshAgents } from './actions';
 import {
   Alert,
-  // Button,
+  Button,
   Form,
   Input,
   InputNumber,
@@ -28,8 +28,9 @@ import {
 import { getAgentAPI } from '../../apis/agents';
 import { checkEngineHealthAPI } from '../../apis/dia';
 import HTTPError from '../../utils/HTTPError';
+import { sendToElectron } from '../../utils/utils';
 
-const { Paragraph } = Typography;
+const { Paragraph, Text } = Typography;
 
 const FormDescription = styled(Paragraph)`
   padding: 5px 0;
@@ -49,6 +50,7 @@ class HeadlessAgentForm extends React.Component {
 
     // Set default state
     this.state = {
+      selectedAgentHome: undefined,
       alertType: undefined,
       // validating: true,
       alertMessage: "This agent isn't fully configured",
@@ -56,6 +58,7 @@ class HeadlessAgentForm extends React.Component {
 
     this.saveConfiguration.bind(this);
     this.onValidateForm.bind(this);
+    this.openDirectoryPicker.bind(this);
 
     // setTimeout handler
     this.validateFormHandler = undefined;
@@ -357,6 +360,18 @@ class HeadlessAgentForm extends React.Component {
     }
   }
 
+  async openDirectoryPicker() {
+    try {
+      const dir = await sendToElectron('common/openDirectoryPicker');
+      this.setState({
+        selectedAgentHome: dir.directory,
+      });
+      this.saveConfiguration();
+    } catch (err) {
+      // console.log(err);
+    }
+  }
+
   saveConfiguration() {
     clearTimeout(this.saveConfigurationHanlder);
     this.saveConfigurationHanlder = setTimeout(() => {
@@ -364,6 +379,9 @@ class HeadlessAgentForm extends React.Component {
         const values = this.props.form.getFieldsValue();
         if (values.PUPPETEER_EXECUTABLE_PATH === DEFAULT_BUNDLED_CHROMIUM) {
           values.PUPPETEER_EXECUTABLE_PATH = '';
+        }
+        if (this.state.selectedAgentHome) {
+          values.AGENT_HOME = this.state.selectedAgentHome;
         }
         this.props.dispatch(updateHeadlessConfig(values));
         this.onValidateForm();
@@ -382,6 +400,7 @@ class HeadlessAgentForm extends React.Component {
       // validating,
       alertType,
       alertMessage,
+      selectedAgentHome,
     } = this.state;
     const headless = this.props.headless || {};
     const headlessConfig = headless.data;
@@ -561,6 +580,21 @@ class HeadlessAgentForm extends React.Component {
                   },
                 ],
               })(
+                <div>
+                  <Text code>{selectedAgentHome || headlessConfig.AGENT_HOME}</Text>
+                  <Button
+                    size="small"
+                    onClick={e => this.openDirectoryPicker(e)}
+                    // title={formatMessage({
+                    //   id: 'munew.settings.selectFolderTooltip',
+                    // })}
+                  >
+                    <Icon type="folder-open" />
+                    {/* <FormattedMessage id="munew.settings.selectFolder" /> */}
+                  </Button>
+                </div>,
+                {
+                  /*
                 <Input
                   disabled={disableEdit}
                   placeholder={formatMessage({
@@ -568,6 +602,8 @@ class HeadlessAgentForm extends React.Component {
                   })}
                   onChange={e => this.saveConfiguration(e)}
                 />,
+                */
+                },
               )}
             </Form.Item>
             <FormDescription>

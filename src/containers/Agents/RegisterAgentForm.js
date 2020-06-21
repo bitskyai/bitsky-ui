@@ -18,7 +18,7 @@ import { FormattedHTMLMessage, formatHTMLMessage, formatMessage } from 'umi-plug
 // import messages from '../../locales/en-US/containers/Agents';
 // import commonMessages from '../../locales/en-US/globalMessages';
 
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import React from 'react';
 import _ from 'lodash';
 // import { exportDefaultSpecifier } from '@babel/types';
@@ -43,14 +43,15 @@ const SecondUnitContainer = styled.span`
 `;
 
 class RegisterAgentForm extends React.Component {
-  state = { sending: false, agentType: AGENT_TYPES.browserExtension };
+  // state = { sending: false, agentType: AGENT_TYPES.browserExtension };
+  state = { sending: false };
 
-  onAgentTypeChange(value) {
-    // console.log('onAgentTypeChange: ', value);
-    this.setState({
-      agentType: value,
-    });
-  }
+  // onAgentTypeChange(value) {
+  //   // console.log('onAgentTypeChange: ', value);
+  //   this.setState({
+  //     agentType: value,
+  //   });
+  // }
 
   // hasErrors(fieldsError) {
   //   return Object.keys(fieldsError).some(field => fieldsError[field]);
@@ -62,7 +63,6 @@ class RegisterAgentForm extends React.Component {
     this.setState({ sending: true });
     this.props.form.validateFieldsAndScroll(async (err, values) => {
       if (!err) {
-        console.log(values);
         try {
           if (this.props.agent) {
             values.globalId = this.props.agent.globalId;
@@ -270,7 +270,7 @@ class RegisterAgentForm extends React.Component {
               >
                 {getFieldDecorator('type', {
                   initialValue: _.toUpper(
-                    _.get(this, 'props.agent.type', AGENT_TYPES.browserExtension),
+                    _.get(this, 'props.agent.type', AGENT_TYPES.headlessBrowser),
                   ),
                   rules: [
                     {
@@ -284,13 +284,15 @@ class RegisterAgentForm extends React.Component {
                     placeholder={formatMessage({
                       id: 'app.containers.Agents.agentTypePlaceHolder',
                     })}
-                    onChange={value => {
-                      this.onAgentTypeChange(value);
-                    }}
+                    // onChange={value => {
+                    //   this.onAgentTypeChange(value);
+                    // }}
                   >
+                    {/*
                     <Select.Option value={AGENT_TYPES.browserExtension}>
                       <FormattedHTMLMessage id="app.containers.Agents.browserExtensionAgent" />
                     </Select.Option>
+                    */}
                     <Select.Option value={AGENT_TYPES.headlessBrowser}>
                       <FormattedHTMLMessage id="app.containers.Agents.headlessAgent" />
                     </Select.Option>
@@ -657,11 +659,11 @@ class RegisterAgentForm extends React.Component {
   }
 }
 
-RegisterAgentForm.propTypes = {
-  visiable: PropTypes.bool,
-  onCloseDrawer: PropTypes.func,
-  agent: PropTypes.object,
-};
+// RegisterAgentForm.propTypes = {
+//   visiable: PropTypes.bool,
+//   onCloseDrawer: PropTypes.func,
+//   agent: PropTypes.object,
+// };
 
 // export default Form.create()(injectIntl(RegisterAgentForm));
 export default Form.create()(RegisterAgentForm);
