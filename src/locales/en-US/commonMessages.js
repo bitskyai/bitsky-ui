@@ -86,8 +86,7 @@ export default {
   'app.common.messages.agentHomeFolderPicker': 'Select agent home folder',
   'app.common.messages.agentHomeFolderInvalid': 'Please enter a valid agent home folder',
   'app.common.messages.agentHomeFolderExample': '/Users/exampleuser/.munew/agent',
-  'app.common.messages.agentHomeFolderDescription':
-    `<p class="munew-form-description-p">Logs, screenshots or other files will be stored in this folder. And you can access it by <span class="ant-typography"><code>http://localhost:Port</code></span>. </p>
+  'app.common.messages.agentHomeFolderDescription': `<p class="munew-form-description-p">Logs, screenshots or other files will be stored in this folder. And you can access it by <span class="ant-typography"><code>http://localhost:Port</code></span>. </p>
      <p class="munew-form-description-p">Example(Mac OSX): <span class="ant-typography"><code>/Users/exampleuser/.munew/agent</code></span></p>`,
   'app.common.messages.logLevel': 'Log Level',
   'app.common.messages.logLevelDebug': 'Debug',
@@ -97,7 +96,7 @@ export default {
   'app.common.messages.logLevelInvalid': 'Please select a log level',
   'app.common.messages.logLevelExample': 'info',
   'app.common.messages.logLevelDescription':
-    'Log level decide what kind of should log. Default is <span class="ant-typography"><code>http://localhost:Port</code></span>. Example: <span class="ant-typography"><code>info</code></span>',
+    'Log level decide what kind of should log. Default:<span class="ant-typography"><code>Info</code></span>',
   'app.common.messages.switchOn': 'True',
   'app.common.messages.switchOff': 'False',
   'app.common.messages.state': 'State',

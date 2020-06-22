@@ -194,11 +194,13 @@ export class ServiceAgent extends React.Component {
               title={formatMessage({ id: 'menu.defaultService' })}
               subTitle={formatMessage({ id: 'app.containers.ServiceAgent.subTitle' })}
               className="site-page-header"
-              tags={<>
-                {agentTypeTag}
-                <Tag color={tagColor}>{tagText}</Tag>
-                {stateTag}
-              </>}
+              tags={
+                <>
+                  {agentTypeTag}
+                  <Tag color={tagColor}>{tagText}</Tag>
+                  {stateTag}
+                </>
+              }
               extra={[
                 operationBtn,
                 <Button key="view" type="primary" disabled={!serviceConfig.RUNNING}>
@@ -215,11 +217,11 @@ export class ServiceAgent extends React.Component {
           <div className="munew-agent-config-card">
             <Card hoverable>
               <Row>
-                <Col xs={0} sm={0} md={3} lg={4} xl={5}></Col>
-                <Col xs={24} sm={24} md={18} lg={16} xl={14}>
+                <Col xs={0} sm={0} md={0} lg={1} xl={2}></Col>
+                <Col xs={24} sm={24} md={24} lg={22} xl={20}>
                   <ServiceAgentForm />
                 </Col>
-                <Col xs={0} sm={0} md={3} lg={4} xl={5}></Col>
+                <Col xs={0} sm={0} md={0} lg={1} xl={2}></Col>
               </Row>
             </Card>
           </div>

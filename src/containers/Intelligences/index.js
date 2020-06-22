@@ -3,7 +3,20 @@
  * Intelligences
  *
  */
-import { Button, Checkbox, Col, Dropdown, Empty, Icon, Input, Menu, Row, Spin, Table } from 'antd';
+import {
+  Button,
+  Checkbox,
+  Col,
+  Dropdown,
+  Empty,
+  Icon,
+  Input,
+  Menu,
+  Row,
+  Spin,
+  Table,
+  message,
+} from 'antd';
 import { FormattedHTMLMessage, FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 
@@ -218,6 +231,11 @@ export class Intelligences extends React.Component {
         this.filterConditions.url,
         ids,
         this.filterConditions.state,
+      );
+      message.success(
+        formatMessage({
+          id: 'app.containers.Intelligences.deleteAllSuccessful',
+        }),
       );
       this.setState({
         operationBtns: {

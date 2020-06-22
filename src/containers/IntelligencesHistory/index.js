@@ -3,7 +3,20 @@
  * Intelligences History
  *
  */
-import { Button, Checkbox, Col, Dropdown, Empty, Icon, Input, Menu, Row, Spin, Table } from 'antd';
+import {
+  Button,
+  Checkbox,
+  Col,
+  Dropdown,
+  Empty,
+  Icon,
+  Input,
+  Menu,
+  Row,
+  Spin,
+  Table,
+  message,
+} from 'antd';
 import { FormattedHTMLMessage, FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import $ from 'jquery';
@@ -136,6 +149,11 @@ export class IntelligencesHistory extends React.Component {
         this.filterConditions.state,
         true,
       );
+      message.success(
+        formatMessage({
+          id: 'app.containers.Intelligences.deleteAllSuccessful',
+        }),
+      );
       this.setState({
         operationBtns: {
           pausing: false,
@@ -174,6 +192,10 @@ export class IntelligencesHistory extends React.Component {
         ids,
         this.filterConditions.state,
       );
+      const successStr = formatMessage({
+        id: 'app.containers.IntelligencesHistory.rerunAllSuccess',
+      });
+      message.success(successStr);
       this.setState({
         operationBtns: {
           pausing: false,
@@ -465,7 +487,7 @@ export class IntelligencesHistory extends React.Component {
                 loading={this.state.operationBtns.reruning}
               >
                 <FormattedMessage
-                  id="app.containers.Intelligences.rerunAll"
+                  id="app.containers.IntelligencesHistory.rerunAll"
                   values={{ intelligenceNumber: total }}
                 />
               </Button>
@@ -528,7 +550,7 @@ export class IntelligencesHistory extends React.Component {
                         loading={this.state.operationBtns.reruning}
                       >
                         <FormattedMessage
-                          id="app.containers.Intelligences.rerunAll"
+                          id="app.containers.IntelligencesHistory.rerunAll"
                           values={{ intelligenceNumber: total }}
                         />
                       </Button>
