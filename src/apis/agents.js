@@ -26,7 +26,7 @@ export async function getAgentsAPI() {
   }
 }
 
-export async function getAgentAPI(baseURL, gid, serialId, skipErrorHandler) {
+export async function getAgentAPI(baseURL, gid, serialId, type, skipErrorHandler) {
   try {
     const url = new URL(`/apis/agents/${gid}`, baseURL).toString();
     const headers = {};
@@ -34,6 +34,9 @@ export async function getAgentAPI(baseURL, gid, serialId, skipErrorHandler) {
     const response = await http({
       headers,
       url,
+      params: {
+        type,
+      },
       method: 'GET',
       skipErrorHandler,
     });

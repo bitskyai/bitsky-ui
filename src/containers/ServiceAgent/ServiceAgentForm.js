@@ -19,7 +19,13 @@ import _ from 'lodash';
 import styled from 'styled-components';
 
 // import { filterOutEmptyValue } from '../../utils/utils';
-import { LOG_LEVEL, ENGINE_HEALTH_METHOD, ENGINE_HEALTH_PATH, STATES } from '../../utils/constants';
+import {
+  LOG_LEVEL,
+  ENGINE_HEALTH_METHOD,
+  ENGINE_HEALTH_PATH,
+  STATES,
+  AGENT_TYPES,
+} from '../../utils/constants';
 import {
   updateServiceConfig,
   getAgentConfigurationSuccess,
@@ -200,7 +206,7 @@ class ServiceAgentForm extends React.Component {
   async getAgentConfiguration(baseURL, gid, serialId) {
     try {
       // If *globalId* exist, then get agent information from server side.
-      const agentConfig = await getAgentAPI(baseURL, gid, serialId, true);
+      const agentConfig = await getAgentAPI(baseURL, gid, serialId, AGENT_TYPES.service, true);
       this.props.dispatch(getAgentConfigurationSuccess(agentConfig));
       return {
         status: 'success',
@@ -243,6 +249,14 @@ class ServiceAgentForm extends React.Component {
             <FormattedHTMLMessage
               id="app.common.messages.http.missedsSerialId"
               values={{ serialIdHeader: 'x-munew' }}
+            />
+          );
+        } else if (err.status >= 400 && err.code === '00144000004') {
+          result.alertType = 'error';
+          result.alertMessage = (
+            <FormattedHTMLMessage
+              id="app.common.messages.agent.unmatchedAgentType"
+              values={{ agentType: 'Service' }}
             />
           );
         } else if (err.status >= 400) {

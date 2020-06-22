@@ -140,6 +140,8 @@ export default {
     'Ooops... Something went wrong, we cannot connect this server. Maybe server is down or you are connecting to wrong server.',
   'app.common.messages.http.cannotConnect':
     'Cannot connect to this server, please check your network or whether target server is running',
+  'app.common.messages.http.inputError':
+    'The server could not understand the request due to invalid syntax, please check the data you typed',
   'app.common.messages.http.missedsSerialId':
     'You must add <span class="ant-typography"><code>{serialIdHeader}</code></span> to http request header',
   'app.common.messages.http.agentWasConnected':

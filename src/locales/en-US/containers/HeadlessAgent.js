@@ -18,7 +18,6 @@ export default {
   'app.containers.HeadlessAgent.customFunctionTimeout': 'Custom Function Timeout',
   'app.containers.HeadlessAgent.customFunctionTimeoutInvalid':
     'Please enter a valid custom function timeout value',
-  'app.containers.HeadlessAgent.userDataDir': 'User Data Directory',
   // eslint-disable-next-line quotes
   'app.containers.HeadlessAgent.userDataDirDescription': `<p class="munew-form-description-p">Path to a <a href="https://chromium.googlesource.com/chromium/src/+/master/docs/user_data_dir.md">User Data Directory</a>. The user data directory contains profile data such as history, bookmarks, and cookies, as well as other per-installation local state. </p>
                                                           <p class="munew-form-description-p">After you set, then <b>Headless Agent</b> will have all those data, this means if you log in to <b>Gmail</b>, and session still valid, <b>Headless Agent</b> also will automatically login to <b>Gmail</b>.</p>
@@ -32,6 +31,8 @@ export default {
   'app.containers.HeadlessAgent.customFunctionTimeoutExample': '60000',
   'app.containers.HeadlessAgent.customFunctionTimeoutDescription':
     'Timeout value for executing custom function, value is based on <span class="ant-typography"><code>ms</code></span>',
+  'app.containers.HeadlessAgent.userDataDir': 'User Data Directory',
+  'app.containers.HeadlessAgent.userDataDirExample': '/Users/Alice/Library/Application Support/Google/Chrome',
   // eslint-disable-next-line quotes
   'app.containers.HeadlessAgent.invalidDataDir': `User Data Directory doesn't exist, please type valid User Data Directory. This change will not be saved before you fix it`,
   // eslint-disable-next-line quotes

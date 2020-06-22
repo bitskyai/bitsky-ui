@@ -20,7 +20,13 @@ import _ from 'lodash';
 import styled from 'styled-components';
 
 // import { filterOutEmptyValue } from '../../utils/utils';
-import { LOG_LEVEL, ENGINE_HEALTH_METHOD, ENGINE_HEALTH_PATH, STATES } from '../../utils/constants';
+import {
+  LOG_LEVEL,
+  ENGINE_HEALTH_METHOD,
+  ENGINE_HEALTH_PATH,
+  STATES,
+  AGENT_TYPES,
+} from '../../utils/constants';
 import {
   updateHeadlessConfig,
   getAgentConfigurationSuccess,
@@ -209,7 +215,13 @@ class HeadlessAgentForm extends React.Component {
   async getAgentConfiguration(baseURL, gid, serialId) {
     try {
       // If *globalId* exist, then get agent information from server side.
-      const agentConfig = await getAgentAPI(baseURL, gid, serialId, true);
+      const agentConfig = await getAgentAPI(
+        baseURL,
+        gid,
+        serialId,
+        AGENT_TYPES.headlessBrowser,
+        true,
+      );
       this.props.dispatch(getAgentConfigurationSuccess(agentConfig));
       return {
         status: 'success',
@@ -252,6 +264,14 @@ class HeadlessAgentForm extends React.Component {
             <FormattedHTMLMessage
               id="app.common.messages.http.missedsSerialId"
               values={{ serialIdHeader: 'x-munew' }}
+            />
+          );
+        } else if (err.status >= 400 && err.code === '00144000004') {
+          result.alertType = 'error';
+          result.alertMessage = (
+            <FormattedHTMLMessage
+              id="app.common.messages.agent.unmatchedAgentType"
+              values={{ agentType: 'Headless' }}
             />
           );
         } else if (err.status >= 400) {
@@ -830,8 +850,8 @@ class HeadlessAgentForm extends React.Component {
                     <FormattedHTMLMessage id="app.containers.HeadlessAgent.bundledChromium" />
                   </Select.Option>
                   {chromeInstallations.map((installation, index) => (
-                    // eslint-disable-next-line react/no-array-index-key
                     <Select.Option
+                      // eslint-disable-next-line react/no-array-index-key
                       key={`${Date.now()}-${index}`}
                       value={installation}
                       title={installation}
@@ -859,7 +879,7 @@ class HeadlessAgentForm extends React.Component {
                 <Input
                   disabled={disableEdit}
                   placeholder={formatMessage({
-                    id: 'app.common.messages.agentHomeFolderExample',
+                    id: 'app.containers.HeadlessAgent.userDataDirExample',
                   })}
                   onChange={e => this.saveUserDataDir(e)}
                 />,
