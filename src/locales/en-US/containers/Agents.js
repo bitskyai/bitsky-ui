@@ -18,7 +18,7 @@ export default {
   'app.containers.Agents.activeAgentTip':
     'This agent is in Active status, you need to Deactivate it before you can modify',
   'app.containers.Agents.registerAgentDescription':
-    'Agent is the client that collect the intelligences your Analyst Services created. It has several types: <a href="#" target="_blank">browser extension</a>, <a href="#" target="_blank">service</a>, you also can develop an agent by yourself',
+    'Agent is the client that collect the tasks your Analyst Services created. It has several types: <a href="#" target="_blank">browser extension</a>, <a href="#" target="_blank">service</a>, you also can develop an agent by yourself',
   'app.containers.Agents.deleteAgentDescription': 'Are you sure delete this Agent?',
   'app.containers.Agents.deleteAgentSuccessful': 'Delete Agent Successful',
   'app.containers.Agents.agentName': 'Name',
@@ -55,10 +55,10 @@ export default {
     'Configure your agent based on your need, otherwise you can keep it as default.',
   'app.containers.Agents.activeAgent': 'Active',
   'app.containers.Agents.watchingNewJobDescription':
-    'After you configure correctly, then you can active this agent, it will check whether has new intelligences need to collect every {pollingInterval} second. You can change this value in <a href="#pollingInterval">Polling Interval</a>',
+    'After you configure correctly, then you can active this agent, it will check whether has new tasks need to collect every {pollingInterval} second. You can change this value in <a href="#pollingInterval">Polling Interval</a>',
   'app.containers.Agents.privateMode': 'Private Mode',
   'app.containers.Agents.privateModeDescription':
-    'Private mode means your agent will only collect intelligences that created by yourself',
+    'Private mode means your agent will only collect tasks that created by yourself',
   'app.containers.Agents.switchOn': 'ON',
   'app.containers.Agents.switchOff': 'OFF',
   'app.containers.Agents.diaBaseURL': 'DIA Base URL',
@@ -77,7 +77,7 @@ export default {
     'Please enter polling interval value, like 30',
   'app.containers.Agents.pollingIntervalExample': '30',
   'app.containers.Agents.pollingIntervalDescription':
-    'How frequently to check whether need to collect new intelligences',
+    'How frequently to check whether need to collect new tasks',
   'app.containers.Agents.maxWaitingTime': 'Max Waiting Time',
   'app.containers.Agents.maxWaitingTimePlaceholder': 'Please enter waiting time, like 5',
   'app.containers.Agents.maxWaitingTimeExample': '5',
@@ -92,13 +92,13 @@ export default {
   'app.containers.Agents.agentIdleTimePlaceholder': 'Please enter agent idel time value, like 50',
   'app.containers.Agents.agentIdleTimeExample': '50',
   'app.containers.Agents.agentIdleTimeDescription':
-    'How long time browser need to wait to restart collect intelligences after close browser window. This time is used for browser to release memory.',
-  'app.containers.Agents.concurrentCollectIntelligences': 'Concurrent Collect Intelligences',
+    'How long time browser need to wait to restart collect tasks after close browser window. This time is used for browser to release memory.',
+  'app.containers.Agents.concurrentCollectIntelligences': 'Concurrent Collect Tasks',
   'app.containers.Agents.concurrentCollectIntelligencesPlaceholder':
-    'Please enter concurrent collect intelligences, like 1',
+    'Please enter concurrent collect tasks, like 1',
   'app.containers.Agents.concurrentCollectIntelligencesExample': '1',
   'app.containers.Agents.concurrentCollectIntelligencesDescription':
-    'How many intelligences need to be concurrent collected',
+    'How many tasks need to be concurrent collected',
   'app.containers.Agents.requestTimeout': 'Request Timeout',
   'app.containers.Agents.requestTimeoutPlaceholder': 'Please enter request timeout value, like 90',
   'app.containers.Agents.requestTimeoutExample': '90',
@@ -108,7 +108,7 @@ export default {
   'app.containers.Agents.maxRetryTimePlaceholder': 'Please enter max retry time value, like 3',
   'app.containers.Agents.maxRetryTimeExample': '3',
   'app.containers.Agents.maxRetryTimeDescription':
-    'Max retry time if send collected intelligences fail, if retried max time, then it will send back to DIA and mark those intelligences fail',
+    'Max retry time if send collected tasks fail, if retried max time, then it will send back to DIA and mark those tasks fail',
   'app.containers.Agents.httpMethod': 'HTTP Method',
   'app.containers.Agents.httpMethodPlaceHolder': 'Please select your HTTP method',
   'app.containers.Agents.httpMethodDescription':
@@ -118,17 +118,17 @@ export default {
   'app.containers.Agents.urlPathDescription':
     'URL path of your RESTFul API. <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Identifying_resources_on_the_Web#Path" target="_blank">Learn More.</a>',
   'app.containers.Agents.healthTitle': 'Health Check',
-  'app.containers.Agents.getIntelligences': 'Get Intelligences',
+  'app.containers.Agents.getIntelligences': 'Get Tasks',
   'app.containers.Agents.getIntelligencesDescription':
-    "Configure RESTFul API to get intelligences from DIA. Normally you don't need to change this value, only change this when you re-implement DIA. ",
+    "Configure RESTFul API to get tasks from DIA. Normally you don't need to change this value, only change this when you re-implement DIA. ",
   'app.containers.Agents.unregisterAgent': 'Unregister Agent',
   'app.containers.Agents.unregisterAgentDescription':
     "You need to register this agent before you can use it.  <a href='https://docs.munew.io/how-tos/how-to-register-an-agent' target='_blank'>How to register an Agent</a>",
   'app.containers.Agents.checkingDIAHealth': 'Checking DIA health... [ {method} ] {url}',
   'app.containers.Agents.activateDescription':
-    'Activate this agent, after activate then this agent will start collect intelligences',
+    'Activate this agent, after activate then this agent will start collect tasks',
   'app.containers.Agents.deactivateDescription':
-    'Deactivate this agent, after deactivate then this agent will stop collect intelligences',
+    'Deactivate this agent, after deactivate then this agent will stop collect tasks',
   'app.containers.Agents.disconnectDescription':
     'Disconnect all the agent currently connect to this agent, after disconnect successful will generate new globalId',
   'app.containers.Agents.activateAgentSuccess': 'Successfully activate this agent',

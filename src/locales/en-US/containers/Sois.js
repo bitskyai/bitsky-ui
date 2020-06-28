@@ -16,12 +16,12 @@ export default {
   'app.containers.Sois.pingSuccessful': 'Analyst Service server is running',
   'app.containers.Sois.pingFail': 'Analyst Service server is down or cannot connect',
   'app.containers.Sois.registerSOIDescription':
-    'Analyst Service is the service you developed to extract data from collect intelligences, you can use any language to develop, only requirement is it can receive HTTP request.',
+    'Analyst Service is the service you developed to extract data from collect tasks, you can use any language to develop, only requirement is it can receive HTTP request.',
   'app.containers.Sois.globalId': 'Global ID',
   'app.containers.Sois.globalIdPlaceholder': 'Please enter an unique ID',
   'app.containers.Sois.globalIdExample': '0e9fe15e-f9a0-4279-9e65-87d2e480a66e',
   'app.containers.Sois.globalIdDescription':
-    '<b>Global ID</b> is used to identify your Analyst Service, it should be global unique, <span style="color:#faad14">after it created you cannot change it</span>, and when you create intelligences for this Analyst Service, you need to pass this global id, so it knows this intelligences are for this Analyst Service. If you use nodejs, then you can use <a href="https://www.npmjs.com/package/uuid" target="_blank">uuid</a> to generate',
+    '<b>Global ID</b> is used to identify your Analyst Service, it should be global unique, <span style="color:#faad14">after it created you cannot change it</span>, and when you create tasks for this Analyst Service, you need to pass this global id, so it knows this tasks are for this Analyst Service. If you use nodejs, then you can use <a href="https://www.npmjs.com/package/uuid" target="_blank">uuid</a> to generate',
   'app.containers.Sois.soiName': 'Analyst Service Name',
   'app.containers.Sois.soiNamePlaceholder': 'Please enter your Analyst Service name',
   'app.containers.Sois.soiNameInvalid':

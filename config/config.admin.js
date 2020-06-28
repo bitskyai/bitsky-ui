@@ -1,13 +1,13 @@
 let menuRouters = [
-  { path: '/app/', redirect: '/app/intelligences' },
+  { path: '/app/', redirect: '/app/tasks' },
   {
-    path: '/app/intelligences',
+    path: '/app/tasks',
     name: 'intelligences',
     icon: 'info-circle',
     component: './Intelligences',
   },
   {
-    path: '/app/sois',
+    path: '/app/analystservices',
     name: 'sois',
     icon: 'cloud-server',
     component: './SOIs',
@@ -19,7 +19,7 @@ let menuRouters = [
     component: './Agents',
   },
   {
-    path: '/app/intellgienceshistory',
+    path: '/app/taskshistory',
     name: 'intellgienceshistory',
     icon: 'history',
     component: './IntellgiencesHistory',
@@ -33,8 +33,8 @@ export default {
       path: '/',
       component: '../layouts/BlankLayout',
       routes: [
-        { path: '/', redirect: '/app/intelligences' },
-        { path: '/home', redirect: '/app/intelligences' },
+        { path: '/', redirect: '/app/tasks' },
+        { path: '/home', redirect: '/app/tasks' },
         {
           path: '/app',
           component: '../layouts/BasicLayout',

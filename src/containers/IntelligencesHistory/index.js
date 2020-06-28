@@ -374,14 +374,14 @@ export class IntelligencesHistory extends React.Component {
       {
         title: 'Target URL',
         dataIndex: 'url',
-        width: '40%',
+        // width: '40%',
         filteredValue: this.filterConditions.url,
         ...this.getColumnSearchProps('url'),
       },
       {
         title: formatMessage({ id: 'app.common.messages.state' }),
         dataIndex: 'system.state',
-        width: '15%',
+        // width: '15%',
         render: state => <StateTag state={state} />,
         filteredValue: this.filterConditions.state,
         ...this.getColumnCheckboxProps('state', [
@@ -513,9 +513,15 @@ export class IntelligencesHistory extends React.Component {
         const rightContent = (
           <div style={{ display: 'inline-block' }}>
             <div style={{ display: 'inline-block' }}>
-              <span>{`Show ${_.get(intelligences, 'data.length')} of ${
-                intelligences.total
-              } intelligences`}</span>
+              <span>
+                <FormattedMessage
+                  id="app.containers.Intelligences.showIntelligences"
+                  values={{
+                    intelligencesNumber: _.get(intelligences, 'data.length'),
+                    intelligencesTotal: intelligences.total,
+                  }}
+                />
+              </span>
             </div>
             <Button
               type="link"

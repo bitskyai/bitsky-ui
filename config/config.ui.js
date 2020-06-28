@@ -6,7 +6,7 @@ export default {
       component: '../layouts/BlankLayout',
       authority: ['admin', 'user'],
       routes: [
-        { path: '/', redirect: '/app/intelligences' },
+        { path: '/', redirect: '/app/tasks' },
         {
           path: '/home',
           routes: [
@@ -61,9 +61,9 @@ export default {
           component: '../layouts/BasicLayout',
           Routes: ['src/pages/Authorized'],
           routes: [
-            { path: '/app/', redirect: '/app/intelligences' },
+            { path: '/app/', redirect: '/app/tasks' },
             {
-              path: '/app/intelligences',
+              path: '/app/tasks',
               name: 'intelligences',
               icon: 'info-circle',
               component: './Intelligences',

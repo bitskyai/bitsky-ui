@@ -5,7 +5,7 @@
  */
 export default {
   'app.containers.HeadlessAgent.subTitle':
-    'Launch a Chromium instance and execute your Intelligences',
+    'Launch a Chromium instance and execute your Tasks',
   'app.containers.HeadlessAgent.description':
     'Headless agent is based on <a href="https://pptr.dev/">Puppeteer</a>, and it is good for crawl data from Single Page Application.',
   'app.containers.HeadlessAgent.saveAndRestart': 'Save & Restart',
