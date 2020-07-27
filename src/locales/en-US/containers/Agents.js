@@ -18,7 +18,7 @@ export default {
   'app.containers.Agents.activeAgentTip':
     'This agent is in Active status, you need to Deactivate it before you can modify',
   'app.containers.Agents.registerAgentDescription':
-    'Agent is the client that collect the tasks your Analyst Services created. It has several types: <a href="#" target="_blank">browser extension</a>, <a href="#" target="_blank">service</a>, you also can develop an agent by yourself',
+    'Agent is the client that collect the tasks your Retailer Services created. It has several types: <a href="#" target="_blank">browser extension</a>, <a href="#" target="_blank">service</a>, you also can develop an agent by yourself',
   'app.containers.Agents.deleteAgentDescription': 'Are you sure delete this Agent?',
   'app.containers.Agents.deleteAgentSuccessful': 'Delete Agent Successful',
   'app.containers.Agents.agentName': 'Name',
@@ -40,9 +40,9 @@ export default {
   'app.containers.Agents.baseURLExample': 'http://localhost:3000',
   'app.containers.Agents.baseURLDescription':
     'Base url of your service agent, make sure DIA Agent can access your service agent',
-  'app.containers.Agents.registerAgentSuccessful': 'Register Analyst Service Successful',
+  'app.containers.Agents.registerAgentSuccessful': 'Register Retailer Service Successful',
   'app.containers.Agents.healthDescription':
-    'Health check API endpoint for your Analyst Service(e.g. HTTP <span class="ant-typography"><code>/health</code></span>) that returns the health of your Analyst Service. HTTP status is <span class="ant-typography"><code>2xx</code></span> means health, otherwise means unhealth. <a href="https://microservices.io/patterns/observability/health-check-api.html" target="_blank">Learn More.</a>',
+    'Health check API endpoint for your Retailer Service(e.g. HTTP <span class="ant-typography"><code>/health</code></span>) that returns the health of your Retailer Service. HTTP status is <span class="ant-typography"><code>2xx</code></span> means health, otherwise means unhealth. <a href="https://microservices.io/patterns/observability/health-check-api.html" target="_blank">Learn More.</a>',
   'app.containers.Agents.agentType': 'Agent Type',
   'app.containers.Agents.agentTypePlaceHolder': 'Please select your Agent Type',
   'app.containers.Agents.agentTypeDescription':
