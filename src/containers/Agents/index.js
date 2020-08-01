@@ -1,6 +1,6 @@
 import './style.css';
 import * as _ from 'lodash';
-import { Button, Col, Empty, Icon, Popconfirm, Row, Table, message, Tag } from 'antd';
+import { Button, Col, Empty, Icon, Popconfirm, Row, Table, message } from 'antd';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { FormattedHTMLMessage, formatMessage } from 'umi-plugin-react/locale';
 /**
@@ -105,19 +105,13 @@ export class Agents extends React.Component {
   activateAgent(agent, event) {
     event.preventDefault();
     event.stopPropagation();
-    activateAgentAPI(agent.globalId).then(
-      () => {
-        this.props.dispatch({
-          type: 'agents/refreshAgents',
-        });
-        const msg = formatMessage({ id: 'app.containers.Agents.activateAgentSuccess' });
-        message.success(msg);
-      },
-      err => {
-        // message.error(err);
-        console.error(err);
-      },
-    );
+    activateAgentAPI(agent.globalId).then(() => {
+      this.props.dispatch({
+        type: 'agents/refreshAgents',
+      });
+      const msg = formatMessage({ id: 'app.containers.Agents.activateAgentSuccess' });
+      message.success(msg);
+    });
   }
 
   deactivateAgent(agent, event) {

@@ -44,7 +44,7 @@ import {
 import StateTag from '../../utils/StateTag';
 import { STATES } from '../../utils/constants';
 
-// import DiaPageHeader from '../../components/Common';
+import TaskDetail from './TaskDetail';
 
 const EmptyContainer = styled.div`
   padding: 100px 0;
@@ -75,6 +75,8 @@ export class Intelligences extends React.Component {
       loadingMore: false,
       loadingIntelligencesData: true,
       contentHeight: window.innerHeight,
+      drawerVisiable: false,
+      selectedTask: undefined,
       operationBtns: {
         pausing: false,
         resuming: false,
@@ -126,6 +128,25 @@ export class Intelligences extends React.Component {
 
   componentWillUnmount() {
     $(window).unbind('resize');
+  }
+
+  onShowDrawer(agent) {
+    this.setState({
+      drawerVisiable: true,
+      selectedTask: agent,
+    });
+  }
+
+  onCloseDrawer() {
+    this.setState({
+      drawerVisiable: false,
+      selectedTask: undefined,
+    });
+  }
+
+  static onPreventShowDrawer(event) {
+    event.preventDefault();
+    event.stopPropagation();
   }
 
   async onPauseAll() {
@@ -401,7 +422,13 @@ export class Intelligences extends React.Component {
 
   render() {
     // const { formatMessage } = this.props.intl;
-    const { loadingIntelligencesData, contentHeight, loadingMore } = this.state;
+    const {
+      loadingIntelligencesData,
+      contentHeight,
+      loadingMore,
+      drawerVisiable,
+      selectedTask,
+    } = this.state;
     const { intelligences } = this.props;
     let content = <IntelligencesSkeleton />;
 
@@ -681,6 +708,7 @@ export class Intelligences extends React.Component {
                 onRow={record => ({
                   onClick: () => {
                     // console.log('onRow->onClick: ', record);
+                    this.onShowDrawer(record);
                   },
                 })}
               />
@@ -693,7 +721,16 @@ export class Intelligences extends React.Component {
 
     return (
       <div style={{ padding: '20px' }}>
-        <PageHeaderWrapper>{content}</PageHeaderWrapper>
+        <PageHeaderWrapper>
+          {content}
+          <TaskDetail
+            visiable={drawerVisiable}
+            onCloseDrawer={() => {
+              this.onCloseDrawer();
+            }}
+            task={selectedTask}
+          />
+        </PageHeaderWrapper>
       </div>
     );
   }
@@ -702,30 +739,3 @@ export class Intelligences extends React.Component {
 export default connect(({ intelligences }) => ({
   intelligences,
 }))(Intelligences);
-
-// Intelligences.propTypes = {
-//   dispatch: PropTypes.func.isRequired,
-// };
-
-// const mapStateToProps = createStructuredSelector({
-//   intelligences: makeSelectIntelligences(),
-// });
-
-// function mapDispatchToProps(dispatch) {
-//   return {
-//     dispatch,
-//   };
-// }
-
-// const withConnect = connect(
-//   mapStateToProps,
-//   mapDispatchToProps,
-// );
-// const withReducer = injectReducer({ key: 'intelligences', reducer });
-// const withSaga = injectSaga({ key: 'intelligences', saga });
-
-// export default compose(
-//   withReducer,
-//   withSaga,
-//   withConnect,
-// )(injectIntl(Intelligences));

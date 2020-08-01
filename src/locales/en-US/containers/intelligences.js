@@ -7,7 +7,9 @@
 export default {
   'app.containers.Intelligences.header': 'Tasks',
   'app.containers.Intelligences.intelligences': 'Tasks',
-  'app.containers.Intelligences.showIntelligences': 'Show {intelligencesNumber} of {intelligencesTotal} taks',
+  'app.containers.Intelligences.task.detail': 'Task Detail',
+  'app.containers.Intelligences.showIntelligences':
+    'Show {intelligencesNumber} of {intelligencesTotal} taks',
   'app.containers.Intelligences.emptyIntelligences':
     'You don\'t have any <a href="https://docs.munew.io/overview#intelligence" target="_blank">Tasks</a>',
   'app.containers.Intelligences.registerNow': 'Register',

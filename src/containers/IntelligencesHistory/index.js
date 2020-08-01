@@ -39,9 +39,7 @@ import {
   rerunIntelligencesForManagementAPI,
 } from '../../apis/intelligencesOrHistory';
 import StateTag from '../../utils/StateTag';
-// import { STATES } from '../../utils/constants';
-
-// import DiaPageHeader from '../../components/Common';
+import TaskDetail from '../Intelligences/TaskDetail';
 
 const EmptyContainer = styled.div`
   padding: 100px 0;
@@ -71,6 +69,8 @@ export class IntelligencesHistory extends React.Component {
       selectedRows: [],
       loadingMore: false,
       loadingIntelligencesData: true,
+      drawerVisiable: false,
+      selectedTask: undefined,
       contentHeight: window.innerHeight,
       operationBtns: {
         pausing: false,
@@ -124,6 +124,25 @@ export class IntelligencesHistory extends React.Component {
   // eslint-disable-next-line react/sort-comp
   componentDidMount() {
     this.initIntelligencesData();
+  }
+
+  onShowDrawer(agent) {
+    this.setState({
+      drawerVisiable: true,
+      selectedTask: agent,
+    });
+  }
+
+  onCloseDrawer() {
+    this.setState({
+      drawerVisiable: false,
+      selectedTask: undefined,
+    });
+  }
+
+  static onPreventShowDrawer(event) {
+    event.preventDefault();
+    event.stopPropagation();
   }
 
   async onDeleteAll() {
@@ -366,7 +385,13 @@ export class IntelligencesHistory extends React.Component {
 
   render() {
     // const { formatMessage } = this.props.intl;
-    const { loadingIntelligencesData, contentHeight, loadingMore } = this.state;
+    const {
+      loadingIntelligencesData,
+      contentHeight,
+      loadingMore,
+      drawerVisiable,
+      selectedTask,
+    } = this.state;
     const { intelligences } = this.props;
     let content = <IntelligencesSkeleton />;
 
@@ -605,6 +630,7 @@ export class IntelligencesHistory extends React.Component {
                 onRow={record => ({
                   onClick: () => {
                     // console.log('onRow->onClick: ', record);
+                    this.onShowDrawer(record);
                   },
                 })}
               />
@@ -617,7 +643,16 @@ export class IntelligencesHistory extends React.Component {
 
     return (
       <div style={{ padding: '20px' }}>
-        <PageHeaderWrapper>{content}</PageHeaderWrapper>
+        <PageHeaderWrapper>
+          {content}
+          <TaskDetail
+            visiable={drawerVisiable}
+            onCloseDrawer={() => {
+              this.onCloseDrawer();
+            }}
+            task={selectedTask}
+          />
+        </PageHeaderWrapper>
       </div>
     );
   }
