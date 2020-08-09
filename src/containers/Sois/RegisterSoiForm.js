@@ -1,10 +1,6 @@
 import { Button, Col, Drawer, Form, Input, Row, Select, Typography, message } from 'antd';
 // import { FormattedMessage, FormattedHTMLMessage, injectIntl } from 'react-intl';
-import {
-  FormattedHTMLMessage,
-  FormattedMessage,
-  formatMessage,
-} from 'umi-plugin-react/locale';
+import { FormattedHTMLMessage, FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 // import messages from '../../locales/en-US/containers/Sois';
 // import commonMessages from '../../locales/en-US/globalMessages';
 
@@ -117,8 +113,8 @@ class RegisterSoiForm extends React.Component {
                     message: formatMessage({ id: 'app.containers.Sois.soiNamePlaceholder' }),
                   },
                   {
-                    min: 3,
-                    max: 20,
+                    min: 1,
+                    max: 100,
                     message: formatMessage({ id: 'app.containers.Sois.soiNameInvalid' }),
                   },
                 ],

@@ -158,8 +158,8 @@ class ProfileForm extends React.Component {
                 whitespace: true,
               },
               {
-                min: 3,
-                max: 20,
+                min: 1,
+                max: 100,
                 message: formatMessage({ id: 'app.common.messages.nameInvalid' }),
               },
             ],

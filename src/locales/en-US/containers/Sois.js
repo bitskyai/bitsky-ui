@@ -5,9 +5,9 @@
  */
 
 export default {
-  'app.containers.Sois.header': 'Retailer Services',
+  'app.containers.Sois.header': 'Retailer Configurations',
   'app.containers.Sois.emptySOIs':
-    'You don\'t have any <a href="https://docs.munew.io/overview#analyst-service" target="_blank">Retailer Services</a>. <a href="https://docs.munew.io/how-tos/how-to-register-an-soi-service">How to register an Retailer Service Service</a> will show you step by step to regiter an Retailer Service',
+    'You don\'t have any <a href="https://docs.munew.io/overview#analyst-service" target="_blank">Retailer Configurations</a>. <a href="https://docs.munew.io/how-tos/how-to-register-an-soi-service">How to register an Retailer Service Service</a> will show you step by step to regiter an Retailer Service',
   'app.containers.Sois.registerNow': 'Register',
   'app.containers.Sois.drawerTitle': 'Register an Retailer Service',
   'app.containers.Sois.drawerTitleUpdate': 'Modify an Retailer Service',
@@ -25,10 +25,10 @@ export default {
   'app.containers.Sois.soiName': 'Retailer Service Name',
   'app.containers.Sois.soiNamePlaceholder': 'Please enter your Retailer Service name',
   'app.containers.Sois.soiNameInvalid':
-    'Retailer Service name is invalid, please enter 3 to 50 characters',
+    'Retailer Service name is invalid, please enter 1 to 100 characters',
   'app.containers.Sois.soiNameExample': 'Collect Weather Information',
   'app.containers.Sois.soiNameDescription':
-    'Give a meaningful name to your Retailer Service, between 3 to 50 characters',
+    'Give a meaningful name to your Retailer Service, between 1 to 100 characters',
   'app.containers.Sois.baseURL': 'Base URL',
   'app.containers.Sois.baseURLEmptyError': 'Please enter a valid base URL',
   'app.containers.Sois.baseURLExample': 'http://localhost:3000',

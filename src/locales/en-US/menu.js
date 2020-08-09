@@ -1,7 +1,7 @@
 export default {
   'menu.intelligences': 'Tasks',
-  'menu.sois': 'Retailer Services',
-  'menu.agents': 'Agents',
+  'menu.sois': 'Retailer Configurations',
+  'menu.agents': 'Agents Configurations',
   'menu.settings': 'Settings',
   'menu.defaultSOI': 'Default Retailer Service',
   'menu.defaultHeadless': 'Default Headless Agent',
