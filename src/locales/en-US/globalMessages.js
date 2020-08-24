@@ -11,7 +11,7 @@ export const scope = 'app.global.messages';
 export default {
   productName: {
     id: `${scope}.productName`,
-    defaultMessage: 'MUNEW',
+    defaultMessage: 'BitSky',
   },
   slogan: {
     id: `${scope}.slogan`,
@@ -98,7 +98,7 @@ export default {
   globalIdDescription: {
     id: `${scope}.globalIdDescription`,
     defaultMessage:
-      '<b>Global ID</b> is used to identify your Agent, it should be global unique, <span style="color:#faad14">after it created you cannot change it</span>. If you use nodejs, then you can use <a href="https://www.npmjs.com/package/uuid" target="_blank">uuid</a> to generate',
+      '<b>Global ID</b> is used to identify your Producer, it should be global unique, <span style="color:#faad14">after it created you cannot change it</span>. If you use nodejs, then you can use <a href="https://www.npmjs.com/package/uuid" target="_blank">uuid</a> to generate',
   },
   state: {
     id: `${scope}.state`,

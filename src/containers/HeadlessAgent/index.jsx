@@ -9,7 +9,7 @@ import React from 'react';
 import * as _ from 'lodash';
 import { connect } from 'dva';
 // import styled from 'styled-components';
-import HeadlessAgentSkeleton from './HeadlessAgentSkeleton';
+// import HeadlessAgentSkeleton from './HeadlessAgentSkeleton';
 import {
   getHeadlessConfig,
   startHeadless,
@@ -21,10 +21,10 @@ import {
   stopHeadlessSuccess,
   stopHeadlessFail,
 } from './actions';
-import styles from './style.less';
 import HeadlessAgentForm from './HeadlessAgentForm';
 import AgentType from '../../utils/AgentType';
 import StateTag from '../../utils/StateTag';
+import './style.less';
 
 const { Paragraph } = Typography;
 
@@ -107,12 +107,12 @@ export class HeadlessAgent extends React.Component {
         </Paragraph>
         <div>
           <IconLink
-            href="https://docs.munew.io/"
+            href="https://docs.bitsky.ai/"
             src="https://gw.alipayobjects.com/zos/rmsportal/MjEImQtenlyueSmVEfUD.svg"
             text={formatMessage({ id: 'app.common.messages.action.gettingStart' })}
           />
           <IconLink
-            href="https://docs.munew.io/user-guides/headless-agent"
+            href="https://docs.bitsky.ai/user-guides/headless-agent"
             src="https://gw.alipayobjects.com/zos/rmsportal/NbuDUAuBlIApFuDvWiND.svg"
             text={formatMessage({ id: 'app.common.messages.action.more' })}
           />

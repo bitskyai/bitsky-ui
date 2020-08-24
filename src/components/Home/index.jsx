@@ -6,8 +6,8 @@ import Banner from './Banner';
 import Footer from '../GlobalFooter';
 import Header from './Header';
 import Page1 from './Page1';
-import Page2 from './Page2';
-import styles from './static/style.less';
+// import Page2 from './Page2';
+import './static/style.less';
 
 let isMobile;
 
@@ -30,7 +30,7 @@ class Home extends React.PureComponent {
 
   render() {
     return (
-      <DocumentTitle title="MUNEW">
+      <DocumentTitle title="BitSky">
         <div className="munew-landing">
           <Header
             isMobile={this.state.isMobile}

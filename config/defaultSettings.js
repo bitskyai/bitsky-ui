@@ -9,7 +9,7 @@ export default {
   menu: {
     locale: true,
   },
-  title: 'MUNEW',
+  title: 'BitSky',
   pwa: false,
   iconfontUrl: '',
   collapse: true,

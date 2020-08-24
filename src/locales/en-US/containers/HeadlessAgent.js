@@ -4,10 +4,9 @@
  * This contains all the text for the LoginPage container.
  */
 export default {
-  'app.containers.HeadlessAgent.subTitle':
-    'Launch a Chromium instance and execute your Tasks',
+  'app.containers.HeadlessAgent.subTitle': 'Launch a Chromium instance and execute your Tasks',
   'app.containers.HeadlessAgent.description':
-    'Headless agent is based on <a href="https://pptr.dev/">Puppeteer</a>, and it is good for crawl data from Single Page Application.',
+    'Headless producer is based on <a href="https://pptr.dev/">Puppeteer</a>, and it is good for crawl data from Single Page Application.',
   'app.containers.HeadlessAgent.saveAndRestart': 'Save & Restart',
   'app.containers.HeadlessAgent.headless': 'Headless Mode',
   'app.containers.HeadlessAgent.headlessDescription':
@@ -20,7 +19,7 @@ export default {
     'Please enter a valid custom function timeout value',
   // eslint-disable-next-line quotes
   'app.containers.HeadlessAgent.userDataDirDescription': `<p class="munew-form-description-p">Path to a <a href="https://chromium.googlesource.com/chromium/src/+/master/docs/user_data_dir.md">User Data Directory</a>. The user data directory contains profile data such as history, bookmarks, and cookies, as well as other per-installation local state. </p>
-                                                          <p class="munew-form-description-p">After you set, then <b>Headless Agent</b> will have all those data, this means if you log in to <b>Gmail</b>, and session still valid, <b>Headless Agent</b> also will automatically login to <b>Gmail</b>.</p>
+                                                          <p class="munew-form-description-p">After you set, then <b>Headless Producer</b> will have all those data, this means if you log in to <b>Gmail</b>, and session still valid, <b>Headless Producer</b> also will automatically login to <b>Gmail</b>.</p>
                                                           <p class="munew-form-description-p"><b>Important:</b>The <b>User Data Directory</b> should be the <b>User Data Directory</b> of the <b>Chrome</b>(<span class="ant-typography"><code>Browser Installation Path</code></span>) you selected</p>
                                                           <p class="munew-form-description-p">Example(Mac OSX): <span class="ant-typography"><code>/Users/Alice/Library/Application Support/Google/Chrome</code></span></p>`,
   'app.containers.HeadlessAgent.bundledChromium': 'Bundled Chromium',
@@ -32,7 +31,8 @@ export default {
   'app.containers.HeadlessAgent.customFunctionTimeoutDescription':
     'Timeout value for executing custom function, value is based on <span class="ant-typography"><code>ms</code></span>',
   'app.containers.HeadlessAgent.userDataDir': 'User Data Directory',
-  'app.containers.HeadlessAgent.userDataDirExample': '/Users/Alice/Library/Application Support/Google/Chrome',
+  'app.containers.HeadlessAgent.userDataDirExample':
+    '/Users/Alice/Library/Application Support/Google/Chrome',
   // eslint-disable-next-line quotes
   'app.containers.HeadlessAgent.invalidDataDir': `User Data Directory doesn't exist, please type valid User Data Directory. This change will not be saved before you fix it`,
   // eslint-disable-next-line quotes

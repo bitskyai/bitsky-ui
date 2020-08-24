@@ -1,6 +1,6 @@
 import { Button } from 'antd';
 import GitHubButton from 'react-github-button';
-import Link from 'umi/link';
+// import Link from 'umi/link';
 import PropTypes from 'prop-types';
 import QueueAnim from 'rc-queue-anim';
 import React from 'react';
@@ -41,11 +41,16 @@ function Banner(props) {
 
   function getDownloadLinkByOS() {
     const os = getOS();
-    let downloadLink = 'https://docs.munew.io/how-tos/setup-munew';
+    let downloadLink = 'https://docs.bitsky.ai/how-tos/setup';
     if (os === OS.MACOSX) {
-      downloadLink = 'https://github.com/munew/dia/releases/latest/download/Munew-osx.zip';
+      downloadLink =
+        'https://github.com/bitskyai/bitsky/releases/latest/download/bitsky-macos-latest.zip';
     } else if (os === OS.WINDOWS) {
-      downloadLink = 'https://github.com/munew/dia/releases/latest/download/Munew-wins.exe';
+      downloadLink =
+        'https://github.com/bitskyai/bitsky/releases/latest/download/bitsky-wins-latest.exe';
+    } else if (os === OS.LINUX) {
+      downloadLink =
+        'https://github.com/bitskyai/bitsky/releases/latest/download/bitsky-ubuntu-latest.zip';
     }
     return downloadLink;
   }
@@ -75,7 +80,7 @@ function Banner(props) {
               {formatMessage({ id: 'app.components.Home.download' })}
             </Button>
           </a>
-          <GitHubButton key="github-button" type="stargazers" namespace="munew" repo="dia" />
+          <GitHubButton key="github-button" type="stargazers" namespace="bitskyai" repo="bitsky" />
         </div>
       </QueueAnim>
       {!props.isMobile && (

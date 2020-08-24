@@ -11,7 +11,7 @@ export default {
   'app.containers.Intelligences.showIntelligences':
     'Show {intelligencesNumber} of {intelligencesTotal} taks',
   'app.containers.Intelligences.emptyIntelligences':
-    'You don\'t have any <a href="https://docs.munew.io/overview#intelligence" target="_blank">Tasks</a>',
+    'You don\'t have any <a href="https://docs.bitsky.ai/overview#intelligence" target="_blank">Tasks</a>',
   'app.containers.Intelligences.registerNow': 'Register',
   'app.containers.Intelligences.pauseAll': 'Pause {intelligenceNumber} tasks',
   'app.containers.Intelligences.resumeAll': 'Resume {intelligenceNumber} tasks',

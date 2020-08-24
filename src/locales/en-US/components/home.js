@@ -7,9 +7,9 @@ messages[`${scope}.tutorials`] = 'Tutorials';
 messages[`${scope}.getStarted`] = 'Get Started for Free';
 messages[`${scope}.features`] = 'Features';
 messages[`${scope}.download`] = 'Download';
-messages[`${scope}.whatMunewDo`] = 'What can <span>MUNEW</span> do for you';
+messages[`${scope}.whatMunewDo`] = 'What can <span>BitSky</span> do for you';
 messages[`${scope}.content`] =
-  'Convert websites (Single page application or traditional websites) into useful data, web automation jobs (not only) with headless Chrome and Browser Extensions';
+  'Convert websites (Single page application or traditional websites) into useful data, web automation jobs (not only) with headless producer or service producer';
 messages[`${scope}.extractingDataTitle`] = 'Web Scraping';
 messages[`${scope}.extractingDataContent`] =
   'Extracting the data you need from websites in a fast, simple, yet extensible way';

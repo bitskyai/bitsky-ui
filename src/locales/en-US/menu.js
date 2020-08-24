@@ -1,10 +1,10 @@
 export default {
   'menu.intelligences': 'Tasks',
   'menu.sois': 'Retailer Configurations',
-  'menu.agents': 'Agents Configurations',
+  'menu.agents': 'Producers Configurations',
   'menu.settings': 'Settings',
-  'menu.defaultSOI': 'Default Retailer Service',
-  'menu.defaultHeadless': 'Default Headless Agent',
-  'menu.defaultService': 'Default Service Agent',
+  'menu.defaultSOI': 'Hello Retailer Service',
+  'menu.defaultHeadless': 'Headless Producer',
+  'menu.defaultService': 'Service Producer',
   'menu.intellgienceshistory': 'Tasks History',
 };

@@ -110,12 +110,12 @@ export class ServiceAgent extends React.Component {
         </Paragraph>
         <div>
           <IconLink
-            href="https://docs.munew.io/"
+            href="https://docs.bitsky.ai/"
             src="https://gw.alipayobjects.com/zos/rmsportal/MjEImQtenlyueSmVEfUD.svg"
             text={formatMessage({ id: 'app.common.messages.action.gettingStart' })}
           />
           <IconLink
-            href="https://docs.munew.io/user-guides/service-agent"
+            href="https://docs.bitsky.ai/user-guides/service-agent"
             src="https://gw.alipayobjects.com/zos/rmsportal/NbuDUAuBlIApFuDvWiND.svg"
             text={formatMessage({ id: 'app.common.messages.action.more' })}
           />

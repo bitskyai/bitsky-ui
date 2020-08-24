@@ -7,7 +7,7 @@
 export default {
   'app.containers.Sois.header': 'Retailer Configurations',
   'app.containers.Sois.emptySOIs':
-    'You don\'t have any <a href="https://docs.munew.io/overview#analyst-service" target="_blank">Retailer Configurations</a>. <a href="https://docs.munew.io/how-tos/how-to-register-an-soi-service">How to register an Retailer Service Service</a> will show you step by step to regiter an Retailer Service',
+    'You don\'t have any <a href="https://docs.bitsky.ai/overview#analyst-service" target="_blank">Retailer Configurations</a>. <a href="https://docs.bitsky.ai/how-tos/how-to-register-an-soi-service">How to register an Retailer Service Service</a> will show you step by step to regiter an Retailer Service',
   'app.containers.Sois.registerNow': 'Register',
   'app.containers.Sois.drawerTitle': 'Register an Retailer Service',
   'app.containers.Sois.drawerTitleUpdate': 'Modify an Retailer Service',
@@ -33,7 +33,7 @@ export default {
   'app.containers.Sois.baseURLEmptyError': 'Please enter a valid base URL',
   'app.containers.Sois.baseURLExample': 'http://localhost:3000',
   'app.containers.Sois.baseURLDescription':
-    'Base url of your Retailer Service, make sure DIA Agent can access your Retailer Service server',
+    'Base url of your Retailer Service, make sure DIA Producer can access your Retailer Service server',
   'app.containers.Sois.state': 'State',
   'app.containers.Sois.callbackSectionTitle': 'Callback',
   'app.containers.Sois.callbackDescription':

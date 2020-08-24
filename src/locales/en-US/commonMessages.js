@@ -1,5 +1,5 @@
 export default {
-  'app.common.messages.munew': 'MUNEW',
+  'app.common.messages.munew': 'BitSky',
   'app.common.messages.menu.home': 'Home',
   'app.common.messages.copyright': 'Copyright',
   'app.common.messages.emailTitle': 'Email Address',
@@ -14,7 +14,7 @@ export default {
   // 'app.common.messages.signin': 'LOG IN',
   'app.common.messages.settings': 'Settings',
   'app.common.messages.logout': 'Logout',
-  'app.common.messages.productName': 'MUNEW',
+  'app.common.messages.productName': 'BitSky',
   'app.common.messages.slogan': 'Make Life Productive',
   'app.common.messages.serverTempDown': 'Oops, something went wrong. Please try again later.',
   'app.common.messages.signInFail': 'Incorrect username or password.',
@@ -67,27 +67,27 @@ export default {
   'app.common.messages.serialIdInvalid': 'Please enter an unique ID',
   'app.common.messages.serialIdExample': '0e9fe15e-f9a0-4279-9e65-87d2e480a66e',
   'app.common.messages.serialIdDescription':
-    '<b>Serial ID</b> is used to identify current agent instance, automatically generate by system, and cannot be changed.',
-  'app.common.messages.baseURL': 'Munew Base URL',
+    '<b>Serial ID</b> is used to identify current producer instance, automatically generate by system, and cannot be changed.',
+  'app.common.messages.baseURL': 'BitSky Base URL',
   'app.common.messages.baseURLInvalid': 'Please enter a valid base URL',
   'app.common.messages.baseURLExample': 'http://localhost:9099',
   'app.common.messages.baseURLDescription':
-    'Base url of your Munew application. For example: <span class="ant-typography"><code>http://localhost:9099</code></span>',
-  'app.common.messages.globalId': 'Agent Global ID',
+    'Base url of your BitSky application. For example: <span class="ant-typography"><code>http://localhost:9099</code></span>',
+  'app.common.messages.globalId': 'Producer Global ID',
   'app.common.messages.globalIdInvalid': 'Please enter an unique ID',
   'app.common.messages.globalIdExample': '0e9fe15e-f9a0-4279-9e65-87d2e480a66e',
-  'app.common.messages.globalIdDescription': '<b>Global ID</b> of the agent you want to connect',
+  'app.common.messages.globalIdDescription': '<b>Global ID</b> of the producer you want to connect',
   'app.common.messages.port': 'Port',
   'app.common.messages.portInvalid': 'Please enter a valid port number',
   'app.common.messages.portExample': '8090',
   'app.common.messages.portDescription':
-    'Port number for your agent. Example: <span class="ant-typography"><code>8090</code></span>',
-  'app.common.messages.agentHomeFolder': 'Agent Home Folder',
-  'app.common.messages.agentHomeFolderPicker': 'Select agent home folder',
-  'app.common.messages.agentHomeFolderInvalid': 'Please enter a valid agent home folder',
-  'app.common.messages.agentHomeFolderExample': '/Users/exampleuser/.munew/agent',
+    'Port number for your producer. Example: <span class="ant-typography"><code>8090</code></span>',
+  'app.common.messages.agentHomeFolder': 'Producer Home Folder',
+  'app.common.messages.agentHomeFolderPicker': 'Select producer home folder',
+  'app.common.messages.agentHomeFolderInvalid': 'Please enter a valid producer home folder',
+  'app.common.messages.agentHomeFolderExample': '/Users/exampleuser/.bitsky/producer',
   'app.common.messages.agentHomeFolderDescription': `<p class="munew-form-description-p">Logs, screenshots or other files will be stored in this folder. And you can access it by <span class="ant-typography"><code>http://localhost:Port</code></span>. </p>
-     <p class="munew-form-description-p">Example(Mac OSX): <span class="ant-typography"><code>/Users/exampleuser/.munew/agent</code></span></p>`,
+     <p class="munew-form-description-p">Example(Mac OSX): <span class="ant-typography"><code>/Users/exampleuser/.bitsky/producer</code></span></p>`,
   'app.common.messages.logLevel': 'Log Level',
   'app.common.messages.logLevelDebug': 'Debug',
   'app.common.messages.logLevelInfo': 'Info',
@@ -117,22 +117,23 @@ export default {
   'app.common.messages.stateFailed': 'Failed',
   'app.common.messages.statePaused': 'Paused',
   'app.common.messages.stateTimeout': 'Timeout',
-  'app.common.messages.updatedConfigSuccessful': 'Updated agent configuration, and restarting...',
-  'app.common.messages.updatedConfigFail': 'Update agent configuration fail',
+  'app.common.messages.updatedConfigSuccessful':
+    'Updated producer configuration, and restarting...',
+  'app.common.messages.updatedConfigFail': 'Update producer configuration fail',
   // eslint-disable-next-line quotes
-  'app.common.messages.agent.unregisterAgentDescription': `Please entered correct <b>Munew Base URL</b> and <b>Agent Global ID</b>`,
+  'app.common.messages.agent.unregisterAgentDescription': `Please entered correct <b>BitSky Base URL</b> and <b>Producer Global ID</b>`,
   'app.common.messages.agent.notFindAgent': `<div class='munew-alert'>
-                                                              <p>Cannot find any agent by <b>Agent Global ID</b>, please check whether you typed correct <b>Agent Global ID</b>.</p>
+                                                              <p>Cannot find any producer by <b>Producer Global ID</b>, please check whether you typed correct <b>Producer Global ID</b>.</p>
                                                               <p class='munew-alert-subheader'><b>Possible solution: </b></p>
-                                                          </div><span>Go to <b>Agents</b> copy <b>Agent Global ID</b>, then paste to <b>Agent Global ID</b> field</b></span>`,
+                                                          </div><span>Go to <b>Producers Configurations</b> copy <b>Producer Global ID</b>, then paste to <b>Producer Global ID</b> field</b></span>`,
   // eslint-disable-next-line quotes
-  'app.common.messages.agent.notConnectToEngine': `The server you are trying to connect isn't a munew application`,
+  'app.common.messages.agent.notConnectToEngine': `The server you are trying to connect isn't a bitsky application`,
   // eslint-disable-next-line quotes
-  'app.common.messages.agent.unmatchedAgentType': `The agent's type you are trying to connect isn't <b>{agentType}</b>, please change <b>Agent Global ID</b>`,
+  'app.common.messages.agent.unmatchedAgentType': `The producer's type you are trying to connect isn't <b>{agentType}</b>, please change <b>Producer Global ID</b>`,
   // eslint-disable-next-line quotes
-  'app.common.messages.agent.doesntActive': `This agent isn't <b>Active</b>. Only <b>active</b> agent can execute tasks. Go to <b>Agents</b> page to activate this agent  `,
+  'app.common.messages.agent.doesntActive': `This producer isn't <b>Active</b>. Only <b>active</b> producer can execute tasks. Go to <b>Producers Configurations</b> page to activate this producer  `,
   // eslint-disable-next-line quotes
-  'app.common.messages.agent.active': `This agent is <b>Active</b>, it will execute suitable tasks. If you want to stop execute tasks, go to <b>Agents</b> page to <b>deactivate</b> this agent  `,
+  'app.common.messages.agent.active': `This producer is <b>Active</b>, it will execute suitable tasks. If you want to stop execute tasks, go to <b>Producers Configurations</b> page to <b>deactivate</b> this producer  `,
   // eslint-disable-next-line quotes
   'app.common.messages.http.securityKeyRequired': `<b>Security Key</b> is required for the server you connect to, please enter correct security key`,
   'app.common.messages.http.internalError':
@@ -144,7 +145,7 @@ export default {
   'app.common.messages.http.missedsSerialId':
     'You must add <span class="ant-typography"><code>{serialIdHeader}</code></span> to http request header',
   'app.common.messages.http.agentWasConnected':
-    'The agent you want connect to was already connected by other agent instance. You need to disconnect it before you can connect',
+    'The producer you want connect to was already connected by other producer instance. You need to disconnect it before you can connect',
   'app.common.messages.search': 'Search',
   'app.common.messages.reset': 'Reset',
   'app.common.messages.healthTitle': 'Health Check',

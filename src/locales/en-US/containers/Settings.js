@@ -8,7 +8,7 @@ export default {
   'app.containers.Settings.header': 'Settings',
   'app.containers.Settings.profile': 'Profile',
   'app.containers.Settings.profileDescription':
-    'Your email address is your identity on Munew and is used to log in',
+    'Your email address is your identity on BitSky and is used to log in',
   'app.containers.Settings.emailAddress': 'Email Address',
   'app.containers.Settings.name': 'Display Name',
   'app.containers.Settings.updateProfile': 'Update Profile',

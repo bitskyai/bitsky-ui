@@ -9,65 +9,65 @@
 // export default defineMessages({
 export default {
   'app.containers.Agents.second': 'second',
-  'app.containers.Agents.header': 'Agents',
+  'app.containers.Agents.header': 'Producers',
   'app.containers.Agents.emptyAgents':
-    'You don\'t have any <a href="https://docs.munew.io/overview#agent" target="_blank">Agents</a>',
+    'You don\'t have any <a href="https://docs.bitsky.ai/overview#producer" target="_blank">Producers</a>. <a href="https://docs.bitsky.ai/overview#producer" target="_blank">How to register a Producer Configuration</a> will show you step by step to regiter a Producer',
   'app.containers.Agents.registerNow': 'Register',
-  'app.containers.Agents.drawerTitleCreate': 'Register an Agent',
-  'app.containers.Agents.drawerTitleUpdate': 'Modify this Agent',
+  'app.containers.Agents.drawerTitleCreate': 'Register a Producer',
+  'app.containers.Agents.drawerTitleUpdate': 'Modify this Producer',
   'app.containers.Agents.activeAgentTip':
-    'This agent is in Active status, you need to Deactivate it before you can modify',
+    'This producer is in Active status, you need to Deactivate it before you can modify',
   'app.containers.Agents.registerAgentDescription':
-    'Agent is the client that collect the tasks your Retailer Services created. It has several types: <a href="#" target="_blank">browser extension</a>, <a href="#" target="_blank">service</a>, you also can develop an agent by yourself',
-  'app.containers.Agents.deleteAgentDescription': 'Are you sure delete this Agent?',
-  'app.containers.Agents.deleteAgentSuccessful': 'Delete Agent Successful',
+    'Producer is the client that collect the tasks your Retailer Services created. It has several types: <a href="#" target="_blank">Headless</a>, <a href="#" target="_blank">Service</a>, you also can develop a producer by yourself',
+  'app.containers.Agents.deleteAgentDescription': 'Are you sure delete this Producer?',
+  'app.containers.Agents.deleteAgentSuccessful': 'Delete Producer Successful',
   'app.containers.Agents.agentName': 'Name',
-  'app.containers.Agents.agentNamePlaceholder': "Please enter your Agent's name",
+  'app.containers.Agents.agentNamePlaceholder': "Please enter your Producer's name",
   'app.containers.Agents.agentNameInvalid':
-    'Agent Name is invalid, please enter 1 to 100 characters',
-  'app.containers.Agents.agentNameExample': 'Chrome Extension',
+    'Producer Name is invalid, please enter 1 to 100 characters',
+  'app.containers.Agents.agentNameExample': 'Hello World',
   'app.containers.Agents.agentNameDescription':
-    'Give a meaningful name to your Agent, between 1 to 100 characters',
+    'Give a meaningful name to your Producer, between 1 to 100 characters',
   'app.containers.Agents.agentDescription': 'Description',
-  'app.containers.Agents.agentDescriptionPlaceholder': 'Type some words to describe your agent',
+  'app.containers.Agents.agentDescriptionPlaceholder': 'Type some words to describe your producer',
   'app.containers.Agents.agentDescriptionInvalid':
-    'Agent description is too long, please enter 1 to 200 characters',
-  'app.containers.Agents.agentDescriptionExample': 'My First Chrome Extension Agent',
+    'Producer description is too long, please enter 1 to 200 characters',
+  'app.containers.Agents.agentDescriptionExample': 'My First Producer',
   'app.containers.Agents.agentDescriptionDescription':
-    'Give a meaningful description to your Agent, between 1 to 200 characters',
+    'Give a meaningful description to your Producer, between 1 to 200 characters',
   'app.containers.Agents.baseURL': 'Base URL',
   'app.containers.Agents.baseURLEmptyError': 'Please enter a valid base URL',
   'app.containers.Agents.baseURLExample': 'http://localhost:3000',
   'app.containers.Agents.baseURLDescription':
-    'Base url of your service agent, make sure DIA Agent can access your service agent',
+    'Base url of your service producer, make sure DIA Producer can access your service producer',
   'app.containers.Agents.registerAgentSuccessful': 'Register Retailer Service Successful',
   'app.containers.Agents.healthDescription':
     'Health check API endpoint for your Retailer Service(e.g. HTTP <span class="ant-typography"><code>/health</code></span>) that returns the health of your Retailer Service. HTTP status is <span class="ant-typography"><code>2xx</code></span> means health, otherwise means unhealth. <a href="https://microservices.io/patterns/observability/health-check-api.html" target="_blank">Learn More.</a>',
-  'app.containers.Agents.agentType': 'Agent Type',
-  'app.containers.Agents.agentTypePlaceHolder': 'Please select your Agent Type',
+  'app.containers.Agents.agentType': 'Producer Type',
+  'app.containers.Agents.agentTypePlaceHolder': 'Please select your Producer Type',
   'app.containers.Agents.agentTypeDescription':
-    'Please select your Agent Type. <a href="https://docs.munew.io/overview#agent" target="_blank">Learn More.</a>',
-  'app.containers.Agents.browserExtensionAgent': 'Browser Extension Agent',
-  'app.containers.Agents.headlessAgent': 'Headless Agent',
-  'app.containers.Agents.serviceAgent': 'Serivce Agent',
-  'app.containers.Agents.agentConfiguration': 'Agent Configuration',
+    'Please select your Producer Type. <a href="https://docs.bitsky.ai/overview#producer" target="_blank">Learn More.</a>',
+  'app.containers.Agents.browserExtensionAgent': 'Browser Extension Producer',
+  'app.containers.Agents.headlessAgent': 'Headless Producer',
+  'app.containers.Agents.serviceAgent': 'Serivce Producer',
+  'app.containers.Agents.agentConfiguration': 'Configuration',
   'app.containers.Agents.agentConfigurationDescription':
-    'Configure your agent based on your need, otherwise you can keep it as default.',
+    'Configure your producer based on your need, otherwise you can keep it as default.',
   'app.containers.Agents.activeAgent': 'Active',
   'app.containers.Agents.watchingNewJobDescription':
-    'After you configure correctly, then you can active this agent, it will check whether has new tasks need to collect every {pollingInterval} second. You can change this value in <a href="#pollingInterval">Polling Interval</a>',
+    'After you configure correctly, then you can active this producer, it will check whether has new tasks need to collect every {pollingInterval} second. You can change this value in <a href="#pollingInterval">Polling Interval</a>',
   'app.containers.Agents.privateMode': 'Private Mode',
   'app.containers.Agents.privateModeDescription':
-    'Private mode means your agent will only collect tasks that created by yourself',
+    'Private mode means your producer will only collect tasks that created by yourself',
   'app.containers.Agents.switchOn': 'ON',
   'app.containers.Agents.switchOff': 'OFF',
   'app.containers.Agents.diaBaseURL': 'DIA Base URL',
   'app.containers.Agents.diaBaseURLPlaceholder': 'Please enter a valid URL',
-  'app.containers.Agents.diaBaseURLExample': 'https://munew.io',
+  'app.containers.Agents.diaBaseURLExample': 'https://bitsky.ai',
   'app.containers.Agents.diaBaseURLDescription':
-    'Base url of your DIA. For example: <span class="ant-typography"><code>https://munew.io</code></span>',
+    'Base url of your DIA. For example: <span class="ant-typography"><code>https://bitsky.ai</code></span>',
   'app.containers.Agents.invalidURL':
-    'The url you enter is invalid, please enter valid url. For example: https://munew.io',
+    'The url you enter is invalid, please enter valid url. For example: https://bitsky.ai',
   'app.containers.Agents.invalidInteger': 'Please enter valid integer',
   'app.containers.Agents.advanced': 'Advanced',
   'app.containers.Agents.advancedDescription':
@@ -88,8 +88,9 @@ export default {
   'app.containers.Agents.maxCollectTimeExample': '10000',
   'app.containers.Agents.maxCollectTimeDescription':
     'Browser has memory leak issue if continue to open urls. To avoid this, need to close window when reach max collect times. Collect Time equal to how many request send to DIA to get intelligence.',
-  'app.containers.Agents.agentIdleTime': 'Agent Idle Time',
-  'app.containers.Agents.agentIdleTimePlaceholder': 'Please enter agent idel time value, like 50',
+  'app.containers.Agents.agentIdleTime': 'Producer Idle Time',
+  'app.containers.Agents.agentIdleTimePlaceholder':
+    'Please enter producer idel time value, like 50',
   'app.containers.Agents.agentIdleTimeExample': '50',
   'app.containers.Agents.agentIdleTimeDescription':
     'How long time browser need to wait to restart collect tasks after close browser window. This time is used for browser to release memory.',
@@ -121,17 +122,17 @@ export default {
   'app.containers.Agents.getIntelligences': 'Get Tasks',
   'app.containers.Agents.getIntelligencesDescription':
     "Configure RESTFul API to get tasks from DIA. Normally you don't need to change this value, only change this when you re-implement DIA. ",
-  'app.containers.Agents.unregisterAgent': 'Unregister Agent',
+  'app.containers.Agents.unregisterAgent': 'Unregister Producer',
   'app.containers.Agents.unregisterAgentDescription':
-    "You need to register this agent before you can use it.  <a href='https://docs.munew.io/how-tos/how-to-register-an-agent' target='_blank'>How to register an Agent</a>",
+    "You need to register this producer before you can use it.  <a href='https://docs.bitsky.ai/how-tos/how-to-register-an-agent' target='_blank'>How to register a Producer</a>",
   'app.containers.Agents.checkingDIAHealth': 'Checking DIA health... [ {method} ] {url}',
   'app.containers.Agents.activateDescription':
-    'Activate this agent, after activate then this agent will start collect tasks',
+    'Activate this producer, after activate then this producer will start collect tasks',
   'app.containers.Agents.deactivateDescription':
-    'Deactivate this agent, after deactivate then this agent will stop collect tasks',
+    'Deactivate this producer, after deactivate then this producer will stop collect tasks',
   'app.containers.Agents.disconnectDescription':
-    'Disconnect all the agent currently connect to this agent, after disconnect successful will generate new globalId',
-  'app.containers.Agents.activateAgentSuccess': 'Successfully activate this agent',
-  'app.containers.Agents.deactivateAgentSuccess': 'Successfully deactivate this agent',
-  'app.containers.Agents.disconnectAgentSuccess': 'Successfully disconnect this agent',
+    'Disconnect all the producer currently connect to this producer, after disconnect successful will generate new globalId',
+  'app.containers.Agents.activateAgentSuccess': 'Successfully activate this producer',
+  'app.containers.Agents.deactivateAgentSuccess': 'Successfully deactivate this producer',
+  'app.containers.Agents.disconnectAgentSuccess': 'Successfully disconnect this producer',
 };

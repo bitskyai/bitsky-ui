@@ -29,12 +29,12 @@ class Header extends React.Component {
           <a>{formatMessage({ id: 'app.components.Home.home' })}</a>
         </Menu.Item>
         <Menu.Item key="docs">
-          <a target="_blank" rel="noopener noreferrer" href="https://docs.munew.io">
+          <a target="_blank" rel="noopener noreferrer" href="https://docs.bitsky.ai">
             <span>{formatMessage({ id: 'app.components.Home.document' })}</span>
           </a>
         </Menu.Item>
         <Menu.Item key="tutorials">
-          <a target="_blank" rel="noopener noreferrer" href="https://docs.munew.io/tutorials">
+          <a target="_blank" rel="noopener noreferrer" href="https://docs.bitsky.ai/tutorials">
             {formatMessage({ id: 'app.components.Home.tutorials' })}
           </a>
         </Menu.Item>
