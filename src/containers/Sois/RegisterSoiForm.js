@@ -226,7 +226,7 @@ class RegisterSoiForm extends React.Component {
                   style={formItemStyle}
                 >
                   {getFieldDecorator('callback.path', {
-                    initialValue: _.get(this, 'props.soi.callback.path', '/apis/intelligences'),
+                    initialValue: _.get(this, 'props.soi.callback.path', '/apis/tasks'),
                     rules: [
                       {
                         required: true,

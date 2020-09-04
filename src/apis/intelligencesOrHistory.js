@@ -26,9 +26,9 @@ export async function getIntelligencesOrHistoryForManagementAPI(
     if (state && state.length) {
       params.state = state.join(',');
     }
-    let targetUrl = '/apis/manangement/intelligences';
+    let targetUrl = '/apis/manangement/tasks';
     if (history) {
-      targetUrl = '/apis/manangement/intelligenceshistory';
+      targetUrl = '/apis/manangement/taskshistory';
     }
     const result = await http({
       url: targetUrl,
@@ -57,7 +57,7 @@ export async function rerunIntelligencesForManagementAPI(url, ids, state) {
     }
 
     const config = {
-      url: '/apis/manangement/intelligenceshistory/rerun',
+      url: '/apis/manangement/taskshistory/rerun',
       method: 'POST',
       params,
     };
@@ -83,7 +83,7 @@ export async function pauseIntelligencesForManagementAPI(url, ids, state) {
     }
 
     const config = {
-      url: '/apis/manangement/intelligences/pause',
+      url: '/apis/manangement/tasks/pause',
       method: 'POST',
       params,
     };
@@ -110,7 +110,7 @@ export async function resumeIntelligencesForManagementAPI(url, ids, state) {
     }
 
     const config = {
-      url: '/apis/manangement/intelligences/resume',
+      url: '/apis/manangement/tasks/resume',
       method: 'POST',
       params,
     };
@@ -136,9 +136,9 @@ export async function deleteIntelligencesOrHistoryForManagementAPI(url, ids, sta
       params.state = state.join(',');
     }
 
-    let targetUrl = '/apis/manangement/intelligences';
+    let targetUrl = '/apis/manangement/tasks';
     if (history) {
-      targetUrl = '/apis/manangement/intelligenceshistory';
+      targetUrl = '/apis/manangement/taskshistory';
     }
 
     const config = {
