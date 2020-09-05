@@ -1,8 +1,8 @@
 {
-  "name": "dia-ui",
-  "version": "0.7.0",
+  "name": "@bitskyai/ui",
+  "version": "0.1.0",
   "private": true,
-  "description": "UI for Muew DIA",
+  "description": "UI for BitSky",
   "scripts": {
     "analyze": "cross-env ANALYZE=1 umi build",
     "build-electron": "cross-env UMI_ENV=electron umi build",

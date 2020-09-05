@@ -1,6 +1,6 @@
 import * as _ from 'lodash';
 import http from '../utils/http';
-import { HTTP_HEADERS, ENGINE_SERVER_NAME } from '../utils/constants';
+import { HTTP_HEADERS, BITSKY_SUPPLIER } from '../utils/constants';
 
 export async function registerAgentAPI(agent) {
   try {
@@ -30,7 +30,7 @@ export async function checkEngineHealthAPI(method, url, skipErrorHandler) {
     });
 
     const responsedWith = _.get(response, `headers[${HTTP_HEADERS.X_RESPONSED_WITH}]`);
-    if (responsedWith !== ENGINE_SERVER_NAME) {
+    if (responsedWith !== BITSKY_SUPPLIER) {
       // it isn't return by engine
       return {
         health: false,
@@ -54,7 +54,7 @@ export async function checkEngineHealthAPI(method, url, skipErrorHandler) {
       status: response.status,
     };
   } catch (err) {
-    if (err.responsedWith !== ENGINE_SERVER_NAME) {
+    if (err.responsedWith !== BITSKY_SUPPLIER) {
       return {
         health: false,
         status: err.status,
