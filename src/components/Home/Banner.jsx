@@ -44,13 +44,13 @@ function Banner(props) {
     let downloadLink = 'https://docs.bitsky.ai/how-tos/setup';
     if (os === OS.MACOSX) {
       downloadLink =
-        'https://github.com/bitskyai/bitsky/releases/latest/download/bitsky-macos-latest.zip';
+        'https://github.com/bitskyai/bitsky-builder/releases/latest/download/bitsky-macos-latest.zip';
     } else if (os === OS.WINDOWS) {
       downloadLink =
-        'https://github.com/bitskyai/bitsky/releases/latest/download/bitsky-wins-latest.exe';
+        'https://github.com/bitskyai/bitsky-builder/releases/latest/download/bitsky-wins-latest.exe';
     } else if (os === OS.LINUX) {
       downloadLink =
-        'https://github.com/bitskyai/bitsky/releases/latest/download/bitsky-ubuntu-latest.zip';
+        'https://github.com/bitskyai/bitsky-builder/releases/latest/download/bitsky-ubuntu-latest.zip';
     }
     return downloadLink;
   }
@@ -80,7 +80,12 @@ function Banner(props) {
               {formatMessage({ id: 'app.components.Home.download' })}
             </Button>
           </a>
-          <GitHubButton key="github-button" type="stargazers" namespace="bitskyai" repo="bitsky" />
+          <GitHubButton
+            key="github-button"
+            type="stargazers"
+            namespace="bitskyai"
+            repo="bitsky-builder"
+          />
         </div>
       </QueueAnim>
       {!props.isMobile && (
