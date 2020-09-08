@@ -125,15 +125,15 @@ export default {
   'app.common.messages.agent.notFindAgent': `<div class='munew-alert'>
                                                               <p>Cannot find any producer by <b>Producer Global ID</b>, please check whether you typed correct <b>Producer Global ID</b>.</p>
                                                               <p class='munew-alert-subheader'><b>Possible solution: </b></p>
-                                                          </div><span>Go to <b>Producers Configurations</b> copy <b>Producer Global ID</b>, then paste to <b>Producer Global ID</b> field</b></span>`,
+                                                          </div><span>Go to <b>Producer Configurations</b> copy <b>Producer Global ID</b>, then paste to <b>Producer Global ID</b> field</b></span>`,
   // eslint-disable-next-line quotes
   'app.common.messages.agent.notConnectToEngine': `The server you are trying to connect isn't a bitsky application`,
   // eslint-disable-next-line quotes
   'app.common.messages.agent.unmatchedAgentType': `The producer's type you are trying to connect isn't <b>{agentType}</b>, please change <b>Producer Global ID</b>`,
   // eslint-disable-next-line quotes
-  'app.common.messages.agent.doesntActive': `This producer isn't <b>Active</b>. Only <b>active</b> producer can execute tasks. Go to <b>Producers Configurations</b> page to activate this producer  `,
+  'app.common.messages.agent.doesntActive': `This producer isn't <b>Active</b>. Only <b>active</b> producer can execute tasks. Go to <b>Producer Configurations</b> page to activate this producer  `,
   // eslint-disable-next-line quotes
-  'app.common.messages.agent.active': `This producer is <b>Active</b>, it will execute suitable tasks. If you want to stop execute tasks, go to <b>Producers Configurations</b> page to <b>deactivate</b> this producer  `,
+  'app.common.messages.agent.active': `This producer is <b>Active</b>, it will execute suitable tasks. If you want to stop execute tasks, go to <b>Producer Configurations</b> page to <b>deactivate</b> this producer  `,
   // eslint-disable-next-line quotes
   'app.common.messages.http.securityKeyRequired': `<b>Security Key</b> is required for the server you connect to, please enter correct security key`,
   'app.common.messages.http.internalError':
