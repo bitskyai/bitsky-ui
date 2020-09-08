@@ -31,7 +31,7 @@ import {
   getAgentConfigurationSuccess,
   getAgentConfigurationFail,
 } from './actions';
-import { getAgentAPI } from '../../apis/agents';
+import { getAgentAPI } from '../../apis/producers';
 import { checkEngineHealthAPI } from '../../apis/dia';
 import HTTPError from '../../utils/HTTPError';
 import { sendToElectron } from '../../utils/utils';
@@ -82,8 +82,8 @@ class ServiceAgentForm extends React.Component {
         validating: true,
       };
       this.setState(state);
-      this.props.form.validateFields(['MUNEW_BASE_URL', 'GLOBAL_ID'], async (errs, values) => {
-        if (!values.MUNEW_BASE_URL || !values.GLOBAL_ID) {
+      this.props.form.validateFields(['BITSKY_BASE_URL', 'GLOBAL_ID'], async (errs, values) => {
+        if (!values.BITSKY_BASE_URL || !values.GLOBAL_ID) {
           state.alertType = 'warning';
           state.alertMessage = (
             <FormattedHTMLMessage id="app.common.messages.agent.unregisterAgentDescription" />
@@ -91,7 +91,7 @@ class ServiceAgentForm extends React.Component {
         }
 
         // Set UI Side Validation first
-        if (errs && errs.MUNEW_BASE_URL) {
+        if (errs && errs.BITSKY_BASE_URL) {
           state.baseURLValidateStatus = 'error';
         } else {
           state.baseURLValidateStatus = '';
@@ -103,12 +103,12 @@ class ServiceAgentForm extends React.Component {
         }
 
         try {
-          if ((!errs || !errs.MUNEW_BASE_URL) && values.MUNEW_BASE_URL) {
+          if ((!errs || !errs.BITSKY_BASE_URL) && values.BITSKY_BASE_URL) {
             this.setState({
               baseURLValidateStatus: 'validating',
             });
             // Do server side validation
-            const baseURLValidateResult = await this.validateBaseURL(values.MUNEW_BASE_URL);
+            const baseURLValidateResult = await this.validateBaseURL(values.BITSKY_BASE_URL);
             state.baseURLValidateStatus = baseURLValidateResult.status || 'error';
             if (baseURLValidateResult.alertType) {
               state.alertType = baseURLValidateResult.alertType;
@@ -125,7 +125,7 @@ class ServiceAgentForm extends React.Component {
             }
           }
 
-          if ((!errs || !errs.GLOBAL_ID) && values.MUNEW_BASE_URL && values.GLOBAL_ID) {
+          if ((!errs || !errs.GLOBAL_ID) && values.BITSKY_BASE_URL && values.GLOBAL_ID) {
             this.setState({
               agentGlobalIdValidateStatus: 'validating',
             });
@@ -133,9 +133,9 @@ class ServiceAgentForm extends React.Component {
             const serviceConfig = service.data;
             // Do server side validation
             const agentValidateResult = await this.getAgentConfiguration(
-              values.MUNEW_BASE_URL,
+              values.BITSKY_BASE_URL,
               values.GLOBAL_ID,
-              serviceConfig.AGENT_SERIAL_ID,
+              serviceConfig.PRODUCER_SERIAL_ID,
             );
             state.agentGlobalIdValidateStatus = agentValidateResult.status || 'error';
 
@@ -166,7 +166,7 @@ class ServiceAgentForm extends React.Component {
                 state.alertMessage = (
                   <>
                     <FormattedHTMLMessage id="app.common.messages.agent.doesntActive" />
-                    <Link to="/app/agents">
+                    <Link to="/app/producers">
                       <Icon type="arrow-right" className="munew-alert-link-icon" />
                     </Link>
                   </>
@@ -176,7 +176,7 @@ class ServiceAgentForm extends React.Component {
                 state.alertMessage = (
                   <>
                     <FormattedHTMLMessage id="app.common.messages.agent.active" />
-                    <Link to="/app/agents">
+                    <Link to="/app/producers">
                       <Icon type="arrow-right" className="munew-alert-link-icon" />
                     </Link>
                   </>
@@ -223,7 +223,7 @@ class ServiceAgentForm extends React.Component {
           result.alertMessage = (
             <>
               <FormattedHTMLMessage id="app.common.messages.agent.notFindAgent" />
-              <Link to="/app/agents">
+              <Link to="/app/producers">
                 <Icon type="arrow-right" className="munew-alert-link-icon" />
               </Link>
             </>
@@ -388,7 +388,7 @@ class ServiceAgentForm extends React.Component {
       try {
         const values = this.props.form.getFieldsValue();
         if (this.state.selectedAgentHome) {
-          values.AGENT_HOME = this.state.selectedAgentHome;
+          values.PRODUCER_HOME = this.state.selectedAgentHome;
         }
         this.props.dispatch(updateServiceConfig(values));
         this.onValidateForm();
@@ -448,8 +448,8 @@ class ServiceAgentForm extends React.Component {
               label={formatMessage({ id: 'app.common.messages.serialId' })}
               style={formItemStyle}
             >
-              {getFieldDecorator('AGENT_SERIAL_ID', {
-                initialValue: serviceConfig.AGENT_SERIAL_ID,
+              {getFieldDecorator('PRODUCER_SERIAL_ID', {
+                initialValue: serviceConfig.PRODUCER_SERIAL_ID,
                 rules: [
                   {
                     required: true,
@@ -473,8 +473,8 @@ class ServiceAgentForm extends React.Component {
               style={formItemStyle}
               {...baseURLProps}
             >
-              {getFieldDecorator('MUNEW_BASE_URL', {
-                initialValue: serviceConfig.MUNEW_BASE_URL || '',
+              {getFieldDecorator('BITSKY_BASE_URL', {
+                initialValue: serviceConfig.BITSKY_BASE_URL || '',
                 rules: [
                   {
                     required: true,
@@ -571,8 +571,8 @@ class ServiceAgentForm extends React.Component {
               style={formItemStyle}
               hasFeedback={false}
             >
-              {getFieldDecorator('AGENT_HOME', {
-                initialValue: serviceConfig.AGENT_HOME,
+              {getFieldDecorator('PRODUCER_HOME', {
+                initialValue: serviceConfig.PRODUCER_HOME,
                 rules: [
                   {
                     required: true,
@@ -583,7 +583,7 @@ class ServiceAgentForm extends React.Component {
                 ],
               })(
                 <div>
-                  <Text code>{selectedAgentHome || serviceConfig.AGENT_HOME}</Text>
+                  <Text code>{selectedAgentHome || serviceConfig.PRODUCER_HOME}</Text>
                   <Button
                     size="small"
                     onClick={e => this.openDirectoryPicker(e)}

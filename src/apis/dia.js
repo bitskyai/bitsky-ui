@@ -5,7 +5,7 @@ import { HTTP_HEADERS, BITSKY_SUPPLIER } from '../utils/constants';
 export async function registerAgentAPI(agent) {
   try {
     const result = await http({
-      url: '/apis/agents',
+      url: '/apis/producers',
       method: 'POST',
       data: agent,
     });

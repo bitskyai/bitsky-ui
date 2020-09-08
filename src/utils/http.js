@@ -9,7 +9,7 @@ import errorMessage from '../locales/en-US/error';
 import { HTTP_HEADERS } from './constants';
 
 export function getRedirectURL(response) {
-  const redirectUrl = _.get(response, 'headers.["x-munew-location"]');
+  const redirectUrl = _.get(response, 'headers.["x-bitsky-location"]');
   const statusCode = _.get(response, 'status');
   if (statusCode === 204 && redirectUrl) {
     return redirectUrl;
@@ -69,7 +69,7 @@ function http(config) {
   return new Promise((resolve, reject) => {
     const mergedConfig = config;
     const defaultHeader = {};
-    defaultHeader[HTTP_HEADERS.X_REQUESTED_WITH] = 'engine-ui';
+    defaultHeader[HTTP_HEADERS.X_REQUESTED_WITH] = 'bitsky-ui';
     defaultHeader[HTTP_HEADERS.X_JOB_ID] = uuidv4();
     mergedConfig.headers = _.merge({}, defaultHeader, config.headers || {});
 

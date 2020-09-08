@@ -7,13 +7,13 @@ let menuRouters = [
     component: './Intelligences',
   },
   {
-    path: '/app/analystservices',
+    path: '/app/retailers',
     name: 'sois',
     icon: 'cloud-server',
     component: './SOIs',
   },
   {
-    path: '/app/agents',
+    path: '/app/producers',
     name: 'agents',
     icon: 'cluster',
     component: './Agents',

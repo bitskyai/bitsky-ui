@@ -24,7 +24,7 @@ import _ from 'lodash';
 // import { exportDefaultSpecifier } from '@babel/types';
 import styled from 'styled-components';
 import { filterOutEmptyValue } from '../../utils/utils';
-import { registerAgentAPI, updateAgentAPI } from '../../apis/agents';
+import { registerAgentAPI, updateAgentAPI } from '../../apis/producers';
 import { STATES, AGENT_TYPES, DEFAULT_AGENT_CONFIGURATION } from '../../utils/constants';
 
 const { Paragraph } = Typography;
@@ -539,7 +539,7 @@ class RegisterAgentForm extends React.Component {
                           message: formatMessage({ id: 'app.containers.Agents.baseURLEmptyError' }),
                         },
                         {
-                          pattern: /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)([a-z0-9\.])*(:[0-9]{1,5})?(\/.*)?$/i,
+        pattern: /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)([a-z0-9\.])*(:[0-9]{1,5})?(\/.*)?$/i,
                           message: formatMessage({ id: 'app.containers.Agents.baseURLEmptyError' }),
                         },
                       ],

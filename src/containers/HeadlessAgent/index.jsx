@@ -112,7 +112,7 @@ export class HeadlessAgent extends React.Component {
             text={formatMessage({ id: 'app.common.messages.action.gettingStart' })}
           />
           <IconLink
-            href="https://docs.bitsky.ai/user-guides/headless-agent"
+            href="https://docs.bitsky.ai/user-guides/headless-producer"
             src="https://gw.alipayobjects.com/zos/rmsportal/NbuDUAuBlIApFuDvWiND.svg"
             text={formatMessage({ id: 'app.common.messages.action.more' })}
           />

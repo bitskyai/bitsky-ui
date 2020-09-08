@@ -1,9 +1,9 @@
-import http, { getRedirectURL } from '../utils/http';
+import http from '../utils/http';
 
 export async function registerASOI(soi) {
   try {
     const result = await http({
-      url: '/apis/sois',
+      url: '/apis/retailers',
       method: 'POST',
       data: soi,
     });
@@ -16,7 +16,7 @@ export async function registerASOI(soi) {
 export async function getSOIs() {
   try {
     const result = await http({
-      url: '/apis/sois',
+      url: '/apis/retailers',
       method: 'GET',
     });
     return result.data;
@@ -28,7 +28,7 @@ export async function getSOIs() {
 export async function updateSOI(soi) {
   try {
     const result = await http({
-      url: `/apis/sois/${soi.globalId}`,
+      url: `/apis/retailers/${soi.globalId}`,
       method: 'PUT',
       data: soi,
     });
@@ -41,7 +41,7 @@ export async function updateSOI(soi) {
 export async function deleteASOIAPI(globalId) {
   try {
     const result = await http({
-      url: `/apis/sois/${globalId}`,
+      url: `/apis/retailers/${globalId}`,
       method: 'DELETE',
     });
     return result.data;
@@ -53,7 +53,7 @@ export async function deleteASOIAPI(globalId) {
 export async function pingSOIAPI(globalId) {
   try {
     const result = await http({
-      url: `/apis/sois/${globalId}/status`,
+      url: `/apis/retailers/${globalId}/status`,
       method: 'PUT',
     });
     return result.data;

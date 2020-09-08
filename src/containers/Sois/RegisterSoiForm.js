@@ -4,14 +4,14 @@ import { FormattedHTMLMessage, FormattedMessage, formatMessage } from 'umi-plugi
 // import messages from '../../locales/en-US/containers/Sois';
 // import commonMessages from '../../locales/en-US/globalMessages';
 
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import React from 'react';
 import _ from 'lodash';
 // import { exportDefaultSpecifier } from '@babel/types';
 import styled from 'styled-components';
 import { filterOutEmptyValue } from '../../utils/utils';
 import { refreshSOIs } from './actions';
-import { registerASOI, updateSOI } from '../../apis/sois';
+import { registerASOI, updateSOI } from '../../apis/retailers';
 
 const { Paragraph } = Typography;
 
@@ -50,7 +50,8 @@ class RegisterSoiForm extends React.Component {
             sending: false,
           });
           this.props.onCloseDrawer();
-        } catch (err) {
+        } catch (errObj) {
+          console.log(`errObj: `, errObj);
           this.setState({
             sending: false,
           });
@@ -336,11 +337,11 @@ class RegisterSoiForm extends React.Component {
   }
 }
 
-RegisterSoiForm.propTypes = {
-  visiable: PropTypes.bool,
-  onCloseDrawer: PropTypes.func,
-  soi: PropTypes.object,
-};
+// RegisterSoiForm.propTypes = {
+//   visiable: PropTypes.bool,
+//   onCloseDrawer: PropTypes.func,
+//   soi: PropTypes.object,
+// };
 
 // export default Form.create()(injectIntl(RegisterSoiForm));
 export default Form.create()(RegisterSoiForm);

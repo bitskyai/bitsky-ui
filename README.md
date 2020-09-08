@@ -1,10 +1,10 @@
 # Welcome to dia-ui 👋
 
-![Version](https://img.shields.io/badge/version-0.1.0-blue.svg?cacheSeconds=2592000) ![Prerequisite](https://img.shields.io/badge/node-%3E%3D10.0.0-blue.svg) [![Documentation](https://img.shields.io/badge/documentation-yes-brightgreen.svg)](https://docs.munew.io) [![License: Apache 2.0](https://img.shields.io/badge/license-Apache%202-yellow)](#)
+![Version](https://img.shields.io/badge/version-0.1.0-blue.svg?cacheSeconds=2592000) ![Prerequisite](https://img.shields.io/badge/node-%3E%3D10.0.0-blue.svg) [![Documentation](https://img.shields.io/badge/documentation-yes-brightgreen.svg)](https://docs.bitsky.ai) [![License: Apache 2.0](https://img.shields.io/badge/license-Apache%202-yellow)](#)
 
-> UI code for Munew
+> UI code for BitSky
 
-### 🏠 [Homepage](https://munew.io)
+### 🏠 [Homepage](https://bitsky.ai)
 
 ## Prerequisites
 
@@ -60,4 +60,4 @@ Now you need to add a `Example` folder and implement your UI
 
 ## Author
 
-👤 **Munew**
+👤 **BitSky**

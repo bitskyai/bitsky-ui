@@ -1,5 +1,5 @@
 import produce from 'immer';
-import { getAgentsAPI } from '../apis/agents';
+import { getAgentsAPI } from '../apis/producers';
 
 const AgentsModel = {
   namespace: 'agents',

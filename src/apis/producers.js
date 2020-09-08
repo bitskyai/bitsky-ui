@@ -4,7 +4,7 @@ import { HTTP_HEADERS } from '../utils/constants';
 export async function registerAgentAPI(agent) {
   try {
     const result = await http({
-      url: '/apis/agents',
+      url: '/apis/producers',
       method: 'POST',
       data: agent,
     });
@@ -17,7 +17,7 @@ export async function registerAgentAPI(agent) {
 export async function getAgentsAPI() {
   try {
     const result = await http({
-      url: '/apis/agents',
+      url: '/apis/producers',
       method: 'GET',
     });
     return result.data;
@@ -28,7 +28,7 @@ export async function getAgentsAPI() {
 
 export async function getAgentAPI(baseURL, gid, serialId, type, skipErrorHandler) {
   try {
-    const url = new URL(`/apis/agents/${gid}`, baseURL).toString();
+    const url = new URL(`/apis/producers/${gid}`, baseURL).toString();
     const headers = {};
     headers[HTTP_HEADERS.X_SERIAL_ID] = serialId;
     const response = await http({
@@ -49,7 +49,7 @@ export async function getAgentAPI(baseURL, gid, serialId, type, skipErrorHandler
 export async function updateAgentAPI(agent) {
   try {
     const result = await http({
-      url: `/apis/agents/${agent.globalId}`,
+      url: `/apis/producers/${agent.globalId}`,
       method: 'PUT',
       data: agent,
     });
@@ -62,7 +62,7 @@ export async function updateAgentAPI(agent) {
 export async function deleteAgentAPI(globalId) {
   try {
     const result = await http({
-      url: `/apis/agents/${globalId}`,
+      url: `/apis/producers/${globalId}`,
       method: 'DELETE',
     });
     return result.data;
@@ -74,7 +74,7 @@ export async function deleteAgentAPI(globalId) {
 export async function activateAgentAPI(globalId) {
   try {
     const result = await http({
-      url: `/apis/agents/${globalId}/activate`,
+      url: `/apis/producers/${globalId}/activate`,
       method: 'POST',
     });
     return result.data;
@@ -86,7 +86,7 @@ export async function activateAgentAPI(globalId) {
 export async function disconnectAgentAPI(globalId) {
   try {
     const result = await http({
-      url: `/apis/manangement/agents/${globalId}/disconnect`,
+      url: `/apis/manangement/producers/${globalId}/disconnect`,
       method: 'POST',
     });
     return result.data;
@@ -98,7 +98,7 @@ export async function disconnectAgentAPI(globalId) {
 export async function deactivateAgentAPI(globalId) {
   try {
     const result = await http({
-      url: `/apis/agents/${globalId}/deactivate`,
+      url: `/apis/producers/${globalId}/deactivate`,
       method: 'POST',
     });
     return result.data;

@@ -25,7 +25,7 @@ import {
   disconnectAgentAPI,
   deleteAgentAPI,
   getAgentsAPI,
-} from '../../apis/agents';
+} from '../../apis/producers';
 
 const EmptyContainer = styled.div`
   padding: 100px 0;

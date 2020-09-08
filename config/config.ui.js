@@ -69,13 +69,13 @@ export default {
               component: './Intelligences',
             },
             {
-              path: '/app/sois',
+              path: '/app/retailers',
               name: 'sois',
               icon: 'cloud-server',
               component: './SOIs',
             },
             {
-              path: '/app/agents',
+              path: '/app/producers',
               name: 'agents',
               icon: 'cluster',
               component: './Agents',

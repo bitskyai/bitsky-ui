@@ -16,7 +16,7 @@ import styled from 'styled-components';
 import SOIsSkeleton from './SOIsSkeleton';
 import RegisterSoiForm from './RegisterSoiForm';
 import { refreshSOIs, refreshSOIsFail, refreshSOIsSuccess } from './actions';
-import { deleteASOIAPI, getSOIs, pingSOIAPI } from '../../apis/sois';
+import { deleteASOIAPI, getSOIs, pingSOIAPI } from '../../apis/retailers';
 import { STATES } from '../../utils/constants';
 import StateTag from '../../utils/StateTag';
 

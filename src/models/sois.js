@@ -1,5 +1,5 @@
 import produce from 'immer';
-import { getSOIs } from '../apis/sois';
+import { getSOIs } from '../apis/retailers';
 
 const SoisModel = {
   namespace: 'sois',

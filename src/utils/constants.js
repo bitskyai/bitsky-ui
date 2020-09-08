@@ -11,11 +11,11 @@ export const AGENT_TYPES = {
 };
 
 export const HTTP_HEADERS = {
-  X_RESPONSED_WITH: 'x-munew-responsed-with',
-  X_SECURITY_KEY_HEADER: 'x-munew-security-key',
-  X_REQUESTED_WITH: 'x-munew-requested-with', // who send this request
-  X_SERIAL_ID: 'x-munew-serial-id', // request serial id
-  X_JOB_ID: 'x-munew-job-id', // each request is a job
+  X_RESPONSED_WITH: 'x-bitsky-responsed-with',
+  X_SECURITY_KEY_HEADER: 'x-bitsky-security-key',
+  X_REQUESTED_WITH: 'x-bitsky-requested-with', // who send this request
+  X_SERIAL_ID: 'x-bitsky-serial-id', // request serial id
+  X_JOB_ID: 'x-bitsky-job-id', // each request is a job
 };
 
 // Default Agent Configuration

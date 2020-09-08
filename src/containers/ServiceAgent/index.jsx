@@ -115,7 +115,7 @@ export class ServiceAgent extends React.Component {
             text={formatMessage({ id: 'app.common.messages.action.gettingStart' })}
           />
           <IconLink
-            href="https://docs.bitsky.ai/user-guides/service-agent"
+            href="https://docs.bitsky.ai/user-guides/service-producer"
             src="https://gw.alipayobjects.com/zos/rmsportal/NbuDUAuBlIApFuDvWiND.svg"
             text={formatMessage({ id: 'app.common.messages.action.more' })}
           />
