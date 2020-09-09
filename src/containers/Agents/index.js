@@ -56,10 +56,10 @@ export class Agents extends React.Component {
     });
   }
 
-  onShowDrawer(agent) {
+  onShowDrawer(producer) {
     this.setState({
       drawerVisiable: true,
-      selectedAgent: agent,
+      selectedAgent: producer,
     });
   }
 
@@ -102,10 +102,10 @@ export class Agents extends React.Component {
     event.stopPropagation();
   }
 
-  activateAgent(agent, event) {
+  activateAgent(producer, event) {
     event.preventDefault();
     event.stopPropagation();
-    activateAgentAPI(agent.globalId).then(() => {
+    activateAgentAPI(producer.globalId).then(() => {
       this.props.dispatch({
         type: 'agents/refreshAgents',
       });
@@ -114,10 +114,10 @@ export class Agents extends React.Component {
     });
   }
 
-  deactivateAgent(agent, event) {
+  deactivateAgent(producer, event) {
     event.preventDefault();
     event.stopPropagation();
-    deactivateAgentAPI(agent.globalId).then(() => {
+    deactivateAgentAPI(producer.globalId).then(() => {
       this.props.dispatch({
         type: 'agents/refreshAgents',
       });
@@ -126,10 +126,10 @@ export class Agents extends React.Component {
     });
   }
 
-  disconnectAgent(agent, event) {
+  disconnectAgent(producer, event) {
     event.preventDefault();
     event.stopPropagation();
-    disconnectAgentAPI(agent.globalId).then(() => {
+    disconnectAgentAPI(producer.globalId).then(() => {
       this.props.dispatch({
         type: 'agents/refreshAgents',
       });
@@ -434,7 +434,7 @@ export class Agents extends React.Component {
             onCloseDrawer={() => {
               this.onCloseDrawer();
             }}
-            agent={selectedAgent}
+            producer={selectedAgent}
             dispatch={this.props.dispatch}
           />
         </PageHeaderWrapper>

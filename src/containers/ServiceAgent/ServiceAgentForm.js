@@ -57,7 +57,7 @@ class ServiceAgentForm extends React.Component {
       selectedAgentHome: undefined,
       alertType: undefined,
       // validating: true,
-      alertMessage: "This agent isn't fully configured",
+      alertMessage: "This producer isn't fully configured",
     };
 
     this.saveConfiguration.bind(this);
@@ -86,7 +86,7 @@ class ServiceAgentForm extends React.Component {
         if (!values.BITSKY_BASE_URL || !values.GLOBAL_ID) {
           state.alertType = 'warning';
           state.alertMessage = (
-            <FormattedHTMLMessage id="app.common.messages.agent.unregisterAgentDescription" />
+            <FormattedHTMLMessage id="app.common.messages.producer.unregisterAgentDescription" />
           );
         }
 
@@ -155,7 +155,7 @@ class ServiceAgentForm extends React.Component {
                 state.alertType = 'error';
                 state.alertMessage = (
                   <FormattedHTMLMessage
-                    id="app.common.messages.agent.unmatchedAgentType"
+                    id="app.common.messages.producer.unmatchedAgentType"
                     values={{ agentType: 'Service' }}
                   />
                 );
@@ -165,7 +165,7 @@ class ServiceAgentForm extends React.Component {
                 state.alertType = 'warning';
                 state.alertMessage = (
                   <>
-                    <FormattedHTMLMessage id="app.common.messages.agent.doesntActive" />
+                    <FormattedHTMLMessage id="app.common.messages.producer.doesntActive" />
                     <Link to="/app/producers">
                       <Icon type="arrow-right" className="munew-alert-link-icon" />
                     </Link>
@@ -175,7 +175,7 @@ class ServiceAgentForm extends React.Component {
                 state.alertType = 'info';
                 state.alertMessage = (
                   <>
-                    <FormattedHTMLMessage id="app.common.messages.agent.active" />
+                    <FormattedHTMLMessage id="app.common.messages.producer.active" />
                     <Link to="/app/producers">
                       <Icon type="arrow-right" className="munew-alert-link-icon" />
                     </Link>
@@ -195,7 +195,7 @@ class ServiceAgentForm extends React.Component {
   }
 
   /**
-   * Get agent configuration from server side and update state based on response from server side
+   * Get producer configuration from server side and update state based on response from server side
    * @param {string} baseURL - Base URL to DIA. Like: http://localhost:3000
    * @param {string} gid - Agent Global ID. Like: db642a82-2178-43a2-b8b7-000e37f3766e
    * @param {string} securityKey - Security Key. Like: 59f43b55-46a3-4efc-a960-018bcca91f46
@@ -205,7 +205,7 @@ class ServiceAgentForm extends React.Component {
   // eslint-disable-next-line class-methods-use-this
   async getAgentConfiguration(baseURL, gid, serialId) {
     try {
-      // If *globalId* exist, then get agent information from server side.
+      // If *globalId* exist, then get producer information from server side.
       const agentConfig = await getAgentAPI(baseURL, gid, serialId, AGENT_TYPES.service, true);
       this.props.dispatch(getAgentConfigurationSuccess(agentConfig));
       return {
@@ -217,12 +217,12 @@ class ServiceAgentForm extends React.Component {
         status: 'error',
       };
       if (err instanceof HTTPError) {
-        // if http status is 404, means this agent doesn't be registered
+        // if http status is 404, means this producer doesn't be registered
         if (err.status === 404) {
           result.alertType = 'error';
           result.alertMessage = (
             <>
-              <FormattedHTMLMessage id="app.common.messages.agent.notFindAgent" />
+              <FormattedHTMLMessage id="app.common.messages.producer.notFindAgent" />
               <Link to="/app/producers">
                 <Icon type="arrow-right" className="munew-alert-link-icon" />
               </Link>
@@ -255,7 +255,7 @@ class ServiceAgentForm extends React.Component {
           result.alertType = 'error';
           result.alertMessage = (
             <FormattedHTMLMessage
-              id="app.common.messages.agent.unmatchedAgentType"
+              id="app.common.messages.producer.unmatchedAgentType"
               values={{ agentType: 'Service' }}
             />
           );
@@ -285,7 +285,7 @@ class ServiceAgentForm extends React.Component {
         viewMode: true,
         alertType: undefined,
         alertMessage: (
-          <FormattedHTMLMessage id="app.common.messages.agent.unregisterAgentDescription" />
+          <FormattedHTMLMessage id="app.common.messages.producer.unregisterAgentDescription" />
         ),
         configuration: {},
       };
@@ -326,7 +326,7 @@ class ServiceAgentForm extends React.Component {
         result.status = 'error';
         result.alertType = 'error';
         result.alertMessage = (
-          <FormattedHTMLMessage id="app.common.messages.agent.notConnectToEngine" />
+          <FormattedHTMLMessage id="app.common.messages.producer.notConnectToEngine" />
         );
       } else if (engineHealth.health) {
         result.status = 'success';
@@ -347,7 +347,7 @@ class ServiceAgentForm extends React.Component {
         status: 'error',
       };
       if (err instanceof HTTPError) {
-        // if http status is 404, means this agent doesn't be registered
+        // if http status is 404, means this producer doesn't be registered
         if (err.status >= 500) {
           result.alertType = 'error';
           result.alertMessage = (
@@ -442,7 +442,7 @@ class ServiceAgentForm extends React.Component {
         ) : (
           ''
         )}
-        <Form className="agent-form" layout="vertical" style={{ paddingBottom: '35px' }}>
+        <Form className="producer-form" layout="vertical" style={{ paddingBottom: '35px' }}>
           <FormItemContainer>
             <Form.Item
               label={formatMessage({ id: 'app.common.messages.serialId' })}

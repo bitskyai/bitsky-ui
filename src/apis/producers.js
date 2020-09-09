@@ -1,12 +1,12 @@
 import http from '../utils/http';
 import { HTTP_HEADERS } from '../utils/constants';
 
-export async function registerAgentAPI(agent) {
+export async function registerAgentAPI(producer) {
   try {
     const result = await http({
       url: '/apis/producers',
       method: 'POST',
-      data: agent,
+      data: producer,
     });
     return result;
   } catch (err) {
@@ -46,12 +46,12 @@ export async function getAgentAPI(baseURL, gid, serialId, type, skipErrorHandler
   }
 }
 
-export async function updateAgentAPI(agent) {
+export async function updateAgentAPI(producer) {
   try {
     const result = await http({
-      url: `/apis/producers/${agent.globalId}`,
+      url: `/apis/producers/${producer.globalId}`,
       method: 'PUT',
-      data: agent,
+      data: producer,
     });
     return result.data;
   } catch (err) {

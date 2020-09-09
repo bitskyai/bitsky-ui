@@ -174,7 +174,7 @@ export default {
     getAgentConfigurationSuccess(state, { payload }) {
       return produce(state, draft => {
         draft.loadingData = false;
-        draft.agent = payload;
+        draft.producer = payload;
         draft.error = undefined;
         draft.modified = Date.now();
       });
@@ -182,7 +182,7 @@ export default {
     getAgentConfigurationFail(state, { error }) {
       return produce(state, draft => {
         draft.loadingData = false;
-        draft.agent = {};
+        draft.producer = {};
         draft.error = error;
         draft.modified = Date.now();
       });

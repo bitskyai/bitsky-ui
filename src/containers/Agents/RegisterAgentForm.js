@@ -64,8 +64,8 @@ class RegisterAgentForm extends React.Component {
     this.props.form.validateFieldsAndScroll(async (err, values) => {
       if (!err) {
         try {
-          if (this.props.agent) {
-            values.globalId = this.props.agent.globalId;
+          if (this.props.producer) {
+            values.globalId = this.props.producer.globalId;
             await updateAgentAPI(values);
             this.props.dispatch({
               type: 'agents/refreshAgents',
@@ -96,19 +96,19 @@ class RegisterAgentForm extends React.Component {
   render() {
     const { getFieldsValue, getFieldDecorator, isFieldsTouched } = this.props.form;
     // const { formatMessage, formatHTMLMessage } = this.props.intl;
-    let agent = this.props.agent || DEFAULT_AGENT_CONFIGURATION;
+    let producer = this.props.producer || DEFAULT_AGENT_CONFIGURATION;
     let readOnly = false;
-    // whether show active agent tip to user, to let user know,
+    // whether show active producer tip to user, to let user know,
     // need to deactive it before user can modify
     let activeAgentTip = false;
-    if (_.get(agent, 'system.state') === STATES.active) {
+    if (_.get(producer, 'system.state') === STATES.active) {
       readOnly = true;
       activeAgentTip = true;
     }
     let disableSaveBtn = true;
     let drawerTitle = formatMessage({ id: 'app.containers.Agents.drawerTitleCreate' });
     let primaryButtonTitle = formatMessage({ id: 'app.containers.Agents.registerNow' });
-    if (agent.globalId) {
+    if (producer.globalId) {
       // if *globalId* exist, then drawer title is
       drawerTitle = formatMessage({ id: 'app.containers.Agents.drawerTitleUpdate' });
       primaryButtonTitle = formatMessage({ id: 'app.common.messages.save' });
@@ -117,12 +117,12 @@ class RegisterAgentForm extends React.Component {
     if (isFieldsTouched()) {
       // console.log('isFieldsTouched: ', isFieldsTouched());
       let currentFormValue = getFieldsValue();
-      currentFormValue.globalId = agent.globalId;
-      currentFormValue = { ...agent, ...currentFormValue };
+      currentFormValue.globalId = producer.globalId;
+      currentFormValue = { ...producer, ...currentFormValue };
       currentFormValue = filterOutEmptyValue(currentFormValue);
-      agent = filterOutEmptyValue(agent);
+      producer = filterOutEmptyValue(producer);
 
-      if (_.isEqual(currentFormValue, agent)) {
+      if (_.isEqual(currentFormValue, producer)) {
         disableSaveBtn = true;
       } else {
         disableSaveBtn = false;
@@ -152,14 +152,14 @@ class RegisterAgentForm extends React.Component {
           <p>
             <FormattedHTMLMessage id="app.containers.Agents.registerAgentDescription" />
           </p>
-          <Form className="agent-form" layout="vertical" style={{ paddingBottom: '35px' }}>
+          <Form className="producer-form" layout="vertical" style={{ paddingBottom: '35px' }}>
             <FormItemContainer>
               <Form.Item
                 label={formatMessage({ id: 'app.containers.Agents.agentName' })}
                 style={formItemStyle}
               >
                 {getFieldDecorator('name', {
-                  initialValue: agent.name,
+                  initialValue: producer.name,
                   rules: [
                     {
                       required: true,
@@ -188,7 +188,7 @@ class RegisterAgentForm extends React.Component {
                 style={formItemStyle}
               >
                 {getFieldDecorator('description', {
-                  initialValue: agent.description,
+                  initialValue: producer.description,
                   rules: [
                     // {
                     //   required: true,
@@ -217,7 +217,7 @@ class RegisterAgentForm extends React.Component {
                 <FormattedHTMLMessage id="app.containers.Agents.agentDescriptionDescription" />
               </FormDescription>
             </FormItemContainer>
-            {agent.globalId ? (
+            {producer.globalId ? (
               <FormItemContainer>
                 <Form.Item
                   label={formatMessage({ id: 'app.common.messages.globalId' })}
@@ -225,7 +225,7 @@ class RegisterAgentForm extends React.Component {
                 >
                   {getFieldDecorator('globalId', {
                     rules: [],
-                  })(<Paragraph copyable>{agent.globalId}</Paragraph>)}
+                  })(<Paragraph copyable>{producer.globalId}</Paragraph>)}
                 </Form.Item>
                 <FormDescription>
                   <FormattedHTMLMessage id="app.common.messages.globalIdDescription" />
@@ -270,7 +270,7 @@ class RegisterAgentForm extends React.Component {
               >
                 {getFieldDecorator('type', {
                   initialValue: _.toUpper(
-                    _.get(this, 'props.agent.type', AGENT_TYPES.headlessBrowser),
+                    _.get(this, 'props.producer.type', AGENT_TYPES.headlessBrowser),
                   ),
                   rules: [
                     {
@@ -318,7 +318,7 @@ class RegisterAgentForm extends React.Component {
                 style={formItemStyle}
               >
                 {getFieldDecorator('private', {
-                  initialValue: agent.private,
+                  initialValue: producer.private,
                   valuePropName: 'checked',
                 })(
                   <Switch
@@ -340,7 +340,7 @@ class RegisterAgentForm extends React.Component {
                 style={formItemStyle}
               >
                 {getFieldDecorator('concurrent', {
-                  initialValue: agent.concurrent,
+                  initialValue: producer.concurrent,
                   rules: [
                     {
                       required: true,
@@ -365,7 +365,7 @@ class RegisterAgentForm extends React.Component {
                 style={formItemStyle}
               >
                 {getFieldDecorator('pollingInterval', {
-                  initialValue: agent.pollingInterval,
+                  initialValue: producer.pollingInterval,
                   rules: [
                     {
                       required: true,
@@ -393,7 +393,7 @@ class RegisterAgentForm extends React.Component {
                 style={formItemStyle}
               >
                 {getFieldDecorator('maxWaitingTime', {
-                  initialValue: agent.maxWaitingTime,
+                  initialValue: producer.maxWaitingTime,
                   rules: [
                     {
                       required: true,
@@ -421,7 +421,7 @@ class RegisterAgentForm extends React.Component {
                 style={formItemStyle}
               >
                 {getFieldDecorator('maxCollect', {
-                  initialValue: agent.maxCollect,
+                  initialValue: producer.maxCollect,
                   rules: [
                     {
                       required: true,
@@ -446,7 +446,7 @@ class RegisterAgentForm extends React.Component {
                 style={formItemStyle}
               >
                 {getFieldDecorator('idelTime', {
-                  initialValue: agent.idelTime,
+                  initialValue: producer.idelTime,
                   rules: [
                     {
                       required: true,
@@ -474,7 +474,7 @@ class RegisterAgentForm extends React.Component {
                 style={formItemStyle}
               >
                 {getFieldDecorator('timeout', {
-                  initialValue: agent.timeout,
+                  initialValue: producer.timeout,
                   rules: [
                     {
                       required: true,
@@ -503,7 +503,7 @@ class RegisterAgentForm extends React.Component {
                 style={formItemStyle}
               >
                 {getFieldDecorator('maxRetry', {
-                  initialValue: agent.maxRetry,
+                  initialValue: producer.maxRetry,
                   rules: [
                     {
                       required: true,
@@ -532,7 +532,7 @@ class RegisterAgentForm extends React.Component {
                     style={formItemStyle}
                   >
                     {getFieldDecorator('baseURL', {
-                      initialValue: agent.baseURL,
+                      initialValue: producer.baseURL,
                       rules: [
                         {
                           required: true,
@@ -566,7 +566,7 @@ class RegisterAgentForm extends React.Component {
                         style={formItemStyle}
                       >
                         {getFieldDecorator('health.method', {
-                          initialValue: _.get(this, 'props.agent.health.method', 'GET'),
+                          initialValue: _.get(this, 'props.producer.health.method', 'GET'),
                           rules: [
                             {
                               required: true,
@@ -601,7 +601,7 @@ class RegisterAgentForm extends React.Component {
                         style={formItemStyle}
                       >
                         {getFieldDecorator('health.path', {
-                          initialValue: _.get(this, 'props.agent.health.path', '/health'),
+                          initialValue: _.get(this, 'props.producer.health.path', '/health'),
                           rules: [
                             {
                               required: true,
@@ -662,7 +662,7 @@ class RegisterAgentForm extends React.Component {
 // RegisterAgentForm.propTypes = {
 //   visiable: PropTypes.bool,
 //   onCloseDrawer: PropTypes.func,
-//   agent: PropTypes.object,
+//   producer: PropTypes.object,
 // };
 
 // export default Form.create()(injectIntl(RegisterAgentForm));

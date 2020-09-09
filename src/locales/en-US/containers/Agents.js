@@ -124,7 +124,7 @@ export default {
     "Configure RESTFul API to get tasks from DIA. Normally you don't need to change this value, only change this when you re-implement DIA. ",
   'app.containers.Agents.unregisterAgent': 'Unregister Producer',
   'app.containers.Agents.unregisterAgentDescription':
-    "You need to register this producer before you can use it.  <a href='https://docs.bitsky.ai/how-tos/how-to-register-an-agent' target='_blank'>How to register a Producer</a>",
+    "You need to register this producer before you can use it.  <a href='https://docs.bitsky.ai/how-tos/how-to-register-an-producer' target='_blank'>How to register a Producer</a>",
   'app.containers.Agents.checkingDIAHealth': 'Checking DIA health... [ {method} ] {url}',
   'app.containers.Agents.activateDescription':
     'Activate this producer, after activate then this producer will start collect tasks',

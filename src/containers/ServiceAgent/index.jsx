@@ -95,7 +95,7 @@ export class ServiceAgent extends React.Component {
 
   render() {
     const serviceConfig = this.props.service.data;
-    const agentConfig = this.props.service.agent;
+    const agentConfig = this.props.service.producer;
     const IconLink = ({ href, src, text }) => (
       <a className="page-header-doc-link" href={href}>
         <img className="page-header-doc-link-icon" src={src} alt={text} />
@@ -214,7 +214,7 @@ export class ServiceAgent extends React.Component {
               <Content>{description}</Content>
             </PageHeader>
           </div>
-          <div className="munew-agent-config-card">
+          <div className="munew-producer-config-card">
             <Card hoverable>
               <Row>
                 <Col xs={0} sm={0} md={0} lg={1} xl={2}></Col>

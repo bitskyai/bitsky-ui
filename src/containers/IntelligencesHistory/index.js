@@ -126,10 +126,10 @@ export class IntelligencesHistory extends React.Component {
     this.initIntelligencesData();
   }
 
-  onShowDrawer(agent) {
+  onShowDrawer(producer) {
     this.setState({
       drawerVisiable: true,
-      selectedTask: agent,
+      selectedTask: producer,
     });
   }
 

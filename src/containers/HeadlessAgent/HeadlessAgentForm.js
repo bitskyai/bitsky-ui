@@ -63,7 +63,7 @@ class HeadlessAgentForm extends React.Component {
       selectedAgentHome: undefined,
       alertType: undefined,
       // validating: true,
-      alertMessage: "This agent isn't fully configured",
+      alertMessage: "This producer isn't fully configured",
     };
 
     this.saveConfiguration.bind(this);
@@ -93,7 +93,7 @@ class HeadlessAgentForm extends React.Component {
         if (!values.BITSKY_BASE_URL || !values.GLOBAL_ID) {
           state.alertType = 'warning';
           state.alertMessage = (
-            <FormattedHTMLMessage id="app.common.messages.agent.unregisterAgentDescription" />
+            <FormattedHTMLMessage id="app.common.messages.producer.unregisterAgentDescription" />
           );
         }
 
@@ -154,7 +154,7 @@ class HeadlessAgentForm extends React.Component {
             }
 
             if (agentValidateResult.status === 'success') {
-              // additional validate for successfully get agent configuration
+              // additional validate for successfully get producer configuration
               if (
                 _.toUpper(_.get(agentValidateResult, 'data.type')) &&
                 _.toUpper(_.get(agentValidateResult, 'data.type')) !==
@@ -164,7 +164,7 @@ class HeadlessAgentForm extends React.Component {
                 state.alertType = 'error';
                 state.alertMessage = (
                   <FormattedHTMLMessage
-                    id="app.common.messages.agent.unmatchedAgentType"
+                    id="app.common.messages.producer.unmatchedAgentType"
                     values={{ agentType: 'Headless' }}
                   />
                 );
@@ -174,7 +174,7 @@ class HeadlessAgentForm extends React.Component {
                 state.alertType = 'warning';
                 state.alertMessage = (
                   <>
-                    <FormattedHTMLMessage id="app.common.messages.agent.doesntActive" />
+                    <FormattedHTMLMessage id="app.common.messages.producer.doesntActive" />
                     <Link to="/app/producers">
                       <Icon type="arrow-right" className="munew-alert-link-icon" />
                     </Link>
@@ -184,7 +184,7 @@ class HeadlessAgentForm extends React.Component {
                 state.alertType = 'info';
                 state.alertMessage = (
                   <>
-                    <FormattedHTMLMessage id="app.common.messages.agent.active" />
+                    <FormattedHTMLMessage id="app.common.messages.producer.active" />
                     <Link to="/app/producers">
                       <Icon type="arrow-right" className="munew-alert-link-icon" />
                     </Link>
@@ -204,7 +204,7 @@ class HeadlessAgentForm extends React.Component {
   }
 
   /**
-   * Get agent configuration from server side and update state based on response from server side
+   * Get producer configuration from server side and update state based on response from server side
    * @param {string} baseURL - Base URL to DIA. Like: http://localhost:3000
    * @param {string} gid - Agent Global ID. Like: db642a82-2178-43a2-b8b7-000e37f3766e
    * @param {string} securityKey - Security Key. Like: 59f43b55-46a3-4efc-a960-018bcca91f46
@@ -214,7 +214,7 @@ class HeadlessAgentForm extends React.Component {
   // eslint-disable-next-line class-methods-use-this
   async getAgentConfiguration(baseURL, gid, serialId) {
     try {
-      // If *globalId* exist, then get agent information from server side.
+      // If *globalId* exist, then get producer information from server side.
       const agentConfig = await getAgentAPI(
         baseURL,
         gid,
@@ -232,12 +232,12 @@ class HeadlessAgentForm extends React.Component {
         status: 'error',
       };
       if (err instanceof HTTPError) {
-        // if http status is 404, means this agent doesn't be registered
+        // if http status is 404, means this producer doesn't be registered
         if (err.status === 404) {
           result.alertType = 'error';
           result.alertMessage = (
             <>
-              <FormattedHTMLMessage id="app.common.messages.agent.notFindAgent" />
+              <FormattedHTMLMessage id="app.common.messages.producer.notFindAgent" />
               <Link to="/app/producers">
                 <Icon type="arrow-right" className="munew-alert-link-icon" />
               </Link>
@@ -270,7 +270,7 @@ class HeadlessAgentForm extends React.Component {
           result.alertType = 'error';
           result.alertMessage = (
             <FormattedHTMLMessage
-              id="app.common.messages.agent.unmatchedAgentType"
+              id="app.common.messages.producer.unmatchedAgentType"
               values={{ agentType: 'Headless' }}
             />
           );
@@ -300,7 +300,7 @@ class HeadlessAgentForm extends React.Component {
         viewMode: true,
         alertType: undefined,
         alertMessage: (
-          <FormattedHTMLMessage id="app.common.messages.agent.unregisterAgentDescription" />
+          <FormattedHTMLMessage id="app.common.messages.producer.unregisterAgentDescription" />
         ),
         configuration: {},
       };
@@ -341,7 +341,7 @@ class HeadlessAgentForm extends React.Component {
         result.status = 'error';
         result.alertType = 'error';
         result.alertMessage = (
-          <FormattedHTMLMessage id="app.common.messages.agent.notConnectToEngine" />
+          <FormattedHTMLMessage id="app.common.messages.producer.notConnectToEngine" />
         );
       } else if (engineHealth.health) {
         result.status = 'success';
@@ -362,7 +362,7 @@ class HeadlessAgentForm extends React.Component {
         status: 'error',
       };
       if (err instanceof HTTPError) {
-        // if http status is 404, means this agent doesn't be registered
+        // if http status is 404, means this producer doesn't be registered
         if (err.status >= 500) {
           result.alertType = 'error';
           result.alertMessage = (
@@ -492,7 +492,7 @@ class HeadlessAgentForm extends React.Component {
     const headless = this.props.headless || {};
     const headlessConfig = headless.data;
     const chromeInstallations = _.get(headless, 'options.chromeInstallations') || [];
-    // const agentConfig = headless.agent;
+    // const agentConfig = headless.producer;
 
     // when server is starting or stopping, don't allow to change before finish
     const disableEdit = headlessConfig.STARTING || headlessConfig.STOPPING;
@@ -536,7 +536,7 @@ class HeadlessAgentForm extends React.Component {
         ) : (
           ''
         )}
-        <Form className="agent-form" layout="vertical" style={{ paddingBottom: '35px' }}>
+        <Form className="producer-form" layout="vertical" style={{ paddingBottom: '35px' }}>
           <FormItemContainer>
             <Form.Item
               label={formatMessage({ id: 'app.common.messages.serialId' })}

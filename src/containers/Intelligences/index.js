@@ -130,10 +130,10 @@ export class Intelligences extends React.Component {
     $(window).unbind('resize');
   }
 
-  onShowDrawer(agent) {
+  onShowDrawer(producer) {
     this.setState({
       drawerVisiable: true,
-      selectedTask: agent,
+      selectedTask: producer,
     });
   }
 
