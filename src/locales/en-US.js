@@ -1,6 +1,6 @@
 import DiaFooter from './en-US/components/DiaFooter';
 import DiaUserInfoCmp from './en-US/components/DiaUserInfoCmp';
-import agentsCtn from './en-US/containers/Agents';
+import producersCtn from './en-US/containers/Producers';
 import commonMessages from './en-US/commonMessages';
 import component from './en-US/component';
 import globalHeader from './en-US/globalHeader';
@@ -14,8 +14,8 @@ import errorMsg from './en-US/error';
 import settingsCtn from './en-US/containers/Settings';
 import signupCtn from './en-US/containers/Signup';
 import retailersCtn from './en-US/containers/Retailers';
-import HeadlessAgentCtn from './en-US/containers/HeadlessAgent';
-import ServiceAgentCtn from './en-US/containers/ServiceAgent';
+import HeadlessProducerCtn from './en-US/containers/HeadlessProducer';
+import ServiceProducerCtn from './en-US/containers/ServiceProducer';
 // import settings from './en-US/settings';
 export default {
   'navBar.lang': 'Languages',
@@ -33,12 +33,12 @@ export default {
   ...errorMsg,
   ...component,
   ...loginCtn,
-  ...agentsCtn,
+  ...producersCtn,
   ...retailersCtn,
   ...settingsCtn,
   ...intelligencesCtn,
   ...intelligencesHistoryCtn,
   ...signupCtn,
-  ...HeadlessAgentCtn,
-  ...ServiceAgentCtn,
+  ...HeadlessProducerCtn,
+  ...ServiceProducerCtn,
 };

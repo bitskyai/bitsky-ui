@@ -7,10 +7,10 @@ const RetailersModel = {
   effects: {
     *refreshRetailers(_, { call, put }) {
       try {
-        const agents = yield call(getRetailers);
+        const producers = yield call(getRetailers);
         yield put({
           type: 'refreshRetailersSuccess',
-          payload: agents,
+          payload: producers,
         });
       } catch (err) {
         yield put({

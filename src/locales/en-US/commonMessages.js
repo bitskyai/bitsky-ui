@@ -36,9 +36,9 @@ export default {
   'app.common.messages.connection.connecting': 'Waiting Connect',
   'app.common.messages.connection.noConnection': 'No Connection',
   'app.common.messages.connection.lostConnection': 'Lost Connection',
-  'app.common.messages.agentTypes.headless': 'Headless',
-  'app.common.messages.agentTypes.service': 'Service',
-  'app.common.messages.agentTypes.browser': 'Browser Extension',
+  'app.common.messages.producerTypes.headless': 'Headless',
+  'app.common.messages.producerTypes.service': 'Service',
+  'app.common.messages.producerTypes.browser': 'Browser Extension',
   'app.common.messages.states.configured': 'Configured',
   'app.common.messages.states.active': 'Active',
   'app.common.messages.states.draft': 'draft',
@@ -82,11 +82,11 @@ export default {
   'app.common.messages.portExample': '8090',
   'app.common.messages.portDescription':
     'Port number for your producer. Example: <span class="ant-typography"><code>8090</code></span>',
-  'app.common.messages.agentHomeFolder': 'Producer Home Folder',
-  'app.common.messages.agentHomeFolderPicker': 'Select producer home folder',
-  'app.common.messages.agentHomeFolderInvalid': 'Please enter a valid producer home folder',
-  'app.common.messages.agentHomeFolderExample': '/Users/exampleuser/.bitsky/producer',
-  'app.common.messages.agentHomeFolderDescription': `<p class="munew-form-description-p">Logs, screenshots or other files will be stored in this folder. And you can access it by <span class="ant-typography"><code>http://localhost:Port</code></span>. </p>
+  'app.common.messages.producerHomeFolder': 'Producer Home Folder',
+  'app.common.messages.producerHomeFolderPicker': 'Select producer home folder',
+  'app.common.messages.producerHomeFolderInvalid': 'Please enter a valid producer home folder',
+  'app.common.messages.producerHomeFolderExample': '/Users/exampleuser/.bitsky/producer',
+  'app.common.messages.producerHomeFolderDescription': `<p class="munew-form-description-p">Logs, screenshots or other files will be stored in this folder. And you can access it by <span class="ant-typography"><code>http://localhost:Port</code></span>. </p>
      <p class="munew-form-description-p">Example(Mac OSX): <span class="ant-typography"><code>/Users/exampleuser/.bitsky/producer</code></span></p>`,
   'app.common.messages.logLevel': 'Log Level',
   'app.common.messages.logLevelDebug': 'Debug',
@@ -121,15 +121,15 @@ export default {
     'Updated producer configuration, and restarting...',
   'app.common.messages.updatedConfigFail': 'Update producer configuration fail',
   // eslint-disable-next-line quotes
-  'app.common.messages.producer.unregisterAgentDescription': `Please entered correct <b>BitSky Base URL</b> and <b>Producer Global ID</b>`,
-  'app.common.messages.producer.notFindAgent': `<div class='munew-alert'>
+  'app.common.messages.producer.unregisterProducerDescription': `Please entered correct <b>BitSky Base URL</b> and <b>Producer Global ID</b>`,
+  'app.common.messages.producer.notFindProducer': `<div class='munew-alert'>
                                                               <p>Cannot find any producer by <b>Producer Global ID</b>, please check whether you typed correct <b>Producer Global ID</b>.</p>
                                                               <p class='munew-alert-subheader'><b>Possible solution: </b></p>
                                                           </div><span>Go to <b>Producer Configurations</b> copy <b>Producer Global ID</b>, then paste to <b>Producer Global ID</b> field</b></span>`,
   // eslint-disable-next-line quotes
   'app.common.messages.producer.notConnectToEngine': `The server you are trying to connect isn't a bitsky application`,
   // eslint-disable-next-line quotes
-  'app.common.messages.producer.unmatchedAgentType': `The producer's type you are trying to connect isn't <b>{agentType}</b>, please change <b>Producer Global ID</b>`,
+  'app.common.messages.producer.unmatchedProducerType': `The producer's type you are trying to connect isn't <b>{producerType}</b>, please change <b>Producer Global ID</b>`,
   // eslint-disable-next-line quotes
   'app.common.messages.producer.doesntActive': `This producer isn't <b>Active</b>. Only <b>active</b> producer can execute tasks. Go to <b>Producer Configurations</b> page to activate this producer  `,
   // eslint-disable-next-line quotes
@@ -144,7 +144,7 @@ export default {
     'The server could not understand the request due to invalid syntax, please check the data you typed',
   'app.common.messages.http.missedsSerialId':
     'You must add <span class="ant-typography"><code>{serialIdHeader}</code></span> to http request header',
-  'app.common.messages.http.agentWasConnected':
+  'app.common.messages.http.producerWasConnected':
     'The producer you want connect to was already connected by other producer instance. You need to disconnect it before you can connect',
   'app.common.messages.search': 'Search',
   'app.common.messages.reset': 'Reset',

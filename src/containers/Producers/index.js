@@ -5,7 +5,7 @@ import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { FormattedHTMLMessage, formatMessage } from 'umi-plugin-react/locale';
 /**
  *
- * Agents
+ * Producers
  *
  */
 import React from 'react';
@@ -14,17 +14,17 @@ import TimeAgo from 'react-timeago';
 import { connect } from 'dva';
 // import dayjs from 'dayjs';
 import styled from 'styled-components';
-import RegisterAgentForm from './RegisterAgentForm';
-import AgentsSkeleton from './AgentsSkeleton';
+import RegisterProducerForm from './RegisterProducerForm';
+import ProducersSkeleton from './ProducersSkeleton';
 import { STATES } from '../../utils/constants';
 import StateTag from '../../utils/StateTag';
-import AgentType from '../../utils/AgentType';
+import ProducerType from '../../utils/ProducerType';
 import {
-  activateAgentAPI,
-  deactivateAgentAPI,
-  disconnectAgentAPI,
-  deleteAgentAPI,
-  getAgentsAPI,
+  activateProducerAPI,
+  deactivateProducerAPI,
+  disconnectProducerAPI,
+  deleteProducerAPI,
+  getProducersAPI,
 } from '../../apis/producers';
 
 const EmptyContainer = styled.div`
@@ -35,38 +35,38 @@ const actionButtonStyle = {
   margin: '0 0 0 0',
 };
 
-export class Agents extends React.Component {
+export class Producers extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       loadingData: true,
       drawerVisiable: false,
-      selectedAgent: undefined,
+      selectedProducer: undefined,
     };
   }
 
   componentDidMount() {
-    this.initAgentsData();
+    this.initProducersData();
   }
 
-  onRegisterAgent() {
+  onRegisterProducer() {
     this.setState({
       drawerVisiable: true,
-      selectedAgent: undefined,
+      selectedProducer: undefined,
     });
   }
 
   onShowDrawer(producer) {
     this.setState({
       drawerVisiable: true,
-      selectedAgent: producer,
+      selectedProducer: producer,
     });
   }
 
   onCloseDrawer() {
     this.setState({
       drawerVisiable: false,
-      selectedAgent: undefined,
+      selectedProducer: undefined,
     });
   }
 
@@ -75,15 +75,15 @@ export class Agents extends React.Component {
     event.stopPropagation();
   }
 
-  onDeleteAAgent(record, event) {
+  onDeleteAProducer(record, event) {
     event.preventDefault();
     event.stopPropagation();
-    deleteAgentAPI(record.globalId).then(
+    deleteProducerAPI(record.globalId).then(
       () => {
         this.props.dispatch({
-          type: 'agents/refreshAgents',
+          type: 'producers/refreshProducers',
         });
-        const msg = formatMessage({ id: 'app.containers.Agents.deleteAgentSuccessful' });
+        const msg = formatMessage({ id: 'app.containers.Producers.deleteProducerSuccessful' });
         message.success(msg);
       },
       err => {
@@ -102,69 +102,69 @@ export class Agents extends React.Component {
     event.stopPropagation();
   }
 
-  activateAgent(producer, event) {
+  activateProducer(producer, event) {
     event.preventDefault();
     event.stopPropagation();
-    activateAgentAPI(producer.globalId).then(() => {
+    activateProducerAPI(producer.globalId).then(() => {
       this.props.dispatch({
-        type: 'agents/refreshAgents',
+        type: 'producers/refreshProducers',
       });
-      const msg = formatMessage({ id: 'app.containers.Agents.activateAgentSuccess' });
+      const msg = formatMessage({ id: 'app.containers.Producers.activateProducerSuccess' });
       message.success(msg);
     });
   }
 
-  deactivateAgent(producer, event) {
+  deactivateProducer(producer, event) {
     event.preventDefault();
     event.stopPropagation();
-    deactivateAgentAPI(producer.globalId).then(() => {
+    deactivateProducerAPI(producer.globalId).then(() => {
       this.props.dispatch({
-        type: 'agents/refreshAgents',
+        type: 'producers/refreshProducers',
       });
-      const msg = formatMessage({ id: 'app.containers.Agents.deactivateAgentSuccess' });
+      const msg = formatMessage({ id: 'app.containers.Producers.deactivateProducerSuccess' });
       message.success(msg);
     });
   }
 
-  disconnectAgent(producer, event) {
+  disconnectProducer(producer, event) {
     event.preventDefault();
     event.stopPropagation();
-    disconnectAgentAPI(producer.globalId).then(() => {
+    disconnectProducerAPI(producer.globalId).then(() => {
       this.props.dispatch({
-        type: 'agents/refreshAgents',
+        type: 'producers/refreshProducers',
       });
-      const msg = formatMessage({ id: 'app.containers.Agents.disconnectAgentSuccess' });
+      const msg = formatMessage({ id: 'app.containers.Producers.disconnectProducerSuccess' });
       message.success(msg);
     });
   }
 
-  initAgentsData() {
+  initProducersData() {
     this.setState({
       loadingData: true,
     });
-    getAgentsAPI().then(
-      agents => {
+    getProducersAPI().then(
+      producers => {
         this.setState({
           loadingData: false,
         });
-        // add key to agents
-        // agents = agents.map((item, index) => {
+        // add key to producers
+        // producers = producers.map((item, index) => {
         //   item.key = item._id || index;
         //   return item;
         // });
-        // dispatch(refreshAgentsSuccess(agents));
+        // dispatch(refreshProducersSuccess(producers));
         this.props.dispatch({
-          type: 'agents/refreshAgentsSuccess',
-          payload: agents,
+          type: 'producers/refreshProducersSuccess',
+          payload: producers,
         });
       },
       err => {
         this.setState({
           loadingData: false,
         });
-        // dispatch(refreshAgentsFail(err));
+        // dispatch(refreshProducersFail(err));
         this.props.dispatch({
-          type: 'agents/refreshAgentsFail',
+          type: 'producers/refreshProducersFail',
           error: err,
         });
       },
@@ -172,22 +172,22 @@ export class Agents extends React.Component {
   }
 
   render() {
-    const { loadingData, drawerVisiable, selectedAgent } = this.state;
-    const agents = this.props.agentsData.data;
-    const modified = this.props.agentsData.modifiedAt;
-    let content = <AgentsSkeleton />;
+    const { loadingData, drawerVisiable, selectedProducer } = this.state;
+    const producers = this.props.producersData.data;
+    const modified = this.props.producersData.modifiedAt;
+    let content = <ProducersSkeleton />;
 
     const columns = [
       {
-        title: formatMessage({ id: 'app.containers.Agents.agentName' }),
+        title: formatMessage({ id: 'app.containers.Producers.producerName' }),
         dataIndex: 'name',
         key: 'name',
       },
       {
-        title: formatMessage({ id: 'app.containers.Agents.agentType' }),
+        title: formatMessage({ id: 'app.containers.Producers.producerType' }),
         dataIndex: 'type',
         key: 'type',
-        render: type => <AgentType type={type} />,
+        render: type => <ProducerType type={type} />,
       },
       {
         title: formatMessage({ id: 'app.common.messages.state' }),
@@ -226,7 +226,7 @@ export class Agents extends React.Component {
           <div
             onClick={e => {
               // this.onPreventShowDrawer(e);
-              Agents.onPreventShowDrawer(e);
+              Producers.onPreventShowDrawer(e);
             }}
           >
             {(() => {
@@ -236,9 +236,9 @@ export class Agents extends React.Component {
                     type="link"
                     size="small"
                     style={actionButtonStyle}
-                    title={formatMessage({ id: 'app.containers.Agents.deactivateDescription' })}
+                    title={formatMessage({ id: 'app.containers.Producers.deactivateDescription' })}
                     onClick={e => {
-                      this.deactivateAgent(record, e);
+                      this.deactivateProducer(record, e);
                     }}
                   >
                     {formatMessage({ id: 'app.common.messages.deactivate' })}
@@ -251,9 +251,9 @@ export class Agents extends React.Component {
                     type="link"
                     size="small"
                     style={actionButtonStyle}
-                    title={formatMessage({ id: 'app.containers.Agents.activateDescription' })}
+                    title={formatMessage({ id: 'app.containers.Producers.activateDescription' })}
                     onClick={e => {
-                      this.activateAgent(record, e);
+                      this.activateProducer(record, e);
                     }}
                   >
                     {formatMessage({ id: 'app.common.messages.activate' })}
@@ -266,9 +266,9 @@ export class Agents extends React.Component {
               <Button
                 size="small"
                 style={actionButtonStyle}
-                title={formatMessage({ id: 'app.containers.Agents.deactivateDescription' })}
+                title={formatMessage({ id: 'app.containers.Producers.deactivateDescription' })}
                 onClick={e => {
-                  deactivateAgent(record, e);
+                  deactivateProducer(record, e);
                 }}
               >
                 {formatMessage({ id: 'app.common.messages.deactivate' })}
@@ -277,9 +277,9 @@ export class Agents extends React.Component {
               <Button
                 size="small"
                 style={actionButtonStyle}
-                title={formatMessage({ id: 'app.containers.Agents.activateDescription' })}
+                title={formatMessage({ id: 'app.containers.Producers.activateDescription' })}
                 onClick={e => {
-                  activateAgent(record, e);
+                  activateProducer(record, e);
                 }}
               >
                 {formatMessage({ id: 'app.common.messages.activate' })}
@@ -287,13 +287,13 @@ export class Agents extends React.Component {
             )} */}
             <Popconfirm
               style={{ maxWidth: '300px' }}
-              title={formatMessage({ id: 'app.containers.Agents.deleteAgentDescription' })}
+              title={formatMessage({ id: 'app.containers.Producers.deleteProducerDescription' })}
               onConfirm={e => {
-                this.onDeleteAAgent(record, e);
+                this.onDeleteAProducer(record, e);
               }}
               onCancel={e => {
                 // this.onClickCancel(record, e);
-                Agents.onClickCancel(record, e);
+                Producers.onClickCancel(record, e);
               }}
               okText={formatMessage({ id: 'app.common.messages.yes' })}
               cancelText={formatMessage({ id: 'app.common.messages.no' })}
@@ -304,7 +304,7 @@ export class Agents extends React.Component {
                 style={actionButtonStyle}
                 onClick={e => {
                   // this.onClickDelete(record, e);
-                  Agents.onClickDelete(record, e);
+                  Producers.onClickDelete(record, e);
                 }}
               >
                 {formatMessage({ id: 'app.common.messages.delete' })}
@@ -315,10 +315,10 @@ export class Agents extends React.Component {
                 type="link"
                 size="small"
                 style={actionButtonStyle}
-                title={formatMessage({ id: 'app.containers.Agents.disconnectDescription' })}
+                title={formatMessage({ id: 'app.containers.Producers.disconnectDescription' })}
                 onClick={e => {
                   // this.onClickDelete(record, e);
-                  this.disconnectAgent(record, e);
+                  this.disconnectProducer(record, e);
                 }}
               >
                 {formatMessage({ id: 'app.common.messages.disconnect' })}
@@ -332,23 +332,23 @@ export class Agents extends React.Component {
     ];
 
     if (!loadingData) {
-      if (!agents || !agents.length) {
+      if (!producers || !producers.length) {
         content = (
           <EmptyContainer>
             <Empty
               description={
                 <span>
-                  <FormattedHTMLMessage id="app.containers.Agents.emptyAgents"></FormattedHTMLMessage>
+                  <FormattedHTMLMessage id="app.containers.Producers.emptyProducers"></FormattedHTMLMessage>
                 </span>
               }
             >
               <Button
                 type="primary"
                 onClick={() => {
-                  this.onRegisterAgent();
+                  this.onRegisterProducer();
                 }}
               >
-                {formatMessage({ id: 'app.containers.Agents.registerNow' })}
+                {formatMessage({ id: 'app.containers.Producers.registerNow' })}
               </Button>
             </Empty>
           </EmptyContainer>
@@ -362,17 +362,17 @@ export class Agents extends React.Component {
                   <Col span={14}>
                     <Button
                       onClick={() => {
-                        this.onRegisterAgent();
+                        this.onRegisterProducer();
                       }}
                       type="primary"
                     >
-                      {formatMessage({ id: 'app.containers.Agents.registerNow' })}
+                      {formatMessage({ id: 'app.containers.Producers.registerNow' })}
                     </Button>
                   </Col>
                   <Col span={10} style={{ textAlign: 'right' }}>
                     <Button
                       type="link"
-                      onClick={() => this.initAgentsData()}
+                      onClick={() => this.initProducersData()}
                       // disabled={loadingIntelligencesData}
                     >
                       {/* {dayjs(modified).format('YYYY/MM/DD HH:mm:ss')} */}
@@ -404,7 +404,7 @@ export class Agents extends React.Component {
                   //     this.onShowDrawer(record);
                   //   },
                   // }}
-                  dataSource={agents}
+                  dataSource={producers}
                   rowKey={record => record.globalId}
                   onRow={record => ({
                     onClick: () => {
@@ -429,12 +429,12 @@ export class Agents extends React.Component {
       <div style={{ padding: '20px' }}>
         <PageHeaderWrapper>
           {content}
-          <RegisterAgentForm
+          <RegisterProducerForm
             visiable={drawerVisiable}
             onCloseDrawer={() => {
               this.onCloseDrawer();
             }}
-            producer={selectedAgent}
+            producer={selectedProducer}
             dispatch={this.props.dispatch}
           />
         </PageHeaderWrapper>
@@ -443,6 +443,6 @@ export class Agents extends React.Component {
   }
 }
 
-export default connect(({ agents }) => ({
-  agentsData: agents,
-}))(Agents);
+export default connect(({ producers }) => ({
+  producersData: producers,
+}))(Producers);

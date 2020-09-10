@@ -14,22 +14,22 @@ const menuRouters = [
   },
   {
     path: '/app/producers',
-    name: 'agents',
+    name: 'producers',
     icon: 'cluster',
-    component: './Agents',
+    component: './Producers',
   },
   {
     path: '/app/headless',
     name: 'defaultHeadless',
     icon: 'global',
-    component: './HeadlessAgent',
+    component: './HeadlessProducer',
     electron: true,
   },
   {
     path: '/app/service',
     name: 'defaultService',
     icon: 'thunderbolt',
-    component: './ServiceAgent',
+    component: './ServiceProducer',
     electron: true,
   },
   {

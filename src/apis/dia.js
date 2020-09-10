@@ -2,7 +2,7 @@ import * as _ from 'lodash';
 import http from '../utils/http';
 import { HTTP_HEADERS, BITSKY_SUPPLIER } from '../utils/constants';
 
-export async function registerAgentAPI(producer) {
+export async function registerProducerAPI(producer) {
   try {
     const result = await http({
       url: '/apis/producers',

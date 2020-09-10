@@ -15,8 +15,8 @@ import {
   START_SERVICE_SUCCESS,
   STOP_SERVICE_FAIL,
   STOP_SERVICE_SUCCESS,
-  GET_AGENT_CONFIGURATION_FAIL,
-  GET_AGENT_CONFIGURATION_SUCCESS,
+  GET_PRODUCER_CONFIGURATION_FAIL,
+  GET_PRODUCER_CONFIGURATION_SUCCESS,
 } from './constants';
 
 export function getServiceConfig() {
@@ -86,16 +86,16 @@ export function stopServiceFail(err) {
   };
 }
 
-export function getAgentConfigurationSuccess(payload) {
+export function getProducerConfigurationSuccess(payload) {
   return {
-    type: GET_AGENT_CONFIGURATION_SUCCESS,
+    type: GET_PRODUCER_CONFIGURATION_SUCCESS,
     payload,
   };
 }
 
-export function getAgentConfigurationFail(err) {
+export function getProducerConfigurationFail(err) {
   return {
-    type: GET_AGENT_CONFIGURATION_FAIL,
+    type: GET_PRODUCER_CONFIGURATION_FAIL,
     error: err,
   };
 }

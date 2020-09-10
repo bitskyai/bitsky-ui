@@ -1,7 +1,7 @@
 import http from '../utils/http';
 import { HTTP_HEADERS } from '../utils/constants';
 
-export async function registerAgentAPI(producer) {
+export async function registerProducerAPI(producer) {
   try {
     const result = await http({
       url: '/apis/producers',
@@ -14,7 +14,7 @@ export async function registerAgentAPI(producer) {
   }
 }
 
-export async function getAgentsAPI() {
+export async function getProducersAPI() {
   try {
     const result = await http({
       url: '/apis/producers',
@@ -26,7 +26,7 @@ export async function getAgentsAPI() {
   }
 }
 
-export async function getAgentAPI(baseURL, gid, serialId, type, skipErrorHandler) {
+export async function getProducerAPI(baseURL, gid, serialId, type, skipErrorHandler) {
   try {
     const url = new URL(`/apis/producers/${gid}`, baseURL).toString();
     const headers = {};
@@ -46,7 +46,7 @@ export async function getAgentAPI(baseURL, gid, serialId, type, skipErrorHandler
   }
 }
 
-export async function updateAgentAPI(producer) {
+export async function updateProducerAPI(producer) {
   try {
     const result = await http({
       url: `/apis/producers/${producer.globalId}`,
@@ -59,7 +59,7 @@ export async function updateAgentAPI(producer) {
   }
 }
 
-export async function deleteAgentAPI(globalId) {
+export async function deleteProducerAPI(globalId) {
   try {
     const result = await http({
       url: `/apis/producers/${globalId}`,
@@ -71,7 +71,7 @@ export async function deleteAgentAPI(globalId) {
   }
 }
 
-export async function activateAgentAPI(globalId) {
+export async function activateProducerAPI(globalId) {
   try {
     const result = await http({
       url: `/apis/producers/${globalId}/activate`,
@@ -83,7 +83,7 @@ export async function activateAgentAPI(globalId) {
   }
 }
 
-export async function disconnectAgentAPI(globalId) {
+export async function disconnectProducerAPI(globalId) {
   try {
     const result = await http({
       url: `/apis/manangement/producers/${globalId}/disconnect`,
@@ -95,7 +95,7 @@ export async function disconnectAgentAPI(globalId) {
   }
 }
 
-export async function deactivateAgentAPI(globalId) {
+export async function deactivateProducerAPI(globalId) {
   try {
     const result = await http({
       url: `/apis/producers/${globalId}/deactivate`,

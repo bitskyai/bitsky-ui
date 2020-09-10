@@ -1,6 +1,6 @@
 /**
  *
- * Headless Agent
+ * Headless Producer
  *
  */
 import { Card, PageHeader, Button, Tag, Typography, Row, Col, Icon } from 'antd';
@@ -9,7 +9,7 @@ import React from 'react';
 import * as _ from 'lodash';
 import { connect } from 'dva';
 // import styled from 'styled-components';
-// import HeadlessAgentSkeleton from './HeadlessAgentSkeleton';
+// import HeadlessProducerSkeleton from './HeadlessProducerSkeleton';
 import {
   getHeadlessConfig,
   startHeadless,
@@ -21,19 +21,19 @@ import {
   stopHeadlessSuccess,
   stopHeadlessFail,
 } from './actions';
-import HeadlessAgentForm from './HeadlessAgentForm';
-import AgentType from '../../utils/AgentType';
+import HeadlessProducerForm from './HeadlessProducerForm';
+import ProducerType from '../../utils/ProducerType';
 import StateTag from '../../utils/StateTag';
 import './style.less';
 
 const { Paragraph } = Typography;
 
-export class HeadlessAgent extends React.Component {
+export class HeadlessProducer extends React.Component {
   // eslint-disable-next-line no-useless-constructor
   constructor(props) {
     super(props);
-    this.startHeadlessAgent.bind(this);
-    this.stopHeadlessAgent.bind(this);
+    this.startHeadlessProducer.bind(this);
+    this.stopHeadlessProducer.bind(this);
   }
 
   componentDidMount() {
@@ -82,17 +82,17 @@ export class HeadlessAgent extends React.Component {
     }
   }
 
-  startHeadlessAgent() {
+  startHeadlessProducer() {
     this.props.dispatch(startHeadless());
   }
 
-  stopHeadlessAgent() {
+  stopHeadlessProducer() {
     this.props.dispatch(stopHeadless());
   }
 
   render() {
     const headlessConfig = this.props.headless.data;
-    const agentConfig = this.props.headless.producer;
+    const producerConfig = this.props.headless.producer;
     const IconLink = ({ href, src, text }) => (
       <a className="page-header-doc-link" href={href}>
         <img className="page-header-doc-link-icon" src={src} alt={text} />
@@ -103,7 +103,7 @@ export class HeadlessAgent extends React.Component {
     const description = (
       <>
         <Paragraph>
-          <FormattedHTMLMessage id="app.containers.HeadlessAgent.description" />
+          <FormattedHTMLMessage id="app.containers.HeadlessProducer.description" />
         </Paragraph>
         <div>
           <IconLink
@@ -127,10 +127,10 @@ export class HeadlessAgent extends React.Component {
     let tagColor = 'red';
     let tagText = formatMessage({ id: 'app.common.messages.status.stopped' });
     let operationBtn;
-    let agentTypeTag = '';
+    let producerTypeTag = '';
     let stateTag = '';
     if (headlessConfig) {
-      agentTypeTag = <AgentType type={headlessConfig.TYPE} />;
+      producerTypeTag = <ProducerType type={headlessConfig.TYPE} />;
       if (headlessConfig.STARTING) {
         tagColor = 'blue';
         tagText = formatMessage({ id: 'app.common.messages.status.starting' });
@@ -155,7 +155,7 @@ export class HeadlessAgent extends React.Component {
             key="stop"
             style={{ color: '#f50', border: '1px solid #f50' }}
             onClick={() => {
-              this.stopHeadlessAgent();
+              this.stopHeadlessProducer();
             }}
           >
             <Icon type="pause-circle" />
@@ -170,7 +170,7 @@ export class HeadlessAgent extends React.Component {
             key="start"
             style={{ color: '#1890ff', border: '1px solid #1890ff' }}
             onClick={() => {
-              this.startHeadlessAgent();
+              this.startHeadlessProducer();
             }}
           >
             <Icon type="caret-right" />
@@ -179,21 +179,21 @@ export class HeadlessAgent extends React.Component {
         );
       }
     }
-    if (_.get(agentConfig, 'system.state')) {
-      stateTag = <StateTag state={_.get(agentConfig, 'system.state')} />;
+    if (_.get(producerConfig, 'system.state')) {
+      stateTag = <StateTag state={_.get(producerConfig, 'system.state')} />;
     }
-    const headlessAgentURL = `http://localhost:${headlessConfig.PORT}`;
+    const headlessProducerURL = `http://localhost:${headlessConfig.PORT}`;
     return (
       <div>
         <>
           <div className="munew-page-header-ghost-wrapper">
             <PageHeader
               title={formatMessage({ id: 'menu.defaultHeadless' })}
-              subTitle={formatMessage({ id: 'app.containers.HeadlessAgent.subTitle' })}
+              subTitle={formatMessage({ id: 'app.containers.HeadlessProducer.subTitle' })}
               className="site-page-header"
               tags={
                 <>
-                  {agentTypeTag}
+                  {producerTypeTag}
                   <Tag color={tagColor}>{tagText}</Tag>
                   {stateTag}
                 </>
@@ -201,7 +201,7 @@ export class HeadlessAgent extends React.Component {
               extra={[
                 operationBtn,
                 <Button key="view" type="primary" disabled={!headlessConfig.RUNNING}>
-                  <a href={headlessAgentURL}>
+                  <a href={headlessProducerURL}>
                     <Icon type="eye" />
                     <FormattedMessage id="app.common.messages.action.view" />
                   </a>
@@ -216,7 +216,7 @@ export class HeadlessAgent extends React.Component {
               <Row>
                 <Col xs={0} sm={0} md={0} lg={1} xl={2}></Col>
                 <Col xs={24} sm={24} md={24} lg={22} xl={20}>
-                  <HeadlessAgentForm />
+                  <HeadlessProducerForm />
                 </Col>
                 <Col xs={0} sm={0} md={0} lg={1} xl={2}></Col>
               </Row>
@@ -228,4 +228,4 @@ export class HeadlessAgent extends React.Component {
   }
 }
 
-export default connect(({ headless }) => ({ headless }))(HeadlessAgent);
+export default connect(({ headless }) => ({ headless }))(HeadlessProducer);

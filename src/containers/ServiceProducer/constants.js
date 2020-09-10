@@ -15,5 +15,5 @@ export const STOP_SERVICE_SUCCESS = 'service/stopSuccess';
 export const STOP_SERVICE_FAIL = 'service/stopFail';
 export const GET_SERVICE_CONFIG_FAIL = 'service/getConfigFail';
 export const UPDATE_SERVICE_CONFIG_FAIL = 'service/updateConfigFail';
-export const GET_AGENT_CONFIGURATION_FAIL = 'service/getAgentConfigurationFail';
-export const GET_AGENT_CONFIGURATION_SUCCESS = 'service/getAgentConfigurationSuccess';
+export const GET_PRODUCER_CONFIGURATION_FAIL = 'service/getProducerConfigurationFail';
+export const GET_PRODUCER_CONFIGURATION_SUCCESS = 'service/getProducerConfigurationSuccess';

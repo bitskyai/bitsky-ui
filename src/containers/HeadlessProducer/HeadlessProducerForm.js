@@ -1,4 +1,4 @@
-// import { refreshAgents } from './actions';
+// import { refreshProducers } from './actions';
 import {
   Alert,
   Button,
@@ -25,14 +25,14 @@ import {
   ENGINE_HEALTH_METHOD,
   ENGINE_HEALTH_PATH,
   STATES,
-  AGENT_TYPES,
+  PRODUCER_TYPES,
 } from '../../utils/constants';
 import {
   updateHeadlessConfig,
-  getAgentConfigurationSuccess,
-  getAgentConfigurationFail,
+  getProducerConfigurationSuccess,
+  getProducerConfigurationFail,
 } from './actions';
-import { getAgentAPI } from '../../apis/producers';
+import { getProducerAPI } from '../../apis/producers';
 import { checkEngineHealthAPI } from '../../apis/dia';
 import HTTPError from '../../utils/HTTPError';
 import { sendToElectron } from '../../utils/utils';
@@ -52,7 +52,7 @@ const FormItemContainer = styled.div`
 
 const DEFAULT_BUNDLED_CHROMIUM = 'default';
 
-class HeadlessAgentForm extends React.Component {
+class HeadlessProducerForm extends React.Component {
   constructor() {
     super();
 
@@ -60,7 +60,7 @@ class HeadlessAgentForm extends React.Component {
     this.state = {
       userDataDirValidateStatus: undefined,
       userDataDirValidateHelp: '',
-      selectedAgentHome: undefined,
+      selectedProducerHome: undefined,
       alertType: undefined,
       // validating: true,
       alertMessage: "This producer isn't fully configured",
@@ -93,7 +93,7 @@ class HeadlessAgentForm extends React.Component {
         if (!values.BITSKY_BASE_URL || !values.GLOBAL_ID) {
           state.alertType = 'warning';
           state.alertMessage = (
-            <FormattedHTMLMessage id="app.common.messages.producer.unregisterAgentDescription" />
+            <FormattedHTMLMessage id="app.common.messages.producer.unregisterProducerDescription" />
           );
         }
 
@@ -104,9 +104,9 @@ class HeadlessAgentForm extends React.Component {
           state.baseURLValidateStatus = '';
         }
         if (errs && errs.GLOBAL_ID) {
-          state.agentGlobalIdValidateStatus = 'error';
+          state.producerGlobalIdValidateStatus = 'error';
         } else {
-          state.agentGlobalIdValidateStatus = '';
+          state.producerGlobalIdValidateStatus = '';
         }
 
         try {
@@ -134,42 +134,42 @@ class HeadlessAgentForm extends React.Component {
 
           if ((!errs || !errs.GLOBAL_ID) && values.BITSKY_BASE_URL && values.GLOBAL_ID) {
             this.setState({
-              agentGlobalIdValidateStatus: 'validating',
+              producerGlobalIdValidateStatus: 'validating',
             });
             const headless = this.props.headless || {};
             const headlessConfig = headless.data;
             // Do server side validation
-            const agentValidateResult = await this.getAgentConfiguration(
+            const producerValidateResult = await this.getProducerConfiguration(
               values.BITSKY_BASE_URL,
               values.GLOBAL_ID,
               headlessConfig.PRODUCER_SERIAL_ID,
             );
-            state.agentGlobalIdValidateStatus = agentValidateResult.status || 'error';
+            state.producerGlobalIdValidateStatus = producerValidateResult.status || 'error';
 
-            if (agentValidateResult.alertType) {
-              state.alertType = agentValidateResult.alertType;
+            if (producerValidateResult.alertType) {
+              state.alertType = producerValidateResult.alertType;
             }
-            if (agentValidateResult.alertMessage) {
-              state.alertMessage = agentValidateResult.alertMessage;
+            if (producerValidateResult.alertMessage) {
+              state.alertMessage = producerValidateResult.alertMessage;
             }
 
-            if (agentValidateResult.status === 'success') {
+            if (producerValidateResult.status === 'success') {
               // additional validate for successfully get producer configuration
               if (
-                _.toUpper(_.get(agentValidateResult, 'data.type')) &&
-                _.toUpper(_.get(agentValidateResult, 'data.type')) !==
+                _.toUpper(_.get(producerValidateResult, 'data.type')) &&
+                _.toUpper(_.get(producerValidateResult, 'data.type')) !==
                   _.toUpper(_.get(this.props, 'headless.data.TYPE'))
               ) {
-                state.agentGlobalIdValidateStatus = 'error';
+                state.producerGlobalIdValidateStatus = 'error';
                 state.alertType = 'error';
                 state.alertMessage = (
                   <FormattedHTMLMessage
-                    id="app.common.messages.producer.unmatchedAgentType"
-                    values={{ agentType: 'Headless' }}
+                    id="app.common.messages.producer.unmatchedProducerType"
+                    values={{ producerType: 'Headless' }}
                   />
                 );
               } else if (
-                _.toUpper(_.get(agentValidateResult, 'data.system.state')) !== STATES.active
+                _.toUpper(_.get(producerValidateResult, 'data.system.state')) !== STATES.active
               ) {
                 state.alertType = 'warning';
                 state.alertMessage = (
@@ -180,7 +180,7 @@ class HeadlessAgentForm extends React.Component {
                     </Link>
                   </>
                 );
-              } else if (agentValidateResult.status) {
+              } else if (producerValidateResult.status) {
                 state.alertType = 'info';
                 state.alertMessage = (
                   <>
@@ -206,26 +206,26 @@ class HeadlessAgentForm extends React.Component {
   /**
    * Get producer configuration from server side and update state based on response from server side
    * @param {string} baseURL - Base URL to DIA. Like: http://localhost:3000
-   * @param {string} gid - Agent Global ID. Like: db642a82-2178-43a2-b8b7-000e37f3766e
+   * @param {string} gid - Producer Global ID. Like: db642a82-2178-43a2-b8b7-000e37f3766e
    * @param {string} securityKey - Security Key. Like: 59f43b55-46a3-4efc-a960-018bcca91f46
    *
-   * @returns {ValidateResult} - Agent Configuration. Please take a look of Agent Schema for detail
+   * @returns {ValidateResult} - Producer Configuration. Please take a look of Producer Schema for detail
    */
   // eslint-disable-next-line class-methods-use-this
-  async getAgentConfiguration(baseURL, gid, serialId) {
+  async getProducerConfiguration(baseURL, gid, serialId) {
     try {
       // If *globalId* exist, then get producer information from server side.
-      const agentConfig = await getAgentAPI(
+      const producerConfig = await getProducerAPI(
         baseURL,
         gid,
         serialId,
-        AGENT_TYPES.headlessBrowser,
+        PRODUCER_TYPES.headlessBrowser,
         true,
       );
-      this.props.dispatch(getAgentConfigurationSuccess(agentConfig));
+      this.props.dispatch(getProducerConfigurationSuccess(producerConfig));
       return {
         status: 'success',
-        data: agentConfig,
+        data: producerConfig,
       };
     } catch (err) {
       const result = {
@@ -237,7 +237,7 @@ class HeadlessAgentForm extends React.Component {
           result.alertType = 'error';
           result.alertMessage = (
             <>
-              <FormattedHTMLMessage id="app.common.messages.producer.notFindAgent" />
+              <FormattedHTMLMessage id="app.common.messages.producer.notFindProducer" />
               <Link to="/app/producers">
                 <Icon type="arrow-right" className="munew-alert-link-icon" />
               </Link>
@@ -256,7 +256,7 @@ class HeadlessAgentForm extends React.Component {
         } else if (err.status === 403) {
           result.alertType = 'error';
           result.alertMessage = (
-            <FormattedHTMLMessage id="app.common.messages.http.agentWasConnected" />
+            <FormattedHTMLMessage id="app.common.messages.http.producerWasConnected" />
           );
         } else if (err.status >= 400 && err.code === '00144000002') {
           result.alertType = 'error';
@@ -270,8 +270,8 @@ class HeadlessAgentForm extends React.Component {
           result.alertType = 'error';
           result.alertMessage = (
             <FormattedHTMLMessage
-              id="app.common.messages.producer.unmatchedAgentType"
-              values={{ agentType: 'Headless' }}
+              id="app.common.messages.producer.unmatchedProducerType"
+              values={{ producerType: 'Headless' }}
             />
           );
         } else if (err.status >= 400) {
@@ -288,7 +288,7 @@ class HeadlessAgentForm extends React.Component {
         result.alertMessage = <FormattedHTMLMessage id="app.common.messages.http.internalError" />;
       }
 
-      this.props.dispatch(getAgentConfigurationFail(err));
+      this.props.dispatch(getProducerConfigurationFail(err));
       return result;
     }
   }
@@ -300,7 +300,7 @@ class HeadlessAgentForm extends React.Component {
         viewMode: true,
         alertType: undefined,
         alertMessage: (
-          <FormattedHTMLMessage id="app.common.messages.producer.unregisterAgentDescription" />
+          <FormattedHTMLMessage id="app.common.messages.producer.unregisterProducerDescription" />
         ),
         configuration: {},
       };
@@ -389,7 +389,7 @@ class HeadlessAgentForm extends React.Component {
     try {
       const dir = await sendToElectron('common/openDirectoryPicker');
       this.setState({
-        selectedAgentHome: dir.directory,
+        selectedProducerHome: dir.directory,
       });
       this.saveConfiguration();
     } catch (err) {
@@ -405,8 +405,8 @@ class HeadlessAgentForm extends React.Component {
         if (values.PUPPETEER_EXECUTABLE_PATH === DEFAULT_BUNDLED_CHROMIUM) {
           values.PUPPETEER_EXECUTABLE_PATH = '';
         }
-        if (this.state.selectedAgentHome) {
-          values.PRODUCER_HOME = this.state.selectedAgentHome;
+        if (this.state.selectedProducerHome) {
+          values.PRODUCER_HOME = this.state.selectedProducerHome;
         }
         this.updateConfiguration(values);
         this.onValidateForm();
@@ -444,14 +444,14 @@ class HeadlessAgentForm extends React.Component {
             this.setState({
               userDataDirValidateStatus: 'error',
               userDataDirValidateHelp: formatHTMLMessage({
-                id: 'app.containers.HeadlessAgent.invalidDataDir',
+                id: 'app.containers.HeadlessProducer.invalidDataDir',
               }),
             });
           } else if (!validateResult.userDataDir) {
             this.setState({
               userDataDirValidateStatus: 'warning',
               userDataDirValidateHelp: formatHTMLMessage({
-                id: 'app.containers.HeadlessAgent.notAValidDataDir',
+                id: 'app.containers.HeadlessProducer.notAValidDataDir',
               }),
             });
             this.updateConfiguration();
@@ -477,22 +477,22 @@ class HeadlessAgentForm extends React.Component {
   }
 
   render() {
-    // let content = <HeadlessAgentSkeleton />;
+    // let content = <HeadlessProducerSkeleton />;
     const { getFieldDecorator } = this.props.form;
     const {
       baseURLValidateStatus,
-      agentGlobalIdValidateStatus,
+      producerGlobalIdValidateStatus,
       userDataDirValidateStatus,
       userDataDirValidateHelp,
       // validating,
       alertType,
       alertMessage,
-      selectedAgentHome,
+      selectedProducerHome,
     } = this.state;
     const headless = this.props.headless || {};
     const headlessConfig = headless.data;
     const chromeInstallations = _.get(headless, 'options.chromeInstallations') || [];
-    // const agentConfig = headless.producer;
+    // const producerConfig = headless.producer;
 
     // when server is starting or stopping, don't allow to change before finish
     const disableEdit = headlessConfig.STARTING || headlessConfig.STOPPING;
@@ -509,10 +509,10 @@ class HeadlessAgentForm extends React.Component {
     }
 
     let globalIdProps = {};
-    if (agentGlobalIdValidateStatus) {
+    if (producerGlobalIdValidateStatus) {
       globalIdProps = {
         hasFeedback: true,
-        validateStatus: agentGlobalIdValidateStatus,
+        validateStatus: producerGlobalIdValidateStatus,
       };
     }
 
@@ -661,7 +661,7 @@ class HeadlessAgentForm extends React.Component {
           </FormItemContainer>
           <FormItemContainer>
             <Form.Item
-              label={formatMessage({ id: 'app.common.messages.agentHomeFolder' })}
+              label={formatMessage({ id: 'app.common.messages.producerHomeFolder' })}
               style={formItemStyle}
               hasFeedback={false}
             >
@@ -671,13 +671,13 @@ class HeadlessAgentForm extends React.Component {
                   {
                     required: true,
                     message: formatMessage({
-                      id: 'app.common.messages.agentHomeFolderInvalid',
+                      id: 'app.common.messages.producerHomeFolderInvalid',
                     }),
                   },
                 ],
               })(
                 <div>
-                  <Text code>{selectedAgentHome || headlessConfig.PRODUCER_HOME}</Text>
+                  <Text code>{selectedProducerHome || headlessConfig.PRODUCER_HOME}</Text>
                   <Button
                     size="small"
                     onClick={e => this.openDirectoryPicker(e)}
@@ -694,7 +694,7 @@ class HeadlessAgentForm extends React.Component {
                 <Input
                   disabled={disableEdit}
                   placeholder={formatMessage({
-                    id: 'app.common.messages.agentHomeFolderExample',
+                    id: 'app.common.messages.producerHomeFolderExample',
                   })}
                   onChange={e => this.saveConfiguration(e)}
                 />,
@@ -703,7 +703,7 @@ class HeadlessAgentForm extends React.Component {
               )}
             </Form.Item>
             <FormDescription>
-              <FormattedHTMLMessage id="app.common.messages.agentHomeFolderDescription" />
+              <FormattedHTMLMessage id="app.common.messages.producerHomeFolderDescription" />
             </FormDescription>
           </FormItemContainer>
           <FormItemContainer>
@@ -748,7 +748,7 @@ class HeadlessAgentForm extends React.Component {
           </FormItemContainer>
           <FormItemContainer>
             <Form.Item
-              label={formatMessage({ id: 'app.containers.HeadlessAgent.headless' })}
+              label={formatMessage({ id: 'app.containers.HeadlessProducer.headless' })}
               style={formItemStyle}
             >
               {getFieldDecorator('HEADLESS', {
@@ -766,12 +766,12 @@ class HeadlessAgentForm extends React.Component {
               )}
             </Form.Item>
             <FormDescription>
-              <FormattedHTMLMessage id="app.containers.HeadlessAgent.headlessDescription" />
+              <FormattedHTMLMessage id="app.containers.HeadlessProducer.headlessDescription" />
             </FormDescription>
           </FormItemContainer>
           <FormItemContainer>
             <Form.Item
-              label={formatMessage({ id: 'app.containers.HeadlessAgent.screenshots' })}
+              label={formatMessage({ id: 'app.containers.HeadlessProducer.screenshots' })}
               style={formItemStyle}
             >
               {getFieldDecorator('SCREENSHOT', {
@@ -791,12 +791,12 @@ class HeadlessAgentForm extends React.Component {
               )}
             </Form.Item>
             <FormDescription>
-              <FormattedHTMLMessage id="app.containers.HeadlessAgent.screenshotsDescription" />
+              <FormattedHTMLMessage id="app.containers.HeadlessProducer.screenshotsDescription" />
             </FormDescription>
           </FormItemContainer>
           <FormItemContainer>
             <Form.Item
-              label={formatMessage({ id: 'app.containers.HeadlessAgent.customFunctionTimeout' })}
+              label={formatMessage({ id: 'app.containers.HeadlessProducer.customFunctionTimeout' })}
               style={formItemStyle}
             >
               {getFieldDecorator('CUSTOM_FUNCTION_TIMEOUT', {
@@ -805,13 +805,13 @@ class HeadlessAgentForm extends React.Component {
                   {
                     required: true,
                     message: formatMessage({
-                      id: 'app.containers.HeadlessAgent.customFunctionTimeoutInvalid',
+                      id: 'app.containers.HeadlessProducer.customFunctionTimeoutInvalid',
                     }),
                   },
                   // {
                   //   min: 1,
                   //   message: formatMessage({
-                  //     id: 'app.containers.HeadlessAgent.customFunctionTimeoutInvalid',
+                  //     id: 'app.containers.HeadlessProducer.customFunctionTimeoutInvalid',
                   //   }),
                   // },
                 ],
@@ -821,19 +821,19 @@ class HeadlessAgentForm extends React.Component {
                   min={1}
                   max={30 * 60 * 1000}
                   placeholder={formatMessage({
-                    id: 'app.containers.HeadlessAgent.customFunctionTimeoutExample',
+                    id: 'app.containers.HeadlessProducer.customFunctionTimeoutExample',
                   })}
                   onChange={e => this.saveConfiguration(e)}
                 />,
               )}
             </Form.Item>
             <FormDescription>
-              <FormattedHTMLMessage id="app.containers.HeadlessAgent.customFunctionTimeoutDescription" />
+              <FormattedHTMLMessage id="app.containers.HeadlessProducer.customFunctionTimeoutDescription" />
             </FormDescription>
           </FormItemContainer>
           <FormItemContainer>
             <Form.Item
-              label={formatMessage({ id: 'app.containers.HeadlessAgent.browserInstallations' })}
+              label={formatMessage({ id: 'app.containers.HeadlessProducer.browserInstallations' })}
               style={formItemStyle}
             >
               {getFieldDecorator('PUPPETEER_EXECUTABLE_PATH', {
@@ -842,12 +842,12 @@ class HeadlessAgentForm extends React.Component {
                 <Select
                   disabled={disableEdit}
                   placeholder={formatMessage({
-                    id: 'app.containers.HeadlessAgent.bundledChromium',
+                    id: 'app.containers.HeadlessProducer.bundledChromium',
                   })}
                   onChange={e => this.saveConfiguration(e)}
                 >
                   <Select.Option value={DEFAULT_BUNDLED_CHROMIUM}>
-                    <FormattedHTMLMessage id="app.containers.HeadlessAgent.bundledChromium" />
+                    <FormattedHTMLMessage id="app.containers.HeadlessProducer.bundledChromium" />
                   </Select.Option>
                   {chromeInstallations.map((installation, index) => (
                     <Select.Option
@@ -863,12 +863,12 @@ class HeadlessAgentForm extends React.Component {
               )}
             </Form.Item>
             <FormDescription>
-              <FormattedHTMLMessage id="app.containers.HeadlessAgent.browserInstallationsDescription" />
+              <FormattedHTMLMessage id="app.containers.HeadlessProducer.browserInstallationsDescription" />
             </FormDescription>
           </FormItemContainer>
           <FormItemContainer>
             <Form.Item
-              label={formatMessage({ id: 'app.containers.HeadlessAgent.userDataDir' })}
+              label={formatMessage({ id: 'app.containers.HeadlessProducer.userDataDir' })}
               style={formItemStyle}
               {...userDataDirProps}
             >
@@ -879,14 +879,14 @@ class HeadlessAgentForm extends React.Component {
                 <Input
                   disabled={disableEdit}
                   placeholder={formatMessage({
-                    id: 'app.containers.HeadlessAgent.userDataDirExample',
+                    id: 'app.containers.HeadlessProducer.userDataDirExample',
                   })}
                   onChange={e => this.saveUserDataDir(e)}
                 />,
               )}
             </Form.Item>
             <FormDescription>
-              <FormattedHTMLMessage id="app.containers.HeadlessAgent.userDataDirDescription" />
+              <FormattedHTMLMessage id="app.containers.HeadlessProducer.userDataDirDescription" />
             </FormDescription>
           </FormItemContainer>
         </Form>
@@ -897,4 +897,4 @@ class HeadlessAgentForm extends React.Component {
 
 export default connect(({ headless }) => ({
   headless,
-}))(Form.create()(HeadlessAgentForm));
+}))(Form.create()(HeadlessProducerForm));

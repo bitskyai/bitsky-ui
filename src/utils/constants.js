@@ -4,7 +4,7 @@ export const ONCE_TILL_UNMOUNT = '@@saga-injector/once-till-unmount';
 
 export const BITSKY_SUPPLIER = '@bitskyai/supplier';
 
-export const AGENT_TYPES = {
+export const PRODUCER_TYPES = {
   browserExtension: 'BROWSEREXTENSION',
   headlessBrowser: 'HEADLESSBROWSER',
   service: 'SERVICE',
@@ -18,8 +18,8 @@ export const HTTP_HEADERS = {
   X_JOB_ID: 'x-bitsky-job-id', // each request is a job
 };
 
-// Default Agent Configuration
-export const DEFAULT_AGENT_CONFIGURATION = {
+// Default Producer Configuration
+export const DEFAULT_PRODUCER_CONFIGURATION = {
   private: true,
   concurrent: 1,
   // (Unit: Second) How frequently to poll whether need to collect intelligences

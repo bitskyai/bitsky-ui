@@ -76,9 +76,9 @@ export default {
             },
             {
               path: '/app/producers',
-              name: 'agents',
+              name: 'producers',
               icon: 'cluster',
-              component: './Agents',
+              component: './Producers',
             },
             {
               path: '/app/settings',

@@ -12,10 +12,10 @@ const IntelligencesModel = {
   effects: {
     *refreshIntelligences(_, { call, put }) {
       try {
-        const agents = yield call(getIntelligencesForManagementAPI);
+        const producers = yield call(getIntelligencesForManagementAPI);
         yield put({
           type: 'refreshIntelligencesSuccess',
-          payload: agents,
+          payload: producers,
         });
       } catch (err) {
         yield put({

@@ -1,6 +1,6 @@
 /**
  *
- * Service Agent
+ * Service Producer
  *
  */
 import { Card, PageHeader, Button, Tag, Typography, Row, Col, Icon } from 'antd';
@@ -11,7 +11,7 @@ import React from 'react';
 import * as _ from 'lodash';
 import { connect } from 'dva';
 // import styled from 'styled-components';
-// import ServiceAgentSkeleton from './ServiceAgentSkeleton';
+// import ServiceProducerSkeleton from './ServiceProducerSkeleton';
 import {
   getServiceConfig,
   startService,
@@ -25,18 +25,18 @@ import {
 } from './actions';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import styles from './style.less';
-import ServiceAgentForm from './ServiceAgentForm';
-import AgentType from '../../utils/AgentType';
+import ServiceProducerForm from './ServiceProducerForm';
+import ProducerType from '../../utils/ProducerType';
 import StateTag from '../../utils/StateTag';
 
 const { Paragraph } = Typography;
 
-export class ServiceAgent extends React.Component {
+export class ServiceProducer extends React.Component {
   // eslint-disable-next-line no-useless-constructor
   constructor(props) {
     super(props);
-    this.startServiceAgent.bind(this);
-    this.stopServiceAgent.bind(this);
+    this.startServiceProducer.bind(this);
+    this.stopServiceProducer.bind(this);
   }
 
   componentDidMount() {
@@ -85,17 +85,17 @@ export class ServiceAgent extends React.Component {
     }
   }
 
-  startServiceAgent() {
+  startServiceProducer() {
     this.props.dispatch(startService());
   }
 
-  stopServiceAgent() {
+  stopServiceProducer() {
     this.props.dispatch(stopService());
   }
 
   render() {
     const serviceConfig = this.props.service.data;
-    const agentConfig = this.props.service.producer;
+    const producerConfig = this.props.service.producer;
     const IconLink = ({ href, src, text }) => (
       <a className="page-header-doc-link" href={href}>
         <img className="page-header-doc-link-icon" src={src} alt={text} />
@@ -106,7 +106,7 @@ export class ServiceAgent extends React.Component {
     const description = (
       <>
         <Paragraph>
-          <FormattedHTMLMessage id="app.containers.ServiceAgent.description" />
+          <FormattedHTMLMessage id="app.containers.ServiceProducer.description" />
         </Paragraph>
         <div>
           <IconLink
@@ -130,10 +130,10 @@ export class ServiceAgent extends React.Component {
     let tagColor = 'red';
     let tagText = formatMessage({ id: 'app.common.messages.status.stopped' });
     let operationBtn;
-    let agentTypeTag = '';
+    let producerTypeTag = '';
     let stateTag = '';
     if (serviceConfig) {
-      agentTypeTag = <AgentType type={serviceConfig.TYPE} />;
+      producerTypeTag = <ProducerType type={serviceConfig.TYPE} />;
       if (serviceConfig.STARTING) {
         tagColor = 'blue';
         tagText = formatMessage({ id: 'app.common.messages.status.starting' });
@@ -158,7 +158,7 @@ export class ServiceAgent extends React.Component {
             key="stop"
             style={{ color: '#f50', border: '1px solid #f50' }}
             onClick={() => {
-              this.stopServiceAgent();
+              this.stopServiceProducer();
             }}
           >
             <Icon type="pause-circle" />
@@ -173,7 +173,7 @@ export class ServiceAgent extends React.Component {
             key="start"
             style={{ color: '#1890ff', border: '1px solid #1890ff' }}
             onClick={() => {
-              this.startServiceAgent();
+              this.startServiceProducer();
             }}
           >
             <Icon type="caret-right" />
@@ -182,21 +182,21 @@ export class ServiceAgent extends React.Component {
         );
       }
     }
-    if (_.get(agentConfig, 'system.state')) {
-      stateTag = <StateTag state={_.get(agentConfig, 'system.state')} />;
+    if (_.get(producerConfig, 'system.state')) {
+      stateTag = <StateTag state={_.get(producerConfig, 'system.state')} />;
     }
-    const serviceAgentURL = `http://localhost:${serviceConfig.PORT}`;
+    const serviceProducerURL = `http://localhost:${serviceConfig.PORT}`;
     return (
       <div>
         <>
           <div className="munew-page-header-ghost-wrapper">
             <PageHeader
               title={formatMessage({ id: 'menu.defaultService' })}
-              subTitle={formatMessage({ id: 'app.containers.ServiceAgent.subTitle' })}
+              subTitle={formatMessage({ id: 'app.containers.ServiceProducer.subTitle' })}
               className="site-page-header"
               tags={
                 <>
-                  {agentTypeTag}
+                  {producerTypeTag}
                   <Tag color={tagColor}>{tagText}</Tag>
                   {stateTag}
                 </>
@@ -204,7 +204,7 @@ export class ServiceAgent extends React.Component {
               extra={[
                 operationBtn,
                 <Button key="view" type="primary" disabled={!serviceConfig.RUNNING}>
-                  <a href={serviceAgentURL}>
+                  <a href={serviceProducerURL}>
                     <Icon type="eye" />
                     <FormattedMessage id="app.common.messages.action.view" />
                   </a>
@@ -219,7 +219,7 @@ export class ServiceAgent extends React.Component {
               <Row>
                 <Col xs={0} sm={0} md={0} lg={1} xl={2}></Col>
                 <Col xs={24} sm={24} md={24} lg={22} xl={20}>
-                  <ServiceAgentForm />
+                  <ServiceProducerForm />
                 </Col>
                 <Col xs={0} sm={0} md={0} lg={1} xl={2}></Col>
               </Row>
@@ -231,4 +231,4 @@ export class ServiceAgent extends React.Component {
   }
 }
 
-export default connect(({ service }) => ({ service }))(ServiceAgent);
+export default connect(({ service }) => ({ service }))(ServiceProducer);

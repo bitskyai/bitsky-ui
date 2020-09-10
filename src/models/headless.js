@@ -130,7 +130,7 @@ export default {
         draft.modified = Date.now();
       });
     },
-    getAgentConfigurationSuccess(state, { payload }) {
+    getProducerConfigurationSuccess(state, { payload }) {
       return produce(state, draft => {
         draft.loadingData = false;
         draft.producer = payload;
@@ -138,7 +138,7 @@ export default {
         draft.modified = Date.now();
       });
     },
-    getAgentConfigurationFail(state, { error }) {
+    getProducerConfigurationFail(state, { error }) {
       return produce(state, draft => {
         draft.loadingData = false;
         draft.producer = {};

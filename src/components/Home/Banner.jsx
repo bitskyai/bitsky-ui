@@ -17,7 +17,7 @@ function Banner(props) {
     LINUX: 'Linux',
   };
   function getOS() {
-    const { userAgent } = window.navigator;
+    const { userProducer } = window.navigator;
     const { platform } = window.navigator;
     const macosPlatforms = ['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K'];
     const windowsPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE'];
@@ -30,7 +30,7 @@ function Banner(props) {
       os = OS.IOS;
     } else if (windowsPlatforms.indexOf(platform) !== -1) {
       os = OS.WINDOWS;
-    } else if (/Android/.test(userAgent)) {
+    } else if (/Android/.test(userProducer)) {
       os = OS.ANDROID;
     } else if (!os && /Linux/.test(platform)) {
       os = OS.LINUX;

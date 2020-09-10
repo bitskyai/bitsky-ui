@@ -1,4 +1,4 @@
-// import { refreshAgents } from './actions';
+// import { refreshProducers } from './actions';
 import {
   Alert,
   Button,
@@ -15,7 +15,6 @@ import {
 } from 'antd';
 // import { FormattedMessage, FormattedHTMLMessage, injectIntl } from 'react-intl';
 import { FormattedHTMLMessage, formatHTMLMessage, formatMessage } from 'umi-plugin-react/locale';
-// import messages from '../../locales/en-US/containers/Agents';
 // import commonMessages from '../../locales/en-US/globalMessages';
 
 // import PropTypes from 'prop-types';
@@ -24,8 +23,8 @@ import _ from 'lodash';
 // import { exportDefaultSpecifier } from '@babel/types';
 import styled from 'styled-components';
 import { filterOutEmptyValue } from '../../utils/utils';
-import { registerAgentAPI, updateAgentAPI } from '../../apis/producers';
-import { STATES, AGENT_TYPES, DEFAULT_AGENT_CONFIGURATION } from '../../utils/constants';
+import { registerProducerAPI, updateProducerAPI } from '../../apis/producers';
+import { STATES, PRODUCER_TYPES, DEFAULT_PRODUCER_CONFIGURATION } from '../../utils/constants';
 
 const { Paragraph } = Typography;
 
@@ -42,14 +41,14 @@ const SecondUnitContainer = styled.span`
   padding-left: 5px;
 `;
 
-class RegisterAgentForm extends React.Component {
-  // state = { sending: false, agentType: AGENT_TYPES.browserExtension };
+class RegisterProducerForm extends React.Component {
+  // state = { sending: false, producerType: PRODUCER_TYPES.browserExtension };
   state = { sending: false };
 
-  // onAgentTypeChange(value) {
-  //   // console.log('onAgentTypeChange: ', value);
+  // onProducerTypeChange(value) {
+  //   // console.log('onProducerTypeChange: ', value);
   //   this.setState({
-  //     agentType: value,
+  //     producerType: value,
   //   });
   // }
 
@@ -57,7 +56,7 @@ class RegisterAgentForm extends React.Component {
   //   return Object.keys(fieldsError).some(field => fieldsError[field]);
   // }
 
-  registerAgent = e => {
+  registerProducer = e => {
     e.preventDefault();
     // const { formatMessage } = this.props.intl;
     this.setState({ sending: true });
@@ -66,17 +65,17 @@ class RegisterAgentForm extends React.Component {
         try {
           if (this.props.producer) {
             values.globalId = this.props.producer.globalId;
-            await updateAgentAPI(values);
+            await updateProducerAPI(values);
             this.props.dispatch({
-              type: 'agents/refreshAgents',
+              type: 'producers/refreshProducers',
             });
           } else {
-            await registerAgentAPI(values);
+            await registerProducerAPI(values);
             this.props.dispatch({
-              type: 'agents/refreshAgents',
+              type: 'producers/refreshProducers',
             });
           }
-          const msg = formatMessage({ id: 'app.containers.Agents.registerAgentSuccessful' });
+          const msg = formatMessage({ id: 'app.containers.Producers.registerProducerSuccessful' });
           message.success(msg);
           this.setState({
             sending: false,
@@ -96,21 +95,21 @@ class RegisterAgentForm extends React.Component {
   render() {
     const { getFieldsValue, getFieldDecorator, isFieldsTouched } = this.props.form;
     // const { formatMessage, formatHTMLMessage } = this.props.intl;
-    let producer = this.props.producer || DEFAULT_AGENT_CONFIGURATION;
+    let producer = this.props.producer || DEFAULT_PRODUCER_CONFIGURATION;
     let readOnly = false;
     // whether show active producer tip to user, to let user know,
     // need to deactive it before user can modify
-    let activeAgentTip = false;
+    let activeProducerTip = false;
     if (_.get(producer, 'system.state') === STATES.active) {
       readOnly = true;
-      activeAgentTip = true;
+      activeProducerTip = true;
     }
     let disableSaveBtn = true;
-    let drawerTitle = formatMessage({ id: 'app.containers.Agents.drawerTitleCreate' });
-    let primaryButtonTitle = formatMessage({ id: 'app.containers.Agents.registerNow' });
+    let drawerTitle = formatMessage({ id: 'app.containers.Producers.drawerTitleCreate' });
+    let primaryButtonTitle = formatMessage({ id: 'app.containers.Producers.registerNow' });
     if (producer.globalId) {
       // if *globalId* exist, then drawer title is
-      drawerTitle = formatMessage({ id: 'app.containers.Agents.drawerTitleUpdate' });
+      drawerTitle = formatMessage({ id: 'app.containers.Producers.drawerTitleUpdate' });
       primaryButtonTitle = formatMessage({ id: 'app.common.messages.save' });
     }
 
@@ -138,24 +137,24 @@ class RegisterAgentForm extends React.Component {
           onClose={this.props.onCloseDrawer}
           visible={this.props.visiable}
         >
-          {activeAgentTip ? (
+          {activeProducerTip ? (
             <div style={{ margin: '0 0 15px 0' }}>
               <Alert
                 type="warning"
                 showIcon
-                message={formatHTMLMessage({ id: 'app.containers.Agents.activeAgentTip' })}
+                message={formatHTMLMessage({ id: 'app.containers.Producers.activeProducerTip' })}
               />
             </div>
           ) : (
             ''
           )}
           <p>
-            <FormattedHTMLMessage id="app.containers.Agents.registerAgentDescription" />
+            <FormattedHTMLMessage id="app.containers.Producers.registerProducerDescription" />
           </p>
           <Form className="producer-form" layout="vertical" style={{ paddingBottom: '35px' }}>
             <FormItemContainer>
               <Form.Item
-                label={formatMessage({ id: 'app.containers.Agents.agentName' })}
+                label={formatMessage({ id: 'app.containers.Producers.producerName' })}
                 style={formItemStyle}
               >
                 {getFieldDecorator('name', {
@@ -163,28 +162,28 @@ class RegisterAgentForm extends React.Component {
                   rules: [
                     {
                       required: true,
-                      message: formatMessage({ id: 'app.containers.Agents.agentNamePlaceholder' }),
+                      message: formatMessage({ id: 'app.containers.Producers.producerNamePlaceholder' }),
                     },
                     {
                       min: 1,
                       max: 100,
-                      message: formatMessage({ id: 'app.containers.Agents.agentNameInvalid' }),
+                      message: formatMessage({ id: 'app.containers.Producers.producerNameInvalid' }),
                     },
                   ],
                 })(
                   <Input
                     disabled={readOnly}
-                    placeholder={formatMessage({ id: 'app.containers.Agents.agentNameExample' })}
+                    placeholder={formatMessage({ id: 'app.containers.Producers.producerNameExample' })}
                   />,
                 )}
               </Form.Item>
               <FormDescription>
-                <FormattedHTMLMessage id="app.containers.Agents.agentNameDescription" />
+                <FormattedHTMLMessage id="app.containers.Producers.producerNameDescription" />
               </FormDescription>
             </FormItemContainer>
             <FormItemContainer>
               <Form.Item
-                label={formatMessage({ id: 'app.containers.Agents.agentDescription' })}
+                label={formatMessage({ id: 'app.containers.Producers.producerDescription' })}
                 style={formItemStyle}
               >
                 {getFieldDecorator('description', {
@@ -193,14 +192,14 @@ class RegisterAgentForm extends React.Component {
                     // {
                     //   required: true,
                     //   message: formatMessage(
-                    //     messages.agentDescriptionPlaceholder,
+                    //     messages.producerDescriptionPlaceholder,
                     //   ),
                     // },
                     {
                       min: 1,
                       max: 200,
                       message: formatMessage({
-                        id: 'app.containers.Agents.agentDescriptionInvalid',
+                        id: 'app.containers.Producers.producerDescriptionInvalid',
                       }),
                     },
                   ],
@@ -208,13 +207,13 @@ class RegisterAgentForm extends React.Component {
                   <Input
                     disabled={readOnly}
                     placeholder={formatMessage({
-                      id: 'app.containers.Agents.agentDescriptionExample',
+                      id: 'app.containers.Producers.producerDescriptionExample',
                     })}
                   />,
                 )}
               </Form.Item>
               <FormDescription>
-                <FormattedHTMLMessage id="app.containers.Agents.agentDescriptionDescription" />
+                <FormattedHTMLMessage id="app.containers.Producers.producerDescriptionDescription" />
               </FormDescription>
             </FormItemContainer>
             {producer.globalId ? (
@@ -265,56 +264,56 @@ class RegisterAgentForm extends React.Component {
             )}
             <FormItemContainer>
               <Form.Item
-                label={formatMessage({ id: 'app.containers.Agents.agentType' })}
+                label={formatMessage({ id: 'app.containers.Producers.producerType' })}
                 style={formItemStyle}
               >
                 {getFieldDecorator('type', {
                   initialValue: _.toUpper(
-                    _.get(this, 'props.producer.type', AGENT_TYPES.headlessBrowser),
+                    _.get(this, 'props.producer.type', PRODUCER_TYPES.headlessBrowser),
                   ),
                   rules: [
                     {
                       required: true,
-                      message: formatMessage({ id: 'app.containers.Agents.agentTypePlaceHolder' }),
+                      message: formatMessage({ id: 'app.containers.Producers.producerTypePlaceHolder' }),
                     },
                   ],
                 })(
                   <Select
                     disabled={readOnly}
                     placeholder={formatMessage({
-                      id: 'app.containers.Agents.agentTypePlaceHolder',
+                      id: 'app.containers.Producers.producerTypePlaceHolder',
                     })}
                     // onChange={value => {
-                    //   this.onAgentTypeChange(value);
+                    //   this.onProducerTypeChange(value);
                     // }}
                   >
                     {/*
-                    <Select.Option value={AGENT_TYPES.browserExtension}>
-                      <FormattedHTMLMessage id="app.containers.Agents.browserExtensionAgent" />
+                    <Select.Option value={PRODUCER_TYPES.browserExtension}>
+                      <FormattedHTMLMessage id="app.containers.Producers.browserExtensionProducer" />
                     </Select.Option>
                     */}
-                    <Select.Option value={AGENT_TYPES.headlessBrowser}>
-                      <FormattedHTMLMessage id="app.containers.Agents.headlessAgent" />
+                    <Select.Option value={PRODUCER_TYPES.headlessBrowser}>
+                      <FormattedHTMLMessage id="app.containers.Producers.headlessProducer" />
                     </Select.Option>
-                    <Select.Option value={AGENT_TYPES.service}>
-                      <FormattedHTMLMessage id="app.containers.Agents.serviceAgent" />
+                    <Select.Option value={PRODUCER_TYPES.service}>
+                      <FormattedHTMLMessage id="app.containers.Producers.serviceProducer" />
                     </Select.Option>
                   </Select>,
                 )}
               </Form.Item>
               <FormDescription>
-                <FormattedHTMLMessage id="app.containers.Agents.agentTypeDescription" />
+                <FormattedHTMLMessage id="app.containers.Producers.producerTypeDescription" />
               </FormDescription>
             </FormItemContainer>
             <h3>
-              <FormattedHTMLMessage id="app.containers.Agents.agentConfiguration" />
+              <FormattedHTMLMessage id="app.containers.Producers.producerConfiguration" />
             </h3>
             <p>
-              <FormattedHTMLMessage id="app.containers.Agents.agentConfigurationDescription" />
+              <FormattedHTMLMessage id="app.containers.Producers.producerConfigurationDescription" />
             </p>
             <FormItemContainer>
               <Form.Item
-                label={formatMessage({ id: 'app.containers.Agents.privateMode' })}
+                label={formatMessage({ id: 'app.containers.Producers.privateMode' })}
                 style={formItemStyle}
               >
                 {getFieldDecorator('private', {
@@ -323,19 +322,19 @@ class RegisterAgentForm extends React.Component {
                 })(
                   <Switch
                     disabled={readOnly}
-                    checkedChildren={formatMessage({ id: 'app.containers.Agents.switchOn' })}
-                    unCheckedChildren={formatMessage({ id: 'app.containers.Agents.switchOff' })}
+                    checkedChildren={formatMessage({ id: 'app.containers.Producers.switchOn' })}
+                    unCheckedChildren={formatMessage({ id: 'app.containers.Producers.switchOff' })}
                   />,
                 )}
               </Form.Item>
               <FormDescription>
-                <FormattedHTMLMessage id="app.containers.Agents.privateModeDescription" />
+                <FormattedHTMLMessage id="app.containers.Producers.privateModeDescription" />
               </FormDescription>
             </FormItemContainer>
             <FormItemContainer>
               <Form.Item
                 label={formatMessage({
-                  id: 'app.containers.Agents.concurrentCollectIntelligences',
+                  id: 'app.containers.Producers.concurrentCollectIntelligences',
                 })}
                 style={formItemStyle}
               >
@@ -345,23 +344,23 @@ class RegisterAgentForm extends React.Component {
                     {
                       required: true,
                       message: formatMessage({
-                        id: 'app.containers.Agents.concurrentCollectIntelligencesPlaceholder',
+                        id: 'app.containers.Producers.concurrentCollectIntelligencesPlaceholder',
                       }),
                     },
                     {
                       type: 'integer',
-                      message: formatHTMLMessage({ id: 'app.containers.Agents.invalidInteger' }),
+                      message: formatHTMLMessage({ id: 'app.containers.Producers.invalidInteger' }),
                     },
                   ],
                 })(<InputNumber disabled={readOnly} min={1} />)}
               </Form.Item>
               <FormDescription>
-                <FormattedHTMLMessage id="app.containers.Agents.concurrentCollectIntelligencesDescription" />
+                <FormattedHTMLMessage id="app.containers.Producers.concurrentCollectIntelligencesDescription" />
               </FormDescription>
             </FormItemContainer>
             <FormItemContainer>
               <Form.Item
-                label={formatMessage({ id: 'app.containers.Agents.pollingInterval' })}
+                label={formatMessage({ id: 'app.containers.Producers.pollingInterval' })}
                 style={formItemStyle}
               >
                 {getFieldDecorator('pollingInterval', {
@@ -370,26 +369,26 @@ class RegisterAgentForm extends React.Component {
                     {
                       required: true,
                       message: formatMessage({
-                        id: 'app.containers.Agents.pollingIntervalPlaceholder',
+                        id: 'app.containers.Producers.pollingIntervalPlaceholder',
                       }),
                     },
                     {
                       type: 'integer',
-                      message: formatHTMLMessage({ id: 'app.containers.Agents.invalidInteger' }),
+                      message: formatHTMLMessage({ id: 'app.containers.Producers.invalidInteger' }),
                     },
                   ],
                 })(<InputNumber disabled={readOnly} min={1} max={200} />)}
                 <SecondUnitContainer>
-                  {formatMessage({ id: 'app.containers.Agents.second' })}
+                  {formatMessage({ id: 'app.containers.Producers.second' })}
                 </SecondUnitContainer>
               </Form.Item>
               <FormDescription>
-                <FormattedHTMLMessage id="app.containers.Agents.pollingIntervalDescription" />
+                <FormattedHTMLMessage id="app.containers.Producers.pollingIntervalDescription" />
               </FormDescription>
             </FormItemContainer>
             <FormItemContainer>
               <Form.Item
-                label={formatMessage({ id: 'app.containers.Agents.maxWaitingTime' })}
+                label={formatMessage({ id: 'app.containers.Producers.maxWaitingTime' })}
                 style={formItemStyle}
               >
                 {getFieldDecorator('maxWaitingTime', {
@@ -398,26 +397,26 @@ class RegisterAgentForm extends React.Component {
                     {
                       required: true,
                       message: formatMessage({
-                        id: 'app.containers.Agents.maxWaitingTimePlaceholder',
+                        id: 'app.containers.Producers.maxWaitingTimePlaceholder',
                       }),
                     },
                     {
                       type: 'integer',
-                      message: formatHTMLMessage({ id: 'app.containers.Agents.invalidInteger' }),
+                      message: formatHTMLMessage({ id: 'app.containers.Producers.invalidInteger' }),
                     },
                   ],
                 })(<InputNumber disabled={readOnly} min={1} max={10} />)}
                 <SecondUnitContainer>
-                  {formatMessage({ id: 'app.containers.Agents.second' })}
+                  {formatMessage({ id: 'app.containers.Producers.second' })}
                 </SecondUnitContainer>
               </Form.Item>
               <FormDescription>
-                <FormattedHTMLMessage id="app.containers.Agents.maxWaitingTimeDescription" />
+                <FormattedHTMLMessage id="app.containers.Producers.maxWaitingTimeDescription" />
               </FormDescription>
             </FormItemContainer>
             <FormItemContainer>
               <Form.Item
-                label={formatMessage({ id: 'app.containers.Agents.maxCollectTime' })}
+                label={formatMessage({ id: 'app.containers.Producers.maxCollectTime' })}
                 style={formItemStyle}
               >
                 {getFieldDecorator('maxCollect', {
@@ -426,23 +425,23 @@ class RegisterAgentForm extends React.Component {
                     {
                       required: true,
                       message: formatMessage({
-                        id: 'app.containers.Agents.maxCollectTimePlaceholder',
+                        id: 'app.containers.Producers.maxCollectTimePlaceholder',
                       }),
                     },
                     {
                       type: 'integer',
-                      message: formatHTMLMessage({ id: 'app.containers.Agents.invalidInteger' }),
+                      message: formatHTMLMessage({ id: 'app.containers.Producers.invalidInteger' }),
                     },
                   ],
                 })(<InputNumber disabled={readOnly} />)}
               </Form.Item>
               <FormDescription>
-                <FormattedHTMLMessage id="app.containers.Agents.maxCollectTimeDescription" />
+                <FormattedHTMLMessage id="app.containers.Producers.maxCollectTimeDescription" />
               </FormDescription>
             </FormItemContainer>
             <FormItemContainer>
               <Form.Item
-                label={formatMessage({ id: 'app.containers.Agents.agentIdleTime' })}
+                label={formatMessage({ id: 'app.containers.Producers.producerIdleTime' })}
                 style={formItemStyle}
               >
                 {getFieldDecorator('idelTime', {
@@ -451,26 +450,26 @@ class RegisterAgentForm extends React.Component {
                     {
                       required: true,
                       message: formatMessage({
-                        id: 'app.containers.Agents.agentIdleTimePlaceholder',
+                        id: 'app.containers.Producers.producerIdleTimePlaceholder',
                       }),
                     },
                     {
                       type: 'integer',
-                      message: formatHTMLMessage({ id: 'app.containers.Agents.invalidInteger' }),
+                      message: formatHTMLMessage({ id: 'app.containers.Producers.invalidInteger' }),
                     },
                   ],
                 })(<InputNumber disabled={readOnly} min={0} max={100} />)}
                 <SecondUnitContainer>
-                  {formatMessage({ id: 'app.containers.Agents.second' })}
+                  {formatMessage({ id: 'app.containers.Producers.second' })}
                 </SecondUnitContainer>
               </Form.Item>
               <FormDescription>
-                <FormattedHTMLMessage id="app.containers.Agents.agentIdleTimeDescription" />
+                <FormattedHTMLMessage id="app.containers.Producers.producerIdleTimeDescription" />
               </FormDescription>
             </FormItemContainer>
             <FormItemContainer>
               <Form.Item
-                label={formatMessage({ id: 'app.containers.Agents.requestTimeout' })}
+                label={formatMessage({ id: 'app.containers.Producers.requestTimeout' })}
                 style={formItemStyle}
               >
                 {getFieldDecorator('timeout', {
@@ -479,27 +478,27 @@ class RegisterAgentForm extends React.Component {
                     {
                       required: true,
                       message: formatMessage({
-                        id: 'app.containers.Agents.requestTimeoutPlaceholder',
+                        id: 'app.containers.Producers.requestTimeoutPlaceholder',
                       }),
                     },
                     {
                       type: 'integer',
-                      message: formatHTMLMessage({ id: 'app.containers.Agents.invalidInteger' }),
+                      message: formatHTMLMessage({ id: 'app.containers.Producers.invalidInteger' }),
                     },
                   ],
                 })(<InputNumber disabled={readOnly} min={1} max={1000} />)}
                 <SecondUnitContainer>
-                  {formatMessage({ id: 'app.containers.Agents.second' })}
+                  {formatMessage({ id: 'app.containers.Producers.second' })}
                 </SecondUnitContainer>
               </Form.Item>
               <FormDescription>
-                <FormattedHTMLMessage id="app.containers.Agents.requestTimeoutDescription" />
+                <FormattedHTMLMessage id="app.containers.Producers.requestTimeoutDescription" />
               </FormDescription>
             </FormItemContainer>
             {/*
             <FormItemContainer>
               <Form.Item
-                label={formatMessage({ id: 'app.containers.Agents.maxRetryTime' })}
+                label={formatMessage({ id: 'app.containers.Producers.maxRetryTime' })}
                 style={formItemStyle}
               >
                 {getFieldDecorator('maxRetry', {
@@ -508,27 +507,27 @@ class RegisterAgentForm extends React.Component {
                     {
                       required: true,
                       message: formatMessage({
-                        id: 'app.containers.Agents.maxRetryTimePlaceholder',
+                        id: 'app.containers.Producers.maxRetryTimePlaceholder',
                       }),
                     },
                     {
                       type: 'integer',
-                      message: formatHTMLMessage({ id: 'app.containers.Agents.invalidInteger' }),
+                      message: formatHTMLMessage({ id: 'app.containers.Producers.invalidInteger' }),
                     },
                   ],
                 })(<InputNumber disabled={readOnly} min={1} max={5} />)}
               </Form.Item>
               <FormDescription>
-                <FormattedHTMLMessage id="app.containers.Agents.maxRetryTimeDescription" />
+                <FormattedHTMLMessage id="app.containers.Producers.maxRetryTimeDescription" />
               </FormDescription>
             </FormItemContainer>
             */}
             {/*
-            {this.state.agentType === AGENT_TYPES.service
+            {this.state.producerType === PRODUCER_TYPES.service
               <div>
                 <FormItemContainer>
                   <Form.Item
-                    label={formatMessage({ id: 'app.containers.Agents.baseURL' })}
+                    label={formatMessage({ id: 'app.containers.Producers.baseURL' })}
                     style={formItemStyle}
                   >
                     {getFieldDecorator('baseURL', {
@@ -536,27 +535,27 @@ class RegisterAgentForm extends React.Component {
                       rules: [
                         {
                           required: true,
-                          message: formatMessage({ id: 'app.containers.Agents.baseURLEmptyError' }),
+                          message: formatMessage({ id: 'app.containers.Producers.baseURLEmptyError' }),
                         },
                         {
         pattern: /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)([a-z0-9\.])*(:[0-9]{1,5})?(\/.*)?$/i,
-                          message: formatMessage({ id: 'app.containers.Agents.baseURLEmptyError' }),
+                          message: formatMessage({ id: 'app.containers.Producers.baseURLEmptyError' }),
                         },
                       ],
                     })(
                       <Input
                         disabled={readOnly}
-                        placeholder={formatMessage({ id: 'app.containers.Agents.baseURLExample' })}
+                        placeholder={formatMessage({ id: 'app.containers.Producers.baseURLExample' })}
                       />,
                     )}
                   </Form.Item>
                   <FormDescription>
-                    <FormattedHTMLMessage id="app.containers.Agents.baseURLDescription" />
+                    <FormattedHTMLMessage id="app.containers.Producers.baseURLDescription" />
                   </FormDescription>
                 </FormItemContainer>
                 <h3>{formatMessage({ id: 'app.common.messages.healthTitle' })}</h3>
                 <p>
-                  <FormattedHTMLMessage id="app.containers.Agents.healthDescription" />
+                  <FormattedHTMLMessage id="app.containers.Producers.healthDescription" />
                 </p>
                 <Row gutter={16}>
                   <Col span={8}>
@@ -647,7 +646,7 @@ class RegisterAgentForm extends React.Component {
             <Button
               disabled={disableSaveBtn}
               loading={this.state.sending}
-              onClick={this.registerAgent}
+              onClick={this.registerProducer}
               type="primary"
             >
               {primaryButtonTitle}
@@ -659,11 +658,11 @@ class RegisterAgentForm extends React.Component {
   }
 }
 
-// RegisterAgentForm.propTypes = {
+// RegisterProducerForm.propTypes = {
 //   visiable: PropTypes.bool,
 //   onCloseDrawer: PropTypes.func,
 //   producer: PropTypes.object,
 // };
 
-// export default Form.create()(injectIntl(RegisterAgentForm));
-export default Form.create()(RegisterAgentForm);
+// export default Form.create()(injectIntl(RegisterProducerForm));
+export default Form.create()(RegisterProducerForm);

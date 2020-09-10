@@ -1,4 +1,4 @@
-// import { refreshAgents } from './actions';
+// import { refreshProducers } from './actions';
 import {
   Alert,
   Button,
@@ -24,14 +24,14 @@ import {
   ENGINE_HEALTH_METHOD,
   ENGINE_HEALTH_PATH,
   STATES,
-  AGENT_TYPES,
+  PRODUCER_TYPES,
 } from '../../utils/constants';
 import {
   updateServiceConfig,
-  getAgentConfigurationSuccess,
-  getAgentConfigurationFail,
+  getProducerConfigurationSuccess,
+  getProducerConfigurationFail,
 } from './actions';
-import { getAgentAPI } from '../../apis/producers';
+import { getProducerAPI } from '../../apis/producers';
 import { checkEngineHealthAPI } from '../../apis/dia';
 import HTTPError from '../../utils/HTTPError';
 import { sendToElectron } from '../../utils/utils';
@@ -48,13 +48,13 @@ const FormItemContainer = styled.div`
   margin-bottom: 5px;
 `;
 
-class ServiceAgentForm extends React.Component {
+class ServiceProducerForm extends React.Component {
   constructor() {
     super();
 
     // Set default state
     this.state = {
-      selectedAgentHome: undefined,
+      selectedProducerHome: undefined,
       alertType: undefined,
       // validating: true,
       alertMessage: "This producer isn't fully configured",
@@ -86,7 +86,7 @@ class ServiceAgentForm extends React.Component {
         if (!values.BITSKY_BASE_URL || !values.GLOBAL_ID) {
           state.alertType = 'warning';
           state.alertMessage = (
-            <FormattedHTMLMessage id="app.common.messages.producer.unregisterAgentDescription" />
+            <FormattedHTMLMessage id="app.common.messages.producer.unregisterProducerDescription" />
           );
         }
 
@@ -97,9 +97,9 @@ class ServiceAgentForm extends React.Component {
           state.baseURLValidateStatus = '';
         }
         if (errs && errs.GLOBAL_ID) {
-          state.agentGlobalIdValidateStatus = 'error';
+          state.producerGlobalIdValidateStatus = 'error';
         } else {
-          state.agentGlobalIdValidateStatus = '';
+          state.producerGlobalIdValidateStatus = '';
         }
 
         try {
@@ -127,40 +127,40 @@ class ServiceAgentForm extends React.Component {
 
           if ((!errs || !errs.GLOBAL_ID) && values.BITSKY_BASE_URL && values.GLOBAL_ID) {
             this.setState({
-              agentGlobalIdValidateStatus: 'validating',
+              producerGlobalIdValidateStatus: 'validating',
             });
             const service = this.props.service || {};
             const serviceConfig = service.data;
             // Do server side validation
-            const agentValidateResult = await this.getAgentConfiguration(
+            const producerValidateResult = await this.getProducerConfiguration(
               values.BITSKY_BASE_URL,
               values.GLOBAL_ID,
               serviceConfig.PRODUCER_SERIAL_ID,
             );
-            state.agentGlobalIdValidateStatus = agentValidateResult.status || 'error';
+            state.producerGlobalIdValidateStatus = producerValidateResult.status || 'error';
 
-            if (agentValidateResult.alertType) {
-              state.alertType = agentValidateResult.alertType;
+            if (producerValidateResult.alertType) {
+              state.alertType = producerValidateResult.alertType;
             }
-            if (agentValidateResult.alertMessage) {
-              state.alertMessage = agentValidateResult.alertMessage;
+            if (producerValidateResult.alertMessage) {
+              state.alertMessage = producerValidateResult.alertMessage;
             }
-            if (agentValidateResult.status === 'success') {
+            if (producerValidateResult.status === 'success') {
               if (
-                _.toUpper(_.get(agentValidateResult, 'data.type')) &&
-                _.toUpper(_.get(agentValidateResult, 'data.type')) !==
+                _.toUpper(_.get(producerValidateResult, 'data.type')) &&
+                _.toUpper(_.get(producerValidateResult, 'data.type')) !==
                   _.toUpper(_.get(this.props, 'service.data.TYPE'))
               ) {
-                state.agentGlobalIdValidateStatus = 'error';
+                state.producerGlobalIdValidateStatus = 'error';
                 state.alertType = 'error';
                 state.alertMessage = (
                   <FormattedHTMLMessage
-                    id="app.common.messages.producer.unmatchedAgentType"
-                    values={{ agentType: 'Service' }}
+                    id="app.common.messages.producer.unmatchedProducerType"
+                    values={{ producerType: 'Service' }}
                   />
                 );
               } else if (
-                _.toUpper(_.get(agentValidateResult, 'data.system.state')) !== STATES.active
+                _.toUpper(_.get(producerValidateResult, 'data.system.state')) !== STATES.active
               ) {
                 state.alertType = 'warning';
                 state.alertMessage = (
@@ -197,20 +197,20 @@ class ServiceAgentForm extends React.Component {
   /**
    * Get producer configuration from server side and update state based on response from server side
    * @param {string} baseURL - Base URL to DIA. Like: http://localhost:3000
-   * @param {string} gid - Agent Global ID. Like: db642a82-2178-43a2-b8b7-000e37f3766e
+   * @param {string} gid - Producer Global ID. Like: db642a82-2178-43a2-b8b7-000e37f3766e
    * @param {string} securityKey - Security Key. Like: 59f43b55-46a3-4efc-a960-018bcca91f46
    *
-   * @returns {ValidateResult} - Agent Configuration. Please take a look of Agent Schema for detail
+   * @returns {ValidateResult} - Producer Configuration. Please take a look of Producer Schema for detail
    */
   // eslint-disable-next-line class-methods-use-this
-  async getAgentConfiguration(baseURL, gid, serialId) {
+  async getProducerConfiguration(baseURL, gid, serialId) {
     try {
       // If *globalId* exist, then get producer information from server side.
-      const agentConfig = await getAgentAPI(baseURL, gid, serialId, AGENT_TYPES.service, true);
-      this.props.dispatch(getAgentConfigurationSuccess(agentConfig));
+      const producerConfig = await getProducerAPI(baseURL, gid, serialId, PRODUCER_TYPES.service, true);
+      this.props.dispatch(getProducerConfigurationSuccess(producerConfig));
       return {
         status: 'success',
-        data: agentConfig,
+        data: producerConfig,
       };
     } catch (err) {
       const result = {
@@ -222,7 +222,7 @@ class ServiceAgentForm extends React.Component {
           result.alertType = 'error';
           result.alertMessage = (
             <>
-              <FormattedHTMLMessage id="app.common.messages.producer.notFindAgent" />
+              <FormattedHTMLMessage id="app.common.messages.producer.notFindProducer" />
               <Link to="/app/producers">
                 <Icon type="arrow-right" className="munew-alert-link-icon" />
               </Link>
@@ -241,7 +241,7 @@ class ServiceAgentForm extends React.Component {
         } else if (err.status === 403) {
           result.alertType = 'error';
           result.alertMessage = (
-            <FormattedHTMLMessage id="app.common.messages.http.agentWasConnected" />
+            <FormattedHTMLMessage id="app.common.messages.http.producerWasConnected" />
           );
         } else if (err.status >= 400 && err.code === '00144000002') {
           result.alertType = 'error';
@@ -255,8 +255,8 @@ class ServiceAgentForm extends React.Component {
           result.alertType = 'error';
           result.alertMessage = (
             <FormattedHTMLMessage
-              id="app.common.messages.producer.unmatchedAgentType"
-              values={{ agentType: 'Service' }}
+              id="app.common.messages.producer.unmatchedProducerType"
+              values={{ producerType: 'Service' }}
             />
           );
         } else if (err.status >= 400) {
@@ -273,7 +273,7 @@ class ServiceAgentForm extends React.Component {
         result.alertMessage = <FormattedHTMLMessage id="app.common.messages.http.internalError" />;
       }
 
-      this.props.dispatch(getAgentConfigurationFail(err));
+      this.props.dispatch(getProducerConfigurationFail(err));
       return result;
     }
   }
@@ -285,7 +285,7 @@ class ServiceAgentForm extends React.Component {
         viewMode: true,
         alertType: undefined,
         alertMessage: (
-          <FormattedHTMLMessage id="app.common.messages.producer.unregisterAgentDescription" />
+          <FormattedHTMLMessage id="app.common.messages.producer.unregisterProducerDescription" />
         ),
         configuration: {},
       };
@@ -374,7 +374,7 @@ class ServiceAgentForm extends React.Component {
     try {
       const dir = await sendToElectron('common/openDirectoryPicker');
       this.setState({
-        selectedAgentHome: dir.directory,
+        selectedProducerHome: dir.directory,
       });
       this.saveConfiguration();
     } catch (err) {
@@ -387,8 +387,8 @@ class ServiceAgentForm extends React.Component {
     this.saveConfigurationHanlder = setTimeout(() => {
       try {
         const values = this.props.form.getFieldsValue();
-        if (this.state.selectedAgentHome) {
-          values.PRODUCER_HOME = this.state.selectedAgentHome;
+        if (this.state.selectedProducerHome) {
+          values.PRODUCER_HOME = this.state.selectedProducerHome;
         }
         this.props.dispatch(updateServiceConfig(values));
         this.onValidateForm();
@@ -399,15 +399,15 @@ class ServiceAgentForm extends React.Component {
   }
 
   render() {
-    // let content = <ServiceAgentSkeleton />;
+    // let content = <ServiceProducerSkeleton />;
     const { getFieldDecorator } = this.props.form;
     const {
       baseURLValidateStatus,
-      agentGlobalIdValidateStatus,
+      producerGlobalIdValidateStatus,
       // validating,
       alertType,
       alertMessage,
-      selectedAgentHome,
+      selectedProducerHome,
     } = this.state;
     const service = this.props.service || {};
     const serviceConfig = service.data;
@@ -424,10 +424,10 @@ class ServiceAgentForm extends React.Component {
     }
 
     let globalIdProps = {};
-    if (agentGlobalIdValidateStatus) {
+    if (producerGlobalIdValidateStatus) {
       globalIdProps = {
         hasFeedback: true,
-        validateStatus: agentGlobalIdValidateStatus,
+        validateStatus: producerGlobalIdValidateStatus,
       };
     }
 
@@ -567,7 +567,7 @@ class ServiceAgentForm extends React.Component {
           </FormItemContainer>
           <FormItemContainer>
             <Form.Item
-              label={formatMessage({ id: 'app.common.messages.agentHomeFolder' })}
+              label={formatMessage({ id: 'app.common.messages.producerHomeFolder' })}
               style={formItemStyle}
               hasFeedback={false}
             >
@@ -577,13 +577,13 @@ class ServiceAgentForm extends React.Component {
                   {
                     required: true,
                     message: formatMessage({
-                      id: 'app.common.messages.agentHomeFolderInvalid',
+                      id: 'app.common.messages.producerHomeFolderInvalid',
                     }),
                   },
                 ],
               })(
                 <div>
-                  <Text code>{selectedAgentHome || serviceConfig.PRODUCER_HOME}</Text>
+                  <Text code>{selectedProducerHome || serviceConfig.PRODUCER_HOME}</Text>
                   <Button
                     size="small"
                     onClick={e => this.openDirectoryPicker(e)}
@@ -600,7 +600,7 @@ class ServiceAgentForm extends React.Component {
                 <Input
                   disabled={disableEdit}
                   placeholder={formatMessage({
-                    id: 'app.common.messages.agentHomeFolderExample',
+                    id: 'app.common.messages.producerHomeFolderExample',
                   })}
                   onChange={e => this.saveConfiguration(e)}
                 />,
@@ -609,7 +609,7 @@ class ServiceAgentForm extends React.Component {
               )}
             </Form.Item>
             <FormDescription>
-              <FormattedHTMLMessage id="app.common.messages.agentHomeFolderDescription" />
+              <FormattedHTMLMessage id="app.common.messages.producerHomeFolderDescription" />
             </FormDescription>
           </FormItemContainer>
           <FormItemContainer>
@@ -660,4 +660,4 @@ class ServiceAgentForm extends React.Component {
 
 export default connect(({ service }) => ({
   service,
-}))(Form.create()(ServiceAgentForm));
+}))(Form.create()(ServiceProducerForm));
