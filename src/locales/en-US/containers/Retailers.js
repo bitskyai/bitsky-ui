@@ -7,7 +7,7 @@
 export default {
   'app.containers.Retailers.header': 'Retailer Configurations',
   'app.containers.Retailers.emptyRetailers':
-    'You don\'t have any <a href="https://docs.bitsky.ai/overview#analyst-service" target="_blank">Retailer Configurations</a>. <a href="https://docs.bitsky.ai/how-tos/how-to-register-an-retailer-service">How to register an Retailer Service Service</a> will show you step by step to regiter an Retailer Service',
+    'You don\'t have any <a href="https://docs.bitsky.ai/overview#retailer-service" target="_blank">Retailer Configurations</a>. <a href="https://docs.bitsky.ai/how-tos/how-to-register-an-retailer-service">How to register an Retailer Service Service</a> will show you step by step to regiter an Retailer Service',
   'app.containers.Retailers.registerNow': 'Register',
   'app.containers.Retailers.drawerTitle': 'Register an Retailer Service',
   'app.containers.Retailers.drawerTitleUpdate': 'Modify an Retailer Service',

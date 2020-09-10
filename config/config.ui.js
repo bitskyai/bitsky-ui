@@ -64,9 +64,9 @@ export default {
             { path: '/app/', redirect: '/app/tasks' },
             {
               path: '/app/tasks',
-              name: 'intelligences',
+              name: 'tasks',
               icon: 'info-circle',
-              component: './Intelligences',
+              component: './Tasks',
             },
             {
               path: '/app/retailers',

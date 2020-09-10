@@ -87,18 +87,18 @@ export default {
   'app.containers.Producers.maxCollectTimePlaceholder': 'Please enter max collect time, like 10000',
   'app.containers.Producers.maxCollectTimeExample': '10000',
   'app.containers.Producers.maxCollectTimeDescription':
-    'Browser has memory leak issue if continue to open urls. To avoid this, need to close window when reach max collect times. Collect Time equal to how many request send to DIA to get intelligence.',
+    'Browser has memory leak issue if continue to open urls. To avoid this, need to close window when reach max collect times. Collect Time equal to how many request send to DIA to get task.',
   'app.containers.Producers.producerIdleTime': 'Producer Idle Time',
   'app.containers.Producers.producerIdleTimePlaceholder':
     'Please enter producer idel time value, like 50',
   'app.containers.Producers.producerIdleTimeExample': '50',
   'app.containers.Producers.producerIdleTimeDescription':
     'How long time browser need to wait to restart collect tasks after close browser window. This time is used for browser to release memory.',
-  'app.containers.Producers.concurrentCollectIntelligences': 'Concurrent Collect Tasks',
-  'app.containers.Producers.concurrentCollectIntelligencesPlaceholder':
+  'app.containers.Producers.concurrentCollectTasks': 'Concurrent Collect Tasks',
+  'app.containers.Producers.concurrentCollectTasksPlaceholder':
     'Please enter concurrent collect tasks, like 1',
-  'app.containers.Producers.concurrentCollectIntelligencesExample': '1',
-  'app.containers.Producers.concurrentCollectIntelligencesDescription':
+  'app.containers.Producers.concurrentCollectTasksExample': '1',
+  'app.containers.Producers.concurrentCollectTasksDescription':
     'How many tasks need to be concurrent collected',
   'app.containers.Producers.requestTimeout': 'Request Timeout',
   'app.containers.Producers.requestTimeoutPlaceholder': 'Please enter request timeout value, like 90',
@@ -119,8 +119,8 @@ export default {
   'app.containers.Producers.urlPathDescription':
     'URL path of your RESTFul API. <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Identifying_resources_on_the_Web#Path" target="_blank">Learn More.</a>',
   'app.containers.Producers.healthTitle': 'Health Check',
-  'app.containers.Producers.getIntelligences': 'Get Tasks',
-  'app.containers.Producers.getIntelligencesDescription':
+  'app.containers.Producers.getTasks': 'Get Tasks',
+  'app.containers.Producers.getTasksDescription':
     "Configure RESTFul API to get tasks from DIA. Normally you don't need to change this value, only change this when you re-implement DIA. ",
   'app.containers.Producers.unregisterProducer': 'Unregister Producer',
   'app.containers.Producers.unregisterProducerDescription':

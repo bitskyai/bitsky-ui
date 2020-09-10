@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import http from '../utils/http';
 
-export async function getIntelligencesOrHistoryForManagementAPI(
+export async function getTasksOrHistoryForManagementAPI(
   cursor,
   url,
   state,
@@ -41,7 +41,7 @@ export async function getIntelligencesOrHistoryForManagementAPI(
   }
 }
 
-export async function rerunIntelligencesForManagementAPI(url, ids, state) {
+export async function rerunTasksForManagementAPI(url, ids, state) {
   try {
     const params = {};
     if (url) {
@@ -71,7 +71,7 @@ export async function rerunIntelligencesForManagementAPI(url, ids, state) {
   }
 }
 
-export async function pauseIntelligencesForManagementAPI(url, ids, state) {
+export async function pauseTasksForManagementAPI(url, ids, state) {
   try {
     const params = {};
     if (url) {
@@ -98,7 +98,7 @@ export async function pauseIntelligencesForManagementAPI(url, ids, state) {
   }
 }
 
-export async function resumeIntelligencesForManagementAPI(url, ids, state) {
+export async function resumeTasksForManagementAPI(url, ids, state) {
   try {
     const params = {};
     if (url) {
@@ -125,7 +125,7 @@ export async function resumeIntelligencesForManagementAPI(url, ids, state) {
   }
 }
 
-export async function deleteIntelligencesOrHistoryForManagementAPI(url, ids, state, history) {
+export async function deleteTasksOrHistoryForManagementAPI(url, ids, state, history) {
   try {
     const params = {};
     if (url) {

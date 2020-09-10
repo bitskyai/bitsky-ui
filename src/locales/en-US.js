@@ -5,8 +5,8 @@ import commonMessages from './en-US/commonMessages';
 import component from './en-US/component';
 import globalHeader from './en-US/globalHeader';
 import home from './en-US/components/home';
-import intelligencesCtn from './en-US/containers/intelligences';
-import intelligencesHistoryCtn from './en-US/containers/IntelligencesHistory';
+import tasksCtn from './en-US/containers/tasks';
+import tasksHistoryCtn from './en-US/containers/TasksHistory';
 import loginCtn from './en-US/containers/Login';
 import menu from './en-US/menu';
 import pwa from './en-US/pwa';
@@ -36,8 +36,8 @@ export default {
   ...producersCtn,
   ...retailersCtn,
   ...settingsCtn,
-  ...intelligencesCtn,
-  ...intelligencesHistoryCtn,
+  ...tasksCtn,
+  ...tasksHistoryCtn,
   ...signupCtn,
   ...HeadlessProducerCtn,
   ...ServiceProducerCtn,

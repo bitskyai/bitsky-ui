@@ -1,6 +1,6 @@
 /*
  *
- * Intelligences actions
+ * Tasks actions
  *
  */
 

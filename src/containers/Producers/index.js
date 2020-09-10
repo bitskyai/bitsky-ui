@@ -355,7 +355,7 @@ export class Producers extends React.Component {
         );
       } else {
         content = (
-          <div className="intelligence-table-container">
+          <div className="task-table-container">
             <div>
               <div style={{ paddingBottom: '15px' }}>
                 <Row>
@@ -373,14 +373,14 @@ export class Producers extends React.Component {
                     <Button
                       type="link"
                       onClick={() => this.initProducersData()}
-                      // disabled={loadingIntelligencesData}
+                      // disabled={loadingTasksData}
                     >
                       {/* {dayjs(modified).format('YYYY/MM/DD HH:mm:ss')} */}
                       <TimeAgo date={modified} />
                       <Icon
                         type="sync"
                         style={{ verticalAlign: 'middle', marginLeft: '5px' }}
-                        // spin={loadingIntelligencesData}
+                        // spin={loadingTasksData}
                       />
                     </Button>
                   </Col>

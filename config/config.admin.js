@@ -2,9 +2,9 @@ let menuRouters = [
   { path: '/app/', redirect: '/app/tasks' },
   {
     path: '/app/tasks',
-    name: 'intelligences',
+    name: 'tasks',
     icon: 'info-circle',
-    component: './Intelligences',
+    component: './Tasks',
   },
   {
     path: '/app/retailers',
@@ -20,9 +20,9 @@ let menuRouters = [
   },
   {
     path: '/app/taskshistory',
-    name: 'intellgienceshistory',
+    name: 'taskshistory',
     icon: 'history',
-    component: './IntellgiencesHistory',
+    component: './TasksHistory',
   },
 ];
 

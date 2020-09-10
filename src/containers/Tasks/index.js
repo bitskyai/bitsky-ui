@@ -1,6 +1,6 @@
 /**
  *
- * Intelligences
+ * Tasks
  *
  */
 import {
@@ -29,18 +29,18 @@ import _ from 'lodash';
 import { connect } from 'dva';
 import dayjs from 'dayjs';
 import styled from 'styled-components';
-import IntelligencesSkeleton from './IntelligencesSkeleton';
+import TasksSkeleton from './TasksSkeleton';
 import {
-  refreshIntelligencesFail,
-  refreshIntelligencesSuccess,
-  resetIntelligences,
+  refreshTasksFail,
+  refreshTasksSuccess,
+  resetTasks,
 } from './actions';
 import {
-  deleteIntelligencesOrHistoryForManagementAPI,
-  getIntelligencesOrHistoryForManagementAPI,
-  pauseIntelligencesForManagementAPI,
-  resumeIntelligencesForManagementAPI,
-} from '../../apis/intelligencesOrHistory';
+  deleteTasksOrHistoryForManagementAPI,
+  getTasksOrHistoryForManagementAPI,
+  pauseTasksForManagementAPI,
+  resumeTasksForManagementAPI,
+} from '../../apis/tasksOrHistory';
 import StateTag from '../../utils/StateTag';
 import { STATES } from '../../utils/constants';
 
@@ -63,17 +63,17 @@ const LoadMoreContent = (
   </div>
 );
 
-export class Intelligences extends React.Component {
+export class Tasks extends React.Component {
   constructor(props) {
     super(props);
-    // useInjectReducer({ key: 'intelligences', reducer });
-    // useInjectSaga({ key: 'intelligences', saga });
-    this.props.dispatch(resetIntelligences());
+    // useInjectReducer({ key: 'tasks', reducer });
+    // useInjectSaga({ key: 'tasks', saga });
+    this.props.dispatch(resetTasks());
     this.state = {
       selectedRowKeys: [],
       selectedRows: [],
       loadingMore: false,
-      loadingIntelligencesData: true,
+      loadingTasksData: true,
       contentHeight: window.innerHeight,
       drawerVisiable: false,
       selectedTask: undefined,
@@ -99,16 +99,16 @@ export class Intelligences extends React.Component {
   }
 
   componentDidMount() {
-    this.initIntelligencesData();
+    this.initTasksData();
   }
 
   componentDidUpdate() {
-    $('.intelligence-table-container .ant-table-body').unbind('scroll');
-    $('.intelligence-table-container .ant-table-body').bind('scroll', () => {
-      const scrollTop = $('.intelligence-table-container .ant-table-body').scrollTop();
-      const offsetHeight = $('.intelligence-table-container .ant-table-body').outerHeight();
+    $('.task-table-container .ant-table-body').unbind('scroll');
+    $('.task-table-container .ant-table-body').bind('scroll', () => {
+      const scrollTop = $('.task-table-container .ant-table-body').scrollTop();
+      const offsetHeight = $('.task-table-container .ant-table-body').outerHeight();
       const { scrollHeight } = document.querySelector(
-        '.intelligence-table-container .ant-table-body',
+        '.task-table-container .ant-table-body',
       );
 
       // console.log("scrollHeight: ", scrollHeight);
@@ -117,10 +117,10 @@ export class Intelligences extends React.Component {
       // console.log("lastScrollHeight: ", this.lastScrollHeight);
       // console.log('offset: ', (scrollHeight - scrollTop - offsetHeight));
 
-      if (scrollHeight - scrollTop - offsetHeight < 200 && this.props.intelligences.nextCursor) {
+      if (scrollHeight - scrollTop - offsetHeight < 200 && this.props.tasks.nextCursor) {
         if (!this.state.loadingMore) {
           this.lastScrollHeight = scrollHeight;
-          this.loadMoreIntelligences();
+          this.loadMoreTasks();
         }
       }
     });
@@ -166,7 +166,7 @@ export class Intelligences extends React.Component {
           resuming: false,
         },
       });
-      await pauseIntelligencesForManagementAPI(
+      await pauseTasksForManagementAPI(
         this.filterConditions.url,
         ids,
         this.filterConditions.state,
@@ -178,7 +178,7 @@ export class Intelligences extends React.Component {
           resuming: false,
         },
       });
-      this.initIntelligencesData();
+      this.initTasksData();
     } catch (err) {
       this.setState({
         operationBtns: {
@@ -207,7 +207,7 @@ export class Intelligences extends React.Component {
           resuming: true,
         },
       });
-      await resumeIntelligencesForManagementAPI(
+      await resumeTasksForManagementAPI(
         this.filterConditions.url,
         ids,
         this.filterConditions.state,
@@ -219,7 +219,7 @@ export class Intelligences extends React.Component {
           resuming: false,
         },
       });
-      this.initIntelligencesData();
+      this.initTasksData();
     } catch (err) {
       this.setState({
         operationBtns: {
@@ -248,14 +248,14 @@ export class Intelligences extends React.Component {
           resuming: false,
         },
       });
-      await deleteIntelligencesOrHistoryForManagementAPI(
+      await deleteTasksOrHistoryForManagementAPI(
         this.filterConditions.url,
         ids,
         this.filterConditions.state,
       );
       message.success(
         formatMessage({
-          id: 'app.containers.Intelligences.deleteAllSuccessful',
+          id: 'app.containers.Tasks.deleteAllSuccessful',
         }),
       );
       this.setState({
@@ -265,7 +265,7 @@ export class Intelligences extends React.Component {
           resuming: false,
         },
       });
-      this.initIntelligencesData();
+      this.initTasksData();
     } catch (err) {
       this.setState({
         operationBtns: {
@@ -282,8 +282,8 @@ export class Intelligences extends React.Component {
       selectedRowKeys: [],
       selectedRows: [],
     });
-    this.props.dispatch(resetIntelligences());
-    this.loadMoreIntelligences(null);
+    this.props.dispatch(resetTasks());
+    this.loadMoreTasks(null);
   };
 
   getColumnSearchProps = dataIndex => ({
@@ -325,7 +325,7 @@ export class Intelligences extends React.Component {
 
   getColumnCheckboxProps = (dataIndex, options) => ({
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
-      <div style={{ padding: 8 }} className="intelligences-checkboxgroup">
+      <div style={{ padding: 8 }} className="tasks-checkboxgroup">
         <Checkbox.Group
           options={options}
           defaultValue={selectedKeys}
@@ -369,26 +369,26 @@ export class Intelligences extends React.Component {
     this.search();
   };
 
-  loadMoreIntelligences(nextCursor) {
+  loadMoreTasks(nextCursor) {
     this.setState({
       loadingMore: true,
     });
     if (nextCursor === undefined) {
-      nextCursor = this.props.intelligences.nextCursor;
+      nextCursor = this.props.tasks.nextCursor;
     }
-    getIntelligencesOrHistoryForManagementAPI(
+    getTasksOrHistoryForManagementAPI(
       nextCursor,
       this.filterConditions.url,
       this.filterConditions.state,
     ).then(
-      intelligences => {
-        this.props.dispatch(refreshIntelligencesSuccess(intelligences));
+      tasks => {
+        this.props.dispatch(refreshTasksSuccess(tasks));
         this.setState({
           loadingMore: false,
         });
       },
       err => {
-        this.props.dispatch(refreshIntelligencesFail(err));
+        this.props.dispatch(refreshTasksFail(err));
         this.setState({
           loadingMore: false,
         });
@@ -396,26 +396,26 @@ export class Intelligences extends React.Component {
     );
   }
 
-  initIntelligencesData() {
-    this.props.dispatch(resetIntelligences());
+  initTasksData() {
+    this.props.dispatch(resetTasks());
     this.setState({
-      loadingIntelligencesData: true,
+      loadingTasksData: true,
       selectedRowKeys: [],
       selectedRows: [],
     });
-    // init intelligences
-    getIntelligencesOrHistoryForManagementAPI(
+    // init tasks
+    getTasksOrHistoryForManagementAPI(
       undefined,
       this.filterConditions.url,
       this.filterConditions.state,
     ).then(
-      intelligences => {
-        this.setState({ loadingIntelligencesData: false });
-        this.props.dispatch(refreshIntelligencesSuccess(intelligences));
+      tasks => {
+        this.setState({ loadingTasksData: false });
+        this.props.dispatch(refreshTasksSuccess(tasks));
       },
       err => {
-        this.setState({ loadingIntelligencesData: false });
-        this.props.dispatch(refreshIntelligencesFail(err));
+        this.setState({ loadingTasksData: false });
+        this.props.dispatch(refreshTasksFail(err));
       },
     );
   }
@@ -423,14 +423,14 @@ export class Intelligences extends React.Component {
   render() {
     // const { formatMessage } = this.props.intl;
     const {
-      loadingIntelligencesData,
+      loadingTasksData,
       contentHeight,
       loadingMore,
       drawerVisiable,
       selectedTask,
     } = this.state;
-    const { intelligences } = this.props;
-    let content = <IntelligencesSkeleton />;
+    const { tasks } = this.props;
+    let content = <TasksSkeleton />;
 
     const columns = [
       {
@@ -478,7 +478,7 @@ export class Intelligences extends React.Component {
         ]),
       },
       {
-        title: formatMessage({ id: 'app.common.messages.analystState' }),
+        title: formatMessage({ id: 'app.common.messages.retailerState' }),
         dataIndex: 'retailer.state',
         // width: '15%',
         render: s => {
@@ -513,10 +513,10 @@ export class Intelligences extends React.Component {
       },
     };
 
-    if (!loadingIntelligencesData) {
+    if (!loadingTasksData) {
       // if currently in search mode, then show table
       if (
-        (!intelligences.data || !intelligences.data.length) &&
+        (!tasks.data || !tasks.data.length) &&
         !_.keys(this.filterConditions).length
       ) {
         content = (
@@ -524,18 +524,18 @@ export class Intelligences extends React.Component {
             <Empty
               description={
                 <span>
-                  <FormattedHTMLMessage id="app.containers.Intelligences.emptyIntelligences" />
+                  <FormattedHTMLMessage id="app.containers.Tasks.emptyTasks" />
                 </span>
               }
             >
-              {/* <Button type="primary" onClick={()=>{this.onRegisterIntelligence()}}>
+              {/* <Button type="primary" onClick={()=>{this.onRegisterTask()}}>
               <FormattedMessage {...messages.registerNow} />
             </Button> */}
             </Empty>
           </EmptyContainer>
         );
       } else {
-        let total = (intelligences && intelligences.total) || 0;
+        let total = (tasks && tasks.total) || 0;
         if (this.state.selectedRows && this.state.selectedRows.length) {
           total = this.state.selectedRows.length;
         }
@@ -547,7 +547,7 @@ export class Intelligences extends React.Component {
         ) {
           operationBtnDisabled = true;
         }
-        if (!total || loadingIntelligencesData) {
+        if (!total || loadingTasksData) {
           operationBtnDisabled = true;
         }
 
@@ -563,8 +563,8 @@ export class Intelligences extends React.Component {
                 loading={this.state.operationBtns.pausing}
               >
                 <FormattedMessage
-                  id="app.containers.Intelligences.pauseAll"
-                  values={{ intelligenceNumber: total }}
+                  id="app.containers.Tasks.pauseAll"
+                  values={{ taskNumber: total }}
                 />
               </Button>
             </Menu.Item>
@@ -578,8 +578,8 @@ export class Intelligences extends React.Component {
                 loading={this.state.operationBtns.resuming}
               >
                 <FormattedMessage
-                  id="app.containers.Intelligences.resumeAll"
-                  values={{ intelligenceNumber: total }}
+                  id="app.containers.Tasks.resumeAll"
+                  values={{ taskNumber: total }}
                 />
               </Button>
             </Menu.Item>
@@ -593,8 +593,8 @@ export class Intelligences extends React.Component {
                 loading={this.state.operationBtns.deleting}
               >
                 <FormattedMessage
-                  id="app.containers.Intelligences.deleteAll"
-                  values={{ intelligenceNumber: total }}
+                  id="app.containers.Tasks.deleteAll"
+                  values={{ taskNumber: total }}
                 />
               </Button>
             </Menu.Item>
@@ -606,25 +606,25 @@ export class Intelligences extends React.Component {
             <div style={{ display: 'inline-block' }}>
               <span>
                 <FormattedMessage
-                  id="app.containers.Intelligences.showIntelligences"
+                  id="app.containers.Tasks.showTasks"
                   values={{
-                    intelligencesNumber: _.get(intelligences, 'data.length'),
-                    intelligencesTotal: intelligences.total,
+                    tasksNumber: _.get(tasks, 'data.length'),
+                    tasksTotal: tasks.total,
                   }}
                 />
               </span>
             </div>
             <Button
               type="link"
-              onClick={() => this.initIntelligencesData()}
-              disabled={loadingIntelligencesData}
+              onClick={() => this.initTasksData()}
+              disabled={loadingTasksData}
             >
-              {/* {dayjs(intelligences.modified).format('YYYY/MM/DD HH:mm:ss')} */}
-              <TimeAgo date={intelligences.modified} />
+              {/* {dayjs(tasks.modified).format('YYYY/MM/DD HH:mm:ss')} */}
+              <TimeAgo date={tasks.modified} />
               <Icon
                 type="sync"
                 style={{ verticalAlign: 'middle', marginLeft: '5px' }}
-                spin={loadingIntelligencesData}
+                spin={loadingTasksData}
               />
             </Button>
           </div>
@@ -632,7 +632,7 @@ export class Intelligences extends React.Component {
 
         content = (
           // <div ref={(ref) => this.scrollParentRef = ref}>
-          <div className="intelligence-table-container">
+          <div className="task-table-container">
             <div>
               <div style={{ paddingBottom: '15px' }}>
                 <Row>
@@ -646,8 +646,8 @@ export class Intelligences extends React.Component {
                         loading={this.state.operationBtns.pausing}
                       >
                         <FormattedMessage
-                          id="app.containers.Intelligences.pauseAll"
-                          values={{ intelligenceNumber: total }}
+                          id="app.containers.Tasks.pauseAll"
+                          values={{ taskNumber: total }}
                         />
                       </Button>
                       <Button
@@ -659,8 +659,8 @@ export class Intelligences extends React.Component {
                         loading={this.state.operationBtns.resuming}
                       >
                         <FormattedMessage
-                          id="app.containers.Intelligences.resumeAll"
-                          values={{ intelligenceNumber: total }}
+                          id="app.containers.Tasks.resumeAll"
+                          values={{ taskNumber: total }}
                         />
                       </Button>
                       <Button
@@ -672,8 +672,8 @@ export class Intelligences extends React.Component {
                         loading={this.state.operationBtns.deleting}
                       >
                         <FormattedMessage
-                          id="app.containers.Intelligences.deleteAll"
-                          values={{ intelligenceNumber: total }}
+                          id="app.containers.Tasks.deleteAll"
+                          values={{ taskNumber: total }}
                         />
                       </Button>
                     </Col>
@@ -702,7 +702,7 @@ export class Intelligences extends React.Component {
                 bordered
                 columns={columns}
                 rowSelection={rowSelection}
-                dataSource={intelligences.data}
+                dataSource={tasks.data}
                 rowKey={record => record.globalId}
                 scroll={{ y: contentHeight - 310 }}
                 onRow={record => ({
@@ -736,6 +736,6 @@ export class Intelligences extends React.Component {
   }
 }
 
-export default connect(({ intelligences }) => ({
-  intelligences,
-}))(Intelligences);
+export default connect(({ tasks }) => ({
+  tasks,
+}))(Tasks);

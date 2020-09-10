@@ -259,14 +259,14 @@ export class RetailersNew extends React.Component {
                     <Button
                       type="link"
                       onClick={() => this.initRetailersData()}
-                      // disabled={loadingIntelligencesData}
+                      // disabled={loadingTasksData}
                     >
                       {/* {dayjs(modified).format('YYYY/MM/DD HH:mm:ss')} */}
                       <TimeAgo date={modified} />
                       <Icon
                         type="sync"
                         style={{ verticalAlign: 'middle', marginLeft: '5px' }}
-                        // spin={loadingIntelligencesData}
+                        // spin={loadingTasksData}
                       />
                     </Button>
                   </Col>

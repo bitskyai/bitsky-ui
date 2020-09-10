@@ -22,7 +22,7 @@ export const HTTP_HEADERS = {
 export const DEFAULT_PRODUCER_CONFIGURATION = {
   private: true,
   concurrent: 1,
-  // (Unit: Second) How frequently to poll whether need to collect intelligences
+  // (Unit: Second) How frequently to poll whether need to collect tasks
   pollingInterval: 10,
   maxWaitingTime: 1, // (Unit: Second)
   maxCollect: 100000, // Max crawl times, when reach this time, close browser to release memory

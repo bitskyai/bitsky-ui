@@ -1,6 +1,6 @@
 /**
  *
- * Intelligences History
+ * Tasks History
  *
  */
 import {
@@ -27,19 +27,19 @@ import _ from 'lodash';
 import { connect } from 'dva';
 import dayjs from 'dayjs';
 import styled from 'styled-components';
-import IntelligencesSkeleton from './IntelligencesSkeleton';
+import TasksSkeleton from './TasksSkeleton';
 import {
-  refreshIntelligencesFail,
-  refreshIntelligencesSuccess,
-  resetIntelligences,
+  refreshTasksFail,
+  refreshTasksSuccess,
+  resetTasks,
 } from './actions';
 import {
-  deleteIntelligencesOrHistoryForManagementAPI,
-  getIntelligencesOrHistoryForManagementAPI,
-  rerunIntelligencesForManagementAPI,
-} from '../../apis/intelligencesOrHistory';
+  deleteTasksOrHistoryForManagementAPI,
+  getTasksOrHistoryForManagementAPI,
+  rerunTasksForManagementAPI,
+} from '../../apis/tasksOrHistory';
 import StateTag from '../../utils/StateTag';
-import TaskDetail from '../Intelligences/TaskDetail';
+import TaskDetail from '../Tasks/TaskDetail';
 
 const EmptyContainer = styled.div`
   padding: 100px 0;
@@ -58,17 +58,17 @@ const LoadMoreContent = (
   </div>
 );
 
-export class IntelligencesHistory extends React.Component {
+export class TasksHistory extends React.Component {
   constructor(props) {
     super(props);
-    // useInjectReducer({ key: 'intelligences', reducer });
-    // useInjectSaga({ key: 'intelligences', saga });
-    this.props.dispatch(resetIntelligences());
+    // useInjectReducer({ key: 'tasks', reducer });
+    // useInjectSaga({ key: 'tasks', saga });
+    this.props.dispatch(resetTasks());
     this.state = {
       selectedRowKeys: [],
       selectedRows: [],
       loadingMore: false,
-      loadingIntelligencesData: true,
+      loadingTasksData: true,
       drawerVisiable: false,
       selectedTask: undefined,
       contentHeight: window.innerHeight,
@@ -94,12 +94,12 @@ export class IntelligencesHistory extends React.Component {
   }
 
   componentDidUpdate() {
-    $('.intelligence-table-container .ant-table-body').unbind('scroll');
-    $('.intelligence-table-container .ant-table-body').bind('scroll', () => {
-      const scrollTop = $('.intelligence-table-container .ant-table-body').scrollTop();
-      const offsetHeight = $('.intelligence-table-container .ant-table-body').outerHeight();
+    $('.task-table-container .ant-table-body').unbind('scroll');
+    $('.task-table-container .ant-table-body').bind('scroll', () => {
+      const scrollTop = $('.task-table-container .ant-table-body').scrollTop();
+      const offsetHeight = $('.task-table-container .ant-table-body').outerHeight();
       const { scrollHeight } = document.querySelector(
-        '.intelligence-table-container .ant-table-body',
+        '.task-table-container .ant-table-body',
       );
 
       // console.log("scrollHeight: ", scrollHeight);
@@ -108,10 +108,10 @@ export class IntelligencesHistory extends React.Component {
       // console.log("lastScrollHeight: ", this.lastScrollHeight);
       // console.log('offset: ', (scrollHeight - scrollTop - offsetHeight));
 
-      if (scrollHeight - scrollTop - offsetHeight < 200 && this.props.intelligences.nextCursor) {
+      if (scrollHeight - scrollTop - offsetHeight < 200 && this.props.tasks.nextCursor) {
         if (!this.state.loadingMore) {
           this.lastScrollHeight = scrollHeight;
-          this.loadMoreIntelligences();
+          this.loadMoreTasks();
         }
       }
     });
@@ -123,7 +123,7 @@ export class IntelligencesHistory extends React.Component {
 
   // eslint-disable-next-line react/sort-comp
   componentDidMount() {
-    this.initIntelligencesData();
+    this.initTasksData();
   }
 
   onShowDrawer(producer) {
@@ -162,7 +162,7 @@ export class IntelligencesHistory extends React.Component {
           resuming: false,
         },
       });
-      await deleteIntelligencesOrHistoryForManagementAPI(
+      await deleteTasksOrHistoryForManagementAPI(
         this.filterConditions.url,
         ids,
         this.filterConditions.state,
@@ -170,7 +170,7 @@ export class IntelligencesHistory extends React.Component {
       );
       message.success(
         formatMessage({
-          id: 'app.containers.Intelligences.deleteAllSuccessful',
+          id: 'app.containers.Tasks.deleteAllSuccessful',
         }),
       );
       this.setState({
@@ -180,7 +180,7 @@ export class IntelligencesHistory extends React.Component {
           resuming: false,
         },
       });
-      this.initIntelligencesData();
+      this.initTasksData();
     } catch (err) {
       this.setState({
         operationBtns: {
@@ -206,13 +206,13 @@ export class IntelligencesHistory extends React.Component {
           reruning: true,
         },
       });
-      await rerunIntelligencesForManagementAPI(
+      await rerunTasksForManagementAPI(
         this.filterConditions.url,
         ids,
         this.filterConditions.state,
       );
       const successStr = formatMessage({
-        id: 'app.containers.IntelligencesHistory.rerunAllSuccess',
+        id: 'app.containers.TasksHistory.rerunAllSuccess',
       });
       message.success(successStr);
       this.setState({
@@ -223,7 +223,7 @@ export class IntelligencesHistory extends React.Component {
           reruning: false,
         },
       });
-      // this.initIntelligencesData();
+      // this.initTasksData();
     } catch (err) {
       this.setState({
         operationBtns: {
@@ -241,8 +241,8 @@ export class IntelligencesHistory extends React.Component {
       selectedRowKeys: [],
       selectedRows: [],
     });
-    this.props.dispatch(resetIntelligences());
-    this.loadMoreIntelligences(null);
+    this.props.dispatch(resetTasks());
+    this.loadMoreTasks(null);
   };
 
   handleReset = (clearFilters, dataIndex) => {
@@ -298,7 +298,7 @@ export class IntelligencesHistory extends React.Component {
 
   getColumnCheckboxProps = (dataIndex, options) => ({
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
-      <div style={{ padding: 8 }} className="intelligences-checkboxgroup">
+      <div style={{ padding: 8 }} className="tasks-checkboxgroup">
         <Checkbox.Group
           options={options}
           defaultValue={selectedKeys}
@@ -328,54 +328,54 @@ export class IntelligencesHistory extends React.Component {
     ),
   });
 
-  initIntelligencesData() {
-    this.props.dispatch(resetIntelligences());
+  initTasksData() {
+    this.props.dispatch(resetTasks());
     this.setState({
-      loadingIntelligencesData: true,
+      loadingTasksData: true,
       selectedRowKeys: [],
       selectedRows: [],
     });
-    // init intelligences
-    getIntelligencesOrHistoryForManagementAPI(
+    // init tasks
+    getTasksOrHistoryForManagementAPI(
       undefined,
       this.filterConditions.url,
       this.filterConditions.state,
       50,
       true,
     ).then(
-      intelligences => {
-        this.setState({ loadingIntelligencesData: false });
-        this.props.dispatch(refreshIntelligencesSuccess(intelligences));
+      tasks => {
+        this.setState({ loadingTasksData: false });
+        this.props.dispatch(refreshTasksSuccess(tasks));
       },
       err => {
-        this.setState({ loadingIntelligencesData: false });
-        this.props.dispatch(refreshIntelligencesFail(err));
+        this.setState({ loadingTasksData: false });
+        this.props.dispatch(refreshTasksFail(err));
       },
     );
   }
 
-  loadMoreIntelligences(nextCursor) {
+  loadMoreTasks(nextCursor) {
     this.setState({
       loadingMore: true,
     });
     if (nextCursor === undefined) {
-      nextCursor = this.props.intelligences.nextCursor;
+      nextCursor = this.props.tasks.nextCursor;
     }
-    getIntelligencesOrHistoryForManagementAPI(
+    getTasksOrHistoryForManagementAPI(
       nextCursor,
       this.filterConditions.url,
       this.filterConditions.state,
       50,
       true,
     ).then(
-      intelligences => {
-        this.props.dispatch(refreshIntelligencesSuccess(intelligences));
+      tasks => {
+        this.props.dispatch(refreshTasksSuccess(tasks));
         this.setState({
           loadingMore: false,
         });
       },
       err => {
-        this.props.dispatch(refreshIntelligencesFail(err));
+        this.props.dispatch(refreshTasksFail(err));
         this.setState({
           loadingMore: false,
         });
@@ -386,14 +386,14 @@ export class IntelligencesHistory extends React.Component {
   render() {
     // const { formatMessage } = this.props.intl;
     const {
-      loadingIntelligencesData,
+      loadingTasksData,
       contentHeight,
       loadingMore,
       drawerVisiable,
       selectedTask,
     } = this.state;
-    const { intelligences } = this.props;
-    let content = <IntelligencesSkeleton />;
+    const { tasks } = this.props;
+    let content = <TasksSkeleton />;
 
     const columns = [
       {
@@ -462,10 +462,10 @@ export class IntelligencesHistory extends React.Component {
       },
     };
 
-    if (!loadingIntelligencesData) {
+    if (!loadingTasksData) {
       // if currently in search mode, then show table
       if (
-        (!intelligences.data || !intelligences.data.length) &&
+        (!tasks.data || !tasks.data.length) &&
         !_.keys(this.filterConditions).length
       ) {
         content = (
@@ -473,18 +473,18 @@ export class IntelligencesHistory extends React.Component {
             <Empty
               description={
                 <span>
-                  <FormattedHTMLMessage id="app.containers.IntelligencesHistory.empty" />
+                  <FormattedHTMLMessage id="app.containers.TasksHistory.empty" />
                 </span>
               }
             >
-              {/* <Button type="primary" onClick={()=>{this.onRegisterIntelligence()}}>
+              {/* <Button type="primary" onClick={()=>{this.onRegisterTask()}}>
               <FormattedMessage {...messages.registerNow} />
             </Button> */}
             </Empty>
           </EmptyContainer>
         );
       } else {
-        let total = (intelligences && intelligences.total) || 0;
+        let total = (tasks && tasks.total) || 0;
         if (this.state.selectedRows && this.state.selectedRows.length) {
           total = this.state.selectedRows.length;
         }
@@ -496,7 +496,7 @@ export class IntelligencesHistory extends React.Component {
         ) {
           operationBtnDisabled = true;
         }
-        if (!total || loadingIntelligencesData) {
+        if (!total || loadingTasksData) {
           operationBtnDisabled = true;
         }
 
@@ -512,8 +512,8 @@ export class IntelligencesHistory extends React.Component {
                 loading={this.state.operationBtns.reruning}
               >
                 <FormattedMessage
-                  id="app.containers.IntelligencesHistory.rerunAll"
-                  values={{ intelligenceNumber: total }}
+                  id="app.containers.TasksHistory.rerunAll"
+                  values={{ taskNumber: total }}
                 />
               </Button>
             </Menu.Item>
@@ -527,8 +527,8 @@ export class IntelligencesHistory extends React.Component {
                 loading={this.state.operationBtns.deleting}
               >
                 <FormattedMessage
-                  id="app.containers.Intelligences.deleteAll"
-                  values={{ intelligenceNumber: total }}
+                  id="app.containers.Tasks.deleteAll"
+                  values={{ taskNumber: total }}
                 />
               </Button>
             </Menu.Item>
@@ -540,25 +540,25 @@ export class IntelligencesHistory extends React.Component {
             <div style={{ display: 'inline-block' }}>
               <span>
                 <FormattedMessage
-                  id="app.containers.Intelligences.showIntelligences"
+                  id="app.containers.Tasks.showTasks"
                   values={{
-                    intelligencesNumber: _.get(intelligences, 'data.length'),
-                    intelligencesTotal: intelligences.total,
+                    tasksNumber: _.get(tasks, 'data.length'),
+                    tasksTotal: tasks.total,
                   }}
                 />
               </span>
             </div>
             <Button
               type="link"
-              onClick={() => this.initIntelligencesData()}
-              disabled={loadingIntelligencesData}
+              onClick={() => this.initTasksData()}
+              disabled={loadingTasksData}
             >
-              {/* {dayjs(intelligences.modified).format('YYYY/MM/DD HH:mm:ss')} */}
-              <TimeAgo date={intelligences.modified} />
+              {/* {dayjs(tasks.modified).format('YYYY/MM/DD HH:mm:ss')} */}
+              <TimeAgo date={tasks.modified} />
               <Icon
                 type="sync"
                 style={{ verticalAlign: 'middle', marginLeft: '5px' }}
-                spin={loadingIntelligencesData}
+                spin={loadingTasksData}
               />
             </Button>
           </div>
@@ -566,7 +566,7 @@ export class IntelligencesHistory extends React.Component {
 
         content = (
           // <div ref={(ref) => this.scrollParentRef = ref}>
-          <div className="intelligence-table-container">
+          <div className="task-table-container">
             <div>
               <div style={{ paddingBottom: '15px' }}>
                 <Row>
@@ -581,8 +581,8 @@ export class IntelligencesHistory extends React.Component {
                         loading={this.state.operationBtns.reruning}
                       >
                         <FormattedMessage
-                          id="app.containers.IntelligencesHistory.rerunAll"
-                          values={{ intelligenceNumber: total }}
+                          id="app.containers.TasksHistory.rerunAll"
+                          values={{ taskNumber: total }}
                         />
                       </Button>
                       <Button
@@ -594,8 +594,8 @@ export class IntelligencesHistory extends React.Component {
                         loading={this.state.operationBtns.deleting}
                       >
                         <FormattedMessage
-                          id="app.containers.Intelligences.deleteAll"
-                          values={{ intelligenceNumber: total }}
+                          id="app.containers.Tasks.deleteAll"
+                          values={{ taskNumber: total }}
                         />
                       </Button>
                     </Col>
@@ -624,7 +624,7 @@ export class IntelligencesHistory extends React.Component {
                 bordered
                 columns={columns}
                 rowSelection={rowSelection}
-                dataSource={intelligences.data}
+                dataSource={tasks.data}
                 rowKey={record => record.globalId}
                 scroll={{ y: contentHeight - 310 }}
                 onRow={record => ({
@@ -658,6 +658,6 @@ export class IntelligencesHistory extends React.Component {
   }
 }
 
-export default connect(({ intelligences }) => ({
-  intelligences,
-}))(IntelligencesHistory);
+export default connect(({ tasks }) => ({
+  tasks,
+}))(TasksHistory);

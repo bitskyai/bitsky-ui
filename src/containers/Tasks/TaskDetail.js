@@ -41,7 +41,7 @@ export default function TaskDetail(props) {
     <div>
       <Drawer
         destroyOnClose
-        title={formatMessage({ id: 'app.containers.Intelligences.task.detail' })}
+        title={formatMessage({ id: 'app.containers.Tasks.task.detail' })}
         width={720}
         onClose={props.onCloseDrawer}
         visible={props.visiable}

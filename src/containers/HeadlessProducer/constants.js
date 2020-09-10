@@ -1,6 +1,6 @@
 /*
  *
- * Intelligences constants
+ * Tasks constants
  *
  */
 export const GET_HEADLESS_CONFIG = 'headless/getConfig';

@@ -334,7 +334,7 @@ class RegisterProducerForm extends React.Component {
             <FormItemContainer>
               <Form.Item
                 label={formatMessage({
-                  id: 'app.containers.Producers.concurrentCollectIntelligences',
+                  id: 'app.containers.Producers.concurrentCollectTasks',
                 })}
                 style={formItemStyle}
               >
@@ -344,7 +344,7 @@ class RegisterProducerForm extends React.Component {
                     {
                       required: true,
                       message: formatMessage({
-                        id: 'app.containers.Producers.concurrentCollectIntelligencesPlaceholder',
+                        id: 'app.containers.Producers.concurrentCollectTasksPlaceholder',
                       }),
                     },
                     {
@@ -355,7 +355,7 @@ class RegisterProducerForm extends React.Component {
                 })(<InputNumber disabled={readOnly} min={1} />)}
               </Form.Item>
               <FormDescription>
-                <FormattedHTMLMessage id="app.containers.Producers.concurrentCollectIntelligencesDescription" />
+                <FormattedHTMLMessage id="app.containers.Producers.concurrentCollectTasksDescription" />
               </FormDescription>
             </FormItemContainer>
             <FormItemContainer>
