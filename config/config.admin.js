@@ -8,9 +8,9 @@ let menuRouters = [
   },
   {
     path: '/app/retailers',
-    name: 'sois',
+    name: 'retailers',
     icon: 'cloud-server',
-    component: './SOIs',
+    component: './Retailers',
   },
   {
     path: '/app/producers',

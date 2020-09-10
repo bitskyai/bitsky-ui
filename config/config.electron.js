@@ -8,9 +8,9 @@ const menuRouters = [
   },
   {
     path: '/app/retailers',
-    name: 'sois',
+    name: 'retailers',
     icon: 'cloud-server',
-    component: './SOIs',
+    component: './Retailers',
   },
   {
     path: '/app/producers',
@@ -33,8 +33,8 @@ const menuRouters = [
     electron: true,
   },
   {
-    path: '#defaultsoi',
-    name: 'defaultSOI',
+    path: '#defaultretailer',
+    name: 'defaultRetailer',
     icon: 'cloud-server',
     electron: true,
   },

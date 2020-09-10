@@ -72,13 +72,13 @@ const BasicLayout = props => {
             return defaultDom;
           }
 
-          if (menuItemProps.path === '/app/#defaultsoi') {
+          if (menuItemProps.path === '/app/#defaultretailer') {
             return (
               <Link
                 to="#"
-                id="munew_default_soi_menu"
+                id="munew_default_retailer_menu"
                 onClick={() => {
-                  sendToElectron('soiEditor/open');
+                  sendToElectron('retailerEditor/open');
                 }}
               >
                 {defaultDom}

@@ -479,7 +479,7 @@ export class Intelligences extends React.Component {
       },
       {
         title: formatMessage({ id: 'app.common.messages.analystState' }),
-        dataIndex: 'soi.state',
+        dataIndex: 'retailer.state',
         // width: '15%',
         render: s => {
           let state = s;

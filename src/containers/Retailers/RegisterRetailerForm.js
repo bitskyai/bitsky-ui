@@ -1,7 +1,7 @@
 import { Button, Col, Drawer, Form, Input, Row, Select, Typography, message } from 'antd';
 // import { FormattedMessage, FormattedHTMLMessage, injectIntl } from 'react-intl';
 import { FormattedHTMLMessage, FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
-// import messages from '../../locales/en-US/containers/Sois';
+// import messages from '../../locales/en-US/containers/Retailers';
 // import commonMessages from '../../locales/en-US/globalMessages';
 
 // import PropTypes from 'prop-types';
@@ -10,8 +10,8 @@ import _ from 'lodash';
 // import { exportDefaultSpecifier } from '@babel/types';
 import styled from 'styled-components';
 import { filterOutEmptyValue } from '../../utils/utils';
-import { refreshSOIs } from './actions';
-import { registerASOI, updateSOI } from '../../apis/retailers';
+import { refreshRetailers } from './actions';
+import { registerARetailer, updateRetailer } from '../../apis/retailers';
 
 const { Paragraph } = Typography;
 
@@ -22,29 +22,29 @@ const FormDescription = styled(Paragraph)`
 
 const formItemStyle = { marginBottom: 0 };
 
-class RegisterSoiForm extends React.Component {
+class RegisterRetailerForm extends React.Component {
   state = { sending: false };
 
   // hasErrors(fieldsError) {
   //   return Object.keys(fieldsError).some(field => fieldsError[field]);
   // }
 
-  registerSOI = e => {
+  registerRetailer = e => {
     e.preventDefault();
     // const { formatMessage } = this.props.intl;
     this.setState({ sending: true });
     this.props.form.validateFieldsAndScroll(async (err, values) => {
       if (!err) {
         try {
-          if (this.props.soi) {
-            values.globalId = this.props.soi.globalId;
-            await updateSOI(values);
-            this.props.dispatch(refreshSOIs());
+          if (this.props.retailer) {
+            values.globalId = this.props.retailer.globalId;
+            await updateRetailer(values);
+            this.props.dispatch(refreshRetailers());
           } else {
-            await registerASOI(values);
-            this.props.dispatch(refreshSOIs());
+            await registerARetailer(values);
+            this.props.dispatch(refreshRetailers());
           }
-          const msg = formatMessage({ id: 'app.containers.Sois.registerSOISuccessful' });
+          const msg = formatMessage({ id: 'app.containers.Retailers.registerRetailerSuccessful' });
           message.success(msg);
           this.setState({
             sending: false,
@@ -65,26 +65,26 @@ class RegisterSoiForm extends React.Component {
   render() {
     const { getFieldsValue, getFieldDecorator, isFieldsTouched } = this.props.form;
     // const { formatMessage } = this.props.intl;
-    let { soi } = this.props;
+    let { retailer } = this.props;
     let disableSaveBtn = true;
 
-    let drawerTitle = formatMessage({ id: 'app.containers.Sois.drawerTitle' });
-    let primaryButtonTitle = formatMessage({ id: 'app.containers.Sois.registerNow' });
-    if (this.props.soi && this.props.soi.globalId) {
+    let drawerTitle = formatMessage({ id: 'app.containers.Retailers.drawerTitle' });
+    let primaryButtonTitle = formatMessage({ id: 'app.containers.Retailers.registerNow' });
+    if (this.props.retailer && this.props.retailer.globalId) {
       // if *globalId* exist, then drawer title is
-      drawerTitle = formatMessage({ id: 'app.containers.Sois.drawerTitleUpdate' });
+      drawerTitle = formatMessage({ id: 'app.containers.Retailers.drawerTitleUpdate' });
       primaryButtonTitle = formatMessage({ id: 'app.common.messages.save' });
     }
 
     if (isFieldsTouched()) {
       // console.log('isFieldsTouched: ', isFieldsTouched());
       let currentFormValue = getFieldsValue();
-      currentFormValue.globalId = soi && soi.globalId;
-      currentFormValue = { ...soi, ...currentFormValue };
+      currentFormValue.globalId = retailer && retailer.globalId;
+      currentFormValue = { ...retailer, ...currentFormValue };
       currentFormValue = filterOutEmptyValue(currentFormValue);
-      soi = filterOutEmptyValue(soi);
+      retailer = filterOutEmptyValue(retailer);
 
-      if (_.isEqual(currentFormValue, soi)) {
+      if (_.isEqual(currentFormValue, retailer)) {
         disableSaveBtn = true;
       } else {
         disableSaveBtn = false;
@@ -100,42 +100,48 @@ class RegisterSoiForm extends React.Component {
           onClose={this.props.onCloseDrawer}
           visible={this.props.visiable}
         >
-          <p>{formatMessage({ id: 'app.containers.Sois.registerSOIDescription' })}</p>
+          <p>{formatMessage({ id: 'app.containers.Retailers.registerRetailerDescription' })}</p>
           <Form layout="vertical" style={{ paddingBottom: '35px' }}>
             <Form.Item
-              label={formatMessage({ id: 'app.containers.Sois.soiName' })}
+              label={formatMessage({ id: 'app.containers.Retailers.retailerName' })}
               style={formItemStyle}
             >
               {getFieldDecorator('name', {
-                initialValue: this.props.soi && this.props.soi.name,
+                initialValue: this.props.retailer && this.props.retailer.name,
                 rules: [
                   {
                     required: true,
-                    message: formatMessage({ id: 'app.containers.Sois.soiNamePlaceholder' }),
+                    message: formatMessage({
+                      id: 'app.containers.Retailers.retailerNamePlaceholder',
+                    }),
                   },
                   {
                     min: 1,
                     max: 100,
-                    message: formatMessage({ id: 'app.containers.Sois.soiNameInvalid' }),
+                    message: formatMessage({ id: 'app.containers.Retailers.retailerNameInvalid' }),
                   },
                 ],
               })(
-                <Input placeholder={formatMessage({ id: 'app.containers.Sois.soiNameExample' })} />,
+                <Input
+                  placeholder={formatMessage({
+                    id: 'app.containers.Retailers.retailerNameExample',
+                  })}
+                />,
               )}
               <FormDescription>
-                {formatMessage({ id: 'app.containers.Sois.soiNameDescription' })}
+                {formatMessage({ id: 'app.containers.Retailers.retailerNameDescription' })}
               </FormDescription>
             </Form.Item>
-            {this.props.soi ? (
+            {this.props.retailer ? (
               <Form.Item
-                label={formatMessage({ id: 'app.containers.Sois.globalId' })}
+                label={formatMessage({ id: 'app.containers.Retailers.globalId' })}
                 style={formItemStyle}
               >
                 {getFieldDecorator('globalId', {
                   rules: [],
-                })(<Paragraph copyable>{this.props.soi.globalId}</Paragraph>)}
+                })(<Paragraph copyable>{this.props.retailer.globalId}</Paragraph>)}
                 <FormDescription>
-                  <FormattedHTMLMessage id="app.containers.Sois.globalIdDescription" />
+                  <FormattedHTMLMessage id="app.containers.Retailers.globalIdDescription" />
                 </FormDescription>
               </Form.Item>
             ) : (
@@ -162,52 +168,56 @@ class RegisterSoiForm extends React.Component {
               // </Form.Item>
             )}
             <Form.Item
-              label={formatMessage({ id: 'app.containers.Sois.baseURL' })}
+              label={formatMessage({ id: 'app.containers.Retailers.baseURL' })}
               style={formItemStyle}
             >
               {getFieldDecorator('baseURL', {
-                initialValue: this.props.soi && this.props.soi.baseURL,
+                initialValue: this.props.retailer && this.props.retailer.baseURL,
                 rules: [
                   {
                     required: true,
-                    message: formatMessage({ id: 'app.containers.Sois.baseURLEmptyError' }),
+                    message: formatMessage({ id: 'app.containers.Retailers.baseURLEmptyError' }),
                   },
                   {
                     pattern: /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)([a-z0-9\.])*(:[0-9]{1,5})?(\/.*)?$/i,
-                    message: formatMessage({ id: 'app.containers.Sois.baseURLEmptyError' }),
+                    message: formatMessage({ id: 'app.containers.Retailers.baseURLEmptyError' }),
                   },
                 ],
               })(
-                <Input placeholder={formatMessage({ id: 'app.containers.Sois.baseURLExample' })} />,
+                <Input
+                  placeholder={formatMessage({ id: 'app.containers.Retailers.baseURLExample' })}
+                />,
               )}
               <FormDescription>
-                <FormattedHTMLMessage id="app.containers.Sois.baseURLDescription" />
+                <FormattedHTMLMessage id="app.containers.Retailers.baseURLDescription" />
               </FormDescription>
             </Form.Item>
             <h3>
-              <FormattedMessage id="app.containers.Sois.callbackSectionTitle" />
+              <FormattedMessage id="app.containers.Retailers.callbackSectionTitle" />
             </h3>
             <p>
-              <FormattedHTMLMessage id="app.containers.Sois.callbackDescription" />
+              <FormattedHTMLMessage id="app.containers.Retailers.callbackDescription" />
             </p>
             <Row gutter={16}>
               <Col span={8}>
                 <Form.Item
-                  label={formatMessage({ id: 'app.containers.Sois.httpMethod' })}
+                  label={formatMessage({ id: 'app.containers.Retailers.httpMethod' })}
                   style={formItemStyle}
                 >
                   {getFieldDecorator('callback.method', {
-                    initialValue: _.get(this, 'props.soi.callback.method', 'POST'),
+                    initialValue: _.get(this, 'props.retailer.callback.method', 'POST'),
                     rules: [
                       {
                         required: true,
-                        message: formatMessage({ id: 'app.containers.Sois.httpMethodPlaceHolder' }),
+                        message: formatMessage({
+                          id: 'app.containers.Retailers.httpMethodPlaceHolder',
+                        }),
                       },
                     ],
                   })(
                     <Select
                       placeholder={formatMessage({
-                        id: 'app.containers.Sois.httpMethodPlaceHolder',
+                        id: 'app.containers.Retailers.httpMethodPlaceHolder',
                       })}
                     >
                       <Select.Option value="GET">GET</Select.Option>
@@ -217,7 +227,7 @@ class RegisterSoiForm extends React.Component {
                     </Select>,
                   )}
                   <FormDescription>
-                    <FormattedHTMLMessage id="app.containers.Sois.httpMethodDescription" />
+                    <FormattedHTMLMessage id="app.containers.Retailers.httpMethodDescription" />
                   </FormDescription>
                 </Form.Item>
               </Col>
@@ -227,7 +237,7 @@ class RegisterSoiForm extends React.Component {
                   style={formItemStyle}
                 >
                   {getFieldDecorator('callback.path', {
-                    initialValue: _.get(this, 'props.soi.callback.path', '/apis/tasks'),
+                    initialValue: _.get(this, 'props.retailer.callback.path', '/apis/tasks'),
                     rules: [
                       {
                         required: true,
@@ -249,26 +259,28 @@ class RegisterSoiForm extends React.Component {
               <FormattedMessage id="app.common.messages.healthTitle" />
             </h3>
             <p>
-              <FormattedHTMLMessage id="app.containers.Sois.healthDescription" />
+              <FormattedHTMLMessage id="app.containers.Retailers.healthDescription" />
             </p>
             <Row gutter={16}>
               <Col span={8}>
                 <Form.Item
-                  label={formatMessage({ id: 'app.containers.Sois.httpMethod' })}
+                  label={formatMessage({ id: 'app.containers.Retailers.httpMethod' })}
                   style={formItemStyle}
                 >
                   {getFieldDecorator('health.method', {
-                    initialValue: _.get(this, 'props.soi.health.method', 'GET'),
+                    initialValue: _.get(this, 'props.retailer.health.method', 'GET'),
                     rules: [
                       {
                         required: true,
-                        message: formatMessage({ id: 'app.containers.Sois.httpMethodPlaceHolder' }),
+                        message: formatMessage({
+                          id: 'app.containers.Retailers.httpMethodPlaceHolder',
+                        }),
                       },
                     ],
                   })(
                     <Select
                       placeholder={formatMessage({
-                        id: 'app.containers.Sois.httpMethodPlaceHolder',
+                        id: 'app.containers.Retailers.httpMethodPlaceHolder',
                       })}
                     >
                       <Select.Option value="GET">GET</Select.Option>
@@ -278,7 +290,7 @@ class RegisterSoiForm extends React.Component {
                     </Select>,
                   )}
                   <FormDescription>
-                    <FormattedHTMLMessage id="app.containers.Sois.httpMethodDescription" />
+                    <FormattedHTMLMessage id="app.containers.Retailers.httpMethodDescription" />
                   </FormDescription>
                 </Form.Item>
               </Col>
@@ -288,7 +300,7 @@ class RegisterSoiForm extends React.Component {
                   style={formItemStyle}
                 >
                   {getFieldDecorator('health.path', {
-                    initialValue: _.get(this, 'props.soi.health.path', '/health'),
+                    initialValue: _.get(this, 'props.retailer.health.path', '/health'),
                     rules: [
                       {
                         required: true,
@@ -325,7 +337,7 @@ class RegisterSoiForm extends React.Component {
             <Button
               disabled={disableSaveBtn}
               loading={this.state.sending}
-              onClick={this.registerSOI}
+              onClick={this.registerRetailer}
               type="primary"
             >
               {primaryButtonTitle}
@@ -337,11 +349,11 @@ class RegisterSoiForm extends React.Component {
   }
 }
 
-// RegisterSoiForm.propTypes = {
+// RegisterRetailerForm.propTypes = {
 //   visiable: PropTypes.bool,
 //   onCloseDrawer: PropTypes.func,
-//   soi: PropTypes.object,
+//   retailer: PropTypes.object,
 // };
 
-// export default Form.create()(injectIntl(RegisterSoiForm));
-export default Form.create()(RegisterSoiForm);
+// export default Form.create()(injectIntl(RegisterRetailerForm));
+export default Form.create()(RegisterRetailerForm);

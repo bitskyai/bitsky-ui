@@ -1,11 +1,11 @@
 import http from '../utils/http';
 
-export async function registerASOI(soi) {
+export async function registerARetailer(retailer) {
   try {
     const result = await http({
       url: '/apis/retailers',
       method: 'POST',
-      data: soi,
+      data: retailer,
     });
     return result;
   } catch (err) {
@@ -13,7 +13,7 @@ export async function registerASOI(soi) {
   }
 }
 
-export async function getSOIs() {
+export async function getRetailers() {
   try {
     const result = await http({
       url: '/apis/retailers',
@@ -25,12 +25,12 @@ export async function getSOIs() {
   }
 }
 
-export async function updateSOI(soi) {
+export async function updateRetailer(retailer) {
   try {
     const result = await http({
-      url: `/apis/retailers/${soi.globalId}`,
+      url: `/apis/retailers/${retailer.globalId}`,
       method: 'PUT',
-      data: soi,
+      data: retailer,
     });
     return result.data;
   } catch (err) {
@@ -38,7 +38,7 @@ export async function updateSOI(soi) {
   }
 }
 
-export async function deleteASOIAPI(globalId) {
+export async function deleteARetailerAPI(globalId) {
   try {
     const result = await http({
       url: `/apis/retailers/${globalId}`,
@@ -50,7 +50,7 @@ export async function deleteASOIAPI(globalId) {
   }
 }
 
-export async function pingSOIAPI(globalId) {
+export async function pingRetailerAPI(globalId) {
   try {
     const result = await http({
       url: `/apis/retailers/${globalId}/status`,

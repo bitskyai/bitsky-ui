@@ -4,7 +4,7 @@ import { FormattedHTMLMessage, formatMessage } from 'umi-plugin-react/locale';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 /**
  *
- * Sois
+ * Retailers
  *
  */
 import React from 'react';
@@ -13,10 +13,10 @@ import TimeAgo from 'react-timeago';
 import { connect } from 'dva';
 // import dayjs from 'dayjs';
 import styled from 'styled-components';
-import SOIsSkeleton from './SOIsSkeleton';
-import RegisterSoiForm from './RegisterSoiForm';
-import { refreshSOIs, refreshSOIsFail, refreshSOIsSuccess } from './actions';
-import { deleteASOIAPI, getSOIs, pingSOIAPI } from '../../apis/retailers';
+import RetailersSkeleton from './RetailersSkeleton';
+import RegisterRetailerForm from './RegisterRetailerForm';
+import { refreshRetailers, refreshRetailersFail, refreshRetailersSuccess } from './actions';
+import { deleteARetailerAPI, getRetailers, pingRetailerAPI } from '../../apis/retailers';
 import { STATES } from '../../utils/constants';
 import StateTag from '../../utils/StateTag';
 
@@ -28,39 +28,39 @@ const actionButtonStyle = {
   margin: '0 0 0 0',
 };
 
-export class SoisNew extends React.Component {
+export class RetailersNew extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       loadingData: true,
       selectedRowKeys: [],
       drawerVisiable: false,
-      selectedSOI: undefined,
+      selectedRetailer: undefined,
     };
   }
 
   componentDidMount() {
-    this.initSoisData();
+    this.initRetailersData();
   }
 
-  onRegisterSOI() {
+  onRegisterRetailer() {
     this.setState({
       drawerVisiable: true,
-      selectedSOI: undefined,
+      selectedRetailer: undefined,
     });
   }
 
-  onShowDrawer(soi) {
+  onShowDrawer(retailer) {
     this.setState({
       drawerVisiable: true,
-      selectedSOI: soi,
+      selectedRetailer: retailer,
     });
   }
 
   onCloseDrawer() {
     this.setState({
       drawerVisiable: false,
-      selectedSOI: undefined,
+      selectedRetailer: undefined,
     });
   }
 
@@ -69,14 +69,14 @@ export class SoisNew extends React.Component {
     event.stopPropagation();
   }
 
-  onDeleteASOI(record, event) {
+  onDeleteARetailer(record, event) {
     event.preventDefault();
     event.stopPropagation();
-    // console.log(`onDeleteASOI: `, record);
-    deleteASOIAPI(record.globalId).then(
+    // console.log(`onDeleteARetailer: `, record);
+    deleteARetailerAPI(record.globalId).then(
       () => {
-        this.props.dispatch(refreshSOIs());
-        const msg = formatMessage({ id: 'app.containers.Sois.deleteSOISuccessful' });
+        this.props.dispatch(refreshRetailers());
+        const msg = formatMessage({ id: 'app.containers.Retailers.deleteRetailerSuccessful' });
         message.success(msg);
       },
       err => {
@@ -85,22 +85,22 @@ export class SoisNew extends React.Component {
     );
   }
 
-  onPingSOI(record, event) {
+  onPingRetailer(record, event) {
     event.preventDefault();
     event.stopPropagation();
-    // console.log(`onDeleteASOI: `, record);
-    pingSOIAPI(record.globalId).then(
+    // console.log(`onDeleteARetailer: `, record);
+    pingRetailerAPI(record.globalId).then(
       result => {
         if (result && result.state === STATES.active) {
-          message.success(formatMessage({ id: 'app.containers.Sois.pingSuccessful' }));
+          message.success(formatMessage({ id: 'app.containers.Retailers.pingSuccessful' }));
         } else {
-          message.error(formatMessage({ id: 'app.containers.Sois.pingFail' }));
+          message.error(formatMessage({ id: 'app.containers.Retailers.pingFail' }));
         }
-        this.props.dispatch(refreshSOIs());
+        this.props.dispatch(refreshRetailers());
       },
       () => {
-        message.error(formatMessage({ id: 'app.containers.Sois.pingFail' }));
-        this.props.dispatch(refreshSOIs());
+        message.error(formatMessage({ id: 'app.containers.Retailers.pingFail' }));
+        this.props.dispatch(refreshRetailers());
       },
     );
   }
@@ -115,44 +115,44 @@ export class SoisNew extends React.Component {
     event.stopPropagation();
   }
 
-  initSoisData() {
+  initRetailersData() {
     this.setState({
       loadingData: true,
     });
-    getSOIs().then(
-      sois => {
+    getRetailers().then(
+      retailers => {
         this.setState({
           loadingData: true,
         });
-        // add key to sois
-        // sois = sois.map((item, index) => {
+        // add key to retailers
+        // retailers = retailers.map((item, index) => {
         //   item.key = item._id || index;
         //   return item;
         // });
-        this.props.dispatch(refreshSOIsSuccess(sois));
+        this.props.dispatch(refreshRetailersSuccess(retailers));
       },
       err => {
         this.setState({
           loadingData: true,
         });
-        this.props.dispatch(refreshSOIsFail(err));
+        this.props.dispatch(refreshRetailersFail(err));
       },
     );
   }
 
   render() {
-    const { loadingData, drawerVisiable, selectedSOI, selectedRowKeys } = this.state;
-    const sois = this.props.soisData.data;
-    const modified = this.props.soisData.modifiedAt;
-    let content = <SOIsSkeleton />;
+    const { loadingData, drawerVisiable, selectedRetailer, selectedRowKeys } = this.state;
+    const retailers = this.props.retailersData.data;
+    const modified = this.props.retailersData.modifiedAt;
+    let content = <RetailersSkeleton />;
 
     const columns = [
       {
-        title: formatMessage({ id: 'app.containers.Sois.soiName' }),
+        title: formatMessage({ id: 'app.containers.Retailers.retailerName' }),
         dataIndex: 'name',
       },
       {
-        title: formatMessage({ id: 'app.containers.Sois.baseURL' }),
+        title: formatMessage({ id: 'app.containers.Retailers.baseURL' }),
         dataIndex: 'baseURL',
       },
       {
@@ -175,28 +175,28 @@ export class SoisNew extends React.Component {
         render: (text, record) => (
           <div
             onClick={e => {
-              SoisNew.onPreventShowDrawer(e);
+              RetailersNew.onPreventShowDrawer(e);
             }}
           >
             <Button
               type="link"
               size="small"
               style={actionButtonStyle}
-              title={formatMessage({ id: 'app.containers.Sois.pingDescription' })}
+              title={formatMessage({ id: 'app.containers.Retailers.pingDescription' })}
               onClick={e => {
-                this.onPingSOI(record, e);
+                this.onPingRetailer(record, e);
               }}
             >
-              {formatMessage({ id: 'app.containers.Sois.ping' })}
+              {formatMessage({ id: 'app.containers.Retailers.ping' })}
             </Button>
             <Popconfirm
               style={{ maxWidth: '300px' }}
-              title={formatMessage({ id: 'app.containers.Sois.deleteSOIDescription' })}
+              title={formatMessage({ id: 'app.containers.Retailers.deleteRetailerDescription' })}
               onConfirm={e => {
-                this.onDeleteASOI(record, e);
+                this.onDeleteARetailer(record, e);
               }}
               onCancel={e => {
-                SoisNew.onClickCancel(record, e);
+                RetailersNew.onClickCancel(record, e);
               }}
               okText={formatMessage({ id: 'app.common.messages.yes' })}
               cancelText={formatMessage({ id: 'app.common.messages.no' })}
@@ -206,7 +206,7 @@ export class SoisNew extends React.Component {
                 size="small"
                 style={actionButtonStyle}
                 onClick={e => {
-                  SoisNew.onClickDelete(record, e);
+                  RetailersNew.onClickDelete(record, e);
                 }}
               >
                 {formatMessage({ id: 'app.common.messages.delete' })}
@@ -218,47 +218,47 @@ export class SoisNew extends React.Component {
     ];
 
     if (loadingData) {
-      if (!sois || !sois.length) {
+      if (!retailers || !retailers.length) {
         content = (
           <EmptyContainer>
             <Empty
               description={
                 <span>
-                  <FormattedHTMLMessage id="app.containers.Sois.emptySOIs" />
+                  <FormattedHTMLMessage id="app.containers.Retailers.emptyRetailers" />
                 </span>
               }
             >
               <Button
                 type="primary"
                 onClick={() => {
-                  this.onRegisterSOI();
+                  this.onRegisterRetailer();
                 }}
               >
-                {formatMessage({ id: 'app.containers.Sois.registerNow' })}
+                {formatMessage({ id: 'app.containers.Retailers.registerNow' })}
               </Button>
             </Empty>
           </EmptyContainer>
         );
       } else {
         content = (
-          <div className="sois-table-container">
+          <div className="retailers-table-container">
             <div>
               <div style={{ paddingBottom: '15px' }}>
                 <Row>
                   <Col span={14}>
                     <Button
                       onClick={() => {
-                        this.onRegisterSOI();
+                        this.onRegisterRetailer();
                       }}
                       type="primary"
                     >
-                      {formatMessage({ id: 'app.containers.Sois.registerNow' })}
+                      {formatMessage({ id: 'app.containers.Retailers.registerNow' })}
                     </Button>
                   </Col>
                   <Col span={10} style={{ textAlign: 'right' }}>
                     <Button
                       type="link"
-                      onClick={() => this.initSoisData()}
+                      onClick={() => this.initRetailersData()}
                       // disabled={loadingIntelligencesData}
                     >
                       {/* {dayjs(modified).format('YYYY/MM/DD HH:mm:ss')} */}
@@ -301,7 +301,7 @@ export class SoisNew extends React.Component {
                   //     this.onShowDrawer(record);
                   //   },
                   // }}
-                  dataSource={sois}
+                  dataSource={retailers}
                   rowKey={record => record.globalId}
                   onRow={record => ({
                     onClick: () => {
@@ -326,12 +326,12 @@ export class SoisNew extends React.Component {
       <div style={{ padding: '20px' }}>
         <PageHeaderWrapper>
           {content}
-          <RegisterSoiForm
+          <RegisterRetailerForm
             visiable={drawerVisiable}
             onCloseDrawer={() => {
               this.onCloseDrawer();
             }}
-            soi={selectedSOI}
+            retailer={selectedRetailer}
             dispatch={this.props.dispatch}
           />
         </PageHeaderWrapper>
@@ -340,16 +340,16 @@ export class SoisNew extends React.Component {
   }
 }
 
-export default connect(({ sois }) => ({
-  soisData: sois,
-}))(SoisNew);
+export default connect(({ retailers }) => ({
+  retailersData: retailers,
+}))(RetailersNew);
 
-// Sois.propTypes = {
+// Retailers.propTypes = {
 //   dispatch: PropTypes.func.isRequired,
 // };
 
 // const mapStateToProps = createStructuredSelector({
-//   sois: makeSelectSois(),
+//   retailers: makeSelectRetailers(),
 // });
 
 // function mapDispatchToProps(dispatch) {
@@ -363,4 +363,4 @@ export default connect(({ sois }) => ({
 //   mapDispatchToProps,
 // );
 
-// export default compose(withConnect)(injectIntl(Sois));
+// export default compose(withConnect)(injectIntl(Retailers));

@@ -13,7 +13,7 @@ import pwa from './en-US/pwa';
 import errorMsg from './en-US/error';
 import settingsCtn from './en-US/containers/Settings';
 import signupCtn from './en-US/containers/Signup';
-import soisCtn from './en-US/containers/Sois';
+import retailersCtn from './en-US/containers/Retailers';
 import HeadlessAgentCtn from './en-US/containers/HeadlessAgent';
 import ServiceAgentCtn from './en-US/containers/ServiceAgent';
 // import settings from './en-US/settings';
@@ -34,7 +34,7 @@ export default {
   ...component,
   ...loginCtn,
   ...agentsCtn,
-  ...soisCtn,
+  ...retailersCtn,
   ...settingsCtn,
   ...intelligencesCtn,
   ...intelligencesHistoryCtn,
