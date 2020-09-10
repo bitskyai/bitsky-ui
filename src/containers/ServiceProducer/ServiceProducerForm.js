@@ -167,7 +167,7 @@ class ServiceProducerForm extends React.Component {
                   <>
                     <FormattedHTMLMessage id="app.common.messages.producer.doesntActive" />
                     <Link to="/app/producers">
-                      <Icon type="arrow-right" className="munew-alert-link-icon" />
+                      <Icon type="arrow-right" className="bitsky-alert-link-icon" />
                     </Link>
                   </>
                 );
@@ -177,7 +177,7 @@ class ServiceProducerForm extends React.Component {
                   <>
                     <FormattedHTMLMessage id="app.common.messages.producer.active" />
                     <Link to="/app/producers">
-                      <Icon type="arrow-right" className="munew-alert-link-icon" />
+                      <Icon type="arrow-right" className="bitsky-alert-link-icon" />
                     </Link>
                   </>
                 );
@@ -224,7 +224,7 @@ class ServiceProducerForm extends React.Component {
             <>
               <FormattedHTMLMessage id="app.common.messages.producer.notFindProducer" />
               <Link to="/app/producers">
-                <Icon type="arrow-right" className="munew-alert-link-icon" />
+                <Icon type="arrow-right" className="bitsky-alert-link-icon" />
               </Link>
             </>
           );
@@ -248,7 +248,7 @@ class ServiceProducerForm extends React.Component {
           result.alertMessage = (
             <FormattedHTMLMessage
               id="app.common.messages.http.missedsSerialId"
-              values={{ serialIdHeader: 'x-munew' }}
+              values={{ serialIdHeader: 'x-bitsky' }}
             />
           );
         } else if (err.status >= 400 && err.code === '00144000004') {
@@ -588,11 +588,11 @@ class ServiceProducerForm extends React.Component {
                     size="small"
                     onClick={e => this.openDirectoryPicker(e)}
                     // title={formatMessage({
-                    //   id: 'munew.settings.selectFolderTooltip',
+                    //   id: 'bitsky.settings.selectFolderTooltip',
                     // })}
                   >
                     <Icon type="folder-open" />
-                    {/* <FormattedMessage id="munew.settings.selectFolder" /> */}
+                    {/* <FormattedMessage id="bitsky.settings.selectFolder" /> */}
                   </Button>
                 </div>,
                 {

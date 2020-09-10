@@ -217,9 +217,9 @@ class Page1 extends React.PureComponent {
               location="page1-wrapper"
             ></Parallax>
           )}
-          {/* <h2>{formatHTMLMessage({ id: 'app.components.Home.whatMunewDo' })}</h2> */}
+          {/* <h2>{formatHTMLMessage({ id: 'app.components.Home.whatBitskyDo' })}</h2> */}
           <h2>
-            <FormattedHTMLMessage id="app.components.Home.whatMunewDo" />
+            <FormattedHTMLMessage id="app.components.Home.whatBitskyDo" />
           </h2>
           <div className="title-line-wrapper page1-line">
             <div className="title-line" />

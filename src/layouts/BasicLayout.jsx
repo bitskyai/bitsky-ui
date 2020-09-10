@@ -63,7 +63,7 @@ const BasicLayout = props => {
 
   // Doc about `ProLayout`: https://prolayout.ant.design/#api
   return (
-    <div className="munew-pro-layout-wrapper">
+    <div className="bitsky-pro-layout-wrapper">
       <ProLayout
         logo={logo}
         onCollapse={handleMenuCollapse}
@@ -76,7 +76,7 @@ const BasicLayout = props => {
             return (
               <Link
                 to="#"
-                id="munew_default_retailer_menu"
+                id="bitsky_default_retailer_menu"
                 onClick={() => {
                   sendToElectron('retailerEditor/open');
                 }}
@@ -90,7 +90,7 @@ const BasicLayout = props => {
             return (
               <Link
                 to="#"
-                id="munew_default_settings_menu"
+                id="bitsky_default_settings_menu"
                 onClick={() => {
                   sendToElectron('settings/open');
                 }}

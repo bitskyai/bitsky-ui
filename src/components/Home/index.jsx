@@ -31,7 +31,7 @@ class Home extends React.PureComponent {
   render() {
     return (
       <DocumentTitle title="BitSky">
-        <div className="munew-landing">
+        <div className="bitsky-landing">
           <Header
             isMobile={this.state.isMobile}
             currentUser={this.props.currentUser}

@@ -27,7 +27,7 @@ import http, { getRedirectURL } from '../../utils/http';
 // import { createStructuredSelector } from 'reselect';
 // import { compose } from 'redux';
 
-// import logoImg from '../../images/munew512.png';
+// import logoImg from '../../images/bitsky512.png';
 
 class ResetForm extends React.Component {
   state = {

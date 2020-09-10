@@ -186,7 +186,7 @@ export class HeadlessProducer extends React.Component {
     return (
       <div>
         <>
-          <div className="munew-page-header-ghost-wrapper">
+          <div className="bitsky-page-header-ghost-wrapper">
             <PageHeader
               title={formatMessage({ id: 'menu.defaultHeadless' })}
               subTitle={formatMessage({ id: 'app.containers.HeadlessProducer.subTitle' })}
@@ -211,7 +211,7 @@ export class HeadlessProducer extends React.Component {
               <Content>{description}</Content>
             </PageHeader>
           </div>
-          <div className="munew-producer-config-card">
+          <div className="bitsky-producer-config-card">
             <Card hoverable>
               <Row>
                 <Col xs={0} sm={0} md={0} lg={1} xl={2}></Col>

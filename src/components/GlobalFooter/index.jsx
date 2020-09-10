@@ -9,7 +9,7 @@ const { Footer } = Layout;
 
 const GlobalFooter = () => (
   <Footer style={{ textAlign: 'center' }}>
-    {formatMessage({ id: 'app.common.messages.munew' })} -{' '}
+    {formatMessage({ id: 'app.common.messages.bitsky' })} -{' '}
     {formatMessage({ id: 'app.common.messages.slogan' })} © 2020 bitsky.ai
   </Footer>
 );

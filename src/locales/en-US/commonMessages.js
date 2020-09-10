@@ -1,5 +1,5 @@
 export default {
-  'app.common.messages.munew': 'BitSky',
+  'app.common.messages.bitsky': 'BitSky',
   'app.common.messages.menu.home': 'Home',
   'app.common.messages.copyright': 'Copyright',
   'app.common.messages.emailTitle': 'Email Address',
@@ -86,8 +86,8 @@ export default {
   'app.common.messages.producerHomeFolderPicker': 'Select producer home folder',
   'app.common.messages.producerHomeFolderInvalid': 'Please enter a valid producer home folder',
   'app.common.messages.producerHomeFolderExample': '/Users/exampleuser/.bitsky/producer',
-  'app.common.messages.producerHomeFolderDescription': `<p class="munew-form-description-p">Logs, screenshots or other files will be stored in this folder. And you can access it by <span class="ant-typography"><code>http://localhost:Port</code></span>. </p>
-     <p class="munew-form-description-p">Example(Mac OSX): <span class="ant-typography"><code>/Users/exampleuser/.bitsky/producer</code></span></p>`,
+  'app.common.messages.producerHomeFolderDescription': `<p class="bitsky-form-description-p">Logs, screenshots or other files will be stored in this folder. And you can access it by <span class="ant-typography"><code>http://localhost:Port</code></span>. </p>
+     <p class="bitsky-form-description-p">Example(Mac OSX): <span class="ant-typography"><code>/Users/exampleuser/.bitsky/producer</code></span></p>`,
   'app.common.messages.logLevel': 'Log Level',
   'app.common.messages.logLevelDebug': 'Debug',
   'app.common.messages.logLevelInfo': 'Info',
@@ -122,9 +122,9 @@ export default {
   'app.common.messages.updatedConfigFail': 'Update producer configuration fail',
   // eslint-disable-next-line quotes
   'app.common.messages.producer.unregisterProducerDescription': `Please entered correct <b>BitSky Base URL</b> and <b>Producer Global ID</b>`,
-  'app.common.messages.producer.notFindProducer': `<div class='munew-alert'>
+  'app.common.messages.producer.notFindProducer': `<div class='bitsky-alert'>
                                                               <p>Cannot find any producer by <b>Producer Global ID</b>, please check whether you typed correct <b>Producer Global ID</b>.</p>
-                                                              <p class='munew-alert-subheader'><b>Possible solution: </b></p>
+                                                              <p class='bitsky-alert-subheader'><b>Possible solution: </b></p>
                                                           </div><span>Go to <b>Producer Configurations</b> copy <b>Producer Global ID</b>, then paste to <b>Producer Global ID</b> field</b></span>`,
   // eslint-disable-next-line quotes
   'app.common.messages.producer.notConnectToEngine': `The server you are trying to connect isn't a bitsky application`,

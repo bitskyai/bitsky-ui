@@ -30,7 +30,7 @@ import messages from '../../locales/en-US/containers/Forgot';
 // import { createStructuredSelector } from 'reselect';
 // import { compose } from 'redux';
 
-// import logoImg from '../../images/munew512.png';
+// import logoImg from '../../images/bitsky512.png';
 
 class ForgotForm extends React.Component {
   state = {

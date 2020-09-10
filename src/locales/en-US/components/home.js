@@ -7,7 +7,7 @@ messages[`${scope}.tutorials`] = 'Tutorials';
 messages[`${scope}.getStarted`] = 'Get Started for Free';
 messages[`${scope}.features`] = 'Features';
 messages[`${scope}.download`] = 'Download';
-messages[`${scope}.whatMunewDo`] = 'What can <span>BitSky</span> do for you';
+messages[`${scope}.whatBitskyDo`] = 'What can <span>BitSky</span> do for you';
 messages[`${scope}.content`] =
   'Convert websites (Single page application or traditional websites) into useful data, web automation jobs (not only) with headless producer or service producer';
 messages[`${scope}.extractingDataTitle`] = 'Web Scraping';

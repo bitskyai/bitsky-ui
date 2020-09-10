@@ -44,7 +44,7 @@ const UserLayout = props => {
               <Link to="/home">
                 <img alt="logo" className={styles.logo} src={logo} />
                 <span className={styles.title}>
-                  {formatMessage({ id: 'app.common.messages.munew' })}
+                  {formatMessage({ id: 'app.common.messages.bitsky' })}
                 </span>
               </Link>
             </div>

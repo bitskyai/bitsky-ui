@@ -77,7 +77,7 @@ class Header extends React.Component {
           <Col xxl={4} xl={5} lg={8} md={8} sm={24} xs={24}>
             <div id="logo" to="/">
               <img src={logo} alt="logo" />
-              <span>{formatMessage({ id: 'app.common.messages.munew' })}</span>
+              <span>{formatMessage({ id: 'app.common.messages.bitsky' })}</span>
             </div>
           </Col>
           <Col xxl={20} xl={19} lg={16} md={16} sm={0} xs={0}>
