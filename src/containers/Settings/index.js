@@ -15,7 +15,6 @@ import {
   message,
 } from 'antd';
 import { FormattedHTMLMessage, FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
-// import DiaPageHeader from '../../components/Common';
 // import { appInitedSelector, userSelector } from '../App/selectors';
 // import { initApplicationSuccess } from '../App/actions';
 
@@ -472,10 +471,6 @@ export class Settings extends React.Component {
 
     return (
       <Card>
-        {/* <DiaPageHeader
-          title={formatMessage({id:"app.containers.Settings.emailWasRegistered"}header)}
-          style={{ color: darkBlueColor }}
-        /> */}
         <div style={{ padding: '0 24px', maxWidth }}>
           <Row>
             <Col span={12}>

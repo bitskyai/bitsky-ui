@@ -29,7 +29,8 @@ export default {
   'app.containers.Producers.producerNameDescription':
     'Give a meaningful name to your Producer, between 1 to 100 characters',
   'app.containers.Producers.producerDescription': 'Description',
-  'app.containers.Producers.producerDescriptionPlaceholder': 'Type some words to describe your producer',
+  'app.containers.Producers.producerDescriptionPlaceholder':
+    'Type some words to describe your producer',
   'app.containers.Producers.producerDescriptionInvalid':
     'Producer description is too long, please enter 1 to 200 characters',
   'app.containers.Producers.producerDescriptionExample': 'My First Producer',
@@ -39,7 +40,7 @@ export default {
   'app.containers.Producers.baseURLEmptyError': 'Please enter a valid base URL',
   'app.containers.Producers.baseURLExample': 'http://localhost:3000',
   'app.containers.Producers.baseURLDescription':
-    'Base url of your service producer, make sure DIA Producer can access your service producer',
+    'Base url of your service producer, make sure BitSky Producer can access your service producer',
   'app.containers.Producers.registerProducerSuccessful': 'Register Retailer Service Successful',
   'app.containers.Producers.healthDescription':
     'Health check API endpoint for your Retailer Service(e.g. HTTP <span class="ant-typography"><code>/health</code></span>) that returns the health of your Retailer Service. HTTP status is <span class="ant-typography"><code>2xx</code></span> means health, otherwise means unhealth. <a href="https://microservices.io/patterns/observability/health-check-api.html" target="_blank">Learn More.</a>',
@@ -61,11 +62,11 @@ export default {
     'Private mode means your producer will only collect tasks that created by yourself',
   'app.containers.Producers.switchOn': 'ON',
   'app.containers.Producers.switchOff': 'OFF',
-  'app.containers.Producers.diaBaseURL': 'DIA Base URL',
-  'app.containers.Producers.diaBaseURLPlaceholder': 'Please enter a valid URL',
-  'app.containers.Producers.diaBaseURLExample': 'https://bitsky.ai',
-  'app.containers.Producers.diaBaseURLDescription':
-    'Base url of your DIA. For example: <span class="ant-typography"><code>https://bitsky.ai</code></span>',
+  'app.containers.Producers.bitskyBaseURL': 'BitSky Base URL',
+  'app.containers.Producers.bitskyBaseURLPlaceholder': 'Please enter a valid URL',
+  'app.containers.Producers.bitskyBaseURLExample': 'https://bitsky.ai',
+  'app.containers.Producers.bitskyBaseURLDescription':
+    'Base url of your BitSky. For example: <span class="ant-typography"><code>https://bitsky.ai</code></span>',
   'app.containers.Producers.invalidURL':
     'The url you enter is invalid, please enter valid url. For example: https://bitsky.ai',
   'app.containers.Producers.invalidInteger': 'Please enter valid integer',
@@ -87,7 +88,7 @@ export default {
   'app.containers.Producers.maxCollectTimePlaceholder': 'Please enter max collect time, like 10000',
   'app.containers.Producers.maxCollectTimeExample': '10000',
   'app.containers.Producers.maxCollectTimeDescription':
-    'Browser has memory leak issue if continue to open urls. To avoid this, need to close window when reach max collect times. Collect Time equal to how many request send to DIA to get task.',
+    'Browser has memory leak issue if continue to open urls. To avoid this, need to close window when reach max collect times. Collect Time equal to how many request send to BitSky to get task.',
   'app.containers.Producers.producerIdleTime': 'Producer Idle Time',
   'app.containers.Producers.producerIdleTimePlaceholder':
     'Please enter producer idel time value, like 50',
@@ -101,7 +102,8 @@ export default {
   'app.containers.Producers.concurrentCollectTasksDescription':
     'How many tasks need to be concurrent collected',
   'app.containers.Producers.requestTimeout': 'Request Timeout',
-  'app.containers.Producers.requestTimeoutPlaceholder': 'Please enter request timeout value, like 90',
+  'app.containers.Producers.requestTimeoutPlaceholder':
+    'Please enter request timeout value, like 90',
   'app.containers.Producers.requestTimeoutExample': '90',
   'app.containers.Producers.requestTimeoutDescription':
     'If the request takes longer than <span class="ant-typography"><code>timeout</code></span>, the request will be aborted',
@@ -109,7 +111,7 @@ export default {
   'app.containers.Producers.maxRetryTimePlaceholder': 'Please enter max retry time value, like 3',
   'app.containers.Producers.maxRetryTimeExample': '3',
   'app.containers.Producers.maxRetryTimeDescription':
-    'Max retry time if send collected tasks fail, if retried max time, then it will send back to DIA and mark those tasks fail',
+    'Max retry time if send collected tasks fail, if retried max time, then it will send back to BitSky and mark those tasks fail',
   'app.containers.Producers.httpMethod': 'HTTP Method',
   'app.containers.Producers.httpMethodPlaceHolder': 'Please select your HTTP method',
   'app.containers.Producers.httpMethodDescription':
@@ -121,11 +123,11 @@ export default {
   'app.containers.Producers.healthTitle': 'Health Check',
   'app.containers.Producers.getTasks': 'Get Tasks',
   'app.containers.Producers.getTasksDescription':
-    "Configure RESTFul API to get tasks from DIA. Normally you don't need to change this value, only change this when you re-implement DIA. ",
+    "Configure RESTFul API to get tasks from BitSky. Normally you don't need to change this value, only change this when you re-implement BitSky. ",
   'app.containers.Producers.unregisterProducer': 'Unregister Producer',
   'app.containers.Producers.unregisterProducerDescription':
     "You need to register this producer before you can use it.  <a href='https://docs.bitsky.ai/how-tos/how-to-register-an-producer' target='_blank'>How to register a Producer</a>",
-  'app.containers.Producers.checkingDIAHealth': 'Checking DIA health... [ {method} ] {url}',
+  'app.containers.Producers.checkingBitSkyHealth': 'Checking BitSky health... [ {method} ] {url}',
   'app.containers.Producers.activateDescription':
     'Activate this producer, after activate then this producer will start collect tasks',
   'app.containers.Producers.deactivateDescription':

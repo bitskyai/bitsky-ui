@@ -1,6 +1,6 @@
 /**
  *
- * DiaFooter
+ * BitSkyFooter
  *
  */
 
@@ -25,14 +25,14 @@ const iconStyle = {
   padding: '0 15px',
 };
 
-function DiaFooter() {
+function BitSkyFooter() {
   return (
     <div>
       <Footer style={{ backgroundColor: `${darkBlueColor}` }}>
         <Row style={{ maxWidth: `${maxWidth}px`, margin: '0 auto' }}>
           <Col span={6}>
             <Text style={{ color: whiteColor }}>
-              {formatMessage({ id: 'app.components.DiaFooter.productName' })}
+              {formatMessage({ id: 'app.components.BitSkyFooter.productName' })}
             </Text>
           </Col>
           <Col span={18}>
@@ -54,6 +54,6 @@ function DiaFooter() {
   );
 }
 
-DiaFooter.propTypes = {};
+BitSkyFooter.propTypes = {};
 
-export default DiaFooter;
+export default BitSkyFooter;

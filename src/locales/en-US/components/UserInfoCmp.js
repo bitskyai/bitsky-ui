@@ -1,9 +1,9 @@
 /*
- * DiaHeaderCmp Messages
+ * BitSkyUserInfoCmp Messages
  *
- * This contains all the text for the DiaUserInfoCmp component.
+ * This contains all the text for the BitSkyUserInfoCmp component.
  */
-export const scope = 'app.components.DiaUserInfoCmp';
+export const scope = 'app.components.BitSkyUserInfoCmp';
 const messages = {};
 messages[`${scope}.logIn`] = 'Log in';
 messages[`${scope}.signUp`] = 'Sign up';

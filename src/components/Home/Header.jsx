@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { enquireScreen } from 'enquire-js';
 import { formatMessage } from 'umi-plugin-react/locale';
-import DiaUserInfoCmp from '../DiaUserInfoCmp';
+import BitSkyUserInfoCmp from '../UserInfoCmp';
 import logo from '../../assets/logo.png';
 
 class Header extends React.Component {
@@ -40,7 +40,9 @@ class Header extends React.Component {
         </Menu.Item>
         {!this.props.landing && menuMode === 'inline' ? (
           <Menu.Item key="signin">
-            <Link to="/login">{formatMessage({ id: 'app.components.DiaUserInfoCmp.logIn' })}</Link>
+            <Link to="/login">
+              {formatMessage({ id: 'app.components.BitSkyUserInfoCmp.logIn' })}
+            </Link>
           </Menu.Item>
         ) : (
           ''
@@ -49,7 +51,7 @@ class Header extends React.Component {
         {!this.props.landing && menuMode === 'inline' ? (
           <Menu.Item key="signup">
             <Link to="/signup">
-              {formatMessage({ id: 'app.components.DiaUserInfoCmp.signUp' })}
+              {formatMessage({ id: 'app.components.BitSkyUserInfoCmp.signUp' })}
             </Link>
           </Menu.Item>
         ) : (
@@ -86,7 +88,7 @@ class Header extends React.Component {
                 ''
               ) : (
                 <div id="preview">
-                  <DiaUserInfoCmp currentUser={this.props.currentUser} />
+                  <BitSkyUserInfoCmp currentUser={this.props.currentUser} />
                 </div>
               )}
               {menuMode === 'horizontal' ? <div id="menu">{menu}</div> : null}

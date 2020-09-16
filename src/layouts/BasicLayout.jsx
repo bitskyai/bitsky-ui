@@ -19,7 +19,7 @@ import { sendToElectron } from '../utils/utils';
 const menuDataRender = menuList =>
   menuList.filter(item => {
     // if a menu only for electron then don't render it when user open app in browser
-    // __electron__ is set in `dia-electron/app/main/preload.ts`
+    // __electron__ is set in `bitsky-electron/app/main/preload.ts`
     if (item.electron && !window.__electron__) {
       return false;
     }

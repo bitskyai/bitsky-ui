@@ -33,11 +33,11 @@ export default {
   'app.containers.Retailers.baseURLEmptyError': 'Please enter a valid base URL',
   'app.containers.Retailers.baseURLExample': 'http://localhost:3000',
   'app.containers.Retailers.baseURLDescription':
-    'Base url of your Retailer Service, make sure DIA Producer can access your Retailer Service server',
+    'Base url of your Retailer Service, make sure BitSky Producer can access your Retailer Service server',
   'app.containers.Retailers.state': 'State',
   'app.containers.Retailers.callbackSectionTitle': 'Callback',
   'app.containers.Retailers.callbackDescription':
-    'Callback means when DIA Producers collect data, where should they send data to. Normally this will send back to your Retailer Service and your Retailer Service extract useful information from received data',
+    'Callback means when BitSky Producers collect data, where should they send data to. Normally this will send back to your Retailer Service and your Retailer Service extract useful information from received data',
   'app.containers.Retailers.httpMethod': 'HTTP Method',
   'app.containers.Retailers.httpMethodPlaceHolder': 'Please select your HTTP method',
   'app.containers.Retailers.httpMethodDescription':

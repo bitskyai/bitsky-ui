@@ -1,4 +1,4 @@
-# Welcome to dia-ui 👋
+# Welcome to bitsky-ui 👋
 
 ![Version](https://img.shields.io/badge/version-0.1.0-blue.svg?cacheSeconds=2592000) ![Prerequisite](https://img.shields.io/badge/node-%3E%3D10.0.0-blue.svg) [![Documentation](https://img.shields.io/badge/documentation-yes-brightgreen.svg)](https://docs.bitsky.ai) [![License: Apache 2.0](https://img.shields.io/badge/license-Apache%202-yellow)](#)
 
@@ -13,19 +13,19 @@
 ## Install
 
 ```sh
-yarn install
+npm install
 ```
 
 ## Usage
 
 ```sh
-yarn run start
+npm start
 ```
 
 ## Run tests
 
 ```sh
-yarn run test
+npm run test
 ```
 
 ## FAQ

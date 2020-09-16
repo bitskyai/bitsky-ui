@@ -4,4 +4,4 @@
  *
  */
 
-export const DEFAULT_ACTION = 'DIA_UI/ApiKeys/DEFAULT_ACTION';
+export const DEFAULT_ACTION = 'BITSKY_UI/ApiKeys/DEFAULT_ACTION';

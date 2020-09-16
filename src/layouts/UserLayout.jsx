@@ -1,7 +1,7 @@
 import { getMenuData, getPageTitle } from '@ant-design/pro-layout';
 
 // import GlobalFooter from '@/components/GlobalFooter';
-import DiaFooter from '@/components/DiaFooter';
+import BitSkyFooter from '@/components/Footer';
 import DocumentTitle from 'react-document-title';
 import Link from 'umi/link';
 import React from 'react';
@@ -52,7 +52,7 @@ const UserLayout = props => {
           </div>
           {children}
         </div>
-        <DiaFooter />
+        <BitSkyFooter />
       </div>
     </DocumentTitle>
   );

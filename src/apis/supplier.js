@@ -16,12 +16,12 @@ export async function registerProducerAPI(producer) {
 }
 
 /**
- * check DIA health status
+ * check BitSky health status
  * @param {string} method - HTTP request method
  * @param {string} url - HTTP request url
  * @return {object} -
  */
-export async function checkEngineHealthAPI(method, url, skipErrorHandler) {
+export async function checkSupplierHealthAPI(method, url, skipErrorHandler) {
   try {
     const response = await http({
       url,
@@ -31,26 +31,26 @@ export async function checkEngineHealthAPI(method, url, skipErrorHandler) {
 
     const responsedWith = _.get(response, `headers[${HTTP_HEADERS.X_RESPONSED_WITH}]`);
     if (responsedWith !== BITSKY_SUPPLIER) {
-      // it isn't return by engine
+      // it isn't return by supplier
       return {
         health: false,
         status: response.status,
-        engine: false,
+        supplier: false,
       };
     }
 
     if (response.status >= 200 && response.status < 300) {
-      // connected to engine and engine is running
+      // connected to supplier and supplier is running
       return {
         health: true,
-        engine: true,
+        supplier: true,
         status: response.status,
       };
     }
 
     return {
       health: false,
-      engine: true,
+      supplier: true,
       status: response.status,
     };
   } catch (err) {
@@ -58,14 +58,14 @@ export async function checkEngineHealthAPI(method, url, skipErrorHandler) {
       return {
         health: false,
         status: err.status,
-        engine: false,
+        supplier: false,
       };
     }
 
     return {
       health: false,
       status: err.status,
-      engine: true,
+      supplier: true,
     };
   }
 }

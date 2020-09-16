@@ -112,7 +112,7 @@ function filterOutEmptyValue(value) {
 async function sendToElectron(subject, data) {
   return new Promise((resolve, reject) => {
     try {
-      const event = new CustomEvent('syncEngineUIToMain', {
+      const event = new CustomEvent('syncSupplierUIToMain', {
         detail: {
           subject,
           data,

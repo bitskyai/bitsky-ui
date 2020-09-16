@@ -21,8 +21,8 @@ import styled from 'styled-components';
 // import { filterOutEmptyValue } from '../../utils/utils';
 import {
   LOG_LEVEL,
-  ENGINE_HEALTH_METHOD,
-  ENGINE_HEALTH_PATH,
+  SUPPLIER_HEALTH_METHOD,
+  SUPPLIER_HEALTH_PATH,
   STATES,
   PRODUCER_TYPES,
 } from '../../utils/constants';
@@ -32,7 +32,7 @@ import {
   getProducerConfigurationFail,
 } from './actions';
 import { getProducerAPI } from '../../apis/producers';
-import { checkEngineHealthAPI } from '../../apis/dia';
+import { checkSupplierHealthAPI } from '../../apis/supplier';
 import HTTPError from '../../utils/HTTPError';
 import { sendToElectron } from '../../utils/utils';
 
@@ -196,7 +196,7 @@ class ServiceProducerForm extends React.Component {
 
   /**
    * Get producer configuration from server side and update state based on response from server side
-   * @param {string} baseURL - Base URL to DIA. Like: http://localhost:3000
+   * @param {string} baseURL - Base URL to BitSky. Like: http://localhost:3000
    * @param {string} gid - Producer Global ID. Like: db642a82-2178-43a2-b8b7-000e37f3766e
    * @param {string} securityKey - Security Key. Like: 59f43b55-46a3-4efc-a960-018bcca91f46
    *
@@ -206,7 +206,13 @@ class ServiceProducerForm extends React.Component {
   async getProducerConfiguration(baseURL, gid, serialId) {
     try {
       // If *globalId* exist, then get producer information from server side.
-      const producerConfig = await getProducerAPI(baseURL, gid, serialId, PRODUCER_TYPES.service, true);
+      const producerConfig = await getProducerAPI(
+        baseURL,
+        gid,
+        serialId,
+        PRODUCER_TYPES.service,
+        true,
+      );
       this.props.dispatch(getProducerConfigurationSuccess(producerConfig));
       return {
         status: 'success',
@@ -303,38 +309,38 @@ class ServiceProducerForm extends React.Component {
   }
 
   /**
-   * Validate whether can connect to DIA server through passed baseUrl
-   * @param {string} baseUrl - DIA Base URL
+   * Validate whether can connect to BitSky server through passed baseUrl
+   * @param {string} baseUrl - BitSky Base URL
    *
    * @returns {ValidateResult} - validate result
    */
   // eslint-disable-next-line class-methods-use-this
   async validateBaseURL(baseUrl) {
     try {
-      const url = new URL(ENGINE_HEALTH_PATH, baseUrl).toString();
-      const engineHealth = await checkEngineHealthAPI(ENGINE_HEALTH_METHOD, url, true);
+      const url = new URL(SUPPLIER_HEALTH_PATH, baseUrl).toString();
+      const supplierHealth = await checkSupplierHealthAPI(SUPPLIER_HEALTH_METHOD, url, true);
       const result = {
         status: '',
         alertType: '',
         alertMessage: '',
       };
-      if (engineHealth.status === 0) {
+      if (supplierHealth.status === 0) {
         result.status = 'error';
         result.alertType = 'error';
         result.alertMessage = <FormattedHTMLMessage id="app.common.messages.http.cannotConnect" />;
-      } else if (!engineHealth.engine) {
+      } else if (!supplierHealth.supplier) {
         result.status = 'error';
         result.alertType = 'error';
         result.alertMessage = (
-          <FormattedHTMLMessage id="app.common.messages.producer.notConnectToEngine" />
+          <FormattedHTMLMessage id="app.common.messages.producer.notConnectToSupplier" />
         );
-      } else if (engineHealth.health) {
+      } else if (supplierHealth.health) {
         result.status = 'success';
-      } else if (engineHealth.status >= 500) {
+      } else if (supplierHealth.status >= 500) {
         result.status = 'error';
         result.alertType = 'error';
         result.alertMessage = <FormattedHTMLMessage id="app.common.messages.http.internalError" />;
-      } else if (engineHealth.status >= 400) {
+      } else if (supplierHealth.status >= 400) {
         result.alertType = 'error';
         result.alertMessage = <FormattedHTMLMessage id="app.common.messages.http.inputError" />;
       } else {

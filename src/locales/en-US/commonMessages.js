@@ -127,7 +127,7 @@ export default {
                                                               <p class='bitsky-alert-subheader'><b>Possible solution: </b></p>
                                                           </div><span>Go to <b>Producer Configurations</b> copy <b>Producer Global ID</b>, then paste to <b>Producer Global ID</b> field</b></span>`,
   // eslint-disable-next-line quotes
-  'app.common.messages.producer.notConnectToEngine': `The server you are trying to connect isn't a bitsky application`,
+  'app.common.messages.producer.notConnectToSupplier': `The server you are trying to connect isn't a bitsky application`,
   // eslint-disable-next-line quotes
   'app.common.messages.producer.unmatchedProducerType': `The producer's type you are trying to connect isn't <b>{producerType}</b>, please change <b>Producer Global ID</b>`,
   // eslint-disable-next-line quotes

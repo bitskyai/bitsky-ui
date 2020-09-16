@@ -70,6 +70,6 @@ export const LOG_LEVEL = {
   debug: 'debug',
 };
 
-// health check for Engine
-export const ENGINE_HEALTH_PATH = '/health';
-export const ENGINE_HEALTH_METHOD = 'GET';
+// health check for Supplier
+export const SUPPLIER_HEALTH_PATH = '/health';
+export const SUPPLIER_HEALTH_METHOD = 'GET';

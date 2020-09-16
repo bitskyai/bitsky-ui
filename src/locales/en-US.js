@@ -1,5 +1,5 @@
-import DiaFooter from './en-US/components/DiaFooter';
-import DiaUserInfoCmp from './en-US/components/DiaUserInfoCmp';
+import BitSkyFooter from './en-US/components/Footer';
+import BitSkyUserInfoCmp from './en-US/components/UserInfoCmp';
 import producersCtn from './en-US/containers/Producers';
 import commonMessages from './en-US/commonMessages';
 import component from './en-US/component';
@@ -23,8 +23,8 @@ export default {
   'layout.user.link.privacy': 'Privacy',
   'layout.user.link.terms': 'Terms',
   'app.preview.down.block': 'Download this page to your local project',
-  ...DiaFooter,
-  ...DiaUserInfoCmp,
+  ...BitSkyFooter,
+  ...BitSkyUserInfoCmp,
   ...home,
   ...commonMessages,
   ...globalHeader,

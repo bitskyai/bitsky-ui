@@ -8,11 +8,13 @@ function UserAvatar({ profile }) {
   const menu = (
     <Menu>
       <Menu.Item key="profile">
-        {formatMessage({ id: 'app.components.DiaUserInfoCmp.profile' })}
+        {formatMessage({ id: 'app.components.BitSkyUserInfoCmp.profile' })}
       </Menu.Item>
       <Menu.Divider />
       <Menu.Item key="signOut">
-        <a href="/apis/logout">{formatMessage({ id: 'app.components.DiaUserInfoCmp.signOut' })}</a>
+        <a href="/apis/logout">
+          {formatMessage({ id: 'app.components.BitSkyUserInfoCmp.signOut' })}
+        </a>
       </Menu.Item>
     </Menu>
   );

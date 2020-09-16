@@ -1,6 +1,6 @@
 /**
  *
- * DiaHeaderCmp
+ * BitSkyUserInfoCmp
  *
  */
 
@@ -16,20 +16,20 @@ import styles from './index.less';
 
 const { Text } = Typography;
 
-function DiaUserInfoCmp(props) {
+function BitSkyUserInfoCmp(props) {
   let userInfo = (
     <div style={{ display: 'inline-block' }}>
       <Link to="/login">
         <Button type="link" style={{ padding: 0 }}>
-          {formatMessage({ id: 'app.components.DiaUserInfoCmp.logIn' })}
+          {formatMessage({ id: 'app.components.BitSkyUserInfoCmp.logIn' })}
         </Button>
       </Link>
       <Text style={{ margin: '0 10px' }}>
-        {formatMessage({ id: 'app.components.DiaUserInfoCmp.or' })}
+        {formatMessage({ id: 'app.components.BitSkyUserInfoCmp.or' })}
       </Text>
       <Link to="/signup">
         <Button type="primary">
-          {formatMessage({ id: 'app.components.DiaUserInfoCmp.signUp' })}
+          {formatMessage({ id: 'app.components.BitSkyUserInfoCmp.signUp' })}
         </Button>
       </Link>
     </div>
@@ -43,8 +43,8 @@ function DiaUserInfoCmp(props) {
   return <div style={{ height: '64px', lineHeight: '64px' }}>{userInfo}</div>;
 }
 
-DiaUserInfoCmp.propTypes = {
+BitSkyUserInfoCmp.propTypes = {
   currentUser: PropTypes.object,
 };
 
-export default DiaUserInfoCmp;
+export default BitSkyUserInfoCmp;
