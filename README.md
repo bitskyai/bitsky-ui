@@ -4,7 +4,7 @@
 
 > UI code for BitSky
 
-### 🏠 [Homepage](https://bitsky.ai)
+### 🏠 [Homepage](https://www.bitsky.ai)
 
 ## Prerequisites
 

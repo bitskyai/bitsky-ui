@@ -64,11 +64,11 @@ export default {
   'app.containers.Producers.switchOff': 'OFF',
   'app.containers.Producers.bitskyBaseURL': 'BitSky Base URL',
   'app.containers.Producers.bitskyBaseURLPlaceholder': 'Please enter a valid URL',
-  'app.containers.Producers.bitskyBaseURLExample': 'https://bitsky.ai',
+  'app.containers.Producers.bitskyBaseURLExample': 'https://www.bitsky.ai',
   'app.containers.Producers.bitskyBaseURLDescription':
-    'Base url of your BitSky. For example: <span class="ant-typography"><code>https://bitsky.ai</code></span>',
+    'Base url of your BitSky. For example: <span class="ant-typography"><code>https://www.bitsky.ai</code></span>',
   'app.containers.Producers.invalidURL':
-    'The url you enter is invalid, please enter valid url. For example: https://bitsky.ai',
+    'The url you enter is invalid, please enter valid url. For example: https://www.bitsky.ai',
   'app.containers.Producers.invalidInteger': 'Please enter valid integer',
   'app.containers.Producers.advanced': 'Advanced',
   'app.containers.Producers.advancedDescription':
