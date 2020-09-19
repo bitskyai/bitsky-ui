@@ -47,7 +47,7 @@ function Banner(props) {
         'https://github.com/bitskyai/bitsky-builder/releases/latest/download/bitsky-macos-latest.zip';
     } else if (os === OS.WINDOWS) {
       downloadLink =
-        'https://github.com/bitskyai/bitsky-builder/releases/latest/download/bitsky-wins-latest.exe';
+        'https://github.com/bitskyai/bitsky-builder/releases/latest/download/bitsky-windows-latest.exe';
     } else if (os === OS.LINUX) {
       downloadLink =
         'https://github.com/bitskyai/bitsky-builder/releases/latest/download/bitsky-ubuntu-latest.zip';
