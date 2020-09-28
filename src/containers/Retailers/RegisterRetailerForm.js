@@ -1,4 +1,18 @@
-import { Button, Col, Drawer, Form, Input, Row, Select, Typography, message } from 'antd';
+/* eslint-disable react/no-danger */
+import {
+  Button,
+  Col,
+  Drawer,
+  Form,
+  Input,
+  Row,
+  Select,
+  Typography,
+  message,
+  Divider,
+  Collapse,
+  Alert,
+} from 'antd';
 // import { FormattedMessage, FormattedHTMLMessage, injectIntl } from 'react-intl';
 import { FormattedHTMLMessage, FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 // import messages from '../../locales/en-US/containers/Retailers';
@@ -14,6 +28,7 @@ import { refreshRetailers } from './actions';
 import { registerARetailer, updateRetailer } from '../../apis/retailers';
 
 const { Paragraph } = Typography;
+const { Panel } = Collapse;
 
 const FormDescription = styled(Paragraph)`
   padding: 5px 0;
@@ -100,7 +115,10 @@ class RegisterRetailerForm extends React.Component {
           onClose={this.props.onCloseDrawer}
           visible={this.props.visiable}
         >
-          <p>{formatMessage({ id: 'app.containers.Retailers.registerRetailerDescription' })}</p>
+          <p>
+            <FormattedHTMLMessage id="app.containers.Retailers.registerRetailerDescription" />
+          </p>
+          <Divider />
           <Form layout="vertical" style={{ paddingBottom: '35px' }}>
             <Form.Item
               label={formatMessage({ id: 'app.containers.Retailers.retailerName' })}
@@ -132,41 +150,19 @@ class RegisterRetailerForm extends React.Component {
                 {formatMessage({ id: 'app.containers.Retailers.retailerNameDescription' })}
               </FormDescription>
             </Form.Item>
-            {this.props.retailer ? (
-              <Form.Item
-                label={formatMessage({ id: 'app.containers.Retailers.globalId' })}
-                style={formItemStyle}
-              >
-                {getFieldDecorator('globalId', {
-                  rules: [],
-                })(<Paragraph copyable>{this.props.retailer.globalId}</Paragraph>)}
-                <FormDescription>
-                  <FormattedHTMLMessage id="app.containers.Retailers.globalIdDescription" />
-                </FormDescription>
-              </Form.Item>
-            ) : (
-              ''
-              // <Form.Item
-              //   label={formatMessage(messages.globalId)}
-              //   style={formItemStyle}
-              // >
-              //   {getFieldDecorator('globalId', {
-              //     rules: [
-              //       {
-              //         required: true,
-              //         message: formatMessage(messages.globalIdPlaceholder),
-              //       },
-              //     ],
-              //   })(
-              //     <Input
-              //       placeholder={formatMessage(messages.globalIdExample)}
-              //     />,
-              //   )}
-              //   <FormDescription>
-              //     <FormattedHTMLMessage {...messages.globalIdDescription} />
-              //   </FormDescription>
-              // </Form.Item>
-            )}
+            <Form.Item
+              label={formatMessage({ id: 'app.containers.Retailers.globalId' })}
+              style={formItemStyle}
+            >
+              {this.props.retailer
+                ? getFieldDecorator('globalId', {
+                    rules: [],
+                  })(<Paragraph copyable>{this.props.retailer.globalId}</Paragraph>)
+                : <Paragraph><code>{formatMessage({ id: 'app.containers.Retailers.globalIdEmpty' })}</code></Paragraph>}
+              <FormDescription>
+                <FormattedHTMLMessage id="app.containers.Retailers.globalIdDescription" />
+              </FormDescription>
+            </Form.Item>
             <Form.Item
               label={formatMessage({ id: 'app.containers.Retailers.baseURL' })}
               style={formItemStyle}
@@ -192,132 +188,148 @@ class RegisterRetailerForm extends React.Component {
                 <FormattedHTMLMessage id="app.containers.Retailers.baseURLDescription" />
               </FormDescription>
             </Form.Item>
-            <h3>
-              <FormattedMessage id="app.containers.Retailers.callbackSectionTitle" />
-            </h3>
-            <p>
-              <FormattedHTMLMessage id="app.containers.Retailers.callbackDescription" />
-            </p>
-            <Row gutter={16}>
-              <Col span={8}>
-                <Form.Item
-                  label={formatMessage({ id: 'app.containers.Retailers.httpMethod' })}
-                  style={formItemStyle}
-                >
-                  {getFieldDecorator('callback.method', {
-                    initialValue: _.get(this, 'props.retailer.callback.method', 'POST'),
-                    rules: [
-                      {
-                        required: true,
-                        message: formatMessage({
-                          id: 'app.containers.Retailers.httpMethodPlaceHolder',
-                        }),
-                      },
-                    ],
-                  })(
-                    <Select
-                      placeholder={formatMessage({
-                        id: 'app.containers.Retailers.httpMethodPlaceHolder',
-                      })}
+            <Collapse>
+              <Panel header={formatMessage({ id: 'app.common.messages.advanced' })}>
+                <Alert
+                  message={formatMessage({ id: 'app.common.messages.advancedDescription' })}
+                  type="warning"
+                />
+                <h3>
+                  <FormattedMessage id="app.containers.Retailers.callbackSectionTitle" />
+                </h3>
+                <p>
+                  <FormattedHTMLMessage id="app.containers.Retailers.callbackDescription" />
+                </p>
+                <Row gutter={16}>
+                  <Col span={8}>
+                    <Form.Item
+                      label={formatMessage({ id: 'app.containers.Retailers.httpMethod' })}
+                      style={formItemStyle}
                     >
-                      <Select.Option value="GET">GET</Select.Option>
-                      <Select.Option value="POST">POST</Select.Option>
-                      <Select.Option value="PUT">PUT</Select.Option>
-                      <Select.Option value="DELETE">DELETE</Select.Option>
-                    </Select>,
-                  )}
-                  <FormDescription>
-                    <FormattedHTMLMessage id="app.containers.Retailers.httpMethodDescription" />
-                  </FormDescription>
-                </Form.Item>
-              </Col>
-              <Col span={16}>
-                <Form.Item
-                  label={formatMessage({ id: 'app.common.messages.urlPath' })}
-                  style={formItemStyle}
-                >
-                  {getFieldDecorator('callback.path', {
-                    initialValue: _.get(this, 'props.retailer.callback.path', '/apis/tasks'),
-                    rules: [
-                      {
-                        required: true,
-                        message: formatMessage({ id: 'app.common.messages.urlPathPlaceHolder' }),
-                      },
-                    ],
-                  })(
-                    <Input
-                      placeholder={formatMessage({ id: 'app.common.messages.urlPathPlaceHolder' })}
-                    />,
-                  )}
-                  <FormDescription>
-                    <FormattedHTMLMessage id="app.common.messages.urlPathDescription" />
-                  </FormDescription>
-                </Form.Item>
-              </Col>
-            </Row>
-            <h3>
-              <FormattedMessage id="app.common.messages.healthTitle" />
-            </h3>
-            <p>
-              <FormattedHTMLMessage id="app.containers.Retailers.healthDescription" />
-            </p>
-            <Row gutter={16}>
-              <Col span={8}>
-                <Form.Item
-                  label={formatMessage({ id: 'app.containers.Retailers.httpMethod' })}
-                  style={formItemStyle}
-                >
-                  {getFieldDecorator('health.method', {
-                    initialValue: _.get(this, 'props.retailer.health.method', 'GET'),
-                    rules: [
-                      {
-                        required: true,
-                        message: formatMessage({
-                          id: 'app.containers.Retailers.httpMethodPlaceHolder',
-                        }),
-                      },
-                    ],
-                  })(
-                    <Select
-                      placeholder={formatMessage({
-                        id: 'app.containers.Retailers.httpMethodPlaceHolder',
-                      })}
+                      {getFieldDecorator('callback.method', {
+                        initialValue: _.get(this, 'props.retailer.callback.method', 'POST'),
+                        rules: [
+                          {
+                            required: true,
+                            message: formatMessage({
+                              id: 'app.containers.Retailers.httpMethodPlaceHolder',
+                            }),
+                          },
+                        ],
+                      })(
+                        <Select
+                          placeholder={formatMessage({
+                            id: 'app.containers.Retailers.httpMethodPlaceHolder',
+                          })}
+                        >
+                          <Select.Option value="GET">GET</Select.Option>
+                          <Select.Option value="POST">POST</Select.Option>
+                          <Select.Option value="PUT">PUT</Select.Option>
+                          <Select.Option value="DELETE">DELETE</Select.Option>
+                        </Select>,
+                      )}
+                      <FormDescription>
+                        <FormattedHTMLMessage id="app.containers.Retailers.httpMethodDescription" />
+                      </FormDescription>
+                    </Form.Item>
+                  </Col>
+                  <Col span={16}>
+                    <Form.Item
+                      label={formatMessage({ id: 'app.common.messages.urlPath' })}
+                      style={formItemStyle}
                     >
-                      <Select.Option value="GET">GET</Select.Option>
-                      <Select.Option value="POST">POST</Select.Option>
-                      <Select.Option value="PUT">PUT</Select.Option>
-                      <Select.Option value="DELETE">DELETE</Select.Option>
-                    </Select>,
-                  )}
-                  <FormDescription>
-                    <FormattedHTMLMessage id="app.containers.Retailers.httpMethodDescription" />
-                  </FormDescription>
-                </Form.Item>
-              </Col>
-              <Col span={16}>
-                <Form.Item
-                  label={formatMessage({ id: 'app.common.messages.urlPath' })}
-                  style={formItemStyle}
-                >
-                  {getFieldDecorator('health.path', {
-                    initialValue: _.get(this, 'props.retailer.health.path', '/health'),
-                    rules: [
-                      {
-                        required: true,
-                        message: formatMessage({ id: 'app.common.messages.urlPathPlaceHolder' }),
-                      },
-                    ],
-                  })(
-                    <Input
-                      placeholder={formatMessage({ id: 'app.common.messages.urlPathPlaceHolder' })}
-                    />,
-                  )}
-                  <FormDescription>
-                    <FormattedHTMLMessage id="app.common.messages.urlPathDescription" />
-                  </FormDescription>
-                </Form.Item>
-              </Col>
-            </Row>
+                      {getFieldDecorator('callback.path', {
+                        initialValue: _.get(this, 'props.retailer.callback.path', '/apis/tasks'),
+                        rules: [
+                          {
+                            required: true,
+                            message: formatMessage({
+                              id: 'app.common.messages.urlPathPlaceHolder',
+                            }),
+                          },
+                        ],
+                      })(
+                        <Input
+                          placeholder={formatMessage({
+                            id: 'app.common.messages.urlPathPlaceHolder',
+                          })}
+                        />,
+                      )}
+                      <FormDescription>
+                        <FormattedHTMLMessage id="app.common.messages.urlPathDescription" />
+                      </FormDescription>
+                    </Form.Item>
+                  </Col>
+                </Row>
+                <h3>
+                  <FormattedMessage id="app.common.messages.healthTitle" />
+                </h3>
+                <p>
+                  <FormattedHTMLMessage id="app.containers.Retailers.healthDescription" />
+                </p>
+                <Row gutter={16}>
+                  <Col span={8}>
+                    <Form.Item
+                      label={formatMessage({ id: 'app.containers.Retailers.httpMethod' })}
+                      style={formItemStyle}
+                    >
+                      {getFieldDecorator('health.method', {
+                        initialValue: _.get(this, 'props.retailer.health.method', 'GET'),
+                        rules: [
+                          {
+                            required: true,
+                            message: formatMessage({
+                              id: 'app.containers.Retailers.httpMethodPlaceHolder',
+                            }),
+                          },
+                        ],
+                      })(
+                        <Select
+                          placeholder={formatMessage({
+                            id: 'app.containers.Retailers.httpMethodPlaceHolder',
+                          })}
+                        >
+                          <Select.Option value="GET">GET</Select.Option>
+                          <Select.Option value="POST">POST</Select.Option>
+                          <Select.Option value="PUT">PUT</Select.Option>
+                          <Select.Option value="DELETE">DELETE</Select.Option>
+                        </Select>,
+                      )}
+                      <FormDescription>
+                        <FormattedHTMLMessage id="app.containers.Retailers.httpMethodDescription" />
+                      </FormDescription>
+                    </Form.Item>
+                  </Col>
+                  <Col span={16}>
+                    <Form.Item
+                      label={formatMessage({ id: 'app.common.messages.urlPath' })}
+                      style={formItemStyle}
+                    >
+                      {getFieldDecorator('health.path', {
+                        initialValue: _.get(this, 'props.retailer.health.path', '/health'),
+                        rules: [
+                          {
+                            required: true,
+                            message: formatMessage({
+                              id: 'app.common.messages.urlPathPlaceHolder',
+                            }),
+                          },
+                        ],
+                      })(
+                        <Input
+                          placeholder={formatMessage({
+                            id: 'app.common.messages.urlPathPlaceHolder',
+                          })}
+                        />,
+                      )}
+                      <FormDescription>
+                        <FormattedHTMLMessage id="app.common.messages.urlPathDescription" />
+                      </FormDescription>
+                    </Form.Item>
+                  </Col>
+                </Row>
+              </Panel>
+            </Collapse>
           </Form>
           <div
             style={{

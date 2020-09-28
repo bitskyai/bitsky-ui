@@ -1,6 +1,6 @@
 /**
  *
- * Service Producer
+ * HTTP Producer
  *
  */
 import { Card, PageHeader, Button, Tag, Typography, Row, Col, Icon } from 'antd';

@@ -493,7 +493,7 @@ class ServiceProducerForm extends React.Component {
                 ],
               })(
                 <Input
-                  disabled={disableEdit}
+                  disabled
                   placeholder={formatMessage({ id: 'app.common.messages.baseURLExample' })}
                   onChange={e => this.saveConfiguration(e)}
                 />,

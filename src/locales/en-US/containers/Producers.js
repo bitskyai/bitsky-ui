@@ -11,31 +11,32 @@ export default {
   'app.containers.Producers.second': 'second',
   'app.containers.Producers.header': 'Producers',
   'app.containers.Producers.emptyProducers':
-    'You don\'t have any <a href="https://docs.bitsky.ai/overview#producer" target="_blank">Producers</a>. <a href="https://docs.bitsky.ai/overview#producer" target="_blank">How to register a Producer Configuration</a> will show you step by step to regiter a Producer',
-  'app.containers.Producers.registerNow': 'Register',
-  'app.containers.Producers.drawerTitleCreate': 'Register a Producer',
-  'app.containers.Producers.drawerTitleUpdate': 'Modify this Producer',
+    'You don\'t have any <a href="https://docs.bitsky.ai/overview#producer" target="_blank">Producer Configurations</a>',
+  'app.containers.Producers.drawerTitleCreate': 'Create a Producer Configuration',
+  'app.containers.Producers.drawerTitleUpdate': 'Modify this Producer Configuration',
   'app.containers.Producers.activeProducerTip':
-    'This producer is in Active status, you need to Deactivate it before you can modify',
+    'Producer Configuration is in Active state, you need to Deactivate it before you can modify',
   'app.containers.Producers.registerProducerDescription':
-    'Producer is the client that collect the tasks your Retailer Services created. It has several types: <a href="#" target="_blank">Headless</a>, <a href="#" target="_blank">Service</a>, you also can develop a producer by yourself',
-  'app.containers.Producers.deleteProducerDescription': 'Are you sure delete this Producer?',
-  'app.containers.Producers.deleteProducerSuccessful': 'Delete Producer Successful',
+    '<a href="https://docs.bitsky.ai/overview#producer">Producer</a> is used to execute <a href="https://docs.bitsky.ai/overview#task">Tasks</a> created by <a href="https://docs.bitsky.ai/overview#retailer">Retailers</a>, and send successfully executed Tasks which contains crawled raw data(e.g. <code>HTML</code>) back to correspond Retailers. A <a href="https://docs.bitsky.ai/overview#producer">Producer</a> needs to connect to a <b>Producer Configuration</b> use <b>Global ID</b>. If you are using <a href="http://bitsky.ai/">BitSky Desktop Application</a>, it includes two Producers: <a href="https://docs.bitsky.ai/user-manual/headless-producer">Headless Producer</a>, <a href="https://docs.bitsky.ai/user-manual/http-producer">HTTP Producer</a> to help you getting start',
+  'app.containers.Producers.deleteProducerDescription':
+    'Are you sure delete this Producer Configuration?',
+  'app.containers.Producers.deleteProducerSuccessful': 'Delete Producer Configuration Successful',
   'app.containers.Producers.producerName': 'Name',
-  'app.containers.Producers.producerNamePlaceholder': "Please enter your Producer's name",
+  'app.containers.Producers.producerNamePlaceholder':
+    'Please enter your Producer Configuration Name',
   'app.containers.Producers.producerNameInvalid':
-    'Producer Name is invalid, please enter 1 to 100 characters',
+    'Producer Configuration Name is invalid, please enter 1 to 100 characters',
   'app.containers.Producers.producerNameExample': 'Hello World',
   'app.containers.Producers.producerNameDescription':
-    'Give a meaningful name to your Producer, between 1 to 100 characters',
+    'Give a meaningful name to this Producer Configuration, between 1 to 100 characters',
   'app.containers.Producers.producerDescription': 'Description',
   'app.containers.Producers.producerDescriptionPlaceholder':
-    'Type some words to describe your producer',
+    'Type some words to describe this Producer Configuration',
   'app.containers.Producers.producerDescriptionInvalid':
-    'Producer description is too long, please enter 1 to 200 characters',
-  'app.containers.Producers.producerDescriptionExample': 'My First Producer',
+    'Producer Configuration description is too long, please enter 1 to 200 characters',
+  'app.containers.Producers.producerDescriptionExample': 'My First Producer Configuration',
   'app.containers.Producers.producerDescriptionDescription':
-    'Give a meaningful description to your Producer, between 1 to 200 characters',
+    'Give a meaningful description to this Producer Configuration, between 1 to 200 characters',
   'app.containers.Producers.baseURL': 'Base URL',
   'app.containers.Producers.baseURLEmptyError': 'Please enter a valid base URL',
   'app.containers.Producers.baseURLExample': 'http://localhost:3000',
@@ -70,9 +71,6 @@ export default {
   'app.containers.Producers.invalidURL':
     'The url you enter is invalid, please enter valid url. For example: https://www.bitsky.ai',
   'app.containers.Producers.invalidInteger': 'Please enter valid integer',
-  'app.containers.Producers.advanced': 'Advanced',
-  'app.containers.Producers.advancedDescription':
-    'Most of time you can use default setting, only change it when you know',
   'app.containers.Producers.pollingInterval': 'Polling Interval',
   'app.containers.Producers.pollingIntervalPlaceholder':
     'Please enter polling interval value, like 30',

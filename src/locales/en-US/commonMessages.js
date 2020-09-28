@@ -108,6 +108,7 @@ export default {
   'app.common.messages.urlPath': 'URL Path',
   'app.common.messages.urlPathPlaceHolder': 'Please enter your URL path',
   'app.common.messages.healthSectionTitle': 'Health Check',
+  'app.common.messages.create': 'Create',
   'app.common.messages.activate': 'Activate',
   'app.common.messages.deactivate': 'Deactivate',
   'app.common.messages.stateDraft': 'Draft',
@@ -151,5 +152,8 @@ export default {
   'app.common.messages.healthTitle': 'Health Check',
   'app.common.messages.retailerState': 'Retailer Service Connection',
   'app.common.messages.urlPathDescription':
-    'URL path of your callback. <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Identifying_resources_on_the_Web#Path" target="_blank">Learn More.</a>',
+    'A URL path on the server. <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Identifying_resources_on_the_Web#Path" target="_blank">Learn More.</a>',
+  'app.common.messages.advanced': 'Advanced Configuration',
+  'app.common.messages.advancedDescription':
+    'Most of time you can use default setting, only change it when you have to',
 };

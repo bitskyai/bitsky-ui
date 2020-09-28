@@ -1,5 +1,4 @@
-import './style.css';
-import { Button, Col, Empty, Icon, Popconfirm, Row, Table, message } from 'antd';
+import { Button, Col, Empty, Icon, Popconfirm, Row, Table, message, Tooltip } from 'antd';
 import { FormattedHTMLMessage, formatMessage } from 'umi-plugin-react/locale';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 /**
@@ -19,6 +18,8 @@ import { refreshRetailers, refreshRetailersFail, refreshRetailersSuccess } from 
 import { deleteARetailerAPI, getRetailers, pingRetailerAPI } from '../../apis/retailers';
 import { STATES } from '../../utils/constants';
 import StateTag from '../../utils/StateTag';
+
+import './style.css';
 
 const EmptyContainer = styled.div`
   padding: 100px 0;
@@ -92,9 +93,21 @@ export class RetailersNew extends React.Component {
     pingRetailerAPI(record.globalId).then(
       result => {
         if (result && result.state === STATES.active) {
-          message.success(formatMessage({ id: 'app.containers.Retailers.pingSuccessful' }));
+          message.success(
+            <span
+              dangerouslySetInnerHTML={{
+                __html: formatMessage({ id: 'app.containers.Retailers.pingSuccessful' }),
+              }}
+            ></span>,
+          );
         } else {
-          message.error(formatMessage({ id: 'app.containers.Retailers.pingFail' }));
+          message.error(
+            <span
+              dangerouslySetInnerHTML={{
+                __html: formatMessage({ id: 'app.containers.Retailers.pingFail' }),
+              }}
+            ></span>,
+          );
         }
         this.props.dispatch(refreshRetailers());
       },
@@ -178,17 +191,19 @@ export class RetailersNew extends React.Component {
               RetailersNew.onPreventShowDrawer(e);
             }}
           >
-            <Button
-              type="link"
-              size="small"
-              style={actionButtonStyle}
-              title={formatMessage({ id: 'app.containers.Retailers.pingDescription' })}
-              onClick={e => {
-                this.onPingRetailer(record, e);
-              }}
-            >
-              {formatMessage({ id: 'app.containers.Retailers.ping' })}
-            </Button>
+            <Tooltip title={formatMessage({ id: 'app.containers.Retailers.pingDescription' })}>
+              <Button
+                type="link"
+                size="small"
+                style={actionButtonStyle}
+                title={formatMessage({ id: 'app.containers.Retailers.pingDescription' })}
+                onClick={e => {
+                  this.onPingRetailer(record, e);
+                }}
+              >
+                {formatMessage({ id: 'app.containers.Retailers.ping' })}
+              </Button>
+            </Tooltip>
             <Popconfirm
               style={{ maxWidth: '300px' }}
               title={formatMessage({ id: 'app.containers.Retailers.deleteRetailerDescription' })}
@@ -228,14 +243,16 @@ export class RetailersNew extends React.Component {
                 </span>
               }
             >
-              <Button
-                type="primary"
-                onClick={() => {
-                  this.onRegisterRetailer();
-                }}
-              >
-                {formatMessage({ id: 'app.containers.Retailers.registerNow' })}
-              </Button>
+              <Tooltip title={formatMessage({ id: 'app.containers.Retailers.drawerTitle' })}>
+                <Button
+                  type="primary"
+                  onClick={() => {
+                    this.onRegisterRetailer();
+                  }}
+                >
+                  {formatMessage({ id: 'app.common.messages.create' })}
+                </Button>
+              </Tooltip>
             </Empty>
           </EmptyContainer>
         );
@@ -246,14 +263,16 @@ export class RetailersNew extends React.Component {
               <div style={{ paddingBottom: '15px' }}>
                 <Row>
                   <Col span={14}>
-                    <Button
-                      onClick={() => {
-                        this.onRegisterRetailer();
-                      }}
-                      type="primary"
-                    >
-                      {formatMessage({ id: 'app.containers.Retailers.registerNow' })}
-                    </Button>
+                    <Tooltip title={formatMessage({ id: 'app.containers.Retailers.drawerTitle' })}>
+                      <Button
+                        onClick={() => {
+                          this.onRegisterRetailer();
+                        }}
+                        type="primary"
+                      >
+                        {formatMessage({ id: 'app.common.messages.create' })}
+                      </Button>
+                    </Tooltip>
                   </Col>
                   <Col span={10} style={{ textAlign: 'right' }}>
                     <Button

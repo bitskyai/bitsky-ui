@@ -1,6 +1,6 @@
 import './style.css';
 import * as _ from 'lodash';
-import { Button, Col, Empty, Icon, Popconfirm, Row, Table, message } from 'antd';
+import { Button, Col, Empty, Icon, Popconfirm, Row, Table, message, Tooltip } from 'antd';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { FormattedHTMLMessage, formatMessage } from 'umi-plugin-react/locale';
 /**
@@ -342,14 +342,16 @@ export class Producers extends React.Component {
                 </span>
               }
             >
-              <Button
-                type="primary"
-                onClick={() => {
-                  this.onRegisterProducer();
-                }}
-              >
-                {formatMessage({ id: 'app.containers.Producers.registerNow' })}
-              </Button>
+              <Tooltip title={formatMessage({ id: 'app.containers.Producers.drawerTitleCreate' })}>
+                <Button
+                  type="primary"
+                  onClick={() => {
+                    this.onRegisterProducer();
+                  }}
+                >
+                  {formatMessage({ id: 'app.common.messages.create' })}
+                </Button>
+              </Tooltip>
             </Empty>
           </EmptyContainer>
         );
@@ -360,14 +362,16 @@ export class Producers extends React.Component {
               <div style={{ paddingBottom: '15px' }}>
                 <Row>
                   <Col span={14}>
-                    <Button
-                      onClick={() => {
-                        this.onRegisterProducer();
-                      }}
-                      type="primary"
-                    >
-                      {formatMessage({ id: 'app.containers.Producers.registerNow' })}
-                    </Button>
+                    <Tooltip title={formatMessage({ id: 'app.containers.Producers.drawerTitleCreate' })}>
+                      <Button
+                        onClick={() => {
+                          this.onRegisterProducer();
+                        }}
+                        type="primary"
+                      >
+                        {formatMessage({ id: 'app.common.messages.create' })}
+                      </Button>
+                    </Tooltip>
                   </Col>
                   <Col span={10} style={{ textAlign: 'right' }}>
                     <Button

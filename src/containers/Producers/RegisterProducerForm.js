@@ -12,6 +12,7 @@ import {
   Switch,
   Typography,
   message,
+  Divider,
 } from 'antd';
 // import { FormattedMessage, FormattedHTMLMessage, injectIntl } from 'react-intl';
 import { FormattedHTMLMessage, formatHTMLMessage, formatMessage } from 'umi-plugin-react/locale';
@@ -143,7 +144,7 @@ class RegisterProducerForm extends React.Component {
                 type="warning"
                 showIcon
                 message={formatHTMLMessage({ id: 'app.containers.Producers.activeProducerTip' })}
-              />
+              />app.containers.Retailers.registerRetailerDescription
             </div>
           ) : (
             ''
@@ -151,6 +152,7 @@ class RegisterProducerForm extends React.Component {
           <p>
             <FormattedHTMLMessage id="app.containers.Producers.registerProducerDescription" />
           </p>
+          <Divider />
           <Form className="producer-form" layout="vertical" style={{ paddingBottom: '35px' }}>
             <FormItemContainer>
               <Form.Item
