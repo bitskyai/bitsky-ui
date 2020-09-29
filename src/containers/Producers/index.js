@@ -204,14 +204,15 @@ export class Producers extends React.Component {
           const serialId = _.get(record, 'system.serialId');
           // const pollingInterval = _.get(record, 'pollingInterval') || 30; // second
           const pollingInterval = 30; // Currently headless and service's interval is hardcode 30s
-          const lastPingToNow = Date.now() - lastPing;
+          // const lastPingToNow = Date.now() - lastPing;
+          const lastPingToNow = modified - lastPing;
           const intervalValues = lastPingToNow / (pollingInterval * 1000);
           if (!serialId) {
             // no serialId, then means not be connected
             state = STATES.noConnection;
           } else if (intervalValues <= 1.5) {
             state = STATES.connected;
-          } else if (intervalValues <= 3 && intervalValues > 1.5) {
+          } else if ((intervalValues <= 2 && intervalValues > 1.5) || lastPing === 0) {
             state = STATES.connecting;
           } else {
             state = STATES.lostConnection;

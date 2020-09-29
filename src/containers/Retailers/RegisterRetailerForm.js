@@ -66,7 +66,6 @@ class RegisterRetailerForm extends React.Component {
           });
           this.props.onCloseDrawer();
         } catch (errObj) {
-          console.log(`errObj: `, errObj);
           this.setState({
             sending: false,
           });
@@ -151,14 +150,14 @@ class RegisterRetailerForm extends React.Component {
               </FormDescription>
             </Form.Item>
             <Form.Item
-              label={formatMessage({ id: 'app.containers.Retailers.globalId' })}
+              label={formatMessage({ id: 'app.common.messages.globalId' })}
               style={formItemStyle}
             >
               {this.props.retailer
                 ? getFieldDecorator('globalId', {
                     rules: [],
                   })(<Paragraph copyable>{this.props.retailer.globalId}</Paragraph>)
-                : <Paragraph><code>{formatMessage({ id: 'app.containers.Retailers.globalIdEmpty' })}</code></Paragraph>}
+                : <Paragraph><code>{formatMessage({ id: 'app.common.messages.globalIdEmpty' })}</code></Paragraph>}
               <FormDescription>
                 <FormattedHTMLMessage id="app.containers.Retailers.globalIdDescription" />
               </FormDescription>
@@ -193,6 +192,7 @@ class RegisterRetailerForm extends React.Component {
                 <Alert
                   message={formatMessage({ id: 'app.common.messages.advancedDescription' })}
                   type="warning"
+                  style={{ marginBottom: '16px' }}
                 />
                 <h3>
                   <FormattedMessage id="app.containers.Retailers.callbackSectionTitle" />

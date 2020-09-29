@@ -37,6 +37,11 @@ export default {
   'app.containers.Producers.producerDescriptionExample': 'My First Producer Configuration',
   'app.containers.Producers.producerDescriptionDescription':
     'Give a meaningful description to this Producer Configuration, between 1 to 200 characters',
+  'app.containers.Producers.connectProducerSerialId': 'Connected Producer Serial ID',
+  'app.containers.Producers.connectProducerSerialIdEmpty': 'Waiting for a Producer connects to this Producer Configuration',
+  'app.containers.Producers.connectProducerSerialIdDescription': 'The <b>Serial ID</b> of connected <a href="https://docs.bitsky.ai/overview#producer">Producer</a>. Producer Configuration is one to one relative with <a href="https://docs.bitsky.ai/overview#producer">Producer</a>, so after a <a href="https://docs.bitsky.ai/overview#producer">Producer</a> conected to this Producer Configuration, before you <b>disconnect</b>, other <a href="https://docs.bitsky.ai/overview#producer">Producer</a> cannot connect to this Producer Configuration ',
+  'app.containers.Producers.globalIdDescription':
+    'A <a href="https://docs.bitsky.ai/overview#producer">Producer</a> uses <b>Global ID</b> to connect to this Producer Configuration, you need to configure <b>Global ID</b> to your <a href="https://docs.bitsky.ai/overview#producer">Producer</a>. <b>Global ID</b> is global unique.',
   'app.containers.Producers.baseURL': 'Base URL',
   'app.containers.Producers.baseURLEmptyError': 'Please enter a valid base URL',
   'app.containers.Producers.baseURLExample': 'http://localhost:3000',
@@ -48,7 +53,7 @@ export default {
   'app.containers.Producers.producerType': 'Producer Type',
   'app.containers.Producers.producerTypePlaceHolder': 'Please select your Producer Type',
   'app.containers.Producers.producerTypeDescription':
-    'Please select your Producer Type. <a href="https://docs.bitsky.ai/overview#producer" target="_blank">Learn More.</a>',
+    '<a href="https://docs.bitsky.ai/user-manual/headless-producer">Headless Producer</a> executes <a href="https://docs.bitsky.ai/overview#task">Tasks</a> using headless Chrome with <a href="https://pptr.dev/">Puppeteer</a>. <a href="https://docs.bitsky.ai/user-manual/http-producer">HTTP Producer</a> executes <a href="https://docs.bitsky.ai/overview#task">Tasks</a> using plain HTTP requests. <b>HTTP Producer</b> is good for static websites, <b>Headless Producer</b> is good for Single Page Application or execute JavaScript in page. <b>HTTP Producer</b> is fast and efficient. <b>Headless Producer</b> has all the features <b>HTTP Producer</b> has',
   'app.containers.Producers.browserExtensionProducer': 'Browser Extension Producer',
   'app.containers.Producers.headlessProducer': 'Headless Producer',
   'app.containers.Producers.httpProducer': 'HTTP Producer',
@@ -76,35 +81,35 @@ export default {
     'Please enter polling interval value, like 30',
   'app.containers.Producers.pollingIntervalExample': '30',
   'app.containers.Producers.pollingIntervalDescription':
-    'How frequently to check whether need to collect new tasks',
+    'How frequently the connected Producer to check whether has Tasks can be executed by it',
   'app.containers.Producers.maxWaitingTime': 'Max Waiting Time',
   'app.containers.Producers.maxWaitingTimePlaceholder': 'Please enter waiting time, like 5',
   'app.containers.Producers.maxWaitingTimeExample': '5',
   'app.containers.Producers.maxWaitingTimeDescription':
-    'Max waiting time between two collecting jobs. Value Range: <span class="ant-typography"><code>[(Max\n      Waiting Time/2), Max Waiting Time]</code></span>',
-  'app.containers.Producers.maxCollectTime': 'Max Collect Time',
-  'app.containers.Producers.maxCollectTimePlaceholder': 'Please enter max collect time, like 10000',
+    'Max waiting time between jobs. Value Range: <span class="ant-typography"><code>[(Max_Waiting_Time/2), Max_Waiting_Time]</code></span>',
+  'app.containers.Producers.maxCollectTime': 'Max Execute Tasks',
+  'app.containers.Producers.maxCollectTimePlaceholder': 'Please enter max execute tasks number, like 10000',
   'app.containers.Producers.maxCollectTimeExample': '10000',
   'app.containers.Producers.maxCollectTimeDescription':
-    'Browser has memory leak issue if continue to open urls. To avoid this, need to close window when reach max collect times. Collect Time equal to how many request send to BitSky to get task.',
+    'Producer(e.g. <code>Browser</code>) may have a memory leak issue if continue to execute Tasks, or after executing max Tasks number need some clean or idle time',
   'app.containers.Producers.producerIdleTime': 'Producer Idle Time',
   'app.containers.Producers.producerIdleTimePlaceholder':
     'Please enter producer idel time value, like 50',
   'app.containers.Producers.producerIdleTimeExample': '50',
   'app.containers.Producers.producerIdleTimeDescription':
-    'How long time browser need to wait to restart collect tasks after close browser window. This time is used for browser to release memory.',
-  'app.containers.Producers.concurrentCollectTasks': 'Concurrent Collect Tasks',
-  'app.containers.Producers.concurrentCollectTasksPlaceholder':
+    'How much time Producer needs to wait to restart execute Tasks. This time is used for Producer(e.g. <code>Browser</code>) to release memory.',
+  'app.containers.Producers.parallelExecuteTasks': 'Parallel Execute Tasks',
+  'app.containers.Producers.parallelExecuteTasksPlaceholder':
     'Please enter concurrent collect tasks, like 1',
-  'app.containers.Producers.concurrentCollectTasksExample': '1',
-  'app.containers.Producers.concurrentCollectTasksDescription':
-    'How many tasks need to be concurrent collected',
-  'app.containers.Producers.requestTimeout': 'Request Timeout',
+  'app.containers.Producers.parallelExecuteTasksExample': '1',
+  'app.containers.Producers.parallelExecuteTasksDescription':
+    'How many tasks need to be parallel executed',
+  'app.containers.Producers.requestTimeout': 'Task Timeout',
   'app.containers.Producers.requestTimeoutPlaceholder':
-    'Please enter request timeout value, like 90',
+    'Please enter task timeout value, like 90',
   'app.containers.Producers.requestTimeoutExample': '90',
   'app.containers.Producers.requestTimeoutDescription':
-    'If the request takes longer than <span class="ant-typography"><code>timeout</code></span>, the request will be aborted',
+    'If the excuting task takes longer than <span class="ant-typography"><code>Task Timeout</code></span>, update this Task to <code>TIMEOUT</code> state, and will retry later, if fail or timeout more than 3 three, this task will be moved to <b>Tasks History</b>',
   'app.containers.Producers.maxRetryTime': 'Max Retry Time',
   'app.containers.Producers.maxRetryTimePlaceholder': 'Please enter max retry time value, like 3',
   'app.containers.Producers.maxRetryTimeExample': '3',

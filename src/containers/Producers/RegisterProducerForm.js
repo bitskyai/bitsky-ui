@@ -13,6 +13,7 @@ import {
   Typography,
   message,
   Divider,
+  Collapse,
 } from 'antd';
 // import { FormattedMessage, FormattedHTMLMessage, injectIntl } from 'react-intl';
 import { FormattedHTMLMessage, formatHTMLMessage, formatMessage } from 'umi-plugin-react/locale';
@@ -28,6 +29,7 @@ import { registerProducerAPI, updateProducerAPI } from '../../apis/producers';
 import { STATES, PRODUCER_TYPES, DEFAULT_PRODUCER_CONFIGURATION } from '../../utils/constants';
 
 const { Paragraph } = Typography;
+const { Panel } = Collapse;
 
 const FormDescription = styled(Paragraph)`
   padding: 5px 0;
@@ -144,7 +146,8 @@ class RegisterProducerForm extends React.Component {
                 type="warning"
                 showIcon
                 message={formatHTMLMessage({ id: 'app.containers.Producers.activeProducerTip' })}
-              />app.containers.Retailers.registerRetailerDescription
+              />
+              app.containers.Retailers.registerRetailerDescription
             </div>
           ) : (
             ''
@@ -164,18 +167,24 @@ class RegisterProducerForm extends React.Component {
                   rules: [
                     {
                       required: true,
-                      message: formatMessage({ id: 'app.containers.Producers.producerNamePlaceholder' }),
+                      message: formatMessage({
+                        id: 'app.containers.Producers.producerNamePlaceholder',
+                      }),
                     },
                     {
                       min: 1,
                       max: 100,
-                      message: formatMessage({ id: 'app.containers.Producers.producerNameInvalid' }),
+                      message: formatMessage({
+                        id: 'app.containers.Producers.producerNameInvalid',
+                      }),
                     },
                   ],
                 })(
                   <Input
                     disabled={readOnly}
-                    placeholder={formatMessage({ id: 'app.containers.Producers.producerNameExample' })}
+                    placeholder={formatMessage({
+                      id: 'app.containers.Producers.producerNameExample',
+                    })}
                   />,
                 )}
               </Form.Item>
@@ -218,52 +227,42 @@ class RegisterProducerForm extends React.Component {
                 <FormattedHTMLMessage id="app.containers.Producers.producerDescriptionDescription" />
               </FormDescription>
             </FormItemContainer>
-            {producer.globalId ? (
-              <FormItemContainer>
-                <Form.Item
-                  label={formatMessage({ id: 'app.common.messages.globalId' })}
-                  style={formItemStyle}
-                >
-                  {getFieldDecorator('globalId', {
+            <FormItemContainer>
+              <Form.Item
+                label={formatMessage({ id: 'app.common.messages.globalId' })}
+                style={formItemStyle}
+              >
+                {producer.globalId ? (
+                  getFieldDecorator('globalId', {
                     rules: [],
-                  })(<Paragraph copyable>{producer.globalId}</Paragraph>)}
-                </Form.Item>
+                  })(<Paragraph copyable>{producer.globalId}</Paragraph>)
+                ) : (
+                  <Paragraph>
+                    <code>{formatMessage({ id: 'app.common.messages.globalIdEmpty' })}</code>
+                  </Paragraph>
+                )}
                 <FormDescription>
-                  <FormattedHTMLMessage id="app.common.messages.globalIdDescription" />
+                  <FormattedHTMLMessage id="app.containers.Producers.globalIdDescription" />
                 </FormDescription>
-              </FormItemContainer>
-            ) : (
-              ''
-              // global id should be automatically generate
-              // <FormItemContainer>
-              //   <Form.Item
-              //     label={formatMessage(commonMessages.globalId)}
-              //     style={formItemStyle}
-              //   >
-              //     {getFieldDecorator('globalId', {
-              //       rules: [
-              //         {
-              //           required: true,
-              //           message: formatMessage(
-              //             commonMessages.globalIdPlaceholder,
-              //           ),
-              //         },
-              //       ],
-              //     })(
-              //       <Input
-              //         placeholder={formatMessage(
-              //           commonMessages.globalIdExample,
-              //         )}
-              //       />,
-              //     )}
-              //   </Form.Item>
-              //   <FormDescription>
-              //     <FormattedHTMLMessage
-              //       {...commonMessages.globalIdDescription}
-              //     />
-              //   </FormDescription>
-              // </FormItemContainer>
-            )}
+              </Form.Item>
+            </FormItemContainer>
+            <FormItemContainer>
+              <Form.Item
+                label={formatMessage({ id: 'app.containers.Producers.connectProducerSerialId' })}
+                style={formItemStyle}
+              >
+                {_.get(producer, 'system.serialId') ? (
+                  <Paragraph copyable>{_.get(producer, 'system.serialId')}</Paragraph>
+                ) : (
+                  <Paragraph>
+                    <code>{formatMessage({ id: 'app.containers.Producers.connectProducerSerialIdEmpty' })}</code>
+                  </Paragraph>
+                )}
+                <FormDescription>
+                  <FormattedHTMLMessage id="app.containers.Producers.connectProducerSerialIdDescription" />
+                </FormDescription>
+              </Form.Item>
+            </FormItemContainer>
             <FormItemContainer>
               <Form.Item
                 label={formatMessage({ id: 'app.containers.Producers.producerType' })}
@@ -276,7 +275,9 @@ class RegisterProducerForm extends React.Component {
                   rules: [
                     {
                       required: true,
-                      message: formatMessage({ id: 'app.containers.Producers.producerTypePlaceHolder' }),
+                      message: formatMessage({
+                        id: 'app.containers.Producers.producerTypePlaceHolder',
+                      }),
                     },
                   ],
                 })(
@@ -307,36 +308,11 @@ class RegisterProducerForm extends React.Component {
                 <FormattedHTMLMessage id="app.containers.Producers.producerTypeDescription" />
               </FormDescription>
             </FormItemContainer>
-            <h3>
-              <FormattedHTMLMessage id="app.containers.Producers.producerConfiguration" />
-            </h3>
-            <p>
-              <FormattedHTMLMessage id="app.containers.Producers.producerConfigurationDescription" />
-            </p>
-            <FormItemContainer>
-              <Form.Item
-                label={formatMessage({ id: 'app.containers.Producers.privateMode' })}
-                style={formItemStyle}
-              >
-                {getFieldDecorator('private', {
-                  initialValue: producer.private,
-                  valuePropName: 'checked',
-                })(
-                  <Switch
-                    disabled={readOnly}
-                    checkedChildren={formatMessage({ id: 'app.containers.Producers.switchOn' })}
-                    unCheckedChildren={formatMessage({ id: 'app.containers.Producers.switchOff' })}
-                  />,
-                )}
-              </Form.Item>
-              <FormDescription>
-                <FormattedHTMLMessage id="app.containers.Producers.privateModeDescription" />
-              </FormDescription>
-            </FormItemContainer>
+
             <FormItemContainer>
               <Form.Item
                 label={formatMessage({
-                  id: 'app.containers.Producers.concurrentCollectTasks',
+                  id: 'app.containers.Producers.parallelExecuteTasks',
                 })}
                 style={formItemStyle}
               >
@@ -346,158 +322,208 @@ class RegisterProducerForm extends React.Component {
                     {
                       required: true,
                       message: formatMessage({
-                        id: 'app.containers.Producers.concurrentCollectTasksPlaceholder',
+                        id: 'app.containers.Producers.parallelExecuteTasksPlaceholder',
                       }),
                     },
                     {
                       type: 'integer',
-                      message: formatHTMLMessage({ id: 'app.containers.Producers.invalidInteger' }),
+                      message: formatHTMLMessage({
+                        id: 'app.containers.Producers.invalidInteger',
+                      }),
                     },
                   ],
                 })(<InputNumber disabled={readOnly} min={1} />)}
               </Form.Item>
               <FormDescription>
-                <FormattedHTMLMessage id="app.containers.Producers.concurrentCollectTasksDescription" />
+                <FormattedHTMLMessage id="app.containers.Producers.parallelExecuteTasksDescription" />
               </FormDescription>
             </FormItemContainer>
-            <FormItemContainer>
-              <Form.Item
-                label={formatMessage({ id: 'app.containers.Producers.pollingInterval' })}
-                style={formItemStyle}
-              >
-                {getFieldDecorator('pollingInterval', {
-                  initialValue: producer.pollingInterval,
-                  rules: [
-                    {
-                      required: true,
-                      message: formatMessage({
-                        id: 'app.containers.Producers.pollingIntervalPlaceholder',
-                      }),
-                    },
-                    {
-                      type: 'integer',
-                      message: formatHTMLMessage({ id: 'app.containers.Producers.invalidInteger' }),
-                    },
-                  ],
-                })(<InputNumber disabled={readOnly} min={1} max={200} />)}
-                <SecondUnitContainer>
-                  {formatMessage({ id: 'app.containers.Producers.second' })}
-                </SecondUnitContainer>
-              </Form.Item>
-              <FormDescription>
-                <FormattedHTMLMessage id="app.containers.Producers.pollingIntervalDescription" />
-              </FormDescription>
-            </FormItemContainer>
-            <FormItemContainer>
-              <Form.Item
-                label={formatMessage({ id: 'app.containers.Producers.maxWaitingTime' })}
-                style={formItemStyle}
-              >
-                {getFieldDecorator('maxWaitingTime', {
-                  initialValue: producer.maxWaitingTime,
-                  rules: [
-                    {
-                      required: true,
-                      message: formatMessage({
-                        id: 'app.containers.Producers.maxWaitingTimePlaceholder',
-                      }),
-                    },
-                    {
-                      type: 'integer',
-                      message: formatHTMLMessage({ id: 'app.containers.Producers.invalidInteger' }),
-                    },
-                  ],
-                })(<InputNumber disabled={readOnly} min={1} max={10} />)}
-                <SecondUnitContainer>
-                  {formatMessage({ id: 'app.containers.Producers.second' })}
-                </SecondUnitContainer>
-              </Form.Item>
-              <FormDescription>
-                <FormattedHTMLMessage id="app.containers.Producers.maxWaitingTimeDescription" />
-              </FormDescription>
-            </FormItemContainer>
-            <FormItemContainer>
-              <Form.Item
-                label={formatMessage({ id: 'app.containers.Producers.maxCollectTime' })}
-                style={formItemStyle}
-              >
-                {getFieldDecorator('maxCollect', {
-                  initialValue: producer.maxCollect,
-                  rules: [
-                    {
-                      required: true,
-                      message: formatMessage({
-                        id: 'app.containers.Producers.maxCollectTimePlaceholder',
-                      }),
-                    },
-                    {
-                      type: 'integer',
-                      message: formatHTMLMessage({ id: 'app.containers.Producers.invalidInteger' }),
-                    },
-                  ],
-                })(<InputNumber disabled={readOnly} />)}
-              </Form.Item>
-              <FormDescription>
-                <FormattedHTMLMessage id="app.containers.Producers.maxCollectTimeDescription" />
-              </FormDescription>
-            </FormItemContainer>
-            <FormItemContainer>
-              <Form.Item
-                label={formatMessage({ id: 'app.containers.Producers.producerIdleTime' })}
-                style={formItemStyle}
-              >
-                {getFieldDecorator('idelTime', {
-                  initialValue: producer.idelTime,
-                  rules: [
-                    {
-                      required: true,
-                      message: formatMessage({
-                        id: 'app.containers.Producers.producerIdleTimePlaceholder',
-                      }),
-                    },
-                    {
-                      type: 'integer',
-                      message: formatHTMLMessage({ id: 'app.containers.Producers.invalidInteger' }),
-                    },
-                  ],
-                })(<InputNumber disabled={readOnly} min={0} max={100} />)}
-                <SecondUnitContainer>
-                  {formatMessage({ id: 'app.containers.Producers.second' })}
-                </SecondUnitContainer>
-              </Form.Item>
-              <FormDescription>
-                <FormattedHTMLMessage id="app.containers.Producers.producerIdleTimeDescription" />
-              </FormDescription>
-            </FormItemContainer>
-            <FormItemContainer>
-              <Form.Item
-                label={formatMessage({ id: 'app.containers.Producers.requestTimeout' })}
-                style={formItemStyle}
-              >
-                {getFieldDecorator('timeout', {
-                  initialValue: producer.timeout,
-                  rules: [
-                    {
-                      required: true,
-                      message: formatMessage({
-                        id: 'app.containers.Producers.requestTimeoutPlaceholder',
-                      }),
-                    },
-                    {
-                      type: 'integer',
-                      message: formatHTMLMessage({ id: 'app.containers.Producers.invalidInteger' }),
-                    },
-                  ],
-                })(<InputNumber disabled={readOnly} min={1} max={1000} />)}
-                <SecondUnitContainer>
-                  {formatMessage({ id: 'app.containers.Producers.second' })}
-                </SecondUnitContainer>
-              </Form.Item>
-              <FormDescription>
-                <FormattedHTMLMessage id="app.containers.Producers.requestTimeoutDescription" />
-              </FormDescription>
-            </FormItemContainer>
-            {/*
+
+            <Collapse>
+              <Panel header={formatMessage({ id: 'app.common.messages.advanced' })}>
+                <Alert
+                  message={formatMessage({ id: 'app.common.messages.advancedDescription' })}
+                  type="warning"
+                  style={{ marginBottom: '16px' }}
+                />
+                {/*
+                <h3>
+                  <FormattedHTMLMessage id="app.containers.Producers.producerConfiguration" />
+                </h3>
+                <p>
+                  <FormattedHTMLMessage id="app.containers.Producers.producerConfigurationDescription" />
+                </p>
+                */}
+                <FormItemContainer style={{ display: 'none' }}>
+                  <Form.Item
+                    label={formatMessage({ id: 'app.containers.Producers.privateMode' })}
+                    style={formItemStyle}
+                  >
+                    {getFieldDecorator('private', {
+                      initialValue: producer.private,
+                      valuePropName: 'checked',
+                    })(
+                      <Switch
+                        disabled={readOnly}
+                        checkedChildren={formatMessage({ id: 'app.containers.Producers.switchOn' })}
+                        unCheckedChildren={formatMessage({
+                          id: 'app.containers.Producers.switchOff',
+                        })}
+                      />,
+                    )}
+                  </Form.Item>
+                  <FormDescription>
+                    <FormattedHTMLMessage id="app.containers.Producers.privateModeDescription" />
+                  </FormDescription>
+                </FormItemContainer>
+                <FormItemContainer>
+                  <Form.Item
+                    label={formatMessage({ id: 'app.containers.Producers.pollingInterval' })}
+                    style={formItemStyle}
+                  >
+                    {getFieldDecorator('pollingInterval', {
+                      initialValue: producer.pollingInterval,
+                      rules: [
+                        {
+                          required: true,
+                          message: formatMessage({
+                            id: 'app.containers.Producers.pollingIntervalPlaceholder',
+                          }),
+                        },
+                        {
+                          type: 'integer',
+                          message: formatHTMLMessage({
+                            id: 'app.containers.Producers.invalidInteger',
+                          }),
+                        },
+                      ],
+                    })(<InputNumber disabled={readOnly} min={1} max={200} />)}
+                    <SecondUnitContainer>
+                      {formatMessage({ id: 'app.containers.Producers.second' })}
+                    </SecondUnitContainer>
+                  </Form.Item>
+                  <FormDescription>
+                    <FormattedHTMLMessage id="app.containers.Producers.pollingIntervalDescription" />
+                  </FormDescription>
+                </FormItemContainer>
+                <FormItemContainer>
+                  <Form.Item
+                    label={formatMessage({ id: 'app.containers.Producers.maxWaitingTime' })}
+                    style={formItemStyle}
+                  >
+                    {getFieldDecorator('maxWaitingTime', {
+                      initialValue: producer.maxWaitingTime,
+                      rules: [
+                        {
+                          required: true,
+                          message: formatMessage({
+                            id: 'app.containers.Producers.maxWaitingTimePlaceholder',
+                          }),
+                        },
+                        {
+                          type: 'integer',
+                          message: formatHTMLMessage({
+                            id: 'app.containers.Producers.invalidInteger',
+                          }),
+                        },
+                      ],
+                    })(<InputNumber disabled={readOnly} min={1} max={10} />)}
+                    <SecondUnitContainer>
+                      {formatMessage({ id: 'app.containers.Producers.second' })}
+                    </SecondUnitContainer>
+                  </Form.Item>
+                  <FormDescription>
+                    <FormattedHTMLMessage id="app.containers.Producers.maxWaitingTimeDescription" />
+                  </FormDescription>
+                </FormItemContainer>
+                <FormItemContainer>
+                  <Form.Item
+                    label={formatMessage({ id: 'app.containers.Producers.maxCollectTime' })}
+                    style={formItemStyle}
+                  >
+                    {getFieldDecorator('maxCollect', {
+                      initialValue: producer.maxCollect,
+                      rules: [
+                        {
+                          required: true,
+                          message: formatMessage({
+                            id: 'app.containers.Producers.maxCollectTimePlaceholder',
+                          }),
+                        },
+                        {
+                          type: 'integer',
+                          message: formatHTMLMessage({
+                            id: 'app.containers.Producers.invalidInteger',
+                          }),
+                        },
+                      ],
+                    })(<InputNumber disabled={readOnly} />)}
+                  </Form.Item>
+                  <FormDescription>
+                    <FormattedHTMLMessage id="app.containers.Producers.maxCollectTimeDescription" />
+                  </FormDescription>
+                </FormItemContainer>
+                <FormItemContainer>
+                  <Form.Item
+                    label={formatMessage({ id: 'app.containers.Producers.producerIdleTime' })}
+                    style={formItemStyle}
+                  >
+                    {getFieldDecorator('idelTime', {
+                      initialValue: producer.idelTime,
+                      rules: [
+                        {
+                          required: true,
+                          message: formatMessage({
+                            id: 'app.containers.Producers.producerIdleTimePlaceholder',
+                          }),
+                        },
+                        {
+                          type: 'integer',
+                          message: formatHTMLMessage({
+                            id: 'app.containers.Producers.invalidInteger',
+                          }),
+                        },
+                      ],
+                    })(<InputNumber disabled={readOnly} min={0} max={100} />)}
+                    <SecondUnitContainer>
+                      {formatMessage({ id: 'app.containers.Producers.second' })}
+                    </SecondUnitContainer>
+                  </Form.Item>
+                  <FormDescription>
+                    <FormattedHTMLMessage id="app.containers.Producers.producerIdleTimeDescription" />
+                  </FormDescription>
+                </FormItemContainer>
+                <FormItemContainer>
+                  <Form.Item
+                    label={formatMessage({ id: 'app.containers.Producers.requestTimeout' })}
+                    style={formItemStyle}
+                  >
+                    {getFieldDecorator('timeout', {
+                      initialValue: producer.timeout,
+                      rules: [
+                        {
+                          required: true,
+                          message: formatMessage({
+                            id: 'app.containers.Producers.requestTimeoutPlaceholder',
+                          }),
+                        },
+                        {
+                          type: 'integer',
+                          message: formatHTMLMessage({
+                            id: 'app.containers.Producers.invalidInteger',
+                          }),
+                        },
+                      ],
+                    })(<InputNumber disabled={readOnly} min={1} max={1000} />)}
+                    <SecondUnitContainer>
+                      {formatMessage({ id: 'app.containers.Producers.second' })}
+                    </SecondUnitContainer>
+                  </Form.Item>
+                  <FormDescription>
+                    <FormattedHTMLMessage id="app.containers.Producers.requestTimeoutDescription" />
+                  </FormDescription>
+                </FormItemContainer>
+                {/*
             <FormItemContainer>
               <Form.Item
                 label={formatMessage({ id: 'app.containers.Producers.maxRetryTime' })}
@@ -524,7 +550,7 @@ class RegisterProducerForm extends React.Component {
               </FormDescription>
             </FormItemContainer>
             */}
-            {/*
+                {/*
             {this.state.producerType === PRODUCER_TYPES.http
               <div>
                 <FormItemContainer>
@@ -629,6 +655,8 @@ class RegisterProducerForm extends React.Component {
               </div>
               : ''}
               */}
+              </Panel>
+            </Collapse>
           </Form>
           <div
             style={{

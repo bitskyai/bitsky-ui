@@ -16,10 +16,7 @@ export default {
   'app.containers.Retailers.registerRetailerDescription':
     `<a href="https://docs.bitsky.ai/overview#retailer">Retailer</a> is used to extract data from websites, and a <a href="https://docs.bitsky.ai/overview#retailer">Retailer</a> needs to connect to a Reatailer Configuation use <b>Global ID</b>
     before the <a href="https://docs.bitsky.ai/overview#retailer">Retailer</a> can be used. If you are using <a href="http://bitsky.ai/">BitSky Desktop Application</a>, it includes a <a href="https://docs.bitsky.ai/overview#retailer">Retailer</a>(<b>Hello Retailer Service</b>) to help you getting start`,
-  'app.containers.Retailers.globalId': 'Global ID',
-  'app.containers.Retailers.globalIdEmpty': 'Automatically generate Global ID value after successfully created',
   'app.containers.Retailers.globalIdPlaceholder': 'Please enter an unique ID',
-  'app.containers.Retailers.globalIdExample': '0e9fe15e-f9a0-4279-9e65-87d2e480a66e',
   'app.containers.Retailers.globalIdDescription':
     'A <a href="https://docs.bitsky.ai/overview#retailer">Retailer</a> uses <b>Global ID</b> to connect to this Retailer Configuration, you need to configure <b>Global ID</b> to your <a href="https://docs.bitsky.ai/overview#retailer">Retailer</a>. <b>Global ID</b> is global unique.',
   'app.containers.Retailers.retailerName': 'Name',

@@ -73,7 +73,8 @@ export default {
   'app.common.messages.baseURLExample': 'http://localhost:9099',
   'app.common.messages.baseURLDescription':
     'Base url of your BitSky application. For example: <span class="ant-typography"><code>http://localhost:9099</code></span>',
-  'app.common.messages.globalId': 'Producer Global ID',
+  'app.common.messages.globalId': 'Global ID',
+  'app.common.messages.globalIdEmpty': 'Automatically generate Global ID value after successfully created',
   'app.common.messages.globalIdInvalid': 'Please enter an unique ID',
   'app.common.messages.globalIdExample': '0e9fe15e-f9a0-4279-9e65-87d2e480a66e',
   'app.common.messages.globalIdDescription': '<b>Global ID</b> of the producer you want to connect',
