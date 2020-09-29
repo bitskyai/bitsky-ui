@@ -7,7 +7,7 @@ export const BITSKY_SUPPLIER = '@bitskyai/supplier';
 export const PRODUCER_TYPES = {
   browserExtension: 'BROWSEREXTENSION',
   headlessBrowser: 'HEADLESSBROWSER',
-  service: 'HTTP',
+  http: 'HTTP',
 };
 
 export const HTTP_HEADERS = {

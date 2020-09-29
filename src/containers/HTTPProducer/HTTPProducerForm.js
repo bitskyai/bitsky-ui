@@ -48,7 +48,7 @@ const FormItemContainer = styled.div`
   margin-bottom: 5px;
 `;
 
-class ServiceProducerForm extends React.Component {
+class HTTPProducerForm extends React.Component {
   constructor() {
     super();
 
@@ -129,7 +129,7 @@ class ServiceProducerForm extends React.Component {
             this.setState({
               producerGlobalIdValidateStatus: 'validating',
             });
-            const service = this.props.service || {};
+            const service = this.props.http || {};
             const serviceConfig = service.data;
             // Do server side validation
             const producerValidateResult = await this.getProducerConfiguration(
@@ -149,14 +149,14 @@ class ServiceProducerForm extends React.Component {
               if (
                 _.toUpper(_.get(producerValidateResult, 'data.type')) &&
                 _.toUpper(_.get(producerValidateResult, 'data.type')) !==
-                  _.toUpper(_.get(this.props, 'service.data.TYPE'))
+                  _.toUpper(_.get(this.props, 'http.data.TYPE'))
               ) {
                 state.producerGlobalIdValidateStatus = 'error';
                 state.alertType = 'error';
                 state.alertMessage = (
                   <FormattedHTMLMessage
                     id="app.common.messages.producer.unmatchedProducerType"
-                    values={{ producerType: 'Service' }}
+                    values={{ producerType: 'HTTP' }}
                   />
                 );
               } else if (
@@ -210,7 +210,7 @@ class ServiceProducerForm extends React.Component {
         baseURL,
         gid,
         serialId,
-        PRODUCER_TYPES.service,
+        PRODUCER_TYPES.http,
         true,
       );
       this.props.dispatch(getProducerConfigurationSuccess(producerConfig));
@@ -262,7 +262,7 @@ class ServiceProducerForm extends React.Component {
           result.alertMessage = (
             <FormattedHTMLMessage
               id="app.common.messages.producer.unmatchedProducerType"
-              values={{ producerType: 'Service' }}
+              values={{ producerType: 'HTTP' }}
             />
           );
         } else if (err.status >= 400) {
@@ -405,7 +405,7 @@ class ServiceProducerForm extends React.Component {
   }
 
   render() {
-    // let content = <ServiceProducerSkeleton />;
+    // let content = <HTTPProducerSkeleton />;
     const { getFieldDecorator } = this.props.form;
     const {
       baseURLValidateStatus,
@@ -415,7 +415,7 @@ class ServiceProducerForm extends React.Component {
       alertMessage,
       selectedProducerHome,
     } = this.state;
-    const service = this.props.service || {};
+    const service = this.props.http || {};
     const serviceConfig = service.data;
 
     // when server is starting or stopping, don't allow to change before finish
@@ -664,6 +664,6 @@ class ServiceProducerForm extends React.Component {
   }
 }
 
-export default connect(({ service }) => ({
-  service,
-}))(Form.create()(ServiceProducerForm));
+export default connect(({ http }) => ({
+  http,
+}))(Form.create()(HTTPProducerForm));

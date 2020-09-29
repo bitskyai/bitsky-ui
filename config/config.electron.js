@@ -26,10 +26,10 @@ const menuRouters = [
     electron: true,
   },
   {
-    path: '/app/service',
-    name: 'defaultService',
+    path: '/app/http',
+    name: 'defaultHTTP',
     icon: 'thunderbolt',
-    component: './ServiceProducer',
+    component: './HTTPProducer',
     electron: true,
   },
   {

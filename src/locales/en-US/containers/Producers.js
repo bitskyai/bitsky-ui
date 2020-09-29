@@ -51,7 +51,7 @@ export default {
     'Please select your Producer Type. <a href="https://docs.bitsky.ai/overview#producer" target="_blank">Learn More.</a>',
   'app.containers.Producers.browserExtensionProducer': 'Browser Extension Producer',
   'app.containers.Producers.headlessProducer': 'Headless Producer',
-  'app.containers.Producers.serviceProducer': 'Serivce Producer',
+  'app.containers.Producers.httpProducer': 'HTTP Producer',
   'app.containers.Producers.producerConfiguration': 'Configuration',
   'app.containers.Producers.producerConfigurationDescription':
     'Configure your producer based on your need, otherwise you can keep it as default.',

@@ -5,83 +5,84 @@
  */
 
 import {
-  GET_SERVICE_CONFIG,
-  UPDATE_SERVICE_CONFIG,
-  STARTING_SERVICE,
-  START_SERVICE,
-  STOPPING_SERVICE,
-  STOP_SERVICE,
-  START_SERVICE_FAIL,
-  START_SERVICE_SUCCESS,
-  STOP_SERVICE_FAIL,
-  STOP_SERVICE_SUCCESS,
+  GET_HTTP_CONFIG,
+  UPDATE_HTTP_CONFIG,
+  STARTING_HTTP,
+  START_HTTP,
+  STOPPING_HTTP,
+  STOP_HTTP,
+  START_HTTP_FAIL,
+  START_HTTP_SUCCESS,
+  STOP_HTTP_FAIL,
+  STOP_HTTP_SUCCESS,
   GET_PRODUCER_CONFIGURATION_FAIL,
   GET_PRODUCER_CONFIGURATION_SUCCESS,
 } from './constants';
 
 export function getServiceConfig() {
+  console.log('getServiceConfig->GET_HTTP_CONFIG: ', GET_HTTP_CONFIG);
   return {
-    type: GET_SERVICE_CONFIG,
+    type: GET_HTTP_CONFIG,
   };
 }
 
 export function updateServiceConfig(payload) {
   return {
-    type: UPDATE_SERVICE_CONFIG,
+    type: UPDATE_HTTP_CONFIG,
     payload,
   };
 }
 
 export function startService() {
   return {
-    type: START_SERVICE,
+    type: START_HTTP,
   };
 }
 
-export function startingService(payload) {
+export function startingHTTP(payload) {
   return {
-    type: STARTING_SERVICE,
+    type: STARTING_HTTP,
     payload,
   };
 }
 
 export function stopService() {
   return {
-    type: STOP_SERVICE,
+    type: STOP_HTTP,
   };
 }
 
-export function stoppingService(payload) {
+export function stoppingHTTP(payload) {
   return {
-    type: STOPPING_SERVICE,
+    type: STOPPING_HTTP,
     payload,
   };
 }
 
 export function startServiceSuccess(payload) {
   return {
-    type: START_SERVICE_SUCCESS,
+    type: START_HTTP_SUCCESS,
     payload,
   };
 }
 
 export function startServiceFail(err) {
   return {
-    type: START_SERVICE_FAIL,
+    type: START_HTTP_FAIL,
     error: err,
   };
 }
 
 export function stopServiceSuccess(payload) {
   return {
-    type: STOP_SERVICE_SUCCESS,
+    type: STOP_HTTP_SUCCESS,
     payload,
   };
 }
 
 export function stopServiceFail(err) {
   return {
-    type: STOP_SERVICE_FAIL,
+    type: STOP_HTTP_FAIL,
     error: err,
   };
 }

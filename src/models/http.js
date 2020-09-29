@@ -6,7 +6,7 @@ import { formatMessage } from 'umi-plugin-react/locale';
 import { sendToElectron } from '../utils/utils';
 
 export default {
-  namespace: 'service',
+  namespace: 'http',
   state: {
     data: {},
     error: undefined,
@@ -15,13 +15,15 @@ export default {
   effects: {
     *getConfig(payload, { call, put }) {
       try {
+        console.log(`http.js->getConfig`);
         yield put({
           type: 'loadingData',
           payload: {
             loadingData: true,
           },
         });
-        const cbData = yield call(sendToElectron, 'service/getConfig');
+        const cbData = yield call(sendToElectron, 'http/getConfig');
+        console.log(`http.js->cbData: `, cbData);
         if (_.get(cbData, 'status')) {
           yield put({
             type: 'getConfigSuccess',
@@ -42,12 +44,12 @@ export default {
     },
     *updateConfig({ payload }, { call, put }) {
       try {
-        yield call(sendToElectron, 'service/updateConfig', payload);
+        yield call(sendToElectron, 'http/updateConfig', payload);
         message.success(formatMessage({ id: 'app.common.messages.updatedConfigSuccessful' }));
       } catch (err) {
         message.success(formatMessage({ id: 'app.common.messages.updatedConfigFail' }));
         yield put({
-          type: 'service/updateConfigFail',
+          type: 'http/updateConfigFail',
           error: err,
         });
       }
@@ -63,7 +65,7 @@ export default {
             },
           },
         });
-        const cbData = yield call(sendToElectron, 'service/start');
+        const cbData = yield call(sendToElectron, 'http/start');
         if (!_.get(cbData, 'status')) {
           yield put({
             type: 'startFail',
@@ -88,7 +90,7 @@ export default {
             },
           },
         });
-        const cbData = yield call(sendToElectron, 'service/stop');
+        const cbData = yield call(sendToElectron, 'http/stop');
         if (!_.get(cbData, 'status')) {
           yield put({
             type: 'stopFail',
@@ -115,6 +117,7 @@ export default {
       });
     },
     getConfigSuccess(state, { payload }) {
+      console.log(`getConfigSuccess: `, payload);
       return produce(state, draft => {
         draft.loadingData = false;
         draft.data = payload;
@@ -172,6 +175,7 @@ export default {
       });
     },
     getProducerConfigurationSuccess(state, { payload }) {
+      console.log(`getProducerConfigurationSuccess: `, payload);
       return produce(state, draft => {
         draft.loadingData = false;
         draft.producer = payload;

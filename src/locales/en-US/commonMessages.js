@@ -37,7 +37,7 @@ export default {
   'app.common.messages.connection.noConnection': 'No Connection',
   'app.common.messages.connection.lostConnection': 'Lost Connection',
   'app.common.messages.producerTypes.headless': 'Headless',
-  'app.common.messages.producerTypes.service': 'Service',
+  'app.common.messages.producerTypes.http': 'HTTP',
   'app.common.messages.producerTypes.browser': 'Browser Extension',
   'app.common.messages.states.configured': 'Configured',
   'app.common.messages.states.active': 'Active',

@@ -22,6 +22,7 @@ export default {
           },
         });
         const cbData = yield call(sendToElectron, 'headless/getConfig');
+        console.log(`headless getConfig->cbData: `, cbData);
         if (_.get(cbData, 'status')) {
           yield put({
             type: 'getHeadlessConfigSuccess',

@@ -12,8 +12,8 @@ export default function ProducerType(props) {
     text = formatMessage({ id: 'app.common.messages.producerTypes.browser' });
   } else if (type === PRODUCER_TYPES.headlessBrowser) {
     text = formatMessage({ id: 'app.common.messages.producerTypes.headless' });
-  } else if (type === PRODUCER_TYPES.service) {
-    text = formatMessage({ id: 'app.common.messages.producerTypes.service' });
+  } else if (type === PRODUCER_TYPES.http) {
+    text = formatMessage({ id: 'app.common.messages.producerTypes.http' });
   }
   return <Tag color={color}>{text}</Tag>;
 }

@@ -107,7 +107,7 @@ class RegisterProducerForm extends React.Component {
     }
     let disableSaveBtn = true;
     let drawerTitle = formatMessage({ id: 'app.containers.Producers.drawerTitleCreate' });
-    let primaryButtonTitle = formatMessage({ id: 'app.containers.Producers.registerNow' });
+    let primaryButtonTitle = formatMessage({ id: 'app.common.messages.create' });
     if (producer.globalId) {
       // if *globalId* exist, then drawer title is
       drawerTitle = formatMessage({ id: 'app.containers.Producers.drawerTitleUpdate' });
@@ -297,8 +297,8 @@ class RegisterProducerForm extends React.Component {
                     <Select.Option value={PRODUCER_TYPES.headlessBrowser}>
                       <FormattedHTMLMessage id="app.containers.Producers.headlessProducer" />
                     </Select.Option>
-                    <Select.Option value={PRODUCER_TYPES.service}>
-                      <FormattedHTMLMessage id="app.containers.Producers.serviceProducer" />
+                    <Select.Option value={PRODUCER_TYPES.http}>
+                      <FormattedHTMLMessage id="app.containers.Producers.httpProducer" />
                     </Select.Option>
                   </Select>,
                 )}
@@ -525,7 +525,7 @@ class RegisterProducerForm extends React.Component {
             </FormItemContainer>
             */}
             {/*
-            {this.state.producerType === PRODUCER_TYPES.service
+            {this.state.producerType === PRODUCER_TYPES.http
               <div>
                 <FormItemContainer>
                   <Form.Item

@@ -11,55 +11,55 @@ import React from 'react';
 import * as _ from 'lodash';
 import { connect } from 'dva';
 // import styled from 'styled-components';
-// import ServiceProducerSkeleton from './ServiceProducerSkeleton';
+// import HTTPProducerSkeleton from './HTTPProducerSkeleton';
 import {
   getServiceConfig,
   startService,
-  startingService,
+  startingHTTP,
   startServiceSuccess,
   startServiceFail,
   stopService,
-  stoppingService,
+  stoppingHTTP,
   stopServiceSuccess,
   stopServiceFail,
 } from './actions';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import styles from './style.less';
-import ServiceProducerForm from './ServiceProducerForm';
+import HTTPProducerForm from './HTTPProducerForm';
 import ProducerType from '../../utils/ProducerType';
 import StateTag from '../../utils/StateTag';
 
 const { Paragraph } = Typography;
 
-export class ServiceProducer extends React.Component {
+export class HTTPProducer extends React.Component {
   // eslint-disable-next-line no-useless-constructor
   constructor(props) {
     super(props);
-    this.startServiceProducer.bind(this);
-    this.stopServiceProducer.bind(this);
+    this.startHTTPProducer.bind(this);
+    this.stopHTTPProducer.bind(this);
   }
 
   componentDidMount() {
     this.props.dispatch(getServiceConfig());
     // listen event send back from electron
-    window.addEventListener('startingService', this.startingServiceHandler.bind(this), true);
-    window.addEventListener('startedService', this.startedServiceHandler.bind(this), true);
-    window.addEventListener('stoppingService', this.stoppingServiceHandler.bind(this), true);
-    window.addEventListener('stoppedService', this.stoppedServiceHandler.bind(this), true);
+    window.addEventListener('startingHTTP', this.startingHTTPHandler.bind(this), true);
+    window.addEventListener('startedHTTP', this.startedHTTPHandler.bind(this), true);
+    window.addEventListener('stoppingHTTP', this.stoppingHTTPHandler.bind(this), true);
+    window.addEventListener('stoppedHTTP', this.stoppedHTTPHandler.bind(this), true);
   }
 
   componentWillUnmount() {
-    window.removeEventListener('startingService', this.startingServiceHandler.bind(this), true);
-    window.removeEventListener('startedService', this.startedServiceHandler.bind(this), true);
-    window.removeEventListener('stoppingService', this.stoppingServiceHandler.bind(this), true);
-    window.removeEventListener('stoppedService', this.stoppedServiceHandler.bind(this), true);
+    window.removeEventListener('startingHTTP', this.startingHTTPHandler.bind(this), true);
+    window.removeEventListener('startedHTTP', this.startedHTTPHandler.bind(this), true);
+    window.removeEventListener('stoppingHTTP', this.stoppingHTTPHandler.bind(this), true);
+    window.removeEventListener('stoppedHTTP', this.stoppedHTTPHandler.bind(this), true);
   }
 
-  startingServiceHandler(event) {
-    this.props.dispatch(startingService(event.detail && event.detail.data));
+  startingHTTPHandler(event) {
+    this.props.dispatch(startingHTTP(event.detail && event.detail.data));
   }
 
-  startedServiceHandler(event) {
+  startedHTTPHandler(event) {
     const payload = event.detail;
     if (payload) {
       if (payload.status) {
@@ -70,11 +70,11 @@ export class ServiceProducer extends React.Component {
     }
   }
 
-  stoppingServiceHandler(event) {
-    this.props.dispatch(stoppingService(event.detail && event.detail.data));
+  stoppingHTTPHandler(event) {
+    this.props.dispatch(stoppingHTTP(event.detail && event.detail.data));
   }
 
-  stoppedServiceHandler(event) {
+  stoppedHTTPHandler(event) {
     const payload = event.detail;
     if (payload) {
       if (payload.status) {
@@ -85,17 +85,17 @@ export class ServiceProducer extends React.Component {
     }
   }
 
-  startServiceProducer() {
+  startHTTPProducer() {
     this.props.dispatch(startService());
   }
 
-  stopServiceProducer() {
+  stopHTTPProducer() {
     this.props.dispatch(stopService());
   }
 
   render() {
-    const serviceConfig = this.props.service.data;
-    const producerConfig = this.props.service.producer;
+    const serviceConfig = this.props.http.data;
+    const producerConfig = this.props.http.producer;
     const IconLink = ({ href, src, text }) => (
       <a className="page-header-doc-link" href={href}>
         <img className="page-header-doc-link-icon" src={src} alt={text} />
@@ -106,7 +106,7 @@ export class ServiceProducer extends React.Component {
     const description = (
       <>
         <Paragraph>
-          <FormattedHTMLMessage id="app.containers.ServiceProducer.description" />
+          <FormattedHTMLMessage id="app.containers.HTTPProducer.description" />
         </Paragraph>
         <div>
           <IconLink
@@ -115,7 +115,7 @@ export class ServiceProducer extends React.Component {
             text={formatMessage({ id: 'app.common.messages.action.gettingStart' })}
           />
           <IconLink
-            href="https://docs.bitsky.ai/user-guides/service-producer"
+            href="https://docs.bitsky.ai/user-guides/http-producer"
             src="https://gw.alipayobjects.com/zos/rmsportal/NbuDUAuBlIApFuDvWiND.svg"
             text={formatMessage({ id: 'app.common.messages.action.more' })}
           />
@@ -158,7 +158,7 @@ export class ServiceProducer extends React.Component {
             key="stop"
             style={{ color: '#f50', border: '1px solid #f50' }}
             onClick={() => {
-              this.stopServiceProducer();
+              this.stopHTTPProducer();
             }}
           >
             <Icon type="pause-circle" />
@@ -173,7 +173,7 @@ export class ServiceProducer extends React.Component {
             key="start"
             style={{ color: '#1890ff', border: '1px solid #1890ff' }}
             onClick={() => {
-              this.startServiceProducer();
+              this.startHTTPProducer();
             }}
           >
             <Icon type="caret-right" />
@@ -185,14 +185,14 @@ export class ServiceProducer extends React.Component {
     if (_.get(producerConfig, 'system.state')) {
       stateTag = <StateTag state={_.get(producerConfig, 'system.state')} />;
     }
-    const serviceProducerURL = `http://localhost:${serviceConfig.PORT}`;
+    const httpProducerURL = `http://localhost:${serviceConfig.PORT}`;
     return (
       <div>
         <>
           <div className="bitsky-page-header-ghost-wrapper">
             <PageHeader
-              title={formatMessage({ id: 'menu.defaultService' })}
-              subTitle={formatMessage({ id: 'app.containers.ServiceProducer.subTitle' })}
+              title={formatMessage({ id: 'menu.defaultHTTP' })}
+              subTitle={formatMessage({ id: 'app.containers.HTTPProducer.subTitle' })}
               className="site-page-header"
               tags={
                 <>
@@ -204,7 +204,7 @@ export class ServiceProducer extends React.Component {
               extra={[
                 operationBtn,
                 <Button key="view" type="primary" disabled={!serviceConfig.RUNNING}>
-                  <a href={serviceProducerURL}>
+                  <a href={httpProducerURL}>
                     <Icon type="eye" />
                     <FormattedMessage id="app.common.messages.action.view" />
                   </a>
@@ -219,7 +219,7 @@ export class ServiceProducer extends React.Component {
               <Row>
                 <Col xs={0} sm={0} md={0} lg={1} xl={2}></Col>
                 <Col xs={24} sm={24} md={24} lg={22} xl={20}>
-                  <ServiceProducerForm />
+                  <HTTPProducerForm />
                 </Col>
                 <Col xs={0} sm={0} md={0} lg={1} xl={2}></Col>
               </Row>
@@ -231,4 +231,4 @@ export class ServiceProducer extends React.Component {
   }
 }
 
-export default connect(({ service }) => ({ service }))(ServiceProducer);
+export default connect(({ http }) => ({ http }))(HTTPProducer);

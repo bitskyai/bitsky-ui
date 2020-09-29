@@ -84,7 +84,7 @@ class RegisterRetailerForm extends React.Component {
     let disableSaveBtn = true;
 
     let drawerTitle = formatMessage({ id: 'app.containers.Retailers.drawerTitle' });
-    let primaryButtonTitle = formatMessage({ id: 'app.containers.Retailers.registerNow' });
+    let primaryButtonTitle = formatMessage({ id: 'app.common.messages.create' });
     if (this.props.retailer && this.props.retailer.globalId) {
       // if *globalId* exist, then drawer title is
       drawerTitle = formatMessage({ id: 'app.containers.Retailers.drawerTitleUpdate' });

@@ -15,7 +15,7 @@ import settingsCtn from './en-US/containers/Settings';
 import signupCtn from './en-US/containers/Signup';
 import retailersCtn from './en-US/containers/Retailers';
 import HeadlessProducerCtn from './en-US/containers/HeadlessProducer';
-import ServiceProducerCtn from './en-US/containers/ServiceProducer';
+import HTTPProducerCtn from './en-US/containers/HTTPProducer';
 // import settings from './en-US/settings';
 export default {
   'navBar.lang': 'Languages',
@@ -40,5 +40,5 @@ export default {
   ...tasksHistoryCtn,
   ...signupCtn,
   ...HeadlessProducerCtn,
-  ...ServiceProducerCtn,
+  ...HTTPProducerCtn,
 };
