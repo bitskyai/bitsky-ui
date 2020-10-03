@@ -233,32 +233,42 @@ export class Producers extends React.Component {
             {(() => {
               if (record.system.state === STATES.active) {
                 return (
-                  <Button
-                    type="link"
-                    size="small"
-                    style={actionButtonStyle}
-                    title={formatMessage({ id: 'app.containers.Producers.deactivateDescription' })}
-                    onClick={e => {
-                      this.deactivateProducer(record, e);
-                    }}
+                  <Tooltip
+                    title={
+                      <FormattedHTMLMessage id="app.containers.Producers.deactivateDescription"></FormattedHTMLMessage>
+                    }
                   >
-                    {formatMessage({ id: 'app.common.messages.deactivate' })}
-                  </Button>
+                    <Button
+                      type="link"
+                      size="small"
+                      style={actionButtonStyle}
+                      onClick={e => {
+                        this.deactivateProducer(record, e);
+                      }}
+                    >
+                      {formatMessage({ id: 'app.common.messages.deactivate' })}
+                    </Button>
+                  </Tooltip>
                 );
               }
               if (record.system.state === STATES.configured) {
                 return (
-                  <Button
-                    type="link"
-                    size="small"
-                    style={actionButtonStyle}
-                    title={formatMessage({ id: 'app.containers.Producers.activateDescription' })}
-                    onClick={e => {
-                      this.activateProducer(record, e);
-                    }}
+                  <Tooltip
+                    title={
+                      <FormattedHTMLMessage id="app.containers.Producers.activateDescription"></FormattedHTMLMessage>
+                    }
                   >
-                    {formatMessage({ id: 'app.common.messages.activate' })}
-                  </Button>
+                    <Button
+                      type="link"
+                      size="small"
+                      style={actionButtonStyle}
+                      onClick={e => {
+                        this.activateProducer(record, e);
+                      }}
+                    >
+                      {formatMessage({ id: 'app.common.messages.activate' })}
+                    </Button>
+                  </Tooltip>
                 );
               }
               return '';
@@ -286,6 +296,27 @@ export class Producers extends React.Component {
                 {formatMessage({ id: 'app.common.messages.activate' })}
               </Button>
             )} */}
+            {_.get(record, 'system.serialId') ? (
+              <Tooltip
+                title={
+                  <FormattedHTMLMessage id="app.containers.Producers.disconnectDescription"></FormattedHTMLMessage>
+                }
+              >
+                <Button
+                  type="link"
+                  size="small"
+                  style={actionButtonStyle}
+                  onClick={e => {
+                    // this.onClickDelete(record, e);
+                    this.disconnectProducer(record, e);
+                  }}
+                >
+                  {formatMessage({ id: 'app.common.messages.disconnect' })}
+                </Button>
+              </Tooltip>
+            ) : (
+              ''
+            ) /**/}
             <Popconfirm
               style={{ maxWidth: '300px' }}
               title={formatMessage({ id: 'app.containers.Producers.deleteProducerDescription' })}
@@ -311,22 +342,6 @@ export class Producers extends React.Component {
                 {formatMessage({ id: 'app.common.messages.delete' })}
               </Button>
             </Popconfirm>
-            {_.get(record, 'system.serialId') ? (
-              <Button
-                type="link"
-                size="small"
-                style={actionButtonStyle}
-                title={formatMessage({ id: 'app.containers.Producers.disconnectDescription' })}
-                onClick={e => {
-                  // this.onClickDelete(record, e);
-                  this.disconnectProducer(record, e);
-                }}
-              >
-                {formatMessage({ id: 'app.common.messages.disconnect' })}
-              </Button>
-            ) : (
-              ''
-            ) /**/}
           </div>
         ),
       },
@@ -363,7 +378,9 @@ export class Producers extends React.Component {
               <div style={{ paddingBottom: '15px' }}>
                 <Row>
                   <Col span={14}>
-                    <Tooltip title={formatMessage({ id: 'app.containers.Producers.drawerTitleCreate' })}>
+                    <Tooltip
+                      title={formatMessage({ id: 'app.containers.Producers.drawerTitleCreate' })}
+                    >
                       <Button
                         onClick={() => {
                           this.onRegisterProducer();

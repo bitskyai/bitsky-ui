@@ -3,7 +3,7 @@
  * HTTP Producer
  *
  */
-import { Card, PageHeader, Button, Tag, Typography, Row, Col, Icon } from 'antd';
+import { Card, PageHeader, Button, Tag, Typography, Row, Col, Icon, Tooltip } from 'antd';
 // import { InfoCircleOutlined } from '@ant-design/icons';
 import { FormattedHTMLMessage, FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 // import $ from 'jquery';
@@ -154,31 +154,43 @@ export class HTTPProducer extends React.Component {
         tagColor = 'green';
         tagText = formatMessage({ id: 'app.common.messages.status.running' });
         operationBtn = (
-          <Button
-            key="stop"
-            style={{ color: '#f50', border: '1px solid #f50' }}
-            onClick={() => {
-              this.stopHTTPProducer();
-            }}
+          <Tooltip
+            title={
+              <FormattedHTMLMessage id="app.common.messages.action.stopHint"></FormattedHTMLMessage>
+            }
           >
-            <Icon type="pause-circle" />
-            <FormattedMessage id="app.common.messages.action.stop" />
-          </Button>
+            <Button
+              key="stop"
+              style={{ color: '#f50', border: '1px solid #f50' }}
+              onClick={() => {
+                this.stopHTTPProducer();
+              }}
+            >
+              <Icon type="pause-circle" />
+              <FormattedMessage id="app.common.messages.action.stop" />
+            </Button>
+          </Tooltip>
         );
       } else {
         tagColor = 'red';
         tagText = formatMessage({ id: 'app.common.messages.status.stopped' });
         operationBtn = (
-          <Button
-            key="start"
-            style={{ color: '#1890ff', border: '1px solid #1890ff' }}
-            onClick={() => {
-              this.startHTTPProducer();
-            }}
+          <Tooltip
+            title={
+              <FormattedHTMLMessage id="app.common.messages.action.startHint"></FormattedHTMLMessage>
+            }
           >
-            <Icon type="caret-right" />
-            <FormattedMessage id="app.common.messages.action.start" />
-          </Button>
+            <Button
+              key="start"
+              style={{ color: '#1890ff', border: '1px solid #1890ff' }}
+              onClick={() => {
+                this.startHTTPProducer();
+              }}
+            >
+              <Icon type="caret-right" />
+              <FormattedMessage id="app.common.messages.action.start" />
+            </Button>
+          </Tooltip>
         );
       }
     }
@@ -203,12 +215,18 @@ export class HTTPProducer extends React.Component {
               }
               extra={[
                 operationBtn,
-                <Button key="view" type="primary" disabled={!serviceConfig.RUNNING}>
-                  <a href={httpProducerURL}>
-                    <Icon type="eye" />
-                    <FormattedMessage id="app.common.messages.action.view" />
-                  </a>
-                </Button>,
+                <Tooltip
+                  title={
+                    <FormattedHTMLMessage id="app.common.messages.action.viewHint"></FormattedHTMLMessage>
+                  }
+                >
+                  <Button key="view" type="primary" disabled={!serviceConfig.RUNNING}>
+                    <a href={httpProducerURL}>
+                      <Icon type="eye" />
+                      <FormattedMessage id="app.common.messages.action.view" />
+                    </a>
+                  </Button>
+                </Tooltip>,
               ]}
             >
               <Content>{description}</Content>

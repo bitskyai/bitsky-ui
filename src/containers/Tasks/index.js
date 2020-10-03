@@ -16,6 +16,7 @@ import {
   Spin,
   Table,
   message,
+  Tooltip,
 } from 'antd';
 import { FormattedHTMLMessage, FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
@@ -30,11 +31,7 @@ import { connect } from 'dva';
 import dayjs from 'dayjs';
 import styled from 'styled-components';
 import TasksSkeleton from './TasksSkeleton';
-import {
-  refreshTasksFail,
-  refreshTasksSuccess,
-  resetTasks,
-} from './actions';
+import { refreshTasksFail, refreshTasksSuccess, resetTasks } from './actions';
 import {
   deleteTasksOrHistoryForManagementAPI,
   getTasksOrHistoryForManagementAPI,
@@ -107,9 +104,7 @@ export class Tasks extends React.Component {
     $('.task-table-container .ant-table-body').bind('scroll', () => {
       const scrollTop = $('.task-table-container .ant-table-body').scrollTop();
       const offsetHeight = $('.task-table-container .ant-table-body').outerHeight();
-      const { scrollHeight } = document.querySelector(
-        '.task-table-container .ant-table-body',
-      );
+      const { scrollHeight } = document.querySelector('.task-table-container .ant-table-body');
 
       // console.log("scrollHeight: ", scrollHeight);
       // console.log("scrollTop: ", scrollTop);
@@ -166,11 +161,7 @@ export class Tasks extends React.Component {
           resuming: false,
         },
       });
-      await pauseTasksForManagementAPI(
-        this.filterConditions.url,
-        ids,
-        this.filterConditions.state,
-      );
+      await pauseTasksForManagementAPI(this.filterConditions.url, ids, this.filterConditions.state);
       this.setState({
         operationBtns: {
           pausing: false,
@@ -515,10 +506,7 @@ export class Tasks extends React.Component {
 
     if (!loadingTasksData) {
       // if currently in search mode, then show table
-      if (
-        (!tasks.data || !tasks.data.length) &&
-        !_.keys(this.filterConditions).length
-      ) {
+      if ((!tasks.data || !tasks.data.length) && !_.keys(this.filterConditions).length) {
         content = (
           <EmptyContainer>
             <Empty
@@ -554,49 +542,76 @@ export class Tasks extends React.Component {
         const menu = (
           <Menu>
             <Menu.Item>
-              <Button
-                type="link"
-                onClick={() => {
-                  this.onPauseAll();
-                }}
-                disabled={operationBtnDisabled}
-                loading={this.state.operationBtns.pausing}
+              <Tooltip
+                title={
+                  <FormattedHTMLMessage
+                    id="app.containers.Tasks.pauseAllHint"
+                    values={{ taskNumber: total }}
+                  ></FormattedHTMLMessage>
+                }
               >
-                <FormattedMessage
-                  id="app.containers.Tasks.pauseAll"
-                  values={{ taskNumber: total }}
-                />
-              </Button>
+                <Button
+                  type="link"
+                  onClick={() => {
+                    this.onPauseAll();
+                  }}
+                  disabled={operationBtnDisabled}
+                  loading={this.state.operationBtns.pausing}
+                >
+                  <FormattedMessage
+                    id="app.containers.Tasks.pauseAll"
+                    values={{ taskNumber: total }}
+                  />
+                </Button>
+              </Tooltip>
             </Menu.Item>
             <Menu.Item>
-              <Button
-                type="link"
-                onClick={() => {
-                  this.onResumeAll();
-                }}
-                disabled={operationBtnDisabled}
-                loading={this.state.operationBtns.resuming}
+              <Tooltip
+                title={
+                  <FormattedHTMLMessage
+                    id="app.containers.Tasks.resumeAllHint"
+                    values={{ taskNumber: total }}
+                  ></FormattedHTMLMessage>
+                }
               >
-                <FormattedMessage
-                  id="app.containers.Tasks.resumeAll"
-                  values={{ taskNumber: total }}
-                />
-              </Button>
+                <Button
+                  type="link"
+                  onClick={() => {
+                    this.onResumeAll();
+                  }}
+                  disabled={operationBtnDisabled}
+                  loading={this.state.operationBtns.resuming}
+                >
+                  <FormattedMessage
+                    id="app.containers.Tasks.resumeAll"
+                    values={{ taskNumber: total }}
+                  />
+                </Button>
+              </Tooltip>
             </Menu.Item>
             <Menu.Item>
-              <Button
-                type="link"
-                onClick={() => {
-                  this.onDeleteAll();
-                }}
-                disabled={operationBtnDisabled}
-                loading={this.state.operationBtns.deleting}
+              <Tooltip
+                title={
+                  <FormattedHTMLMessage
+                    id="app.containers.Tasks.deleteAllHint"
+                    values={{ taskNumber: total }}
+                  ></FormattedHTMLMessage>
+                }
               >
-                <FormattedMessage
-                  id="app.containers.Tasks.deleteAll"
-                  values={{ taskNumber: total }}
-                />
-              </Button>
+                <Button
+                  type="link"
+                  onClick={() => {
+                    this.onDeleteAll();
+                  }}
+                  disabled={operationBtnDisabled}
+                  loading={this.state.operationBtns.deleting}
+                >
+                  <FormattedMessage
+                    id="app.containers.Tasks.deleteAll"
+                    values={{ taskNumber: total }}
+                  />
+                </Button>
+              </Tooltip>
             </Menu.Item>
           </Menu>
         );
@@ -614,11 +629,7 @@ export class Tasks extends React.Component {
                 />
               </span>
             </div>
-            <Button
-              type="link"
-              onClick={() => this.initTasksData()}
-              disabled={loadingTasksData}
-            >
+            <Button type="link" onClick={() => this.initTasksData()} disabled={loadingTasksData}>
               {/* {dayjs(tasks.modified).format('YYYY/MM/DD HH:mm:ss')} */}
               <TimeAgo date={tasks.modified} />
               <Icon
@@ -638,44 +649,71 @@ export class Tasks extends React.Component {
                 <Row>
                   <MediaQuery minWidth={1444}>
                     <Col span={14}>
-                      <Button
-                        onClick={() => {
-                          this.onPauseAll();
-                        }}
-                        disabled={operationBtnDisabled}
-                        loading={this.state.operationBtns.pausing}
+                      <Tooltip
+                        title={
+                          <FormattedHTMLMessage
+                            id="app.containers.Tasks.pauseAllHint"
+                            values={{ taskNumber: total }}
+                          ></FormattedHTMLMessage>
+                        }
                       >
-                        <FormattedMessage
-                          id="app.containers.Tasks.pauseAll"
-                          values={{ taskNumber: total }}
-                        />
-                      </Button>
-                      <Button
-                        onClick={() => {
-                          this.onResumeAll();
-                        }}
-                        style={{ marginLeft: '10px' }}
-                        disabled={operationBtnDisabled}
-                        loading={this.state.operationBtns.resuming}
+                        <Button
+                          onClick={() => {
+                            this.onPauseAll();
+                          }}
+                          disabled={operationBtnDisabled}
+                          loading={this.state.operationBtns.pausing}
+                        >
+                          <FormattedMessage
+                            id="app.containers.Tasks.pauseAll"
+                            values={{ taskNumber: total }}
+                          />
+                        </Button>
+                      </Tooltip>
+                      <Tooltip
+                        title={
+                          <FormattedHTMLMessage
+                            id="app.containers.Tasks.resumeAllHint"
+                            values={{ taskNumber: total }}
+                          ></FormattedHTMLMessage>
+                        }
                       >
-                        <FormattedMessage
-                          id="app.containers.Tasks.resumeAll"
-                          values={{ taskNumber: total }}
-                        />
-                      </Button>
-                      <Button
-                        onClick={() => {
-                          this.onDeleteAll();
-                        }}
-                        style={{ marginLeft: '10px' }}
-                        disabled={operationBtnDisabled}
-                        loading={this.state.operationBtns.deleting}
+                        <Button
+                          onClick={() => {
+                            this.onResumeAll();
+                          }}
+                          style={{ marginLeft: '10px' }}
+                          disabled={operationBtnDisabled}
+                          loading={this.state.operationBtns.resuming}
+                        >
+                          <FormattedMessage
+                            id="app.containers.Tasks.resumeAll"
+                            values={{ taskNumber: total }}
+                          />
+                        </Button>
+                      </Tooltip>
+                      <Tooltip
+                        title={
+                          <FormattedHTMLMessage
+                            id="app.containers.Tasks.deleteAllHint"
+                            values={{ taskNumber: total }}
+                          ></FormattedHTMLMessage>
+                        }
                       >
-                        <FormattedMessage
-                          id="app.containers.Tasks.deleteAll"
-                          values={{ taskNumber: total }}
-                        />
-                      </Button>
+                        <Button
+                          onClick={() => {
+                            this.onDeleteAll();
+                          }}
+                          style={{ marginLeft: '10px' }}
+                          disabled={operationBtnDisabled}
+                          loading={this.state.operationBtns.deleting}
+                        >
+                          <FormattedMessage
+                            id="app.containers.Tasks.deleteAll"
+                            values={{ taskNumber: total }}
+                          />
+                        </Button>
+                      </Tooltip>
                     </Col>
                     <Col span={10} style={{ textAlign: 'right' }}>
                       {rightContent}

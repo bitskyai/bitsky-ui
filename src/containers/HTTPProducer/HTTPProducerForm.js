@@ -505,7 +505,7 @@ class HTTPProducerForm extends React.Component {
           </FormItemContainer>
           <FormItemContainer>
             <Form.Item
-              label={formatMessage({ id: 'app.common.messages.globalId' })}
+              label={formatMessage({ id: 'app.common.messages.producerConfigurationglobalId' })}
               style={formItemStyle}
               {...globalIdProps}
             >
@@ -535,7 +535,7 @@ class HTTPProducerForm extends React.Component {
               )}
             </Form.Item>
             <FormDescription>
-              <FormattedHTMLMessage id="app.common.messages.globalIdDescription" />
+              <FormattedHTMLMessage id="app.common.messages.producerConfigurationglobalIdDescription" />
             </FormDescription>
           </FormItemContainer>
           <FormItemContainer>

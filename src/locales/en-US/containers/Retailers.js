@@ -6,7 +6,7 @@
 
 export default {
   'app.containers.Retailers.header': 'Retailer Configurations',
-  'app.containers.Retailers.emptyRetailers': `You don't have any <a href="https://docs.bitsky.ai/overview#retailer" target="_blank">Retailer Configurations</a>`,
+  'app.containers.Retailers.emptyRetailers': `You don't have any <a href="https://docs.bitsky.ai/overview#retailer-configuration" target="_blank">Retailer Configurations</a>, please check <a href="https://docs.bitsky.ai/">Quick Start</a> to start`,
   'app.containers.Retailers.drawerTitle': 'Create a Retailer Configuration',
   'app.containers.Retailers.drawerTitleUpdate': 'Modify this Retailer Configuration',
   'app.containers.Retailers.ping': 'Ping',

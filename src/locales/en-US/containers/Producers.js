@@ -11,7 +11,7 @@ export default {
   'app.containers.Producers.second': 'second',
   'app.containers.Producers.header': 'Producers',
   'app.containers.Producers.emptyProducers':
-    'You don\'t have any <a href="https://docs.bitsky.ai/overview#producer" target="_blank">Producer Configurations</a>',
+    'You don\'t have any <a href="https://docs.bitsky.ai/overview#producer-configuration" target="_blank">Producer Configurations</a>, please check <a href="https://docs.bitsky.ai/">Quick Start</a> to start',
   'app.containers.Producers.drawerTitleCreate': 'Create a Producer Configuration',
   'app.containers.Producers.drawerTitleUpdate': 'Modify this Producer Configuration',
   'app.containers.Producers.activeProducerTip':
@@ -132,11 +132,11 @@ export default {
     "You need to register this producer before you can use it.  <a href='https://docs.bitsky.ai/how-tos/how-to-register-an-producer' target='_blank'>How to register a Producer</a>",
   'app.containers.Producers.checkingBitSkyHealth': 'Checking BitSky health... [ {method} ] {url}',
   'app.containers.Producers.activateDescription':
-    'Activate this producer, after activate then this producer will start collect tasks',
+    'Change this Producer Configuration State to <b>Active</b>, so connected <b>Producer</b> will start executing Tasks',
   'app.containers.Producers.deactivateDescription':
-    'Deactivate this producer, after deactivate then this producer will stop collect tasks',
+    'Change this Producer Configuration State to <b>Configured</b>, so connected <b>Producer</b> will stop executing Tasks',
   'app.containers.Producers.disconnectDescription':
-    'Disconnect all the producer currently connect to this producer, after disconnect successful will generate new globalId',
+    'Disconnect with currently <b>connected Producer</b>, after successfuly disconnect, will generate a new <b>Global ID</b> for this <b>Producer Configuration</b>',
   'app.containers.Producers.activateProducerSuccess': 'Successfully activate this producer',
   'app.containers.Producers.deactivateProducerSuccess': 'Successfully deactivate this producer',
   'app.containers.Producers.disconnectProducerSuccess': 'Successfully disconnect this producer',

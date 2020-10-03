@@ -16,6 +16,7 @@ import {
   Spin,
   Table,
   message,
+  Tooltip,
 } from 'antd';
 import { FormattedHTMLMessage, FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
@@ -28,11 +29,7 @@ import { connect } from 'dva';
 import dayjs from 'dayjs';
 import styled from 'styled-components';
 import TasksSkeleton from './TasksSkeleton';
-import {
-  refreshTasksFail,
-  refreshTasksSuccess,
-  resetTasks,
-} from './actions';
+import { refreshTasksFail, refreshTasksSuccess, resetTasks } from './actions';
 import {
   deleteTasksOrHistoryForManagementAPI,
   getTasksOrHistoryForManagementAPI,
@@ -98,9 +95,7 @@ export class TasksHistory extends React.Component {
     $('.task-table-container .ant-table-body').bind('scroll', () => {
       const scrollTop = $('.task-table-container .ant-table-body').scrollTop();
       const offsetHeight = $('.task-table-container .ant-table-body').outerHeight();
-      const { scrollHeight } = document.querySelector(
-        '.task-table-container .ant-table-body',
-      );
+      const { scrollHeight } = document.querySelector('.task-table-container .ant-table-body');
 
       // console.log("scrollHeight: ", scrollHeight);
       // console.log("scrollTop: ", scrollTop);
@@ -206,11 +201,7 @@ export class TasksHistory extends React.Component {
           reruning: true,
         },
       });
-      await rerunTasksForManagementAPI(
-        this.filterConditions.url,
-        ids,
-        this.filterConditions.state,
-      );
+      await rerunTasksForManagementAPI(this.filterConditions.url, ids, this.filterConditions.state);
       const successStr = formatMessage({
         id: 'app.containers.TasksHistory.rerunAllSuccess',
       });
@@ -464,10 +455,7 @@ export class TasksHistory extends React.Component {
 
     if (!loadingTasksData) {
       // if currently in search mode, then show table
-      if (
-        (!tasks.data || !tasks.data.length) &&
-        !_.keys(this.filterConditions).length
-      ) {
+      if ((!tasks.data || !tasks.data.length) && !_.keys(this.filterConditions).length) {
         content = (
           <EmptyContainer>
             <Empty
@@ -548,11 +536,7 @@ export class TasksHistory extends React.Component {
                 />
               </span>
             </div>
-            <Button
-              type="link"
-              onClick={() => this.initTasksData()}
-              disabled={loadingTasksData}
-            >
+            <Button type="link" onClick={() => this.initTasksData()} disabled={loadingTasksData}>
               {/* {dayjs(tasks.modified).format('YYYY/MM/DD HH:mm:ss')} */}
               <TimeAgo date={tasks.modified} />
               <Icon
@@ -572,19 +556,28 @@ export class TasksHistory extends React.Component {
                 <Row>
                   <MediaQuery minWidth={1028}>
                     <Col span={16}>
-                      <Button
-                        onClick={() => {
-                          this.onRerunAll();
-                        }}
-                        style={{ marginLeft: '10px' }}
-                        disabled={operationBtnDisabled}
-                        loading={this.state.operationBtns.reruning}
+                      <Tooltip
+                        title={
+                          <FormattedHTMLMessage
+                            id="app.containers.TasksHistory.rerunAllHint"
+                            values={{ taskNumber: total }}
+                          ></FormattedHTMLMessage>
+                        }
                       >
-                        <FormattedMessage
-                          id="app.containers.TasksHistory.rerunAll"
-                          values={{ taskNumber: total }}
-                        />
-                      </Button>
+                        <Button
+                          onClick={() => {
+                            this.onRerunAll();
+                          }}
+                          style={{ marginLeft: '10px' }}
+                          disabled={operationBtnDisabled}
+                          loading={this.state.operationBtns.reruning}
+                        >
+                          <FormattedMessage
+                            id="app.containers.TasksHistory.rerunAll"
+                            values={{ taskNumber: total }}
+                          />
+                        </Button>
+                      </Tooltip>
                       <Button
                         onClick={() => {
                           this.onDeleteAll();
