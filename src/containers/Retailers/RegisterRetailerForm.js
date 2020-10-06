@@ -59,8 +59,15 @@ class RegisterRetailerForm extends React.Component {
             await registerARetailer(values);
             this.props.dispatch(refreshRetailers());
           }
-          const msg = formatMessage({ id: 'app.containers.Retailers.registerRetailerSuccessful' });
-          message.success(msg);
+          message.success(
+            <span
+              dangerouslySetInnerHTML={{
+                __html: formatMessage({
+                  id: 'app.containers.Retailers.registerRetailerSuccessful',
+                }),
+              }}
+            ></span>,
+          );
           this.setState({
             sending: false,
           });
@@ -153,11 +160,15 @@ class RegisterRetailerForm extends React.Component {
               label={formatMessage({ id: 'app.common.messages.globalId' })}
               style={formItemStyle}
             >
-              {this.props.retailer
-                ? getFieldDecorator('globalId', {
-                    rules: [],
-                  })(<Paragraph copyable>{this.props.retailer.globalId}</Paragraph>)
-                : <Paragraph><code>{formatMessage({ id: 'app.common.messages.globalIdEmpty' })}</code></Paragraph>}
+              {this.props.retailer ? (
+                getFieldDecorator('globalId', {
+                  rules: [],
+                })(<Paragraph copyable>{this.props.retailer.globalId}</Paragraph>)
+              ) : (
+                <Paragraph>
+                  <code>{formatMessage({ id: 'app.common.messages.globalIdEmpty' })}</code>
+                </Paragraph>
+              )}
               <FormDescription>
                 <FormattedHTMLMessage id="app.containers.Retailers.globalIdDescription" />
               </FormDescription>

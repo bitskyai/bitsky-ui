@@ -647,7 +647,7 @@ export class Tasks extends React.Component {
             <div>
               <div style={{ paddingBottom: '15px' }}>
                 <Row>
-                  <MediaQuery minWidth={1444}>
+                  <MediaQuery minWidth={1024}>
                     <Col span={14}>
                       <Tooltip
                         title={
@@ -719,7 +719,7 @@ export class Tasks extends React.Component {
                       {rightContent}
                     </Col>
                   </MediaQuery>
-                  <MediaQuery maxWidth={1444}>
+                  <MediaQuery maxWidth={1024}>
                     <Col span={3}>
                       <Dropdown overlay={menu}>
                         <Button>
