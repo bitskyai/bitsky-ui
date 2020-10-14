@@ -52,12 +52,12 @@ const plugins = [
       autoAddMenu: true,
     },
   ],
-  [
-    'umi-plugin-ga',
-    {
-      code: 'UA-72788897-6',
-    },
-  ],
+  // [
+  //   'umi-plugin-ga',
+  //   {
+  //     code: 'UA-72788897-6',
+  //   },
+  // ],
 ];
 
 export default {

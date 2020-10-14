@@ -26,7 +26,7 @@ import { darkBlueColor } from '../../styleVariables';
 // import makeSelectSignupPage from './selectors';
 // import reducer from './reducer';
 // import saga from './saga';
-// import logoImg from '../../images/munew512.png';
+// import logoImg from '../../images/bitsky512.png';
 
 class SignupForm extends React.Component {
   state = {
@@ -216,8 +216,8 @@ class SignupForm extends React.Component {
                   whitespace: true,
                 },
                 {
-                  min: 3,
-                  max: 20,
+                  min: 1,
+                  max: 100,
                   message: formatMessage({ id: 'app.containers.SignupPage.nameInvalid' }),
                 },
               ],

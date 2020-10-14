@@ -58,7 +58,7 @@ const GlobalHeaderRight = props => {
       >
         <a
           target="_blank"
-          href="https://docs.munew.io/guide/getting-started"
+          href="https://docs.bitsky.ai"
           rel="noopener noreferrer"
           className={styles.action}
         >

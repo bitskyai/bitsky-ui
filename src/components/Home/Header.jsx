@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { enquireScreen } from 'enquire-js';
 import { formatMessage } from 'umi-plugin-react/locale';
-import DiaUserInfoCmp from '../DiaUserInfoCmp';
+import BitSkyUserInfoCmp from '../UserInfoCmp';
 import logo from '../../assets/logo.png';
 
 class Header extends React.Component {
@@ -29,24 +29,33 @@ class Header extends React.Component {
           <a>{formatMessage({ id: 'app.components.Home.home' })}</a>
         </Menu.Item>
         <Menu.Item key="docs">
-          <a target="_blank" href="https://docs.munew.io">
+          <a target="_blank" rel="noopener noreferrer" href="https://docs.bitsky.ai">
             <span>{formatMessage({ id: 'app.components.Home.document' })}</span>
           </a>
         </Menu.Item>
-        <Menu.Item key="examples">
-          <a target="_blank" href="https://docs.munew.io/examples">
-            {formatMessage({ id: 'app.components.Home.examples' })}
+        <Menu.Item key="tutorials">
+          <a target="_blank" rel="noopener noreferrer" href="https://docs.bitsky.ai/tutorials">
+            {formatMessage({ id: 'app.components.Home.tutorials' })}
           </a>
         </Menu.Item>
-        {menuMode === 'inline' && (
+        {!this.props.landing && menuMode === 'inline' ? (
           <Menu.Item key="signin">
-            <Link to="/signin">{formatMessage({ id: 'app.common.messages.signin' })}</Link>
+            <Link to="/login">
+              {formatMessage({ id: 'app.components.BitSkyUserInfoCmp.logIn' })}
+            </Link>
           </Menu.Item>
+        ) : (
+          ''
         )}
-        {menuMode === 'inline' && (
+
+        {!this.props.landing && menuMode === 'inline' ? (
           <Menu.Item key="signup">
-            <Link to="/signup">{formatMessage({ id: 'app.common.messages.signin' })}</Link>
+            <Link to="/signup">
+              {formatMessage({ id: 'app.components.BitSkyUserInfoCmp.signUp' })}
+            </Link>
           </Menu.Item>
+        ) : (
+          ''
         )}
       </Menu>
     );
@@ -70,14 +79,18 @@ class Header extends React.Component {
           <Col xxl={4} xl={5} lg={8} md={8} sm={24} xs={24}>
             <div id="logo" to="/">
               <img src={logo} alt="logo" />
-              <span>{formatMessage({ id: 'app.common.messages.munew' })}</span>
+              <span>{formatMessage({ id: 'app.common.messages.bitsky' })}</span>
             </div>
           </Col>
           <Col xxl={20} xl={19} lg={16} md={16} sm={0} xs={0}>
             <div className="header-meta">
-              <div id="preview">
-                <DiaUserInfoCmp currentUser={this.props.currentUser} />
-              </div>
+              {this.props.landing ? (
+                ''
+              ) : (
+                <div id="preview">
+                  <BitSkyUserInfoCmp currentUser={this.props.currentUser} />
+                </div>
+              )}
               {menuMode === 'horizontal' ? <div id="menu">{menu}</div> : null}
             </div>
           </Col>
@@ -89,6 +102,12 @@ class Header extends React.Component {
 
 Header.propTypes = {
   currentUser: PropTypes.object,
+  landing: PropTypes.bool,
+};
+
+Header.defaultProps = {
+  currentUser: {},
+  landing: false,
 };
 
 export default Header;

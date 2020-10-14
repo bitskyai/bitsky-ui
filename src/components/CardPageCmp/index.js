@@ -6,7 +6,7 @@
 
 import { Card } from 'antd';
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
-// import DiaFooter from '../DiaFooter';
+// import BitSkyFooter from '../Footer';
 
 import PropTypes from 'prop-types';
 import React from 'react';

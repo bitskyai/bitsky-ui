@@ -15,7 +15,6 @@ import {
   message,
 } from 'antd';
 import { FormattedHTMLMessage, FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
-// import DiaPageHeader from '../../components/Common';
 // import { appInitedSelector, userSelector } from '../App/selectors';
 // import { initApplicationSuccess } from '../App/actions';
 
@@ -158,8 +157,8 @@ class ProfileForm extends React.Component {
                 whitespace: true,
               },
               {
-                min: 3,
-                max: 20,
+                min: 1,
+                max: 100,
                 message: formatMessage({ id: 'app.common.messages.nameInvalid' }),
               },
             ],
@@ -472,10 +471,6 @@ export class Settings extends React.Component {
 
     return (
       <Card>
-        {/* <DiaPageHeader
-          title={formatMessage({id:"app.containers.Settings.emailWasRegistered"}header)}
-          style={{ color: darkBlueColor }}
-        /> */}
         <div style={{ padding: '0 24px', maxWidth }}>
           <Row>
             <Col span={12}>

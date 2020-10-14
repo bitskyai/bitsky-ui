@@ -8,7 +8,7 @@ export default {
   'app.containers.Settings.header': 'Settings',
   'app.containers.Settings.profile': 'Profile',
   'app.containers.Settings.profileDescription':
-    'Your email address is your identity on Munew and is used to log in',
+    'Your email address is your identity on BitSky and is used to log in',
   'app.containers.Settings.emailAddress': 'Email Address',
   'app.containers.Settings.name': 'Display Name',
   'app.containers.Settings.updateProfile': 'Update Profile',
@@ -29,7 +29,7 @@ export default {
   'app.containers.Settings.updatePasswordSuccess': 'Successfuly update password',
   'app.containers.Settings.securityKey': 'Security Key',
   'app.containers.Settings.securityKeyDescription':
-    'Security Key used for identify your intelligences, Analyst Services and Agents',
+    'Security Key used for identify your tasks, Retailer Services and Producers',
   'app.containers.Settings.regenerateApiKey': 'Regenerate Security Key',
   'app.containers.Settings.deleteAccount': 'Delete Account',
   'app.containers.Settings.deleteAccountDescription':

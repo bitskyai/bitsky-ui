@@ -1,5 +1,4 @@
 import { getSelf } from '@/apis/account';
-import { queryNotices } from '@/services/user';
 
 const GlobalModel = {
   namespace: 'global',
@@ -7,44 +6,9 @@ const GlobalModel = {
     initedApp: false, // indicate whether this application is inited
     collapsed: false,
     notices: [],
+    landing: false, // current whether is in landing mode
   },
   effects: {
-    *fetchNotices(_, { call, put, select }) {
-      const data = yield call(queryNotices);
-      yield put({
-        type: 'saveNotices',
-        payload: data,
-      });
-      const unreadCount = yield select(
-        state => state.global.notices.filter(item => !item.read).length,
-      );
-      yield put({
-        type: 'user/changeNotifyCount',
-        payload: {
-          totalCount: data.length,
-          unreadCount,
-        },
-      });
-    },
-
-    *clearNotices({ payload }, { put, select }) {
-      yield put({
-        type: 'saveClearedNotices',
-        payload,
-      });
-      const count = yield select(state => state.global.notices.length);
-      const unreadCount = yield select(
-        state => state.global.notices.filter(item => !item.read).length,
-      );
-      yield put({
-        type: 'user/changeNotifyCount',
-        payload: {
-          totalCount: count,
-          unreadCount,
-        },
-      });
-    },
-
     *initApp(_, { call, put }) {
       // init application
       yield put({
@@ -61,28 +25,10 @@ const GlobalModel = {
       });
     },
 
-    *changeNoticeReadState({ payload }, { put, select }) {
-      const notices = yield select(state =>
-        state.global.notices.map(item => {
-          const notice = { ...item };
-
-          if (notice.id === payload) {
-            notice.read = true;
-          }
-
-          return notice;
-        }),
-      );
+    *initLanding(_, { call, put }) {
+      // init landing application
       yield put({
-        type: 'saveNotices',
-        payload: notices,
-      });
-      yield put({
-        type: 'user/changeNotifyCount',
-        payload: {
-          totalCount: notices.length,
-          unreadCount: notices.filter(item => !item.read).length,
-        },
+        type: 'initedLanding',
       });
     },
   },
@@ -94,6 +40,9 @@ const GlobalModel = {
     initedApp(state) {
       return { ...state, initedApp: true };
     },
+    initedLanding(state) {
+      return { ...state, initedApp: true, landing: true };
+    },
     changeLayoutCollapsed(
       state = {
         notices: [],
@@ -102,28 +51,6 @@ const GlobalModel = {
       { payload },
     ) {
       return { ...state, collapsed: payload };
-    },
-
-    saveNotices(state, { payload }) {
-      return {
-        collapsed: false,
-        ...state,
-        notices: payload,
-      };
-    },
-
-    saveClearedNotices(
-      state = {
-        notices: [],
-        collapsed: true,
-      },
-      { payload },
-    ) {
-      return {
-        collapsed: false,
-        ...state,
-        notices: state.notices.filter(item => item.type !== payload),
-      };
     },
   },
   subscriptions: {

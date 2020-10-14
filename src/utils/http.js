@@ -2,12 +2,14 @@ import _ from 'lodash';
 import axios from 'axios';
 import React from 'react';
 import { notification, Button, Modal } from 'antd';
+import { v4 as uuidv4 } from 'uuid';
 import { formatMessage, formatHTMLMessage } from 'umi-plugin-react/locale';
 import HTTPError from './HTTPError';
 import errorMessage from '../locales/en-US/error';
+import { HTTP_HEADERS } from './constants';
 
 export function getRedirectURL(response) {
-  const redirectUrl = _.get(response, 'headers.["x-munew-location"]');
+  const redirectUrl = _.get(response, 'headers.["x-bitsky-location"]');
   const statusCode = _.get(response, 'status');
   if (statusCode === 204 && redirectUrl) {
     return redirectUrl;
@@ -65,14 +67,22 @@ function defaultErrorHandler(httpError) {
 
 function http(config) {
   return new Promise((resolve, reject) => {
+    const mergedConfig = config;
+    const defaultHeader = {};
+    defaultHeader[HTTP_HEADERS.X_REQUESTED_WITH] = 'bitsky-ui';
+    defaultHeader[HTTP_HEADERS.X_JOB_ID] = uuidv4();
+    mergedConfig.headers = _.merge({}, defaultHeader, config.headers || {});
+
     axios
-      .request(config)
+      .request(mergedConfig)
       .then(response => {
         resolve(response);
       })
       .catch(err => {
         const error = new HTTPError(err);
-        defaultErrorHandler(error);
+        if (!mergedConfig.skipErrorHandler) {
+          defaultErrorHandler(error);
+        }
         reject(error);
       });
   });

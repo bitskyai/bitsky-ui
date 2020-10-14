@@ -22,6 +22,7 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #f0f2f5;
 }
 
 ul,
@@ -32,6 +33,50 @@ ol {
 #root > div {
   height: 100%;
 }
+
+// Global style for Page Header
+.bitsky-page-header-ghost-wrapper {
+  background-color: #fff;
+  & .page-header-doc-link {
+    line-height: 24px;
+    margin-right: 16px;
+    & .page-header-doc-link-icon {
+      margin-right: 8px;
+    }
+  }
+}
+
+.bitsky-producer-config-card {
+  margin: 20px;
+  & .ant-form-item-label {
+    font-weight: bold;
+  }
+}
+
+.bitsky-pro-layout-wrapper .ant-pro-basicLayout-content {
+  margin: 0;
+}
+
+.bitsky-alert {
+  margin: 0;
+  .bitsky-alert-subheader {
+    margin: 0;
+  }
+}
+
+.bitsky-alert-link-icon {
+  margin-left: 5px;
+}
+
+.bitsky-form-description-p {
+  margin: 0 0 5px 0 !important;
+}
+
+.tasks-checkboxgroup .ant-checkbox-group-item {
+  display: block;
+  padding-bottom: 4px;
+}
+
 @media (max-width: @screen-xs) {
   .ant-table {
     width: 100%;
@@ -47,4 +92,8 @@ ol {
       }
     }
   }
+}
+
+.ant-form-item-label {
+  font-weight: 600;
 }

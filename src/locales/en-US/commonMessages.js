@@ -1,5 +1,5 @@
 export default {
-  'app.common.messages.munew': 'MUNEW',
+  'app.common.messages.bitsky': 'BitSky',
   'app.common.messages.menu.home': 'Home',
   'app.common.messages.copyright': 'Copyright',
   'app.common.messages.emailTitle': 'Email Address',
@@ -14,7 +14,7 @@ export default {
   // 'app.common.messages.signin': 'LOG IN',
   'app.common.messages.settings': 'Settings',
   'app.common.messages.logout': 'Logout',
-  'app.common.messages.productName': 'MUNEW',
+  'app.common.messages.productName': 'BitSky',
   'app.common.messages.slogan': 'Make Life Productive',
   'app.common.messages.serverTempDown': 'Oops, something went wrong. Please try again later.',
   'app.common.messages.signInFail': 'Incorrect username or password.',
@@ -30,16 +30,81 @@ export default {
   'app.common.messages.login': 'LOG IN',
   'app.common.messages.nameInvalid':
     "Make sure it's at least 3 characters, and at most 20 characters",
+  'app.common.messages.disconnect': 'Disconnect',
+  'app.common.messages.connection': 'Connection',
+  'app.common.messages.connection.connected': 'Connected',
+  'app.common.messages.connection.connecting': 'Waiting Connect',
+  'app.common.messages.connection.noConnection': 'No Connection',
+  'app.common.messages.connection.lostConnection': 'Lost Connection',
+  'app.common.messages.producerTypes.headless': 'Headless',
+  'app.common.messages.producerTypes.http': 'HTTP',
+  'app.common.messages.producerTypes.browser': 'Browser Extension',
+  'app.common.messages.states.configured': 'Configured',
+  'app.common.messages.states.active': 'Active',
+  'app.common.messages.states.draft': 'draft',
+  'app.common.messages.states.finished': 'Finished',
+  'app.common.messages.states.running': 'Running',
+  'app.common.messages.states.failed': 'Failed',
+  'app.common.messages.states.paused': 'Paused',
+  'app.common.messages.states.timeout': 'Timeout',
   'app.common.messages.save': 'Save',
   'app.common.messages.yes': 'Yes',
+  'app.common.messages.action.start': 'Start',
+  'app.common.messages.action.startHint': 'Start this Producer',
+  'app.common.messages.action.stop': 'Stop',
+  'app.common.messages.action.stopHint': 'Stop this Producer',
+  'app.common.messages.action.view': 'View',
+  'app.common.messages.action.viewHint': 'Open this Producer in Browser',
+  'app.common.messages.action.more': 'Document',
+  'app.common.messages.action.gettingStart': 'Getting Start',
+  'app.common.messages.action.showDescription': 'Show Infomation',
+  'app.common.messages.action.hideDescription': 'Hide Infomation',
+  'app.common.messages.status.starting': 'Starting',
+  'app.common.messages.status.running': 'Running',
+  'app.common.messages.status.stopping': 'Stopping',
+  'app.common.messages.status.stopped': 'Stopped',
   'app.common.messages.no': 'No',
   'app.common.messages.delete': 'Delete',
   'app.common.messages.cancel': 'Cancel',
+  'app.common.messages.serialId': 'Serial ID',
+  'app.common.messages.serialIdInvalid': 'Please enter an unique ID',
+  'app.common.messages.serialIdExample': '0e9fe15e-f9a0-4279-9e65-87d2e480a66e',
+  'app.common.messages.serialIdDescription':
+    '<b>Serial ID</b> is used to identify current <a href="https://docs.bitsky.ai/overview#producer">Producer</a>, it is global unique, automatically generate by system, and cannot be changed. After this <a href="https://docs.bitsky.ai/overview#producer">Producer</a> connected with a <b>Producer Configuration</b> use <b>Producer Configuration Global ID</b>, connected Producer Configuration will be associated with this Producer use <b>Serial ID</b>',
+  'app.common.messages.producerConfigurationglobalId': 'Producer Configuration Global ID',
+  'app.common.messages.producerConfigurationglobalIdDescription': '<b>Global ID</b> of the Producer Configuration this Producer want to connect',
+  'app.common.messages.baseURL': 'BitSky Base URL',
+  'app.common.messages.baseURLInvalid': 'Please enter a valid base URL',
+  'app.common.messages.baseURLExample': 'http://localhost:9099',
+  'app.common.messages.baseURLDescription':
+    'Base url of your BitSky application. For example: <span class="ant-typography"><code>http://localhost:9099</code></span>',
   'app.common.messages.globalId': 'Global ID',
-  'app.common.messages.globalIdPlaceholder': 'Please enter an unique ID',
+  'app.common.messages.globalIdEmpty': 'Automatically generate Global ID value after successfully created',
+  'app.common.messages.globalIdInvalid': 'Please enter an unique ID',
   'app.common.messages.globalIdExample': '0e9fe15e-f9a0-4279-9e65-87d2e480a66e',
-  'app.common.messages.globalIdDescription':
-    '<b>Global ID</b> is used to identify your Agent, it should be global unique, <span style="color:#faad14">after it created you cannot change it</span>. If you use nodejs, then you can use <a href="https://www.npmjs.com/package/uuid" target="_blank">uuid</a> to generate',
+  'app.common.messages.globalIdDescription': '<b>Global ID</b> of the producer you want to connect',
+  'app.common.messages.port': 'Port',
+  'app.common.messages.portInvalid': 'Please enter a valid port number',
+  'app.common.messages.portExample': '8090',
+  'app.common.messages.portDescription':
+    'Port number for this Producer. Example: <span class="ant-typography"><code>8090</code></span>',
+  'app.common.messages.producerHomeFolder': 'Producer Home Folder',
+  'app.common.messages.producerHomeFolderPicker': 'Select producer home folder',
+  'app.common.messages.producerHomeFolderInvalid': 'Please enter a valid producer home folder',
+  'app.common.messages.producerHomeFolderExample': '/Users/exampleuser/.bitsky/producer',
+  'app.common.messages.producerHomeFolderDescription': `<p class="bitsky-form-description-p">Logs, screenshots or other files will be stored in this folder. And you can access it by <span class="ant-typography"><code>http://localhost:Port</code></span>. </p>
+     <p class="bitsky-form-description-p">Example(Mac OSX): <span class="ant-typography"><code>/Users/exampleuser/.bitsky/producer</code></span></p>`,
+  'app.common.messages.logLevel': 'Log Level',
+  'app.common.messages.logLevelDebug': 'Debug',
+  'app.common.messages.logLevelInfo': 'Info',
+  'app.common.messages.logLevelWarn': 'Warn',
+  'app.common.messages.logLevelError': 'Error',
+  'app.common.messages.logLevelInvalid': 'Please select a log level',
+  'app.common.messages.logLevelExample': 'info',
+  'app.common.messages.logLevelDescription':
+    'Log level decide what kind of should log. Default:<span class="ant-typography"><code>Info</code></span>',
+  'app.common.messages.switchOn': 'True',
+  'app.common.messages.switchOff': 'False',
   'app.common.messages.state': 'State',
   'app.common.messages.action': 'Action',
   'app.common.messages.httpMethod': 'HTTP Method',
@@ -49,6 +114,7 @@ export default {
   'app.common.messages.urlPath': 'URL Path',
   'app.common.messages.urlPathPlaceHolder': 'Please enter your URL path',
   'app.common.messages.healthSectionTitle': 'Health Check',
+  'app.common.messages.create': 'Create',
   'app.common.messages.activate': 'Activate',
   'app.common.messages.deactivate': 'Deactivate',
   'app.common.messages.stateDraft': 'Draft',
@@ -58,10 +124,42 @@ export default {
   'app.common.messages.stateFailed': 'Failed',
   'app.common.messages.statePaused': 'Paused',
   'app.common.messages.stateTimeout': 'Timeout',
+  'app.common.messages.updatedConfigSuccessful':
+    'Updated producer configuration, and restarting...',
+  'app.common.messages.updatedConfigFail': 'Update producer configuration fail',
+  // eslint-disable-next-line quotes
+  'app.common.messages.producer.unregisterProducerDescription': `Please entered correct <b>BitSky Base URL</b> and <b>Producer Global ID</b>`,
+  'app.common.messages.producer.notFindProducer': `<div class='bitsky-alert'>
+                                                              <p>Cannot find any producer by <b>Producer Global ID</b>, please check whether you typed correct <b>Producer Global ID</b>.</p>
+                                                              <p class='bitsky-alert-subheader'><b>Possible solution: </b></p>
+                                                          </div><span>Go to <b>Producer Configurations</b> copy <b>Producer Global ID</b>, then paste to <b>Producer Global ID</b> field</b></span>`,
+  // eslint-disable-next-line quotes
+  'app.common.messages.producer.notConnectToSupplier': `The server you are trying to connect isn't a bitsky application`,
+  // eslint-disable-next-line quotes
+  'app.common.messages.producer.unmatchedProducerType': `The producer's type you are trying to connect isn't <b>{producerType}</b>, please change <b>Producer Global ID</b>`,
+  // eslint-disable-next-line quotes
+  'app.common.messages.producer.doesntActive': `This producer isn't <b>Active</b>. Only <b>active</b> producer can execute tasks. Go to <b>Producer Configurations</b> page to activate this producer  `,
+  // eslint-disable-next-line quotes
+  'app.common.messages.producer.active': `This producer is <b>Active</b>, it will execute suitable tasks. If you want to stop execute tasks, go to <b>Producer Configurations</b> page to <b>deactivate</b> this producer  `,
+  // eslint-disable-next-line quotes
+  'app.common.messages.http.securityKeyRequired': `<b>Security Key</b> is required for the server you connect to, please enter correct security key`,
+  'app.common.messages.http.internalError':
+    'Ooops... Something went wrong, we cannot connect this server. Maybe server is down or you are connecting to wrong server.',
+  'app.common.messages.http.cannotConnect':
+    'Cannot connect to this server, please check your network or whether target server is running',
+  'app.common.messages.http.inputError':
+    'The server could not understand the request due to invalid syntax, please check the data you typed',
+  'app.common.messages.http.missedsSerialId':
+    'You must add <span class="ant-typography"><code>{serialIdHeader}</code></span> to http request header',
+  'app.common.messages.http.producerWasConnected':
+    'The producer you want connect to was already connected by other producer instance. You need to disconnect it before you can connect',
   'app.common.messages.search': 'Search',
   'app.common.messages.reset': 'Reset',
   'app.common.messages.healthTitle': 'Health Check',
-  'app.common.messages.analystState': 'Analyst Service Status',
+  'app.common.messages.retailerState': 'Retailer Service Connection',
   'app.common.messages.urlPathDescription':
-    'URL path of your callback. <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Identifying_resources_on_the_Web#Path" target="_blank">Learn More.</a>',
+    'A URL path on the server. <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Identifying_resources_on_the_Web#Path" target="_blank">Learn More.</a>',
+  'app.common.messages.advanced': 'Advanced Configuration',
+  'app.common.messages.advancedDescription':
+    'Most of time you can use default setting, only change it when you have to',
 };

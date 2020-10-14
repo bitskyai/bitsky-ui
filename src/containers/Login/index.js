@@ -24,7 +24,7 @@ import { darkBlueColor } from '../../styleVariables';
 // import makeSelectLoginPage from './selectors';
 // import reducer from './reducer';
 // import saga from './saga';
-// import logoImg from '../../images/munew512.png';
+// import logoImg from '../../images/bitsky512.png';
 
 class LoginForm extends React.Component {
   state = {

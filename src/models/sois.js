@@ -1,34 +1,34 @@
 import produce from 'immer';
-import { getSOIs } from '../apis/sois';
+import { getRetailers } from '../apis/retailers';
 
-const SoisModel = {
-  namespace: 'sois',
+const RetailersModel = {
+  namespace: 'retailers',
   state: {},
   effects: {
-    *refreshSois(_, { call, put }) {
+    *refreshRetailers(_, { call, put }) {
       try {
-        const agents = yield call(getSOIs);
+        const producers = yield call(getRetailers);
         yield put({
-          type: 'refreshSoisSuccess',
-          payload: agents,
+          type: 'refreshRetailersSuccess',
+          payload: producers,
         });
       } catch (err) {
         yield put({
-          type: 'refreshSoisFail',
+          type: 'refreshRetailersFail',
           error: err,
         });
       }
     },
   },
   reducers: {
-    refreshSoisSuccess(state, action) {
+    refreshRetailersSuccess(state, action) {
       return produce(state, draft => {
         draft.data = action.payload;
         draft.error = undefined;
         draft.modifiedAt = Date.now();
       });
     },
-    refreshSoisFail(state, action) {
+    refreshRetailersFail(state, action) {
       return produce(state, draft => {
         // draft.data = action.payload;
         draft.error = action.error;
@@ -38,4 +38,4 @@ const SoisModel = {
   },
 };
 
-export default SoisModel;
+export default RetailersModel;

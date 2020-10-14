@@ -1,8 +1,10 @@
 export default {
-  'menu.intelligences': 'Intelligences',
-  'menu.sois': 'Analyst Services',
-  'menu.agents': 'Agents',
+  'menu.tasks': 'Tasks',
+  'menu.retailers': 'Retailer Configurations',
+  'menu.producers': 'Producer Configurations',
   'menu.settings': 'Settings',
-  'menu.defaultSOI': 'Default Analyst Service',
-  'menu.intellgienceshistory': 'Intellgiences History',
+  'menu.defaultRetailer': 'Hello Retailer Service',
+  'menu.defaultHeadless': 'Headless Producer',
+  'menu.defaultHTTP': 'HTTP Producer',
+  'menu.taskshistory': 'Tasks History',
 };

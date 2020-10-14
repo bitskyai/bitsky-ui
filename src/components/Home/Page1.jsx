@@ -175,7 +175,7 @@ class Page1 extends React.PureComponent {
                 duration: 300,
                 ease: 'easeInBack',
               }}
-              resetStyleBool={false}
+              // resetStyleBool={false}
             >
               {(this.props.isMobile || isHover) && pointChild}
             </TweenOneGroup>
@@ -215,13 +215,11 @@ class Page1 extends React.PureComponent {
               className="page1-bg"
               animation={{ translateY: 200, ease: 'linear', playScale: [0, 1.65] }}
               location="page1-wrapper"
-            >
-              {formatMessage({ id: 'app.components.Home.features' })}
-            </Parallax>
+            ></Parallax>
           )}
-          {/* <h2>{formatHTMLMessage({ id: 'app.components.Home.whatMunewDo' })}</h2> */}
+          {/* <h2>{formatHTMLMessage({ id: 'app.components.Home.whatBitskyDo' })}</h2> */}
           <h2>
-            <FormattedHTMLMessage id="app.components.Home.whatMunewDo" />
+            <FormattedHTMLMessage id="app.components.Home.whatBitskyDo" />
           </h2>
           <div className="title-line-wrapper page1-line">
             <div className="title-line" />

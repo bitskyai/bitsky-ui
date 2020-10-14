@@ -3,7 +3,7 @@ import React from 'react';
 
 export default () => (
   <PageHeaderWrapper>
-    {/* <div>Intelligences Page</div> */}
+    {/* <div>Tasks Page</div> */}
     <div>Electron Settings</div>
   </PageHeaderWrapper>
 );

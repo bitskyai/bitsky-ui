@@ -2,47 +2,52 @@
 @import '~antd/lib/style/mixins/clearfix.less';
 
 @header-height: 80px;
-.munew-landing {
+
+.bitsky-landing {
   #header {
-    background-color: #fff;
     position: relative;
     z-index: 10;
     height: 64px;
+    background-color: #fff;
   }
 
   #logo {
-    overflow: hidden;
-    padding-left: 40px;
     float: left;
+    height: 64px;
+    padding-left: 40px;
+    overflow: hidden;
     line-height: 64px;
     text-decoration: none;
-    height: 64px;
     img {
-      display: inline;
-      vertical-align: middle;
-      margin-right: 16px;
+      display: inline-block;
       width: 32px;
+      margin-right: 16px;
+      vertical-align: middle;
     }
     span {
       color: @primary-color;
-      outline: none;
-      font-size: 14px;
+      font-weight: 500;
+      font-size: 18px;
       line-height: 28px;
+      outline: none;
     }
   }
 
   .header-meta {
     .clearfix();
+
     padding-right: 40px;
   }
 
   #menu {
     float: right;
-    overflow: hidden;
     height: 64px;
+    overflow: hidden;
+
     .ant-menu {
       line-height: 60px;
     }
+
     .ant-menu-horizontal {
       border-bottom: none;
       & > .ant-menu-item {

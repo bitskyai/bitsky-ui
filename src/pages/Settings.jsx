@@ -4,7 +4,7 @@ import Settings from '@/containers/Settings';
 
 export default () => (
   <PageHeaderWrapper>
-    {/* <div>Intelligences Page</div> */}
+    {/* <div>Tasks Page</div> */}
     <Settings />
   </PageHeaderWrapper>
 );

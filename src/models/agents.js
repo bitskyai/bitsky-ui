@@ -1,34 +1,34 @@
 import produce from 'immer';
-import { activateAgentAPI, deactivateAgentAPI, deleteAgentAPI, getAgentsAPI } from '../apis/agents';
+import { getProducersAPI } from '../apis/producers';
 
-const AgentsModel = {
-  namespace: 'agents',
+const ProducersModel = {
+  namespace: 'producers',
   state: {},
   effects: {
-    *refreshAgents(_, { call, put }) {
+    *refreshProducers(_, { call, put }) {
       try {
-        const agents = yield call(getAgentsAPI);
+        const producers = yield call(getProducersAPI);
         yield put({
-          type: 'refreshAgentsSuccess',
-          payload: agents,
+          type: 'refreshProducersSuccess',
+          payload: producers,
         });
       } catch (err) {
         yield put({
-          type: 'refreshAgentsFail',
+          type: 'refreshProducersFail',
           error: err,
         });
       }
     },
   },
   reducers: {
-    refreshAgentsSuccess(state, action) {
+    refreshProducersSuccess(state, action) {
       return produce(state, draft => {
         draft.data = action.payload;
         draft.error = undefined;
         draft.modifiedAt = Date.now();
       });
     },
-    refreshAgentsFail(state, action) {
+    refreshProducersFail(state, action) {
       return produce(state, draft => {
         // draft.data = action.payload;
         draft.error = action.error;
@@ -38,4 +38,4 @@ const AgentsModel = {
   },
 };
 
-export default AgentsModel;
+export default ProducersModel;

@@ -18,7 +18,8 @@ const isDev = () => {
 /**
  * Traverse an object
  * @param {*} obj
- * @param {function} fun - Traverse function, will pass two parameters(obj, key), if key is undefined, then means this is a root node
+ * @param {function} fun - Traverse function, will pass two parameters(obj, key),
+ *                         if key is undefined, then means this is a root node
  */
 function traverse(obj, fun) {
   // traverse children
@@ -27,7 +28,7 @@ function traverse(obj, fun) {
     // Get all leafs
     const keys = _.keys(obj);
     // traverse all leafs
-    for (let i = 0; i < keys.length; i++) {
+    for (let i = 0; i < keys.length; i += 1) {
       const leaf = obj[keys[i]];
       // traverse children
       if ((_.isObject(leaf) || _.isArray(leaf)) && _.keys(leaf).length) {
@@ -53,7 +54,7 @@ function filterOutEmptyValue(value) {
         delete obj[key];
       } else if (_.isArray(obj[key])) {
         const arr = [];
-        for (let i = 0; i < obj[key].length; i++) {
+        for (let i = 0; i < obj[key].length; i += 1) {
           if (obj[key][i]) {
             arr.push(obj[key][i]);
           }
@@ -69,11 +70,12 @@ function filterOutEmptyValue(value) {
       }
     } else {
       // remove empty object
+      // eslint-disable-next-line no-lonely-if
       if (_.isObject(obj) && !_.keys(obj).length) {
         obj = undefined;
       } else if (_.isArray(obj)) {
         const arr = [];
-        for (let i = 0; i < obj.length; i++) {
+        for (let i = 0; i < obj.length; i += 1) {
           if (obj[i]) {
             arr.push(obj[i]);
           }
@@ -95,4 +97,35 @@ function filterOutEmptyValue(value) {
   return value;
 }
 
-export { isDev, isUrl, filterOutEmptyValue, traverse };
+/**
+ * Send message to electron to get, update information or do some operations.
+ * @param {string} subject - message subject. [ 'getHeadlessConfig',
+ *                                              'updateHeadlessConfig',
+ *                                              'startHeadless',
+ *                                              'stopHeadless',
+ *                                              'getServiceConfig',
+ *                                              'updateServiceConfig',
+ *                                              'startService',
+ *                                              'stopService' ]
+ * @param {object} [data] - data want to send to electron
+ */
+async function sendToElectron(subject, data) {
+  return new Promise((resolve, reject) => {
+    try {
+      const event = new CustomEvent('syncSupplierUIToMain', {
+        detail: {
+          subject,
+          data,
+          callback: cbData => {
+            resolve(cbData);
+          },
+        },
+      });
+      window.dispatchEvent(event);
+    } catch (err) {
+      reject(err);
+    }
+  });
+}
+
+export { isDev, isUrl, filterOutEmptyValue, traverse, sendToElectron };

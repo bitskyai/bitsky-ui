@@ -1,34 +1,28 @@
 let menuRouters = [
-  { path: '/app/', redirect: '/app/intelligences' },
+  { path: '/app/', redirect: '/app/tasks' },
   {
-    path: '/app/intelligences',
-    name: 'intelligences',
+    path: '/app/tasks',
+    name: 'tasks',
     icon: 'info-circle',
-    component: './Intelligences',
+    component: './Tasks',
   },
   {
-    path: '/app/sois',
-    name: 'sois',
+    path: '/app/retailers',
+    name: 'retailers',
     icon: 'cloud-server',
-    component: './SOIs',
+    component: './Retailers',
   },
   {
-    path: '/app/agents',
-    name: 'agents',
+    path: '/app/producers',
+    name: 'producers',
     icon: 'cluster',
-    component: './Agents',
+    component: './Producers',
   },
   {
-    path: '/app/intellgienceshistory',
-    name: 'intellgienceshistory',
+    path: '/app/taskshistory',
+    name: 'taskshistory',
     icon: 'history',
-    component: './IntellgiencesHistory',
-  },
-  {
-    path: '/app/settings',
-    name: 'settings',
-    icon: 'setting',
-    component: './Settings',
+    component: './TasksHistory',
   },
 ];
 
@@ -39,8 +33,8 @@ export default {
       path: '/',
       component: '../layouts/BlankLayout',
       routes: [
-        { path: '/', redirect: '/app/intelligences' },
-        { path: '/home', redirect: '/app/intelligences' },
+        { path: '/', redirect: '/app/tasks' },
+        { path: '/home', redirect: '/app/tasks' },
         {
           path: '/app',
           component: '../layouts/BasicLayout',
