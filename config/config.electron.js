@@ -52,9 +52,19 @@ const menuRouters = [
   },
 ];
 
+const plugins = [
+  [
+    'umi-plugin-ga',
+    {
+      code: 'G-CGSNBMEGGW',
+    },
+  ],
+];
+
 export default {
   // umi routes: https://umijs.org/docs/routing
   // 1. relative path is relative to `src/pages`
+  plugins,
   routes: [
     {
       path: '/',

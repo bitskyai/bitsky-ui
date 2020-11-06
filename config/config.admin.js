@@ -26,8 +26,18 @@ let menuRouters = [
   },
 ];
 
+const plugins = [
+  [
+    'umi-plugin-ga',
+    {
+      code: 'G-CGSNBMEGGW',
+    },
+  ],
+];
+
 export default {
   // umi routes: https://umijs.org/zh/guide/router.html
+  plugins,
   routes: [
     {
       path: '/',
