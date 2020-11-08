@@ -1,3 +1,4 @@
+console.log('config.electron');
 const menuRouters = [
   { path: '/app/', redirect: '/app/tasks' },
   {
@@ -52,19 +53,9 @@ const menuRouters = [
   },
 ];
 
-const plugins = [
-  [
-    'umi-plugin-ga',
-    {
-      code: 'G-CGSNBMEGGW',
-    },
-  ],
-];
-
 export default {
   // umi routes: https://umijs.org/docs/routing
   // 1. relative path is relative to `src/pages`
-  plugins,
   routes: [
     {
       path: '/',

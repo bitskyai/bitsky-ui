@@ -18,14 +18,13 @@ import {
   message,
   Tooltip,
 } from 'antd';
-import { FormattedHTMLMessage, FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import $ from 'jquery';
 import MediaQuery from 'react-responsive';
 import React from 'react';
 import TimeAgo from 'react-timeago';
 import _ from 'lodash';
-import { connect } from 'dva';
+import { connect, FormattedHTMLMessage, FormattedMessage, formatMessage } from 'umi';
 import dayjs from 'dayjs';
 import styled from 'styled-components';
 import TasksSkeleton from './TasksSkeleton';

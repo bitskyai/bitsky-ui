@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import { Tag } from 'antd';
-import { formatMessage } from 'umi-plugin-react/locale';
+import { useIntl } from 'umi';
 import { PRODUCER_TYPES } from './constants';
 
 export default function ProducerType(props) {

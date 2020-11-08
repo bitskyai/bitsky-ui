@@ -1,9 +1,8 @@
 import { Icon, Tooltip } from 'antd';
 
-import Link from 'umi/link';
+import { Link } from 'umi';
 import React from 'react';
-import { connect } from 'dva';
-import { formatMessage } from 'umi-plugin-react/locale';
+import { connect, formatMessage } from 'umi';
 import SelectLang from '../SelectLang';
 // import HeaderSearch from '../HeaderSearch';
 // import Avatar from './AvatarDropdown';

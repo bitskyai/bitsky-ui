@@ -1,32 +1,9 @@
-// import { createStructuredSelector } from 'reselect';
-// import { compose } from 'redux';
 import { Alert, Button, Form, Icon, Input } from 'antd';
-import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
-import { Redirect, Route } from 'umi';
-// import { useInjectSaga } from 'utils/injectSaga';
-// import { useInjectReducer } from 'utils/injectReducer';
-
-import Link from 'umi/link';
-/**
- *
- * Signup
- *
- */
 import React from 'react';
-// import styled from 'styled-components';
-// import PropTypes from 'prop-types';
-// import { connect } from 'react-redux';
-// import { FormattedMessage, injectIntl } from 'react-intl';
-import { connect } from 'dva';
+import { connect, Link, FormattedMessage, formatMessage, Redirect, Route } from 'umi';
 import CardPageCmp from '../../components/CardPageCmp';
 import http, { getRedirectURL } from '../../utils/http';
 import { darkBlueColor } from '../../styleVariables';
-// import axios from 'axios';
-
-// import makeSelectSignupPage from './selectors';
-// import reducer from './reducer';
-// import saga from './saga';
-// import logoImg from '../../images/bitsky512.png';
 
 class SignupForm extends React.Component {
   state = {

@@ -3,28 +3,13 @@
  * Login
  *
  */
-
-// import { createStructuredSelector } from 'reselect';
-// import { compose } from 'redux';
 import { Alert, Button, Form, Icon, Input } from 'antd';
-import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
-import { Redirect, Route } from 'umi';
-// import { useInjectSaga } from '@/utils/injectSaga';
-// import { useInjectReducer } from '@/utils/injectReducer';
-
-import Link from 'umi/link';
+import { Link, connect, FormattedMessage, formatMessage, Redirect, Route } from 'umi';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { connect } from 'dva';
 import CardPageCmp from '../../components/CardPageCmp';
 import http, { getRedirectURL } from '../../utils/http';
 import { darkBlueColor } from '../../styleVariables';
-// import { Redirect } from 'react-router';
-
-// import makeSelectLoginPage from './selectors';
-// import reducer from './reducer';
-// import saga from './saga';
-// import logoImg from '../../images/bitsky512.png';
 
 class LoginForm extends React.Component {
   state = {

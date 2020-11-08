@@ -7,10 +7,10 @@
 import { Button, Typography } from 'antd';
 
 // import UserAvatar from './UserAvatar';
-import Link from 'umi/link';
+import { Link } from 'umi';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { formatMessage } from 'umi-plugin-react/locale';
+import { useIntl } from 'umi';
 import Avatar from '../GlobalHeader/AvatarDropdown';
 import styles from './index.less';
 

@@ -1,20 +1,16 @@
-const plugins = [
-  [
-    'umi-plugin-ga',
-    {
-      code: 'G-86KRJB7TB7',
-    },
-  ],
-];
+import commonConfig from './commonConfig';
+import { defineConfig } from 'umi';
 
-export default {
-  // umi routes: https://umijs.org/zh/guide/router.html
-  plugins,
+export default defineConfig({...commonConfig, ...{
+  nodeModulesTransform: {
+    type: 'none',
+  },
   routes: [
     {
       path: '/',
-      component: '../layouts/LandingLayout',
-      routes: [{ path: '/', component: './Home' }],
+      component: '@/layouts/LandingLayout',
+      routes: [{ path: '/', component: '@/pages/Home' }],
     },
   ],
-};
+}});
+

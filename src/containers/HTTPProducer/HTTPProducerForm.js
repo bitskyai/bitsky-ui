@@ -11,9 +11,7 @@ import {
   // message,
   Icon,
 } from 'antd';
-import { FormattedHTMLMessage, formatMessage } from 'umi-plugin-react/locale';
-import { Link } from 'umi';
-import { connect } from 'dva';
+import { Link, connect, FormattedHTMLMessage, formatMessage } from 'umi';
 import React from 'react';
 import _ from 'lodash';
 import styled from 'styled-components';

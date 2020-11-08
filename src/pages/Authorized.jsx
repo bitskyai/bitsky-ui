@@ -1,7 +1,6 @@
 import Authorized from '@/utils/Authorized';
 import React from 'react';
-import Redirect from 'umi/redirect';
-import { connect } from 'dva';
+import { Redirect, connect } from 'umi';
 import pathToRegexp from 'path-to-regexp';
 
 const getRouteAuthority = (path, routeData) => {

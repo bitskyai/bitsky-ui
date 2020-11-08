@@ -1,5 +1,4 @@
 import { Button, Col, Empty, Icon, Popconfirm, Row, Table, message, Tooltip } from 'antd';
-import { FormattedHTMLMessage, formatMessage } from 'umi-plugin-react/locale';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 /**
  *
@@ -8,8 +7,7 @@ import { PageHeaderWrapper } from '@ant-design/pro-layout';
  */
 import React from 'react';
 import TimeAgo from 'react-timeago';
-// import { connect } from 'react-redux';
-import { connect } from 'dva';
+import { connect, FormattedHTMLMessage, formatMessage } from 'umi';
 // import dayjs from 'dayjs';
 import styled from 'styled-components';
 import RetailersSkeleton from './RetailersSkeleton';

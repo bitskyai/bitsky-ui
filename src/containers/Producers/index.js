@@ -2,16 +2,9 @@ import './style.css';
 import * as _ from 'lodash';
 import { Button, Col, Empty, Icon, Popconfirm, Row, Table, message, Tooltip } from 'antd';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import { FormattedHTMLMessage, formatMessage } from 'umi-plugin-react/locale';
-/**
- *
- * Producers
- *
- */
 import React from 'react';
 import TimeAgo from 'react-timeago';
-// import { connect } from 'react-redux';
-import { connect } from 'dva';
+import { connect, FormattedHTMLMessage, formatMessage } from 'umi';
 // import dayjs from 'dayjs';
 import styled from 'styled-components';
 import RegisterProducerForm from './RegisterProducerForm';

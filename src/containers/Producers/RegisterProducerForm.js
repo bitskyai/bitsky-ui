@@ -16,7 +16,7 @@ import {
   Collapse,
 } from 'antd';
 // import { FormattedMessage, FormattedHTMLMessage, injectIntl } from 'react-intl';
-import { FormattedHTMLMessage, formatHTMLMessage, formatMessage } from 'umi-plugin-react/locale';
+import { FormattedHTMLMessage, formatHTMLMessage, formatMessage } from 'umi';
 // import commonMessages from '../../locales/en-US/globalMessages';
 
 // import PropTypes from 'prop-types';

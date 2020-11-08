@@ -1,11 +1,13 @@
-import { FormattedHTMLMessage, formatMessage } from 'umi-plugin-react/locale';
-
 import OverPack from 'rc-scroll-anim/lib/ScrollOverPack';
 import Parallax from 'rc-scroll-anim/lib/ScrollParallax';
 import PropTypes from 'prop-types';
 import QueueAnim from 'rc-queue-anim';
 import React from 'react';
 import TweenOne from 'rc-tween-one';
+import { useIntl, formatMessage, FormattedHTMLMessage } from 'umi';
+
+// const intl = useIntl();
+// const { formatMessage, FormattedHTMLMessage } = intl;
 
 const { TweenOneGroup } = TweenOne;
 

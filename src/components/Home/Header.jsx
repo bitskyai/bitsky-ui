@@ -1,10 +1,9 @@
 import { Col, Icon, Menu, Popover, Row } from 'antd';
 
-import Link from 'umi/link';
+import { Link, formatMessage } from 'umi';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { enquireScreen } from 'enquire-js';
-import { formatMessage } from 'umi-plugin-react/locale';
 import BitSkyUserInfoCmp from '../UserInfoCmp';
 import logo from '../../assets/logo.png';
 
@@ -29,12 +28,12 @@ class Header extends React.Component {
           <a>{formatMessage({ id: 'app.components.Home.home' })}</a>
         </Menu.Item>
         <Menu.Item key="docs">
-          <a target="_blank" rel="noopener noreferrer" href="https://docs.bitsky.ai">
+          <a rel="noopener noreferrer" href="https://docs.bitsky.ai">
             <span>{formatMessage({ id: 'app.components.Home.document' })}</span>
           </a>
         </Menu.Item>
         <Menu.Item key="tutorials">
-          <a target="_blank" rel="noopener noreferrer" href="https://docs.bitsky.ai/tutorials">
+          <a rel="noopener noreferrer" href="https://docs.bitsky.ai/tutorials">
             {formatMessage({ id: 'app.components.Home.tutorials' })}
           </a>
         </Menu.Item>

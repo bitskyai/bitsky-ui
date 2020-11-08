@@ -1,6 +1,3 @@
-// import { FormattedMessage, injectIntl } from 'react-intl';
-// import { createStructuredSelector } from 'reselect';
-// import { compose } from 'redux';
 import {
   Button,
   Card,
@@ -14,28 +11,10 @@ import {
   Typography,
   message,
 } from 'antd';
-import { FormattedHTMLMessage, FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
-// import { appInitedSelector, userSelector } from '../App/selectors';
-// import { initApplicationSuccess } from '../App/actions';
-
-// import { useInjectSaga } from 'utils/injectSaga';
-// import injectSaga from 'utils/injectSaga';
-// import { useInjectReducer } from 'utils/injectReducer';
-// import injectReducer from 'utils/injectReducer';
-// import makeSelectSettings from './selectors';
-// import { updateProfileError } from './selectors';
-// import reducer from './reducer';
-// import saga from './saga';
 import PropTypes from 'prop-types';
 import React from 'react';
-/**
- *
- * Settings
- *
- */
 import _ from 'lodash';
-// import { connect } from 'react-redux';
-import { connect } from 'dva';
+import { connect, FormattedHTMLMessage, FormattedMessage, formatMessage } from 'umi';
 import styled from 'styled-components';
 import { ERROR_CODES } from './constants';
 import { darkBlueColor, largeBodyFontSize, maxWidth } from '../../styleVariables';
@@ -413,8 +392,6 @@ export class Settings extends React.Component {
       visible: false,
       confirmLoading: false,
     };
-    // injectReducer('settings', reducer);
-    // injectSaga('settings', saga);
 
     this.clickDeleteAccount.bind(this);
   }

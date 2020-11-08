@@ -4,10 +4,10 @@
  *
  */
 import { Card, PageHeader, Button, Tag, Typography, Row, Col, Icon, Tooltip } from 'antd';
-import { FormattedHTMLMessage, FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import React from 'react';
 import * as _ from 'lodash';
-import { connect } from 'dva';
+import { connect, FormattedHTMLMessage, FormattedMessage, formatMessage } from 'umi';
+
 // import styled from 'styled-components';
 // import HeadlessProducerSkeleton from './HeadlessProducerSkeleton';
 import {

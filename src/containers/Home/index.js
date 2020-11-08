@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
 import Home from '@/components/Home';
-import { connect } from 'dva';
+import { connect } from 'umi';
 
 const HomeCtn = props => {
   const { currentUser, landing } = props;

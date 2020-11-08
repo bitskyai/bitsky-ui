@@ -5,11 +5,10 @@
  */
 import { Card, PageHeader, Button, Tag, Typography, Row, Col, Icon, Tooltip } from 'antd';
 // import { InfoCircleOutlined } from '@ant-design/icons';
-import { FormattedHTMLMessage, FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 // import $ from 'jquery';
 import React from 'react';
 import * as _ from 'lodash';
-import { connect } from 'dva';
+import { connect, FormattedHTMLMessage, FormattedMessage, formatMessage } from 'umi';
 // import styled from 'styled-components';
 // import HTTPProducerSkeleton from './HTTPProducerSkeleton';
 import {

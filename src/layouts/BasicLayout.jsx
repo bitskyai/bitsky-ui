@@ -3,14 +3,11 @@
  * You can view component api by:
  * https://github.com/ant-design/ant-design-pro-layout
  */
+import ReactGA from 'react-ga';
 import ProLayout from '@ant-design/pro-layout';
 import React, { useEffect } from 'react';
-import Link from 'umi/link';
-import { connect } from 'dva';
-import { formatMessage } from 'umi-plugin-react/locale';
-// import Authorized from '@/utils/Authorized';
+import { Link, formatMessage, connect } from 'umi';
 import RightContent from '@/components/GlobalHeader/RightContent';
-// import GlobalFooter from '@/components/GlobalFooter';
 import logo from '../assets/logo.png';
 import { sendToElectron } from '../utils/utils';
 /**
@@ -48,6 +45,15 @@ const BasicLayout = props => {
       dispatch({
         type: 'settings/getSetting',
       });
+    }
+    if (window.__electron__) {
+      // set Google Analytics - Desktop App
+      console.log('Electron Google Analytics');
+      ReactGA.initialize('G-GGBDZ1FHXN');
+    } else {
+      // set Google Analytics - Web App
+      console.log('Web App Google Analytics');
+      ReactGA.initialize('G-CGSNBMEGGW');
     }
   }, []);
   /**

@@ -5,7 +5,7 @@
  */
 
 import { Card } from 'antd';
-import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
+import { FormattedMessage, formatMessage } from 'umi';
 // import BitSkyFooter from '../Footer';
 
 import PropTypes from 'prop-types';

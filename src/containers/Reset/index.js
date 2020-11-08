@@ -5,29 +5,15 @@
  */
 
 import { Button, Form, Icon, Input } from 'antd';
-import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
-import { Redirect, Route } from 'umi';
-// import commonMessages from '../../locales/en-US/globalMessages';
-
-import Link from 'umi/link';
 import PropTypes from 'prop-types';
 import React from 'react';
-// import { connect } from 'react-redux';
-import { connect } from 'dva';
+
+import { connect, Link, Redirect, Route, FormattedMessage, formatMessage } from 'umi';
 import styled from 'styled-components';
 import { darkBlueColor } from '../../styleVariables';
-// import { useInjectSaga } from 'utils/injectSaga';
-// import { useInjectReducer } from 'utils/injectReducer';
-// import makeSelectResetPage from './selectors';
-// import reducer from './reducer';
-// import saga from './saga';
 import messages from '../../locales/en-US/containers/Reset';
 import CardPageCmp from '../../components/CardPageCmp';
 import http, { getRedirectURL } from '../../utils/http';
-// import { createStructuredSelector } from 'reselect';
-// import { compose } from 'redux';
-
-// import logoImg from '../../images/bitsky512.png';
 
 class ResetForm extends React.Component {
   state = {

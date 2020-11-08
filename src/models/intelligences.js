@@ -1,7 +1,7 @@
 import produce from 'immer';
 import {
   deleteTasksForManagementAPI,
-  getTasksForManagementAPI,
+  getTasksOrHistoryForManagementAPI,
   pauseTasksForManagementAPI,
   resumeTasksForManagementAPI,
 } from '../apis/tasksOrHistory';
@@ -12,7 +12,7 @@ const TasksModel = {
   effects: {
     *refreshTasks(_, { call, put }) {
       try {
-        const producers = yield call(getTasksForManagementAPI);
+        const producers = yield call(getTasksOrHistoryForManagementAPI);
         yield put({
           type: 'refreshTasksSuccess',
           payload: producers,

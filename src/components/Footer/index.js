@@ -5,7 +5,7 @@
  */
 
 import { Col, Icon, Layout, Row, Typography } from 'antd';
-import { formatMessage } from 'umi-plugin-react/locale';
+import { useIntl } from 'umi';
 
 import React from 'react';
 // import PropTypes from 'prop-types';

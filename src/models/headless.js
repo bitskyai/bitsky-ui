@@ -1,7 +1,7 @@
 import produce from 'immer';
 import * as _ from 'lodash';
 import { message } from 'antd';
-import { formatMessage } from 'umi-plugin-react/locale';
+import { useIntl } from 'umi';
 
 import { sendToElectron } from '../utils/utils';
 

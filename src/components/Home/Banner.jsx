@@ -1,14 +1,16 @@
 import { Button } from 'antd';
 import GitHubButton from 'react-github-button';
-// import Link from 'umi/link';
+// import { Link } from 'umi';
 import PropTypes from 'prop-types';
 import QueueAnim from 'rc-queue-anim';
 import React from 'react';
 import TweenOne from 'rc-tween-one';
-import { formatMessage } from 'umi-plugin-react/locale';
+import { useIntl } from 'umi';
 import BannerImage from './component/BannerImage';
 
 function Banner(props) {
+  const intl = useIntl();
+  const { formatMessage} = intl;
   const OS = {
     MACOSX: 'Mac OS',
     IOS: 'iOS',

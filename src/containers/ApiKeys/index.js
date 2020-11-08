@@ -8,7 +8,7 @@ import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { compose } from 'redux';
-import { connect } from 'react-redux';
+import { connect } from 'umi';
 import { createStructuredSelector } from 'reselect';
 import { useInjectReducer } from 'utils/injectReducer';
 import { useInjectSaga } from 'utils/injectSaga';

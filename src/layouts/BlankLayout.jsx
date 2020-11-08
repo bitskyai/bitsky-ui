@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
-import { connect } from 'dva';
-import { setLocale } from 'umi-plugin-react/locale';
+import { connect, setLocale } from 'umi';
 import PageLoading from '@/components/PageLoading';
 
 const BlankLayout = props => {

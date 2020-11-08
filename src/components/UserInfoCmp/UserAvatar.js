@@ -2,7 +2,7 @@ import { Avatar, Dropdown, Menu } from 'antd';
 
 import PropTypes from 'prop-types';
 import React from 'react';
-import { formatMessage } from 'umi-plugin-react/locale';
+import { useIntl } from 'umi';
 
 function UserAvatar({ profile }) {
   const menu = (

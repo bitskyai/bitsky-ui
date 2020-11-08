@@ -3,7 +3,7 @@ import axios from 'axios';
 import React from 'react';
 import { notification, Button, Modal } from 'antd';
 import { v4 as uuidv4 } from 'uuid';
-import { formatMessage, formatHTMLMessage } from 'umi-plugin-react/locale';
+import { formatMessage, formatHTMLMessage } from 'umi';
 import HTTPError from './HTTPError';
 import errorMessage from '../locales/en-US/error';
 import { HTTP_HEADERS } from './constants';

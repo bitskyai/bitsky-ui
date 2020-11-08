@@ -14,7 +14,7 @@ import {
   Alert,
 } from 'antd';
 // import { FormattedMessage, FormattedHTMLMessage, injectIntl } from 'react-intl';
-import { FormattedHTMLMessage, FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
+import { FormattedHTMLMessage, FormattedMessage, formatMessage } from 'umi';
 // import messages from '../../locales/en-US/containers/Retailers';
 // import commonMessages from '../../locales/en-US/globalMessages';
 

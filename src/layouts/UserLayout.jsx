@@ -3,11 +3,9 @@ import { getMenuData, getPageTitle } from '@ant-design/pro-layout';
 // import GlobalFooter from '@/components/GlobalFooter';
 import BitSkyFooter from '@/components/Footer';
 import DocumentTitle from 'react-document-title';
-import Link from 'umi/link';
 import React from 'react';
 import SelectLang from '@/components/SelectLang';
-import { connect } from 'dva';
-import { formatMessage } from 'umi-plugin-react/locale';
+import { connect, formatMessage, Link } from 'umi';
 import logo from '../assets/logo.png';
 import styles from './UserLayout.less';
 

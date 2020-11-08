@@ -3,7 +3,7 @@ import * as _ from 'lodash';
 import hljs from 'highlight.js/lib/core';
 import json from 'highlight.js/lib/languages/json';
 import 'highlight.js/styles/github.css';
-import { formatMessage } from 'umi-plugin-react/locale';
+import { useIntl } from 'umi';
 import React, { useEffect } from 'react';
 
 hljs.registerLanguage('json', json);

@@ -5,32 +5,16 @@
  */
 
 import { Alert, Button, Form, Icon, Input } from 'antd';
-import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
-import { Redirect, Route } from 'umi';
-import Link from 'umi/link';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { connect } from 'dva';
+import { connect, formatMessage, FormattedMessage, Redirect, Route, Link } from 'umi';
 import styled from 'styled-components';
 import http, { getRedirectURL } from '../../utils/http';
 
 import CardPageCmp from '../../components/CardPageCmp';
-// import { Link } from 'react-router-dom';
-// import { Redirect } from 'react-router';
 import commonMessages from '../../locales/en-US/globalMessages';
-// import { connect } from 'react-redux';
-// import { FormattedMessage, injectIntl } from 'react-intl';
 import { darkBlueColor } from '../../styleVariables';
-// import { useInjectSaga } from 'utils/injectSaga';
-// import { useInjectReducer } from 'utils/injectReducer';
-// import makeSelectResetPage from './selectors';
-// import reducer from './reducer';
-// import saga from './saga';
 import messages from '../../locales/en-US/containers/Forgot';
-// import { createStructuredSelector } from 'reselect';
-// import { compose } from 'redux';
-
-// import logoImg from '../../images/bitsky512.png';
 
 class ForgotForm extends React.Component {
   state = {
