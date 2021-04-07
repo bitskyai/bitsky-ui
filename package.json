@@ -48,7 +48,7 @@
     "@ant-design/pro-layout": "^4.5.9",
     "@antv/data-set": "^0.10.2",
     "antd": "^3.20.0",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "classnames": "^2.2.6",
     "dayjs": "^1.8.16",
     "enquire-js": "^0.2.1",
