@@ -4,7 +4,7 @@ import { Button, Col, Empty, Icon, Popconfirm, Row, Table, message, Tooltip } fr
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import React from 'react';
 import TimeAgo from 'react-timeago';
-import { connect, FormattedHTMLMessage, formatMessage } from 'umi';
+import { connect, injectIntl, FormattedHTMLMessage } from 'umi';
 // import dayjs from 'dayjs';
 import styled from 'styled-components';
 import RegisterProducerForm from './RegisterProducerForm';
@@ -69,6 +69,7 @@ export class Producers extends React.Component {
   }
 
   onDeleteAProducer(record, event) {
+    const { formatMessage } = this.props.intl;
     event.preventDefault();
     event.stopPropagation();
     deleteProducerAPI(record.globalId).then(
@@ -96,6 +97,7 @@ export class Producers extends React.Component {
   }
 
   activateProducer(producer, event) {
+    const { formatMessage } = this.props.intl;
     event.preventDefault();
     event.stopPropagation();
     activateProducerAPI(producer.globalId).then(() => {
@@ -108,6 +110,7 @@ export class Producers extends React.Component {
   }
 
   deactivateProducer(producer, event) {
+    const { formatMessage } = this.props.intl;
     event.preventDefault();
     event.stopPropagation();
     deactivateProducerAPI(producer.globalId).then(() => {
@@ -120,6 +123,7 @@ export class Producers extends React.Component {
   }
 
   disconnectProducer(producer, event) {
+    const { formatMessage } = this.props.intl;
     event.preventDefault();
     event.stopPropagation();
     disconnectProducerAPI(producer.globalId).then(() => {
@@ -165,6 +169,7 @@ export class Producers extends React.Component {
   }
 
   render() {
+    const { formatMessage } = this.props.intl;
     const { loadingData, drawerVisiable, selectedProducer } = this.state;
     const producers = this.props.producersData.data;
     const modified = this.props.producersData.modifiedAt;
@@ -460,4 +465,4 @@ export class Producers extends React.Component {
 
 export default connect(({ producers }) => ({
   producersData: producers,
-}))(Producers);
+}))(injectIntl(Producers));

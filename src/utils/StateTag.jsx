@@ -5,6 +5,8 @@ import { useIntl } from 'umi';
 import { STATES, STATES_COLOR_MAP } from './constants';
 
 export default function StateTag(props) {
+  const intl = useIntl();
+  const { formatMessage } = intl;
   let text = '';
   let color = '';
   const state = _.toUpper(props.state);

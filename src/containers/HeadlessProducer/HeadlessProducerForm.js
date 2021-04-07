@@ -12,7 +12,7 @@ import {
   Icon,
   message,
 } from 'antd';
-import { Link, connect, FormattedHTMLMessage, formatMessage, formatHTMLMessage } from 'umi';
+import { Link, connect, injectIntl, FormattedHTMLMessage } from 'umi';
 import React from 'react';
 import _ from 'lodash';
 import styled from 'styled-components';
@@ -81,6 +81,7 @@ class HeadlessProducerForm extends React.Component {
   }
 
   async onValidateForm() {
+    const { formatMessage, formatHTMLMessage } = this.props.intl;
     clearTimeout(this.validateFormHandler);
     this.validateFormHandler = setTimeout(async () => {
       const state = {
@@ -211,6 +212,7 @@ class HeadlessProducerForm extends React.Component {
    */
   // eslint-disable-next-line class-methods-use-this
   async getProducerConfiguration(baseURL, gid, serialId) {
+    const { formatMessage, formatHTMLMessage } = this.props.intl;
     try {
       // If *globalId* exist, then get producer information from server side.
       const producerConfig = await getProducerAPI(
@@ -292,6 +294,7 @@ class HeadlessProducerForm extends React.Component {
   }
 
   overWriteState(s) {
+    const { formatMessage, formatHTMLMessage } = this.props.intl;
     let state = s;
     if (!state) {
       state = {
@@ -323,6 +326,7 @@ class HeadlessProducerForm extends React.Component {
    */
   // eslint-disable-next-line class-methods-use-this
   async validateBaseURL(baseUrl) {
+    const { formatMessage, formatHTMLMessage } = this.props.intl;
     try {
       const url = new URL(SUPPLIER_HEALTH_PATH, baseUrl).toString();
       const supplierHealth = await checkSupplierHealthAPI(SUPPLIER_HEALTH_METHOD, url, true);
@@ -427,6 +431,7 @@ class HeadlessProducerForm extends React.Component {
   }
 
   saveUserDataDir() {
+    const { formatMessage, formatHTMLMessage } = this.props.intl;
     clearTimeout(this.saveUserDataDirHanlder);
     this.saveUserDataDirHanlder = setTimeout(async () => {
       try {
@@ -476,6 +481,7 @@ class HeadlessProducerForm extends React.Component {
 
   render() {
     // let content = <HeadlessProducerSkeleton />;
+    const { formatMessage, formatHTMLMessage } = this.props.intl;
     const { getFieldDecorator } = this.props.form;
     const {
       baseURLValidateStatus,
@@ -895,4 +901,4 @@ class HeadlessProducerForm extends React.Component {
 
 export default connect(({ headless }) => ({
   headless,
-}))(Form.create()(HeadlessProducerForm));
+}))(Form.create()(injectIntl(HeadlessProducerForm)));

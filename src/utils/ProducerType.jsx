@@ -8,6 +8,8 @@ export default function ProducerType(props) {
   const color = 'purple';
   const type = _.toUpper(props.type);
   let text = '';
+  const intl = useIntl();
+  const { formatMessage } = intl;
   if (type === PRODUCER_TYPES.browserExtension) {
     text = formatMessage({ id: 'app.common.messages.producerTypes.browser' });
   } else if (type === PRODUCER_TYPES.headlessBrowser) {

@@ -3,10 +3,9 @@
  * You can view component api by:
  * https://github.com/ant-design/ant-design-pro-layout
  */
-import ReactGA from 'react-ga';
 import ProLayout from '@ant-design/pro-layout';
 import React, { useEffect } from 'react';
-import { Link, formatMessage, connect } from 'umi';
+import { Link, useIntl, connect } from 'umi';
 import RightContent from '@/components/GlobalHeader/RightContent';
 import logo from '../assets/logo.png';
 import { sendToElectron } from '../utils/utils';
@@ -33,6 +32,8 @@ const footerRender = () => '';
 const BasicLayout = props => {
   // const { dispatch, children, settings, user } = props;
   const { dispatch, children, settings } = props;
+  const intl = useIntl();
+  const { formatMessage } = intl;
   /**
    * constructor
    */
@@ -45,15 +46,6 @@ const BasicLayout = props => {
       dispatch({
         type: 'settings/getSetting',
       });
-    }
-    if (window.__electron__) {
-      // set Google Analytics - Desktop App
-      console.log('Electron Google Analytics');
-      ReactGA.initialize('G-GGBDZ1FHXN');
-    } else {
-      // set Google Analytics - Web App
-      console.log('Web App Google Analytics');
-      ReactGA.initialize('G-CGSNBMEGGW');
     }
   }, []);
   /**

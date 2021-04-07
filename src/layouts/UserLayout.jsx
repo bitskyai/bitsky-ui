@@ -5,11 +5,13 @@ import BitSkyFooter from '@/components/Footer';
 import DocumentTitle from 'react-document-title';
 import React from 'react';
 import SelectLang from '@/components/SelectLang';
-import { connect, formatMessage, Link } from 'umi';
+import { connect, useIntl, Link } from 'umi';
 import logo from '../assets/logo.png';
 import styles from './UserLayout.less';
 
 const UserLayout = props => {
+  const intl = useIntl();
+  const { formatMessage } = intl;
   const {
     route = {
       routes: [],

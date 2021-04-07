@@ -3,7 +3,7 @@ import axios from 'axios';
 import React from 'react';
 import { notification, Button, Modal } from 'antd';
 import { v4 as uuidv4 } from 'uuid';
-import { formatMessage, formatHTMLMessage } from 'umi';
+// import { formatMessage, FormattedHTMLMessage} from 'umi';
 import HTTPError from './HTTPError';
 import errorMessage from '../locales/en-US/error';
 import { HTTP_HEADERS } from './constants';
@@ -43,14 +43,14 @@ function defaultErrorHandler(httpError) {
     }
   }
 
-  const title = formatMessage({ id: titleKey });
+  const title = errorMessage[errorMessage]
 
   notification.error({
     duration: 0,
     message: title,
     description: (
       <div>
-        {formatHTMLMessage({ id: descriptionkey })}
+        {errorMessage[descriptionkey]}
         <Button
           type="link"
           onClick={() => {
@@ -58,7 +58,7 @@ function defaultErrorHandler(httpError) {
             showErrorDetailModal(title, httpError.data);
           }}
         >
-          {formatMessage({ id: 'app.error.showErrorDetail' })}
+          {errorMessage['app.error.showErrorDetail']}
         </Button>
       </div>
     ),

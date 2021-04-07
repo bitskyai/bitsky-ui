@@ -4,6 +4,8 @@ import PageLoading from '@/components/PageLoading';
 
 const BlankLayout = props => {
   const { dispatch, children, initedApp } = props;
+  // ToDo: default set locale to `en-US`
+  setLocale('en-US');
 
   useEffect(() => {
     if (dispatch) {
@@ -11,9 +13,6 @@ const BlankLayout = props => {
         type: 'global/initApp',
       });
     }
-
-    // ToDo: default set locale to `en-US`
-    setLocale('en-US');
   }, []);
   if (!initedApp) {
     return <PageLoading />;

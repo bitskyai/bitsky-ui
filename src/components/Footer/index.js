@@ -26,6 +26,8 @@ const iconStyle = {
 };
 
 function BitSkyFooter() {
+  const intl = useIntl();
+  const { formatMessage } = intl;
   return (
     <div>
       <Footer style={{ backgroundColor: `${darkBlueColor}` }}>

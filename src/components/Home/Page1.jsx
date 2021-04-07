@@ -4,90 +4,9 @@ import PropTypes from 'prop-types';
 import QueueAnim from 'rc-queue-anim';
 import React from 'react';
 import TweenOne from 'rc-tween-one';
-import { useIntl, formatMessage, FormattedHTMLMessage } from 'umi';
-
-// const intl = useIntl();
-// const { formatMessage, FormattedHTMLMessage } = intl;
+import { useIntl, FormattedHTMLMessage, injectIntl } from 'umi';
 
 const { TweenOneGroup } = TweenOne;
-
-const features = [
-  {
-    title: formatMessage({ id: 'app.components.Home.extractingDataTitle' }),
-    content: formatMessage({ id: 'app.components.Home.extractingDataContent' }),
-    src: 'https://gw.alipayobjects.com/zos/rmsportal/VriUmzNjDnjoFoFFZvuh.svg',
-    color: '#13C2C2',
-    shadowColor: 'rgba(19,194,194,.12)',
-  },
-  {
-    title: formatMessage({ id: 'app.components.Home.multipleLanguagesTitle' }),
-    content: formatMessage({ id: 'app.components.Home.multipleLanguagesContent' }),
-    src: 'https://gw.alipayobjects.com/zos/rmsportal/smwQOoxCjXVbNAKMqvWk.svg',
-    color: '#2F54EB',
-    shadowColor: 'rgba(47,84,235,.12)',
-  },
-  {
-    title: formatMessage({ id: 'app.components.Home.anyWebsitesTitle' }),
-    content: formatMessage({ id: 'app.components.Home.anyWebsitesContent' }),
-    src: 'https://gw.alipayobjects.com/zos/rmsportal/hBbIHzUsSbSxrhoRFYzi.svg',
-    color: '#F5222D',
-    shadowColor: 'rgba(245,34,45,.12)',
-  },
-  {
-    title: formatMessage({ id: 'app.components.Home.dataStorageTitle' }),
-    content: formatMessage({ id: 'app.components.Home.dataStorageContent' }),
-    src: 'https://gw.alipayobjects.com/zos/rmsportal/aLQyKyUyssIUhHTZqCIb.svg',
-    color: '#EB2F96',
-    shadowColor: 'rgba(235,45,150,.12)',
-    // src: 'https://gw.alipayobjects.com/zos/rmsportal/BISfzKcCNCYFmTYcUygW.svg',
-    // color: '#1AC44D',
-    // shadowColor: 'rgba(26,196,77,.12)',
-  },
-  {
-    title: formatMessage({ id: 'app.components.Home.webAutomationTitle' }),
-    content: formatMessage({ id: 'app.components.Home.webAutomationContent' }),
-    src: 'https://gw.alipayobjects.com/zos/rmsportal/XxqEexmShHOofjMYOCHi.svg',
-    color: '#FAAD14',
-    shadowColor: 'rgba(250,173,20,.12)',
-  },
-  {
-    title: formatMessage({ id: 'app.components.Home.scalableTitle' }),
-    content: formatMessage({ id: 'app.components.Home.scalableContent' }),
-    src: 'https://gw.alipayobjects.com/zos/rmsportal/JsixxWSViARJnQbAAPkI.svg',
-    color: '#722ED1',
-    shadowColor: 'rgba(114,46,209,.12)',
-  },
-  // {
-  //   title: formatMessage({ id: 'app.components.Home.dataStorageTitle' }),
-  //   content: formatMessage({ id: 'app.components.Home.dataStorageContent' }),
-  //   src: 'https://gw.alipayobjects.com/zos/rmsportal/pbmKMSFpLurLALLNliUQ.svg',
-  //   color: '#FA8C16',
-  //   shadowColor: 'rgba(250,140,22,.12)',
-  // },
-  // {
-  //   title: formatMessage({ id: 'app.components.Home.dataStorageTitle' }),
-  //   content: formatMessage({ id: 'app.components.Home.dataStorageContent' }),
-  //   src: 'https://gw.alipayobjects.com/zos/rmsportal/aLQyKyUyssIUhHTZqCIb.svg',
-  //   color: '#EB2F96',
-  //   shadowColor: 'rgba(235,45,150,.12)',
-  // },
-  // {
-  //   title: formatMessage({ id: 'app.components.Home.dataStorageTitle' }),
-  //   content: formatMessage({ id: 'app.components.Home.dataStorageContent' }),
-  //   src: 'https://gw.alipayobjects.com/zos/rmsportal/RpJIQitGbSCHwLMimybX.svg',
-  //   color: '#1890FF',
-  //   shadowColor: 'rgba(24,144,255,.12)',
-  // },
-];
-
-const pointPos = [
-  { x: -30, y: -10 },
-  { x: 20, y: -20 },
-  { x: -65, y: 15 },
-  { x: -45, y: 80 },
-  { x: 35, y: 5 },
-  { x: 50, y: 50, opacity: 0.2 },
-];
 
 class Page1 extends React.PureComponent {
   static propTypes = {
@@ -96,9 +15,86 @@ class Page1 extends React.PureComponent {
 
   constructor(props) {
     super(props);
+    const { formatMessage } = props.intl;
     this.state = {
       hoverNum: null,
     };
+    this.features = [
+      {
+        title: formatMessage({ id: 'app.components.Home.extractingDataTitle' }),
+        content: formatMessage({ id: 'app.components.Home.extractingDataContent' }),
+        src: 'https://gw.alipayobjects.com/zos/rmsportal/VriUmzNjDnjoFoFFZvuh.svg',
+        color: '#13C2C2',
+        shadowColor: 'rgba(19,194,194,.12)',
+      },
+      {
+        title: formatMessage({ id: 'app.components.Home.multipleLanguagesTitle' }),
+        content: formatMessage({ id: 'app.components.Home.multipleLanguagesContent' }),
+        src: 'https://gw.alipayobjects.com/zos/rmsportal/smwQOoxCjXVbNAKMqvWk.svg',
+        color: '#2F54EB',
+        shadowColor: 'rgba(47,84,235,.12)',
+      },
+      {
+        title: formatMessage({ id: 'app.components.Home.anyWebsitesTitle' }),
+        content: formatMessage({ id: 'app.components.Home.anyWebsitesContent' }),
+        src: 'https://gw.alipayobjects.com/zos/rmsportal/hBbIHzUsSbSxrhoRFYzi.svg',
+        color: '#F5222D',
+        shadowColor: 'rgba(245,34,45,.12)',
+      },
+      {
+        title: formatMessage({ id: 'app.components.Home.dataStorageTitle' }),
+        content: formatMessage({ id: 'app.components.Home.dataStorageContent' }),
+        src: 'https://gw.alipayobjects.com/zos/rmsportal/aLQyKyUyssIUhHTZqCIb.svg',
+        color: '#EB2F96',
+        shadowColor: 'rgba(235,45,150,.12)',
+        // src: 'https://gw.alipayobjects.com/zos/rmsportal/BISfzKcCNCYFmTYcUygW.svg',
+        // color: '#1AC44D',
+        // shadowColor: 'rgba(26,196,77,.12)',
+      },
+      {
+        title: formatMessage({ id: 'app.components.Home.webAutomationTitle' }),
+        content: formatMessage({ id: 'app.components.Home.webAutomationContent' }),
+        src: 'https://gw.alipayobjects.com/zos/rmsportal/XxqEexmShHOofjMYOCHi.svg',
+        color: '#FAAD14',
+        shadowColor: 'rgba(250,173,20,.12)',
+      },
+      {
+        title: formatMessage({ id: 'app.components.Home.scalableTitle' }),
+        content: formatMessage({ id: 'app.components.Home.scalableContent' }),
+        src: 'https://gw.alipayobjects.com/zos/rmsportal/JsixxWSViARJnQbAAPkI.svg',
+        color: '#722ED1',
+        shadowColor: 'rgba(114,46,209,.12)',
+      },
+      // {
+      //   title: formatMessage({ id: 'app.components.Home.dataStorageTitle' }),
+      //   content: formatMessage({ id: 'app.components.Home.dataStorageContent' }),
+      //   src: 'https://gw.alipayobjects.com/zos/rmsportal/pbmKMSFpLurLALLNliUQ.svg',
+      //   color: '#FA8C16',
+      //   shadowColor: 'rgba(250,140,22,.12)',
+      // },
+      // {
+      //   title: formatMessage({ id: 'app.components.Home.dataStorageTitle' }),
+      //   content: formatMessage({ id: 'app.components.Home.dataStorageContent' }),
+      //   src: 'https://gw.alipayobjects.com/zos/rmsportal/aLQyKyUyssIUhHTZqCIb.svg',
+      //   color: '#EB2F96',
+      //   shadowColor: 'rgba(235,45,150,.12)',
+      // },
+      // {
+      //   title: formatMessage({ id: 'app.components.Home.dataStorageTitle' }),
+      //   content: formatMessage({ id: 'app.components.Home.dataStorageContent' }),
+      //   src: 'https://gw.alipayobjects.com/zos/rmsportal/RpJIQitGbSCHwLMimybX.svg',
+      //   color: '#1890FF',
+      //   shadowColor: 'rgba(24,144,255,.12)',
+      // },
+    ];
+    this.pointPos = [
+      { x: -30, y: -10 },
+      { x: 20, y: -20 },
+      { x: -65, y: 15 },
+      { x: -45, y: 80 },
+      { x: 35, y: 5 },
+      { x: 50, y: 50, opacity: 0.2 },
+    ];
   }
 
   onMouseOver = i => {
@@ -122,7 +118,7 @@ class Page1 extends React.PureComponent {
       {
         delay,
         opacity: 0.4,
-        ...pointPos[e.index],
+        ...this.pointPos[e.index],
         ease: 'easeOutBack',
         duration: 300,
       },
@@ -136,9 +132,10 @@ class Page1 extends React.PureComponent {
   };
 
   render() {
+    const { formatMessage } = this.props.intl;
     const { hoverNum } = this.state;
     let children = [[], [], []];
-    features.forEach((item, i) => {
+    this.features.forEach((item, i) => {
       const isHover = hoverNum === i;
       const pointChild = [
         'point-0 left',
@@ -219,7 +216,6 @@ class Page1 extends React.PureComponent {
               location="page1-wrapper"
             ></Parallax>
           )}
-          {/* <h2>{formatHTMLMessage({ id: 'app.components.Home.whatBitskyDo' })}</h2> */}
           <h2>
             <FormattedHTMLMessage id="app.components.Home.whatBitskyDo" />
           </h2>
@@ -233,4 +229,4 @@ class Page1 extends React.PureComponent {
   }
 }
 
-export default Page1;
+export default injectIntl(Page1);

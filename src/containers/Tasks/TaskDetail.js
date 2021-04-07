@@ -9,6 +9,8 @@ import React, { useEffect } from 'react';
 hljs.registerLanguage('json', json);
 
 export default function TaskDetail(props) {
+  const intl = useIntl();
+  const { formatMessage } = intl;
   useEffect(() => {
     setTimeout(() => {
       document.querySelectorAll('pre code').forEach(block => {

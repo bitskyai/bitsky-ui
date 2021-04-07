@@ -1,36 +1,38 @@
-console.log('config.electron');
+import commonConfig from './commonConfig';
+import { defineConfig } from 'umi';
+
 const menuRouters = [
   { path: '/app/', redirect: '/app/tasks' },
   {
     path: '/app/tasks',
     name: 'tasks',
     icon: 'info-circle',
-    component: './Tasks',
+    component: '@/pages/Tasks',
   },
   {
     path: '/app/retailers',
     name: 'retailers',
     icon: 'cloud-server',
-    component: './Retailers',
+    component: '@/pages/Retailers',
   },
   {
     path: '/app/producers',
     name: 'producers',
     icon: 'cluster',
-    component: './Producers',
+    component: '@/pages/Producers',
   },
   {
     path: '/app/headless',
     name: 'defaultHeadless',
     icon: 'global',
-    component: './HeadlessProducer',
+    component: '@/pages/HeadlessProducer',
     electron: true,
   },
   {
     path: '/app/http',
     name: 'defaultHTTP',
     icon: 'thunderbolt',
-    component: './HTTPProducer',
+    component: '@/pages/HTTPProducer',
     electron: true,
   },
   {
@@ -43,7 +45,7 @@ const menuRouters = [
     path: '/app/taskshistory',
     name: 'taskshistory',
     icon: 'history',
-    component: './TasksHistory',
+    component: '@/pages/TasksHistory',
   },
   {
     path: '#settings',
@@ -53,25 +55,29 @@ const menuRouters = [
   },
 ];
 
-export default {
-  // umi routes: https://umijs.org/docs/routing
-  // 1. relative path is relative to `src/pages`
+export default defineConfig({...commonConfig, ...{
+  analytics:{
+    ga: "G-GGBDZ1FHXN"
+  },
+  nodeModulesTransform: {
+    type: 'none',
+  },
   routes: [
     {
       path: '/',
-      component: '../layouts/BlankLayout',
+      component: '@/layouts/BlankLayout',
       routes: [
         { path: '/', redirect: '/app/tasks' },
         { path: '/home', redirect: '/app/tasks' },
         {
           path: '/app',
-          component: '../layouts/BasicLayout',
+          component: '@/layouts/BasicLayout',
           routes: menuRouters,
         },
       ],
     },
     {
-      component: './404',
+      component: '@/pages/404',
     },
   ],
   proxy: {
@@ -81,4 +87,34 @@ export default {
       // pathRewrite: { '^/server': '' },
     },
   },
-};
+}});
+
+// export default {
+//   // umi routes: https://umijs.org/docs/routing
+//   // 1. relative path is relative to `src/pages`
+//   routes: [
+//     {
+//       path: '/',
+//       component: '../layouts/BlankLayout',
+//       routes: [
+//         { path: '/', redirect: '/app/tasks' },
+//         { path: '/home', redirect: '/app/tasks' },
+//         {
+//           path: '/app',
+//           component: '../layouts/BasicLayout',
+//           routes: menuRouters,
+//         },
+//       ],
+//     },
+//     {
+//       component: './404',
+//     },
+//   ],
+//   proxy: {
+//     '/apis/': {
+//       target: 'http://localhost:9099',
+//       changeOrigin: true,
+//       // pathRewrite: { '^/server': '' },
+//     },
+//   },
+// };

@@ -15,8 +15,7 @@ import {
   Divider,
   Collapse,
 } from 'antd';
-// import { FormattedMessage, FormattedHTMLMessage, injectIntl } from 'react-intl';
-import { FormattedHTMLMessage, formatHTMLMessage, formatMessage } from 'umi';
+import { injectIntl, FormattedHTMLMessage } from 'umi';
 // import commonMessages from '../../locales/en-US/globalMessages';
 
 // import PropTypes from 'prop-types';
@@ -61,7 +60,7 @@ class RegisterProducerForm extends React.Component {
 
   registerProducer = e => {
     e.preventDefault();
-    // const { formatMessage } = this.props.intl;
+    const { formatMessage } = this.props.intl;
     this.setState({ sending: true });
     this.props.form.validateFieldsAndScroll(async (err, values) => {
       if (!err) {
@@ -97,7 +96,7 @@ class RegisterProducerForm extends React.Component {
 
   render() {
     const { getFieldsValue, getFieldDecorator, isFieldsTouched } = this.props.form;
-    // const { formatMessage, formatHTMLMessage } = this.props.intl;
+    const { formatMessage, formatHTMLMessage } = this.props.intl;
     let producer = this.props.producer || DEFAULT_PRODUCER_CONFIGURATION;
     let readOnly = false;
     // whether show active producer tip to user, to let user know,
@@ -147,7 +146,6 @@ class RegisterProducerForm extends React.Component {
                 showIcon
                 message={formatHTMLMessage({ id: 'app.containers.Producers.activeProducerTip' })}
               />
-              app.containers.Retailers.registerRetailerDescription
             </div>
           ) : (
             ''
@@ -233,9 +231,7 @@ class RegisterProducerForm extends React.Component {
                 style={formItemStyle}
               >
                 {producer.globalId ? (
-                  getFieldDecorator('globalId', {
-                    rules: [],
-                  })(<Paragraph copyable>{producer.globalId}</Paragraph>)
+                  <Paragraph copyable>{_.get(producer, 'globalId')}</Paragraph>
                 ) : (
                   <Paragraph>
                     <code>{formatMessage({ id: 'app.common.messages.globalIdEmpty' })}</code>
@@ -694,5 +690,5 @@ class RegisterProducerForm extends React.Component {
 //   producer: PropTypes.object,
 // };
 
-// export default Form.create()(injectIntl(RegisterProducerForm));
-export default Form.create()(RegisterProducerForm);
+export default Form.create()(injectIntl(RegisterProducerForm));
+// export default Form.create()(RegisterProducerForm);

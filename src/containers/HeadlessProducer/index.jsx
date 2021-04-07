@@ -6,7 +6,7 @@
 import { Card, PageHeader, Button, Tag, Typography, Row, Col, Icon, Tooltip } from 'antd';
 import React from 'react';
 import * as _ from 'lodash';
-import { connect, FormattedHTMLMessage, FormattedMessage, formatMessage } from 'umi';
+import { connect, FormattedHTMLMessage, FormattedMessage, injectIntl } from 'umi';
 
 // import styled from 'styled-components';
 // import HeadlessProducerSkeleton from './HeadlessProducerSkeleton';
@@ -91,6 +91,7 @@ export class HeadlessProducer extends React.Component {
   }
 
   render() {
+    const { formatMessage } = this.props.intl;
     const headlessConfig = this.props.headless.data;
     const producerConfig = this.props.headless.producer;
     const IconLink = ({ href, src, text }) => (
@@ -246,4 +247,4 @@ export class HeadlessProducer extends React.Component {
   }
 }
 
-export default connect(({ headless }) => ({ headless }))(HeadlessProducer);
+export default connect(({ headless }) => ({ headless }))(injectIntl(HeadlessProducer));
